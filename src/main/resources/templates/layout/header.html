@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}">
+    </head>>
+    <body>
+        <div th:fragment="header">
+            <div class="layout-header">
+
+                <!-- Imagem da Marca -->
+                <div class="brand-image">
+                    <a href="/index"><img id="brand-image" alt="Logo" th:src="@{/images/logo-menu-min-inverted.png}"/></a>
+                </div>
+                
+                <!-- Menu Superior -->
+                <nav class="menu-navigation-icons">
+                    <a href="/index" title="Home"><i class="fas fa-home"></i><span>Home</span></a>
+                    <a href="/sobre" title="Sobre nós"><i class="fas fa-users"></i><span>Sobre nós</span></a>
+                    <a href="/trabalhos" title="Trabalhos"><i class="fas fa-tasks"></i><span>Trabalhos</span></a>
+                    <a href="/contato" title="Contato"><i class="fas fa-envelope-square"></i><span>Contato</span></a>
+                    <!--<a sec:authorize="isAuthenticated()" th:href="@{/logout}" title="Logout"><i class="glyphicon glyphicon-log-out"></i><span>Logout</span></a>
+                    <a sec:authorize="isAuthenticated() == False" href="/login" title="Login"><i class="glyphicon glyphicon-log-in"></i><span>Login</span></a>-->
+                </nav>
+            </div>
+        </div>
+    </body>
+</html>

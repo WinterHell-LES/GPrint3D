@@ -1,0 +1,222 @@
+.layout-header {
+	/*position: relative;
+    position: -webkit-sticky; /* Necessário para funcionar no Safari
+    position: sticky;
+    top: 0;*/
+    position: fixed;
+    z-index: 1;
+	overflow-x: hidden;
+	width: 100%;
+    /*min-height: 100%;
+	padding-bottom: 20px;*/
+}
+
+.layout-content {
+	position: relative;
+	transition: all .5s;
+    padding-top: 55px;
+    padding-bottom: 55px;
+}
+
+.layout-footer {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+	margin: 0;
+	border-top: 1px solid #eee;
+        background-color: white;
+	transition: all .5s;
+    z-index: 1;
+}
+
+@media (min-width:992px) {
+	.layout-footer.is-toggled {
+		margin-left: 0;
+	}
+	.layout-footer {
+		margin-left: 0px;
+	}
+}
+
+.footer-disclaimer {
+	font-size: 75%;
+	display: block;
+	color: #777;
+	line-height: 4;
+	text-align: center;
+}
+
+@media (max-width: 359px) {
+    .footer-disclaimer {
+        font-size: 50%;
+    }
+}
+
+@media (max-width: 245px) {
+    .footer-disclaimer {
+        display: none;
+    }
+}
+
+.brand-image {
+    float: left;
+    margin: 0px 0px -60px 0px;
+    padding: 7px 15px;
+    z-index: 1;
+}
+
+.brand-image {
+	position: relative;
+	-webkit-filter: grayscale(0%);
+	filter: grayscale(0%);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.brand-image:hover {
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+
+.menu-navigation-icons {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: right;
+    font-size: 0;
+    background-color: gray;
+}
+
+.menu-navigation-icons a {
+    display: inline-block;
+    color: #ffffff;
+    background-color: #6a6a6a;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 1px 2px 1px 0 rgba(72, 72, 72, 0.1);
+    text-decoration: none;
+    white-space: nowrap;
+    width: 80px;
+    height: 54px;
+    padding: 7px;
+    text-align: center;
+}
+
+.menu-navigation-icons a:hover {
+    opacity:0.92;
+    color: #232526;
+}
+
+.menu-navigation-icons a i {
+    display: block;
+    line-height: 2;
+}
+
+.menu-navigation-icons a span {
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 0;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.px-6-responsive {
+    padding-right: 6rem !important;
+    padding-left: 6rem !important;
+  }
+
+/* Menu colors */
+
+.menu-navigation-icons a.menu-magenta	{ background-color: #dc68bf; }
+.menu-navigation-icons a.menu-magenta i { color: #9d518a; }
+
+.menu-navigation-icons a.menu-blue	{ background-color: #57b2d8; }
+.menu-navigation-icons a.menu-blue i	{ color: #3e8fb1; }
+
+.menu-navigation-icons a.menu-green	{ background-color: #8ccc7a; }
+.menu-navigation-icons a.menu-green i	{ color: #6fad5e; }
+
+.menu-navigation-icons a.menu-yellow	{ background-color: #dadf50; }
+.menu-navigation-icons a.menu-yellow i	{ color: #babe4a; }
+
+.menu-navigation-icons a.menu-red 	{ background-color: #f26262; }
+.menu-navigation-icons a.menu-red i	{ color: #d34646; }
+
+.menu-navigation-icons a.menu-orange 	{ background-color: #ffba3b; }
+.menu-navigation-icons a.menu-orange i	{ color: #ff8c00; }
+
+.menu-navigation-icons a.menu-white 	{ background-color: #f26262; }
+.menu-navigation-icons a.menu-white i	{ color: white; }
+
+@media (max-width: 700px) {
+    .brand-image {
+        display: inline-block;
+        text-align: left;
+        margin: 0px 0px 0px 0px; 
+    }
+}
+
+/* Para cada ícone incluido no menu acrescentar o max-width conforme seu dimensional. */
+/* Para 631px está sendo considerado: 442px (logo+padding) + 4 * 80px (botões) = 762px - 1. */
+
+@media (max-width: 761px) {
+    .brand-image a img{
+        width: auto;
+        height: 26px;
+    }
+    .menu-navigation-icons a {
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .menu-navigation-icons a span {
+        font-size: 0px;
+    }
+
+    .layout-content {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .px-6-responsive {
+        padding-right: 3rem !important;
+        padding-left: 3rem !important;
+      }
+}
+
+/* Para cada ícone incluido no menu acrescentar o max-width conforme seu dimensional. */
+/* Para 349px está sendo considerado: 298px (logo+padding) + 4 * 40px (botões) = 458px - 1. */
+
+@media (max-width: 457px) {
+    .brand-image{
+        /*display:none;*/
+        width: 62px;
+        height: 30px;
+    }
+
+    .px-6-responsive {
+        padding-right: 1.5rem !important;
+        padding-left: 1.5rem !important;
+      }
+}
+
+/* Para cada ícone incluido no menu acrescentar o max-width conforme seu dimensional. */
+/* Para 239px está sendo considerado: 6 * 40px (botões) = 240px - 1. */
+
+@media (max-width: 239px) {
+    .menu-navigation-icons a{
+        width: 0px;
+        height: 40px;
+        color: #ffffff;
+        background-color: #232526;
+    }
+    
+    .menu-navigation-icons a i {
+        font-size: 0px;
+    }
+
+    .px-6-responsive {
+        padding-right: 0rem !important;
+        padding-left: 0rem !important;
+      }
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    xmlns:th="http://www.thymeleaf.org">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/bootstrap-5.0.0/css/bootstrap.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/loader.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/fontawesome-5.15.2/css/all.css}">
+
+        <title>Index</title>
+    </head>
+
+    <body>
+        <!-- Scripts -->
+        <script type="text/javascript" th:src="@{/bootstrap-5.0.0/js/bootstrap.bundle.js}"></script>
+        <script type="text/javascript" th:src="@{/fontawesome-5.15.2/js/all.js}"></script>
+
+        <!-- Loader -->
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+
+        <!-- Header -->
+        <div th:insert="~{layout/header :: header}"></div>
+
+        <!-- Conteudo da página -->
+        <section class="container-fluid" layout:fragment="conteudo"></section>
+
+        <!-- Footer -->
+        <div th:insert="~{layout/footer :: footer}"></div>
+    </body>
+</html>

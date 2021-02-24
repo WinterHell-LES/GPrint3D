@@ -1,5 +1,8 @@
 package com.project.GPrint3D.configuration;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,10 +15,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("admin");
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    protected void configAuthentication(AuthenticationManagerBuilder auth) throws Exception 
+    {
+        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+            .dataSource(dataSource)
+            .usersByUsernameQuery("SELECT user_usuario, password_usuario, ativo_usuario FROM usuarios WHERE user_usuario=?")
+            .authoritiesByUsernameQuery("SELECT user_usuario, regra_usuario FROM usuarios WHERE user_usuario=?");
     }
 
     @Override

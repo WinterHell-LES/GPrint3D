@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">	
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" th:href="@{/stylesheets/bootstrap/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/stylesheets/login.css}">
+        
+        <title>Login</title>
+    </head>
+
+    <body class="text-center">
+        <form class="form-signin" th:action=@{/login} method="POST">
+            <div class="shadow-lg p-3 mb-5 bg-white rounded">
+                <div class="alert alert-danger" role="alert" th:if="${#bools.isTrue(param.error)}">
+                    Usuário e/ou senha inválido(s)
+                </div>
+                <p class="h1 mb-4">Login</p>
+                <label for="inputUsuario" class="sr-only">Usuário</label>
+                <input type="text" id="inputUsuario" class="form-control" name="username" placeholder="Usuário" required autofocus>
+
+                <label for="inputPassword" class="sr-only">Senha</label>
+                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Senha" required>
+
+                <button class="btn btn-lg btn-dark btn-block" type="submit">Entrar</button>
+            </div>
+        </form>
+    </body>
+</html>

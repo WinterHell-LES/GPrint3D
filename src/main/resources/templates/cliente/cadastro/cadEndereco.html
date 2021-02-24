@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-    layout:decorate="~{layout/layout}">
+    layout:decorate="~{layout/default/layout}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>Cliente - Cadastro de Endereço</title>
+
+        <!-- Script-->
+        <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>
     </head>
 
     <body>
-        <!-- Script-->
-        <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>
-
         <!-- Conteudo da página -->
         <section layout:fragment="conteudo">
             <div class="my-1">
@@ -33,7 +33,7 @@
                                             <div class="d-flex justify-content-end">
                                                 <div class="form-check form-switch">
                                                     <label class="form-check-label" for="enderecoPadrao">Usar como endereço de cobrança</label>
-                                                    <input class="form-check-input" type="checkbox" id="enderecoPadrao" onclick="var checkBox = document.getElementById('enderecoPadrao');var desabilitarDiv = document.getElementById('desabilitar');checkBox.checked ? desabilitarDiv.style.display = 'none' : desabilitarDiv.style.display = 'flex';">
+                                                    <input class="form-check-input" type="checkbox" id="enderecoPadrao" onclick="desabilitarEndereco()">
                                                 </div>
                                             </div>
                                         </div>

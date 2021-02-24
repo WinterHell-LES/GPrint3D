@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Cliente - Cadastro de Endereço</title>
+        <title>GPrint3D - Cliente - Cadastro de Endereço</title>
 
         <!-- Script-->
         <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>
@@ -120,14 +120,14 @@
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="00000-000" id="CEP">
-                                                    <label for="CEP">CEP</label>
+                                                    <input type="text" class="form-control" placeholder="Complemento" id="complemento">
+                                                    <label for="complemento">Complemento</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Complemento" id="complemento">
-                                                    <label for="complemento">Complemento</label>
+                                                    <input type="text" class="form-control" placeholder="00000-000" id="CEP">
+                                                    <label for="CEP">CEP</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,14 +282,14 @@
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="00000-000" id="CEPCobranca">
-                                                    <label for="CEP">CEP</label>
+                                                    <input type="text" class="form-control" placeholder="Complemento" id="complementoCobranca">
+                                                    <label for="complemento">Complemento</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Complemento" id="complementoCobranca">
-                                                    <label for="complemento">Complemento</label>
+                                                    <input type="text" class="form-control" placeholder="00000-000" id="CEPCobranca">
+                                                    <label for="CEP">CEP</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -358,9 +358,41 @@
 
                                 <div class="row pe-0">
                                     <div class="row pe-0">
-                                        <div class="col-sm">
+                                        <div class="col-sm-2"></div>
+
+                                        <div class="col-sm pe-0">
+                                            <div class="row" style="height: 17.5px;">
+                                                <div class="col"></div>
+
+                                                <div class="col-3 align-bottom">
+                                                    <input type="range" class="form-range" min="0" max="2" step="1" value=1 id="signupPag" disabled>
+                                                </div>
+
+                                                <div class="col"></div>
+                                            </div>
+                            
+                                            <div class="row" style="height: 17.5px;">
+                                                <div class="col"></div>
+
+                                                <div class="col-1 text-start ps-3">
+                                                    <p class="fs-8">1</p>
+                                                </div>
+
+                                                <div class="col-1 text-center">
+                                                    <p class="fs-8">2</p>
+                                                </div>
+
+                                                <div class="col-1 text-end pe-3">
+                                                    <p class="fs-8">3</p>
+                                                </div>
+
+                                                <div class="col"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-2">
                                             <div class="text-end">
-                                                <button type="button" class="btn border shadow-sm"><a href="CadastroCartao">Próximo</a></button>
+                                                <button type="button" class="btn border shadow-sm"><a href="cadastroCartao">Próximo</a></button>
                                             </div>
                                         </div>
                                     </div>
@@ -369,7 +401,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </body>
 </html>

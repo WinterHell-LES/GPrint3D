@@ -1,0 +1,59 @@
+<html>
+    <body>
+        <div th:fragment="sidebar">
+            <div class="container-fluid">
+                <div class="row">
+                    <nav id="sidebarMenu" class="col-sm-2 d-sm-block bg-light sidebar collapse">
+                        <div class="position-sticky pt-3">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/index" th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
+                                        Início
+                                    </a>
+                                </li>
+                                
+                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                    <span>Dados Pessoais</span>
+                                </h6>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/meuCadastro" th:classappend="${#httpServletRequest.requestURI.contains('meuCadastro')} ? 'active'">
+                                        Meu cadastro
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/meusEnderecos" th:classappend="${#httpServletRequest.requestURI.contains('meusEnderecos')} ? 'active'">
+                                        Meus endereços
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/meusCartoes" th:classappend="${#httpServletRequest.requestURI.contains('meusCartoes')} ? 'active'">
+                                        Meus cartões
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/alterarSenha" th:classappend="${#httpServletRequest.requestURI.contains('alterarSenha')} ? 'active'">
+                                        Alterar senha
+                                    </a>
+                                </li>
+
+                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                                    <span>Pedidos</span>
+                                </h6>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/meusPedidos" th:classappend="${#httpServletRequest.requestURI.contains('meusPedidos')} ? 'active'">
+                                        Meus pedidos
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/meuRanking" th:classappend="${#httpServletRequest.requestURI.contains('meuRanking')} ? 'active'">
+                                        Meu ranking
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

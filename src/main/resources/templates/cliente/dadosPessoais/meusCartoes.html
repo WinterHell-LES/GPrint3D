@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/cliente/layout}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Cliente - Meus Cartões</title>
+
+        <!-- Script-->
+        <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>
+    </head>
+
+    <body>
+        <!-- Conteudo da página -->
+        <section layout:fragment="conteudo">
+            <div class="container my-5">
+                <div class="border-bottom">
+                    <p class="h2">Cartões</p>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="row my-2">
+                        <div class="row">
+                            <div class="col">
+                                <div class="text-end">
+                                    <a href="/cadastroCartao2"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Cartão 1</h5>
+                                <div class="row">
+                                    <div class="col-11 pe-0">
+                                        <p class="card-text">Descrição do produto.</p>
+                                    </div>
+                                    <div class="col-1 px-0">
+                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Cartão 2</h5>
+                                <div class="row">
+                                    <div class="col-11 pe-0">
+                                        <p class="card-text">Descrição do produto.</p>
+                                    </div>
+                                    <div class="col-1 px-0">
+                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Cartão 3</h5>
+                                <div class="row">
+                                    <div class="col-11 pe-0">
+                                        <p class="card-text">Descrição do produto.</p>
+                                    </div>
+                                    <div class="col-1 px-0">
+                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

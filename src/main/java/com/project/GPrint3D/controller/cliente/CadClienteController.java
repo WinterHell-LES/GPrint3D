@@ -7,27 +7,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/Cliente")
+@RequestMapping("/cliente")
 public class CadClienteController 
 {    
     // Controle de cadastro de informações
-    @RequestMapping("/CadastroInformacoes")
-    public ModelAndView cadastroInformacoes(ClientesModel cliente)
+    @RequestMapping("/cadastroDadosPessoais")
+    public ModelAndView cadDadosPessoais(ClientesModel cliente)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadInformacoes");
+        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadDadosPessoais");
 
         return mv;
     }
 
-    @RequestMapping("/CadastroEndereco")
-    public String cadEndereco()
+    @RequestMapping("/cadastroEndereco")
+    public ModelAndView cadEndereco(ClientesModel cliente)
     {
-        return "/cliente/cadastro/cadEndereco";
+        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadEndereco");
+
+        return mv;
     }
 
-    @RequestMapping("/CadastroCartao")
-    public String cadCartao()
+    @RequestMapping("/cadastroEndereco2")
+    public ModelAndView cadEndereco2(ClientesModel cliente)
     {
-        return "/cliente/cadastro/cadCartao";
+        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadEndereco2");
+
+        return mv;
+    }
+
+    @RequestMapping("/cadastroCartao")
+    public ModelAndView cadCartao(ClientesModel cliente)
+    {
+        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadCartao");
+
+        return mv;
+    }
+
+    @RequestMapping("/cadastroCartao2")
+    public ModelAndView cadCartao2(ClientesModel cliente)
+    {
+        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadCartao2");
+
+        return mv;
     }
 }

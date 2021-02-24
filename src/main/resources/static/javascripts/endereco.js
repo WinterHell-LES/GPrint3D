@@ -15,9 +15,33 @@ function removerCampos(id){
     node1.removeChild(node1.childNodes[0]);
 }
 
-function desabilitarEndereco() {
+function desabilitarEndereco(id) {
     var checkBox = document.getElementById('enderecoPadrao');
     var desabilitarDiv = document.getElementById('desabilitar');
+    var camposInput = desabilitarDiv.getElementsByTagName('input');
+    var camposTextArea = desabilitarDiv.getElementsByTagName('textarea');
+    var camposSelect = desabilitarDiv.getElementsByTagName('select');
     
-    checkBox.checked ? desabilitarDiv.style.display = 'none' : desabilitarDiv.style.display = 'flex';
+    if (checkBox.checked) {
+        desabilitarDiv.style.display = 'none';
+        
+        for(i=0; i<camposInput.length;i++){
+            camposInput[i].value = '';
+        }
+    
+        for(i=0; i<camposTextArea.length;i++){
+            camposTextArea[i].value = '';
+        }
+    
+        for(i=0; i<camposSelect.length;i++){
+            camposSelect[i].selectedIndex = 0;
+        }
+     }
+     
+     else {
+     desabilitarDiv.style.display = 'flex';
+     }
+    
+    
+
 }

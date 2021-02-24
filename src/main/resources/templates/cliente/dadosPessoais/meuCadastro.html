@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br"
-    layout:decorate="~{layout/default/layout}">
+    layout:decorate="~{layout/cliente/layout}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Cliente - Cadastro de Informações</title>
+        <title>GPrint3D - Cliente - Meu Cadastro</title>
     </head>
 
     <body>
         <!-- Conteudo da página -->
        <section layout:fragment="conteudo">
-            <div class="my-1">
+            <div class="my-5">
                 <div class="row">
                     <div class="col-sm">
-                        <div class="row text-center">
-                            <h3>Cadastro de Cliente</h3>
+                        <div class="row">
+                            <p class="h2">Meu cadastro</p>
                         </div>
 
                         <div class="form-group">
                             <div class="row border shadow p-2 rounded-3">
-                                <div class="row py-3">
-                                    <h5>Informações Pessoais</h5>
-                                </div>
 
-                                <div class="row pb-3 pe-0">
+                                <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
                                             <div class="form-floating">
@@ -49,7 +46,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <div class="form-floating">
                                                 <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone">
                                                     <option selected>Tipo de Telefone</option>
@@ -76,7 +73,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row pb-3 pe-0">
+                                    <div class="row pe-0">
                                         <div class="col-sm">
                                             <div class="row border rounded text-sm-center mx-0" style="height: 58.1px">
                                                 <div class="col-sm-3">
@@ -134,36 +131,13 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row pe-0">
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <input type="email" class="form-control" placeholder="E-mail" id="email">
-                                                <label for="email">E-mail</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Senha" id="password">
-                                                <label for="password">Senha</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm pe-0">
-                                            <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Confirmação de Senha" id="confirm_password">
-                                                <label for="confirm_password">Confirmação de Senha</label>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <div class="row pe-0 pb-2">
+                                <div class="row pb-2 pe-0">
                                     <div class="row pe-0">
                                         <div class="col-sm pe-0">
                                             <div class="text-end">
-                                                <button type="button" class="btn border shadow-sm"><a href="CadastroEndereco">Próximo</a></button>
+                                                <button type="button" class="btn border shadow-sm">Salvar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
     </body>
 </html>

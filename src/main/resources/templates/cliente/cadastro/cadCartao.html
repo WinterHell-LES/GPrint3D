@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>GPrint3D - Cliente - Cadastro de Cartões</title>
+        <title>GPrint3D - Cliente - Cadastro de cartões</title>
     </head>
 
     <body>
@@ -15,101 +15,103 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="row text-center">
-                            <h3>Cadastro de Cliente</h3>
+                            <h3>Cadastro de cliente</h3>
                         </div>
 
                         <div class="form-group">
                             <div class="row border shadow p-2 rounded-3">
-                                <div class="row py-3">
-                                    <h5>Informações de Pagamento</h5>
-                                </div>
+                                <form th:action="@{/cliente/cadastroCartao}" method="POST">
+                                    <div class="row py-3">
+                                        <h5>Informações de pagamento</h5>
+                                    </div>
 
-                                <div class="row pb-3 pe-0">
                                     <div class="row pb-3 pe-0">
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Número do Cartão" id="numCartao">
-                                                <label for="numCartao">Número do Cartão</label>
+                                        <div class="row pb-3 pe-0">
+                                            <div class="col-sm">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" placeholder="Número do Cartão" id="numCartao" th:field="*{cartoesModel.numero}" required/>
+                                                    <label for="numCartao">Número do cartão</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm pe-0">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" placeholder="Nome Impresso" id="nomeCartao" th:field="*{cartoesModel.nome}" required/>
+                                                    <label for="nomeCartao">Nome impresso</label>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="row pe-0">
+                                            <div class="col-sm">
+                                                <div class="form-floating">
+                                                    <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" th:field="*{cartoesModel.bandeira}" required>
+                                                        <option value="" selected>Bandeira do Cartão</option>
+                                                        <option value="Elo">Elo</option>
+                                                        <option value="Mastercard">Mastercard</option>
+                                                        <option value="Visa">Visa</option>
+                                                    </select>
+                                                    <label for="bandeiraCartao">Bandeira do Cartão</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm">
+                                                <div class="form-floating">
+                                                    <input type="date" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" th:field="*{cartoesModel.validade}" required/>
+                                                    <label for="validadedCartao">Validade do Cartão</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm pe-0">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" th:field="*{cartoesModel.cvv}" required/>
+                                                    <label for="cvvCartao">Código de Segurança</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row pe-0 pb-3">
+                                        <div class="row pe-0"><div class="col-sm-2"></div>
 
                                         <div class="col-sm pe-0">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Nome Impresso" id="nomeCartao">
-                                                <label for="nomeCartao">Nome Impresso</label>
-                                              </div>
-                                        </div>
-                                    </div>
+                                            <div class="row" style="height: 17.5px;">
+                                                <div class="col"></div>
 
-                                    <div class="row pe-0">
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao">
-                                                    <option selected>Bandeira do Cartão</option>
-                                                    <option value="Elo">Elo</option>
-                                                    <option value="Mastercard">Mastercard</option>
-                                                    <option value="Visa">Visa</option>
-                                                </select>
-                                                <label for="bandeiraCartao">Bandeira do Cartão</label>
+                                                <div class="col-3 align-bottom">
+                                                    <input type="range" class="form-range" min="0" max="2" step="1" value=2 id="signupPag" disabled>
+                                                </div>
+
+                                                <div class="col"></div>
+                                            </div>
+                            
+                                            <div class="row" style="height: 17.5px;">
+                                                <div class="col"></div>
+
+                                                <div class="col-1 text-start ps-3">
+                                                    <p class="fs-8">1</p>
+                                                </div>
+
+                                                <div class="col-1 text-center">
+                                                    <p class="fs-8">2</p>
+                                                </div>
+
+                                                <div class="col-1 text-end pe-3">
+                                                    <p class="fs-8">3   </p>
+                                                </div>
+
+                                                <div class="col"></div>
                                             </div>
                                         </div>
-
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Validade do Cartão" id="validadedCartao">
-                                                <label for="validadedCartao">Validade do Cartão</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm pe-0">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="CVV" id="cvvCartao">
-                                                <label for="cvvCartao">Código de Segurança</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row pe-0 pb-3">
-                                    <div class="row pe-0"><div class="col-sm-2"></div>
-
-                                    <div class="col-sm pe-0">
-                                        <div class="row" style="height: 17.5px;">
-                                            <div class="col"></div>
-
-                                            <div class="col-3 align-bottom">
-                                                <input type="range" class="form-range" min="0" max="2" step="1" value=2 id="signupPag" disabled>
-                                            </div>
-
-                                            <div class="col"></div>
-                                        </div>
-                        
-                                        <div class="row" style="height: 17.5px;">
-                                            <div class="col"></div>
-
-                                            <div class="col-1 text-start ps-3">
-                                                <p class="fs-8">1</p>
-                                            </div>
-
-                                            <div class="col-1 text-center">
-                                                <p class="fs-8">2</p>
-                                            </div>
-
-                                            <div class="col-1 text-end pe-3">
-                                                <p class="fs-8">3   </p>
-                                            </div>
-
-                                            <div class="col"></div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-sm-2">
-                                            <div class="text-end">
-                                                <button type="button" class="btn border shadow-sm">Enviar</button>
+                                        
+                                        <div class="col-sm-2">
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn border shadow-sm">Enviar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

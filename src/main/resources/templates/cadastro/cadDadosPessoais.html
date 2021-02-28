@@ -29,7 +29,7 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Nome completo ou nome da empresa" id="nome" th:field="${clientesModel.cliNome}">
+                                                    <input type="text" class="form-control" placeholder="Nome completo ou nome da empresa" id="nome" th:text="${clientesModel.cliNome}">
                                                     <label for="nome">Nome completo ou nome da empresa</label>
                                                 </div>
                                             </div>
@@ -38,14 +38,14 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="date" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" th:field="${clientesModel.cliDtNasc}">
+                                                    <input type="date" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" th:text="${clientesModel.cliDtNasc}">
                                                     <label for="dataNascimento">Data de Nascimento</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="form-floating">
-                                                    <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone" th:field="${telefonesModel.telTipo}">
+                                                    <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone" th:text="${telefonesModel.telTipo}">
                                                         <option value="" selected>Tipo de Telefone</option>
                                                         <option value="Celular">Celular</option>
                                                         <option value="Comercial">Comercial</option>
@@ -57,14 +57,14 @@
 
                                             <div class="col-sm-1">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="DDD" id="DDD" th:field="${telefonesModel.telDdd}">
+                                                    <input type="text" class="form-control" placeholder="DDD" id="DDD" th:text="${telefonesModel.telDdd}">
                                                     <label for="DDD">DDD</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Telefone" id="telefone" th:field="${telefonesModel.telNumero}">
+                                                    <input type="text" class="form-control" placeholder="Telefone" id="telefone" th:text="${telefonesModel.telNumero}">
                                                     <label for="telefone">Telefone</label>
                                                 </div>
                                             </div>
@@ -82,7 +82,7 @@
                                                     <div class="col-sm">
                                                         <div class="col-sm d-flex align-items-center">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="sexoMasculino" value="Masculino" th:field="${clientesModel.cliSexo}">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="sexoMasculino" value="Masculino" th:text="${clientesModel.cliSexo}">
                                                                 <label class="form-check-label" for="sexoMasculino">
                                                                 Masculino
                                                                 </label>
@@ -91,7 +91,7 @@
 
                                                         <div class="col-sm d-flex align-items-center">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="sexoFeminino" value="Feminino" th:field="${clientesModel.cliSexo}">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="sexoFeminino" value="Feminino" th:text="${clientesModel.cliSexo}">
                                                                 <label class="form-check-label" for="sexoFeminino">
                                                                 Feminino
                                                                 </label>
@@ -103,7 +103,7 @@
 
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <select name="tipoDocumento" class="custom-select form-select" id="documento" th:field="${documentosModel.docTipo}">
+                                                    <select name="tipoDocumento" class="custom-select form-select" id="documento" th:text="${documentosModel.docNome}">
                                                         <option value="" selected>Tipo de Documento</option>
                                                         <option value="CNPJ">CNPJ</option>
                                                         <option value="CPF">CPF</option>
@@ -114,7 +114,7 @@
 
                                             <div class="col-sm  pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento" th:field="${documentosModel.docNumero}">
+                                                    <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento" th:text="${documentosModel.docNumero}">
                                                     <label for="numeroDocumento">Número do documento</label>
                                                 </div>
                                             </div>
@@ -123,14 +123,14 @@
                                         <div class="row pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="email" class="form-control" placeholder="E-mail" id="email" th:field="${usuariosModel.usuEmail}" required>
+                                                    <input type="email" class="form-control" placeholder="E-mail" id="email" th:text="${usuariosModel.usuEmail}" required>
                                                     <label for="email">E-mail</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="password" class="form-control" placeholder="Senha" id="password" th:field="${usuariosModel.usuSenha}" required>
+                                                    <input type="password" class="form-control" placeholder="Senha" id="password" th:text="${usuariosModel.usuSenha}" required>
                                                     <label for="password">Senha</label>
                                                 </div>
                                             </div>
@@ -141,6 +141,11 @@
                                                     <label for="confirm_password">Confirmação de Senha</label>
                                                 </div>
                                             </div>
+<<<<<<< HEAD:src/main/resources/templates/cadastro/cadDadosPessoais.html
+=======
+
+                                            <input type="text" name="teste" value="ADM" style="display: none;" th:text="${usuariosModel.usuRegra}"/>
+>>>>>>> 538a84e705470907635345aa0d97b1bf90894a4a:src/main/resources/templates/cliente/cadastro/cadDadosPessoais.html
                                         </div>
                                     </div>
 

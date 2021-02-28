@@ -24,17 +24,13 @@ public class ClientesModel
 	@Column(name = "cli_id", insertable = false, updatable = false)
 	private Integer cliId;
 
-	@NotEmpty(message = "Tipo é obrigatório")
-    @Column(name = "cli_tipo")
-	private String cliTipo;
+	@NotEmpty(message = "Raking é obrigatório")
+    @Column(name = "cli_ranking")
+	private String cliRanking;
 
 	@NotEmpty(message = "Nome é obrigatório")
     @Column(name = "cli_nome")
 	private String cliNome;
-
-	@NotEmpty(message = "Sobrenome é obrigatório")
-    @Column(name = "cli_sobrenome")
-	private String cliSobrenome;
 
 	@NotEmpty(message = "Sexo é obrigatório")
     @Column(name = "cli_sexo")
@@ -61,24 +57,18 @@ public class ClientesModel
 
 	public ClientesModel() 
 	{
-		super();
-
 		this.cliId = 0;
-		this.cliTipo = "";
+		this.cliRanking = "";
 		this.cliNome = "";
-		this.cliSobrenome = "";
 		this.cliSexo = "";
 		this.cliDtNasc = null;
 	}
 
-	public ClientesModel(Integer cliId, String cliTipo, String cliNome, String cliSobrenome, String cliSexo, Date cliDtNasc) 
+	public ClientesModel(Integer cliId, String cliRanking, String cliNome, String cliSexo, Date cliDtNasc) 
 	{
-		super( );
-
 		this.cliId = cliId;
-		this.cliTipo = cliTipo;
+		this.cliRanking = cliRanking;
 		this.cliNome = cliNome;
-		this.cliSobrenome = cliSobrenome;
 		this.cliSexo = cliSexo;
 		this.cliDtNasc = cliDtNasc;
 	}
@@ -93,14 +83,14 @@ public class ClientesModel
 		this.cliId = cliId;
 	}
 
-	public String getCliTipo() 
+	public String getCliRanking() 
 	{
-		return this.cliTipo;
+		return this.cliRanking;
 	}
 
-	public void setCliTipo(String cliTipo) 
+	public void setCliRanking(String cliRanking) 
 	{
-		this.cliTipo = cliTipo;
+		this.cliRanking = cliRanking;
 	}
 
 	public String getCliNome() 
@@ -111,16 +101,6 @@ public class ClientesModel
 	public void setCliNome(String cliNome) 
 	{
 		this.cliNome = cliNome;
-	}
-
-	public String getCliSobrenome() 
-	{
-		return this.cliSobrenome;
-	}
-
-	public void setCliSobrenome(String cliSobrenome) 
-	{
-		this.cliSobrenome = cliSobrenome;
 	}
 
 	public String getCliSexo() 

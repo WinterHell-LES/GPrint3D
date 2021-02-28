@@ -25,14 +25,14 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Nome" id="nome">
+                                                <input type="text" class="form-control" placeholder="Nome" id="nome" th:text="${usuario.usuEmail}">
                                                 <label for="nome">Nome</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Sobrenome" id="sobrenome">
+                                                <input type="text" class="form-control" placeholder="Sobrenome" id="sobrenome" th:text="${cliente.cliNome}">
                                                 <label for="sobrenome">Sobrenome</label>
                                               </div>
                                         </div>

@@ -1,6 +1,5 @@
 package com.project.GPrint3D.model;
 
-import java.sql.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -23,15 +22,12 @@ public class DocumentosModel
 	private Integer docId;
 
 	@NotEmpty(message = "Nome é obrigatório")
-    @Column(name = "doc_nome")
-	private String docNome;
+    @Column(name = "doc_tipo")
+	private String docTipo;
 
 	@NotEmpty(message = "Nome é obrigatório")
     @Column(name = "doc_numero")
 	private String docNumero;
-
-	@Column(name = "doc_validade")
-	private Date docValidade;
 
 	@ManyToOne
     @JoinColumn(name = "doc_cli_id", referencedColumnName = "cli_id")
@@ -42,19 +38,16 @@ public class DocumentosModel
 		super();
 		
 		this.docId = 0;
-		this.docNome = "";
+		this.docTipo = "";
 		this.docNumero = "";
-		this.docValidade = null;
 	}
 
-	public DocumentosModel(Integer docId, String docNome, String docNumero, Date docValidade) 
-	{
-		super( );
+	public DocumentosModel(Integer docId, String docNome, String docNumero) {
+		super();
 
 		this.docId = docId;
-		this.docNome = docNome;
+		this.docTipo = docNome;
 		this.docNumero = docNumero;
-		this.docValidade = docValidade;
 	}
 
 	public Integer getDocId() 
@@ -67,14 +60,14 @@ public class DocumentosModel
 		this.docId = docId;
 	}
 
-	public String getDocNome() 
+	public String getDocTipo() 
 	{
-		return this.docNome;
+		return this.docTipo;
 	}
 
-	public void setDocNome(String docNome) 
+	public void setDocTipo(String docTipo) 
 	{
-		this.docNome = docNome;
+		this.docTipo = docTipo;
 	}
 
 	public String getDocNumero() 
@@ -85,16 +78,6 @@ public class DocumentosModel
 	public void setDocNumero(String docNumero) 
 	{
 		this.docNumero = docNumero;
-	}
-
-	public Date getDocValidade() 
-	{
-		return this.docValidade;
-	}
-
-	public void setDocValidade(Date docValidade) 
-	{
-		this.docValidade = docValidade;
 	}
 
 	public ClientesModel getCliente() 

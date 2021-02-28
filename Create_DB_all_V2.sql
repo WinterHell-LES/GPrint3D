@@ -21,9 +21,8 @@ DROP TABLE IF EXISTS clientes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE clientes (
     cli_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    cli_tipo         	VARCHAR(20) NOT NULL,
-    cli_nome         	VARCHAR(255) NOT NULL,
-    cli_sobrenome		VARCHAR(255) NOT NULL,
+    cli_ranking			VARCHAR(20) NOT NULL,
+    cli_nome	       	VARCHAR(255) NOT NULL,
     cli_sexo			VARCHAR(20) NOT NULL,
     cli_dtnasc			DATE NOT NULL,
     cli_usu_id  		MEDIUMINT NOT NULL,
@@ -47,9 +46,8 @@ DROP TABLE IF EXISTS documentos;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE documentos (
     doc_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    doc_nome         	VARCHAR(20) NOT NULL,
+    doc_tipo         	VARCHAR(20) NOT NULL,
     doc_numero       	VARCHAR(50) NOT NULL,
-    doc_validade     	DATE NOT NULL,
     doc_cli_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_doc PRIMARY KEY ( doc_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -66,11 +64,11 @@ CREATE TABLE enderecos (
     end_logradouro   	VARCHAR(255) NOT NULL,
     end_numero       	VARCHAR(10) NOT NULL,
     end_cep          	VARCHAR(20) NOT NULL,
-    end_complemento  	VARCHAR(255) NOT NULL,
+    end_complemento  	VARCHAR(255),
     end_cidade       	VARCHAR(100) NOT NULL,
     end_estado       	VARCHAR(100) NOT NULL,
     end_pais       		VARCHAR(100) NOT NULL,
-    end_observacao		VARCHAR(255) NOT NULL,
+    end_observacao		VARCHAR(255),
     end_cli_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_end PRIMARY KEY ( end_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

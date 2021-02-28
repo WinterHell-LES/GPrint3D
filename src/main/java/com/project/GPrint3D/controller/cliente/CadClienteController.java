@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/cliente")
+@RequestMapping("/cadastro")
 public class CadClienteController 
 { 
     private UsuariosModel usuariosMod;
@@ -63,7 +63,7 @@ public class CadClienteController
     @RequestMapping("/cadastroDadosPessoais")
     public ModelAndView cadastroDadosPessoais(ClientesModel cliente, TelefonesModel telefone, DocumentosModel documento, UsuariosModel usuario)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadDadosPessoais");
+        ModelAndView mv = new ModelAndView("/cadastro/cadDadosPessoais");
 
         return mv;
     }
@@ -83,13 +83,13 @@ public class CadClienteController
 
         usuariosMod = usuario;
 
-        return new ModelAndView("redirect:/cliente/cadastroEndereco");
+        return new ModelAndView("redirect:/cadastro/cadastroEndereco");
     }
 
     @RequestMapping("/cadastroEndereco")
     public ModelAndView cadastroEndereco(EnderecosModel endereco)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadEndereco");
+        ModelAndView mv = new ModelAndView("/cadastro/cadEndereco");
 
         return mv;
     }
@@ -103,13 +103,13 @@ public class CadClienteController
 
         enderecosMod = endereco;
 
-        return new ModelAndView("redirect:/cliente/cadastroCartao");
+        return new ModelAndView("redirect:/cadastro/cadastroCartao");
     }
 
     @RequestMapping("/cadastroCartao")
     public ModelAndView cadastroCartao(CartoesModel cartao)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadCartao");
+        ModelAndView mv = new ModelAndView("/cadastro/cadCartao");
 
         return mv;
     }
@@ -144,7 +144,7 @@ public class CadClienteController
     @RequestMapping("/cadastroEndereco2")
     public ModelAndView cadEndereco2(ClientesModel cliente)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadEndereco2");
+        ModelAndView mv = new ModelAndView("/cadastro/cadEndereco2");
 
         return mv;
     }
@@ -152,7 +152,7 @@ public class CadClienteController
     @RequestMapping("/cadastroCartao2")
     public ModelAndView cadCartao2(ClientesModel cliente)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadCartao2");
+        ModelAndView mv = new ModelAndView("/cadastro/cadCartao2");
 
         return mv;
     }

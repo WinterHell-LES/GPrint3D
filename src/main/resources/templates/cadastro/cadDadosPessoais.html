@@ -24,7 +24,7 @@
                                     <h5>Dados pessoais</h5>
                                 </div>
 
-                                <form th:action="@{/cliente/cadastroDadosPessoais}" method="POST">
+                                <form th:action="@{/cadastro/cadastroDadosPessoais}" method="POST">
                                     <div class="row pb-3 pe-0">
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
@@ -103,7 +103,7 @@
 
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <select name="tipoDocumento" class="custom-select form-select" id="documento" th:field="${documentosModel.docNome}">
+                                                    <select name="tipoDocumento" class="custom-select form-select" id="documento" th:field="${documentosModel.docTipo}">
                                                         <option value="" selected>Tipo de Documento</option>
                                                         <option value="CNPJ">CNPJ</option>
                                                         <option value="CPF">CPF</option>
@@ -141,8 +141,6 @@
                                                     <label for="confirm_password">Confirmação de Senha</label>
                                                 </div>
                                             </div>
-
-                                            <input type="text" name="teste" value="ADM" style="display: none;" th:field="${usuariosModel.usuRegra}"/>
                                         </div>
                                     </div>
 

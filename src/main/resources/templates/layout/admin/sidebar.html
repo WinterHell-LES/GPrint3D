@@ -16,12 +16,12 @@
                                     <span>Produtos</span>
                                 </h6>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/admin/cadastrarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('produtos')} ? 'active'">
+                                    <a class="nav-link" href="/admin/cadastrarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">
                                         Cadastro de produtos
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('produtos')} ? 'active'">
+                                    <a class="nav-link" href="/admin/listarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('listarProdutos')} ? 'active'">
                                         Listagem de produtos
                                     </a>
                                 </li>
@@ -30,7 +30,7 @@
                                     <span>Pedidos</span>
                                 </h6>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarPedidos" th:classappend="${#httpServletRequest.requestURI.contains('pedidos')} ? 'active'">
+                                    <a class="nav-link" href="/admin/pedidos" th:classappend="${#httpServletRequest.requestURI.contains('pedidos')} ? 'active'">
                                         Listagem de pedidos
                                     </a>
                                 </li>
@@ -39,7 +39,7 @@
                                     <span>Clientes</span>
                                 </h6>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarClientes" th:classappend="${#httpServletRequest.requestURI.contains('clientes')} ? 'active'">
+                                    <a class="nav-link" href="/admin/clientes" th:classappend="${#httpServletRequest.requestURI.contains('clientes')} ? 'active'">
                                         <span data-feather="shopping-cart"></span>
                                         Listagem de clientes
                                     </a>

@@ -23,8 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
             .dataSource(dataSource)
-            .usersByUsernameQuery("SELECT user_usuario, password_usuario, ativo_usuario FROM usuarios WHERE user_usuario=?")
-            .authoritiesByUsernameQuery("SELECT user_usuario, regra_usuario FROM usuarios WHERE user_usuario=?");
+            .usersByUsernameQuery("SELECT usu_email, usu_senha, usu_ativo FROM usuarios WHERE usu_email=?")
+            .authoritiesByUsernameQuery("SELECT usu_email, usu_regra FROM usuarios WHERE usu_email=?");
     }
 
     @Override
@@ -37,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception 
     {
         http.authorizeRequests()
+            .antMatchers("/admin/**").hasRole("ADM")
+            .antMatchers("/cliente/**").hasRole("CLI")
             .anyRequest().permitAll()
             .and()
             .formLogin()
@@ -45,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             .and()
             .logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .logoutSuccessUrl("/login")
+            .logoutSuccessUrl("/index")
             .permitAll();
     }
 

@@ -20,18 +20,18 @@ public class DocumentosModel
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "doc_id", insertable = false, updatable = false)
-	private Integer id;
+	private Integer docId;
 
 	@NotEmpty(message = "Nome é obrigatório")
     @Column(name = "doc_nome")
-	private String nome;
+	private String docNome;
 
 	@NotEmpty(message = "Nome é obrigatório")
     @Column(name = "doc_numero")
-	private String numero;
+	private String docNumero;
 
 	@Column(name = "doc_validade")
-	private Date validade;
+	private Date docValidade;
 
 	@ManyToOne
     @JoinColumn(name = "doc_cli_id", referencedColumnName = "cli_id")
@@ -39,58 +39,62 @@ public class DocumentosModel
 
 	public DocumentosModel() 
 	{
-		this.id = 0;
-		this.nome = "";
-		this.numero = "";
-		this.validade = null;
+		super();
+		
+		this.docId = 0;
+		this.docNome = "";
+		this.docNumero = "";
+		this.docValidade = null;
 	}
 
-	public DocumentosModel(Integer id, String nome, String numero, Date validade) 
+	public DocumentosModel(Integer docId, String docNome, String docNumero, Date docValidade) 
 	{
-		this.id = id;
-		this.nome = nome;
-		this.numero = numero;
-		this.validade = validade;
+		super( );
+
+		this.docId = docId;
+		this.docNome = docNome;
+		this.docNumero = docNumero;
+		this.docValidade = docValidade;
 	}
 
-	public Integer getId() 
+	public Integer getDocId() 
 	{
-		return this.id;
+		return this.docId;
 	}
 
-	public void setId(Integer id) 
+	public void setDocId(Integer docId) 
 	{
-		this.id = id;
+		this.docId = docId;
 	}
 
-	public String getNome() 
+	public String getDocNome() 
 	{
-		return this.nome;
+		return this.docNome;
 	}
 
-	public void setNome(String nome) 
+	public void setDocNome(String docNome) 
 	{
-		this.nome = nome;
+		this.docNome = docNome;
 	}
 
-	public String getNumero() 
+	public String getDocNumero() 
 	{
-		return this.numero;
+		return this.docNumero;
 	}
 
-	public void setNumero(String numero) 
+	public void setDocNumero(String docNumero) 
 	{
-		this.numero = numero;
+		this.docNumero = docNumero;
 	}
 
-	public Date getValidade() 
+	public Date getDocValidade() 
 	{
-		return this.validade;
+		return this.docValidade;
 	}
 
-	public void setValidade(Date validade) 
+	public void setDocValidade(Date docValidade) 
 	{
-		this.validade = validade;
+		this.docValidade = docValidade;
 	}
 
 	public ClientesModel getCliente() 
@@ -106,22 +110,22 @@ public class DocumentosModel
 	@Override
 	public boolean equals(Object o) 
 	{
-		if (o == this)
+		if (o == this) 
 		{
 			return true;
 		}
-			
+
 		if (!(o instanceof DocumentosModel)) 
 		{
 			return false;
 		}
 		DocumentosModel documentosModel = (DocumentosModel) o;
-		return Objects.equals(id, documentosModel.id);
+		return Objects.equals(docId, documentosModel.docId);
 	}
 
 	@Override
 	public int hashCode() 
 	{
-		return Objects.hashCode(id);
+		return Objects.hashCode(docId);
 	}
 }

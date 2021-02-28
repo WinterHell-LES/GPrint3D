@@ -6,99 +6,87 @@ DROP TABLE IF EXISTS cartoes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE cartoes (
-    crt_id           	MEDIUMINT,
-    crt_bandeira		VARCHAR(20),
-    crt_nome         	VARCHAR(50),
-    crt_numero       	VARCHAR(50),
-    crt_validade     	DATE,
-    crt_cvv          	VARCHAR(10),
-    crt_cli_id  		MEDIUMINT NOT NULL
-);
-
-ALTER TABLE cartoes ADD CONSTRAINT pk_crt PRIMARY KEY ( crt_id );
-ALTER TABLE cartoes CHANGE COLUMN crt_id crt_id MEDIUMINT NOT NULL AUTO_INCREMENT;
+    crt_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    crt_bandeira		VARCHAR(20) NOT NULL,
+    crt_nome         	VARCHAR(50) NOT NULL,
+    crt_numero       	VARCHAR(50) NOT NULL,
+    crt_validade     	DATE NOT NULL,
+    crt_cvv          	VARCHAR(10) NOT NULL,
+    crt_cli_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_crt PRIMARY KEY ( crt_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS clientes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE clientes (
-    cli_id           	MEDIUMINT,
-    cli_tipo         	VARCHAR(20),
-    cli_nome         	VARCHAR(255),
-    cli_sobrenome		VARCHAR(255),
-    cli_sexo			VARCHAR(20),
-    cli_dtnasc			DATE,
-    cli_usu_id  		MEDIUMINT NOT NULL
-);
-
-ALTER TABLE clientes ADD CONSTRAINT pk_cli PRIMARY KEY ( cli_id );
-ALTER TABLE clientes CHANGE COLUMN cli_id cli_id MEDIUMINT NOT NULL AUTO_INCREMENT;
+    cli_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    cli_tipo         	VARCHAR(20) NOT NULL,
+    cli_nome         	VARCHAR(255) NOT NULL,
+    cli_sobrenome		VARCHAR(255) NOT NULL,
+    cli_sexo			VARCHAR(20) NOT NULL,
+    cli_dtnasc			DATE NOT NULL,
+    cli_usu_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_cli PRIMARY KEY ( cli_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS telefones;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE telefones (
-    tel_id           	MEDIUMINT,
-    tel_tipo         	VARCHAR(20),
-    tel_ddd         	VARCHAR(10),
-    tel_numero			VARCHAR(20),
-    tel_cli_id			MEDIUMINT NOT NULL
-);
-
-ALTER TABLE telefones ADD CONSTRAINT pk_tel PRIMARY KEY ( tel_id );
-ALTER TABLE telefones CHANGE COLUMN tel_id tel_id MEDIUMINT NOT NULL AUTO_INCREMENT;
+    tel_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    tel_tipo         	VARCHAR(20) NOT NULL,
+    tel_ddd         	VARCHAR(10) NOT NULL,
+    tel_numero			VARCHAR(20) NOT NULL,
+    tel_cli_id			MEDIUMINT NOT NULL,
+    CONSTRAINT pk_tel PRIMARY KEY ( tel_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS documentos;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE documentos (
-    doc_id           	MEDIUMINT,
-    doc_nome         	VARCHAR(20),
-    doc_numero       	VARCHAR(50),
-    doc_validade     	DATE,
-    doc_cli_id  	MEDIUMINT NOT NULL
-);
-
-ALTER TABLE documentos ADD CONSTRAINT pk_doc PRIMARY KEY ( doc_id );
-ALTER TABLE documentos CHANGE COLUMN doc_id doc_id MEDIUMINT NOT NULL AUTO_INCREMENT;
+    doc_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    doc_nome         	VARCHAR(20) NOT NULL,
+    doc_numero       	VARCHAR(50) NOT NULL,
+    doc_validade     	DATE NOT NULL,
+    doc_cli_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_doc PRIMARY KEY ( doc_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS enderecos;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE enderecos (
-    end_id           	MEDIUMINT,
+    end_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
     end_entrega			BOOLEAN,
     end_cobranca		BOOLEAN,
-    end_descricao		VARCHAR(255),
-    end_tipolog        	VARCHAR(20),
-    end_logradouro   	VARCHAR(255),
-    end_numero       	VARCHAR(10),
-    end_cep          	VARCHAR(20),
-    end_complemento  	VARCHAR(255),
-    end_cidade       	VARCHAR(100),
-    end_estado       	VARCHAR(100),
-    end_pais       		VARCHAR(100),
-    end_observacao		VARCHAR(255),
-    end_cli_id  		MEDIUMINT NOT NULL
-);
-
-ALTER TABLE enderecos ADD CONSTRAINT pk_end PRIMARY KEY ( end_id );
-ALTER TABLE enderecos CHANGE COLUMN end_id end_id MEDIUMINT NOT NULL AUTO_INCREMENT;
+    end_descricao		VARCHAR(255) NOT NULL,
+    end_tipolog        	VARCHAR(20) NOT NULL,
+    end_logradouro   	VARCHAR(255) NOT NULL,
+    end_numero       	VARCHAR(10) NOT NULL,
+    end_cep          	VARCHAR(20) NOT NULL,
+    end_complemento  	VARCHAR(255) NOT NULL,
+    end_cidade       	VARCHAR(100) NOT NULL,
+    end_estado       	VARCHAR(100) NOT NULL,
+    end_pais       		VARCHAR(100) NOT NULL,
+    end_observacao		VARCHAR(255) NOT NULL,
+    end_cli_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_end PRIMARY KEY ( end_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS usuarios;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE usuarios (
-    usu_id     			MEDIUMINT,
-    usu_email  			VARCHAR(255),
-    usu_senha  			VARCHAR(255),
-    usu_regra 			VARCHAR(20),
-    usu_ativo  			BOOLEAN
-);
-
-ALTER TABLE usuarios ADD CONSTRAINT pk_usu PRIMARY KEY ( usu_id );
-ALTER TABLE usuarios CHANGE COLUMN usu_id usu_id MEDIUMINT NOT NULL AUTO_INCREMENT;
-ALTER TABLE usuarios ADD UNIQUE INDEX uk_usu (usu_email ASC) VISIBLE;
+    usu_id     			MEDIUMINT NOT NULL AUTO_INCREMENT,
+    usu_email  			VARCHAR(100) NOT NULL,
+    usu_senha  			VARCHAR(255) NOT NULL,
+    usu_regra 			VARCHAR(20) NOT NULL,
+    usu_ativo  			BOOLEAN NOT NULL,
+    CONSTRAINT pk_usu PRIMARY KEY ( usu_id ),
+    CONSTRAINT uk_usu UNIQUE ( usu_email )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 ALTER TABLE clientes
     ADD CONSTRAINT fk_cli_usu FOREIGN KEY ( cli_usu_id )

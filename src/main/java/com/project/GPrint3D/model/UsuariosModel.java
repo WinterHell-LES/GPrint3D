@@ -17,115 +17,104 @@ public class UsuariosModel
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usu_id", insertable = false, updatable = false)
-    private Integer id;
+    private Integer usuId;
 
     @NotEmpty(message = "Email é obrigatório")
     @Column(name = "usu_email", unique = true)
-    private String email;
+    private String usuEmail;
 
     @NotEmpty(message = "Senha é obrigatória")
     @Column(name = "usu_senha")
-    private String senha;
-
-    @NotEmpty(message = "Confirmação de senha é obrigatória")
-    private String confirmSenha;
+    private String usuSenha;
 
     @NotEmpty(message = "Nível de acesso é obrigatório")
     @Column(name = "usu_regra")
-    private String regra;
+    private String usuRegra;
 
     @Column(name = "usu_ativo")
-    private boolean ativo;
+    private boolean usuAtivo;
 
     public UsuariosModel()
     {
-        this.id = 0;
-        this.email = "";
-        this.senha = "";
-        this.confirmSenha = "";
-        this.regra = "";
-        this.ativo = false;
+        super();
+
+        this.usuId = 0;
+        this.usuEmail = "";
+        this.usuSenha = "";
+        this.usuRegra = "";
+        this.usuAtivo = false;
     }
 
-    public UsuariosModel(Integer id, String email, String senha, String confirmSenha, String regra, boolean ativo)
+    public UsuariosModel(Integer usuId, String usuEmail, String usuSenha, String usuRegra, boolean usuAtivo) 
     {
-        this.id = id;
-        this.email = email;
-        this.senha = senha;
-        this.confirmSenha = confirmSenha;
-        this.regra = regra;
-        this.ativo = ativo;
+        super();
+
+        this.usuId = usuId;
+        this.usuEmail = usuEmail;
+        this.usuSenha = usuSenha;
+        this.usuRegra = usuRegra;
+        this.usuAtivo = usuAtivo;
     }
 
-    public Integer getId() 
+    public Integer getUsuId() 
     {
-        return this.id;
+        return this.usuId;
     }
 
-    public void setId(Integer id) 
+    public void setUsuId(Integer usuId) 
     {
-        this.id = id;
+        this.usuId = usuId;
     }
 
-    public String getEmail() 
+    public String getUsuEmail() 
     {
-        return this.email;
+        return this.usuEmail;
     }
 
-    public void setEmail(String email) 
+    public void setUsuEmail(String usuEmail) 
     {
-        this.email = email;
+        this.usuEmail = usuEmail;
     }
 
-    public String getSenha() 
+    public String getUsuSenha() 
     {
-        return this.senha;
+        return this.usuSenha;
     }
 
-    public void setSenha(String senha) 
+    public void setUsuSenha(String usuSenha) 
     {
-        this.senha = senha;
+        this.usuSenha = usuSenha;
     }
 
-    public String getConfirmSenha() 
+    public String getUsuRegra() 
     {
-        return this.confirmSenha;
+        return this.usuRegra;
     }
 
-    public void setConfirmSenha(String confirmSenha) 
+    public void setUsuRegra(String usuRegra) 
     {
-        this.confirmSenha = confirmSenha;
+        this.usuRegra = usuRegra;
     }
 
-    public String getRegra() 
+    public boolean isUsuAtivo() 
     {
-        return this.regra;
+        return this.usuAtivo;
     }
 
-    public void setRegra(String regra) 
+    public boolean getUsuAtivo() 
     {
-        this.regra = regra;
+        return this.usuAtivo;
     }
 
-    public boolean isAtivo() 
+    public void setUsuAtivo(boolean usuAtivo) 
     {
-        return this.ativo;
-    }
-
-    public boolean getAtivo() 
-    {
-        return this.ativo;
-    }
-
-    public void setAtivo(boolean ativo) 
-    {
-        this.ativo = ativo;
+        this.usuAtivo = usuAtivo;
     }
 
     @Override
     public boolean equals(Object o) 
     {
-        if (o == this)
+        if (o == this) 
         {
             return true;
         }
@@ -136,12 +125,12 @@ public class UsuariosModel
         }
 
         UsuariosModel usuariosModel = (UsuariosModel) o;
-        return Objects.equals(id, usuariosModel.id);
+        return Objects.equals(usuId, usuariosModel.usuId);
     }
 
     @Override
     public int hashCode() 
     {
-        return Objects.hashCode(id);
+        return Objects.hashCode(usuId);
     }
 }

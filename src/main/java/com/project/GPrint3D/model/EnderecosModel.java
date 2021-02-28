@@ -19,51 +19,51 @@ public class EnderecosModel
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "end_id", insertable = false, updatable = false)
-	private Integer id;
+	private Integer endId;
 
     @Column(name = "end_entrega")
-	private boolean entrega;
+	private boolean endEntrega;
 
     @Column(name = "end_cobranca")
-	private boolean cobranca;
+	private boolean endCobranca;
 
 	@NotEmpty(message = "Descrição é obrigatória")
     @Column(name = "end_descricao")
-	private String descricao;
+	private String endDescricao;
 
 	@NotEmpty(message = "Tipo é obrigatório")
     @Column(name = "end_tipolog")
-	private String tipo;
+	private String endTipo;
 
 	@NotEmpty(message = "Logradouro é obrigatório")
     @Column(name = "end_logradouro")
-	private String logradouro;
+	private String endLogradouro;
 
 	@NotEmpty(message = "Número é obrigatório")
     @Column(name = "end_numero")
-	private String numero;
+	private String endNumero;
 
 	@NotEmpty(message = "CEP é obrigatório")
     @Column(name = "end_cep")
-	private String cep;
+	private String endCep;
 
 	@Column(name = "end_complemento")
-	private String complemento;
+	private String endComplemento;
 
 	@NotEmpty(message = "Cidade é obrigatória")
     @Column(name = "end_cidade")
-	private String cidade;
+	private String endCidade;
 
 	@NotEmpty(message = "Estado é obrigatório")
     @Column(name = "end_estado")
-	private String estado;
+	private String endEstado;
 
 	@NotEmpty(message = "País é obrigatório")
     @Column(name = "end_pais")
-	private String pais;
+	private String endPais;
 
     @Column(name = "end_observacao")
-	private String observacao;
+	private String endObservacao;
 
 	@ManyToOne
     @JoinColumn(name = "end_cli_id", referencedColumnName = "cli_id")
@@ -71,176 +71,182 @@ public class EnderecosModel
 
 	public EnderecosModel() 
 	{
-		this.id = 0;
-		this.entrega = false;
-		this.cobranca = false;
-		this.descricao = "";
-		this.tipo = "";
-		this.logradouro = "";
-		this.numero = "";
-		this.cep = "";
-		this.complemento = "";
-		this.cidade = "";
-		this.estado = "";
-		this.pais = "";
-		this.observacao = "";
+		super();
+		
+		this.endId = 0;
+		this.endEntrega = false;
+		this.endCobranca = false;
+		this.endDescricao = "";
+		this.endTipo = "";
+		this.endLogradouro = "";
+		this.endNumero = "";
+		this.endCep = "";
+		this.endComplemento = "";
+		this.endCidade = "";
+		this.endEstado = "";
+		this.endPais = "";
+		this.endObservacao = "";
 	}
 
-	public EnderecosModel(Integer id, boolean entrega, boolean cobranca, String descricao, String tipo, String logradouro, String numero, String cep, String complemento, String cidade, String estado, String pais, String observacao) 
+	public EnderecosModel(Integer endId, boolean endEntrega, boolean endCobranca, String endDescricao, String endTipo,
+			String endLogradouro, String endNumero, String endCep, String endComplemento, String endCidade, String endEstado, String endPais,
+			String endObservacao) 
 	{
-		this.id = id;
-		this.entrega = entrega;
-		this.cobranca = cobranca;
-		this.descricao = descricao;
-		this.tipo = tipo;
-		this.logradouro = logradouro;
-		this.numero = numero;
-		this.cep = cep;
-		this.complemento = complemento;
-		this.cidade = cidade;
-		this.estado = estado;
-		this.pais = pais;
-		this.observacao = observacao;
+		super( );
+
+		this.endId = endId;
+		this.endEntrega = endEntrega;
+		this.endCobranca = endCobranca;
+		this.endDescricao = endDescricao;
+		this.endTipo = endTipo;
+		this.endLogradouro = endLogradouro;
+		this.endNumero = endNumero;
+		this.endCep = endCep;
+		this.endComplemento = endComplemento;
+		this.endCidade = endCidade;
+		this.endEstado = endEstado;
+		this.endPais = endPais;
+		this.endObservacao = endObservacao;
 	}
 
-	public Integer getId() 
+	public Integer getEndId() 
 	{
-		return this.id;
+		return this.endId;
 	}
 
-	public void setId(Integer id) 
+	public void setEndId(Integer endId) 
 	{
-		this.id = id;
+		this.endId = endId;
 	}
 
-	public boolean isEntrega() 
+	public boolean isEndEntrega() 
 	{
-		return this.entrega;
+		return this.endEntrega;
 	}
 
-	public boolean getEntrega() 
+	public boolean getEndEntrega() 
 	{
-		return this.entrega;
+		return this.endEntrega;
 	}
 
-	public void setEntrega(boolean entrega) 
+	public void setEndEntrega(boolean endEntrega) 
 	{
-		this.entrega = entrega;
+		this.endEntrega = endEntrega;
 	}
 
-	public boolean isCobranca() 
+	public boolean isEndCobranca() 
 	{
-		return this.cobranca;
+		return this.endCobranca;
 	}
 
-	public boolean getCobranca() 
+	public boolean getEndCobranca() 
 	{
-		return this.cobranca;
+		return this.endCobranca;
 	}
 
-	public void setCobranca(boolean cobranca) 
+	public void setEndCobranca(boolean endCobranca) 
 	{
-		this.cobranca = cobranca;
+		this.endCobranca = endCobranca;
 	}
 
-	public String getDescricao() 
+	public String getEndDescricao() 
 	{
-		return this.descricao;
+		return this.endDescricao;
 	}
 
-	public void setDescricao(String descricao) 
+	public void setEndDescricao(String endDescricao) 
 	{
-		this.descricao = descricao;
+		this.endDescricao = endDescricao;
 	}
 
-	public String getTipo() 
+	public String getEndTipo() 
 	{
-		return this.tipo;
+		return this.endTipo;
 	}
 
-	public void setTipo(String tipo) 
+	public void setEndTipo(String endTipo) 
 	{
-		this.tipo = tipo;
+		this.endTipo = endTipo;
 	}
 
-	public String getLogradouro() 
+	public String getEndLogradouro() 
 	{
-		return this.logradouro;
+		return this.endLogradouro;
 	}
 
-	public void setLogradouro(String logradouro) 
+	public void setEndLogradouro(String endLogradouro) 
 	{
-		this.logradouro = logradouro;
+		this.endLogradouro = endLogradouro;
 	}
 
-	public String getNumero() 
+	public String getEndNumero() 
 	{
-		return this.numero;
+		return this.endNumero;
 	}
 
-	public void setNumero(String numero) 
+	public void setEndNumero(String endNumero) 
 	{
-		this.numero = numero;
+		this.endNumero = endNumero;
 	}
 
-	public String getCep() 
+	public String getEndCep() 
 	{
-		return this.cep;
+		return this.endCep;
 	}
 
-	public void setCep(String cep) 
+	public void setEndCep(String endCep) 
 	{
-		this.cep = cep;
+		this.endCep = endCep;
 	}
 
-	public String getComplemento() 
+	public String getEndComplemento() 
 	{
-		return this.complemento;
+		return this.endComplemento;
 	}
 
-	public void setComplemento(String complemento) 
+	public void setEndComplemento(String endComplemento) 
 	{
-		this.complemento = complemento;
+		this.endComplemento = endComplemento;
 	}
 
-	public String getCidade() 
+	public String getEndCidade() 
 	{
-		return this.cidade;
+		return this.endCidade;
 	}
 
-	public void setCidade(String cidade) 
+	public void setEndCidade(String endCidade) 
 	{
-		this.cidade = cidade;
+		this.endCidade = endCidade;
 	}
 
-	public String getEstado() 
+	public String getEndEstado() 
 	{
-		return this.estado;
+		return this.endEstado;
 	}
 
-	public void setEstado(String estado) 
+	public void setEndEstado(String endEstado) 
 	{
-		this.estado = estado;
+		this.endEstado = endEstado;
 	}
 
-	public String getPais() 
+	public String getEndPais() 
 	{
-		return this.pais;
+		return this.endPais;
 	}
 
-	public void setPais(String pais) 
+	public void setEndPais(String endPais) 
 	{
-		this.pais = pais;
+		this.endPais = endPais;
 	}
 
-	public String getObservacao() 
+	public String getEndObservacao() 
 	{
-		return this.observacao;
+		return this.endObservacao;
 	}
 
-	public void setObservacao(String observacao) 
+	public void setEndObservacao(String endObservacao) 
 	{
-		this.observacao = observacao;
+		this.endObservacao = endObservacao;
 	}
 
 	public ClientesModel getCliente() 
@@ -256,23 +262,22 @@ public class EnderecosModel
 	@Override
 	public boolean equals(Object o) 
 	{
-		if (o == this)
+		if (o == this) 
 		{
 			return true;
 		}
-			
+
 		if (!(o instanceof EnderecosModel)) 
 		{
 			return false;
 		}
 		EnderecosModel enderecosModel = (EnderecosModel) o;
-		return id == enderecosModel.id;
+		return endId == enderecosModel.endId;
 	}
 
 	@Override
 	public int hashCode() 
 	{
-		return Objects.hashCode(id);
+		return Objects.hashCode(endId);
 	}
-
 }

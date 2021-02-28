@@ -26,26 +26,33 @@
                                 <form th:action="@{/cliente/cadastroEndereco}" method="POST">
                                     <div class="row mx-0">
                                         <div class="row py-3">
-                                            <div class="col-sm">
+                                            <div class="col-lg-9">
                                                 <h5>Endereço</h5>
                                             </div>
-                                            <!--
                                             <div class="col-sm pe-0">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" th:field="${enderecosModel.endEntrega}"/>
+                                                    <label class="form-check-label" for="inlineCheckbox1">Cobrança</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" th:field="${enderecosModel.endCobranca}"/>
+                                                    <label class="form-check-label" for="inlineCheckbox2">Recebimento</label>
+                                                </div>
+                                                <!--
                                                 <div class="d-flex justify-content-end">
                                                     <div class="form-check form-switch">
                                                         <label class="form-check-label" for="enderecoPadrao">Usar como endereço de cobrança</label>
                                                         <input class="form-check-input" type="checkbox" id="enderecoPadrao" onclick="desabilitarEndereco()">
                                                     </div>
-                                                </div>
+                                                </div>-->
                                             </div>
-                                            -->
                                         </div>
 
                                         <div class="row pe-0">
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovel" th:field="*{enderecosModel.descricao}" required/>
+                                                        <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovel" th:field="${enderecosModel.endDescricao}" required/>
                                                         <label for="descricaoImovel">Descrição do Imóvel</label>
                                                     </div>
                                                 </div>
@@ -54,7 +61,7 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm-3">
                                                     <div class="form-floating">
-                                                        <select name="tipoLogradouro" class="custom-select form-select" id="documento" th:field="*{enderecosModel.tipo}" required>
+                                                        <select name="tipoLogradouro" class="custom-select form-select" id="documento" th:field="${enderecosModel.endTipo}" required>
                                                             <option value="" selected>Tipo de Logradouro</option>
                                                             <option value="Aeroporto">Aeroporto</option>
                                                             <option value="Alameda">Alameda</option>
@@ -107,7 +114,7 @@
                                                 
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Logradouro" id="logradouro" th:field="*{enderecosModel.logradouro}" required/>
+                                                        <input type="text" class="form-control" placeholder="Logradouro" id="logradouro" th:field="${enderecosModel.endLogradouro}" required/>
                                                         <label for="logradouro">Logradouro</label>
                                                     </div>
                                                 </div>
@@ -116,19 +123,19 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Número" id="enderecoNum" th:field="*{enderecosModel.numero}" required/>
+                                                        <input type="text" class="form-control" placeholder="Número" id="enderecoNum" th:field="${enderecosModel.endNumero}" required/>
                                                         <label for="endereçoNum">Número</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Complemento" id="complemento" th:field="*{enderecosModel.complemento}" required/>
+                                                        <input type="text" class="form-control" placeholder="Complemento" id="complemento" th:field="${enderecosModel.endComplemento}" required/>
                                                         <label for="complemento">Complemento</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="00000-000" id="CEP" th:field="*{enderecosModel.cep}" required/>
+                                                        <input type="text" class="form-control" placeholder="00000-000" id="CEP" th:field="${enderecosModel.endCep}" required/>
                                                         <label for="CEP">CEP</label>
                                                     </div>
                                                 </div>
@@ -137,14 +144,14 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Cidade" id="cidade" th:field="*{enderecosModel.cidade}" required/>
+                                                        <input type="text" class="form-control" placeholder="Cidade" id="cidade" th:field="${enderecosModel.endCidade}" required/>
                                                         <label for="cidade">Cidade</label>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <select name="Estado" class="custom-select form-select" id="estado" th:field="*{enderecosModel.estado}" required>
+                                                        <select name="Estado" class="custom-select form-select" id="estado" th:field="${enderecosModel.endEstado}" required>
                                                             <option value="" selected>Selecione o Estado</option>
                                                             <option value="AC">Acre</option>
                                                             <option value="AL">Alagoas</option>
@@ -179,7 +186,7 @@
                                                 </div>
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="País" id="pais" th:field="*{enderecosModel.pais}" required>
+                                                        <input type="text" class="form-control" placeholder="País" id="pais" th:field="${enderecosModel.endPais}" required/>
                                                         <label for="pais">País</label>
                                                     </div>
                                                 </div>
@@ -188,16 +195,14 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <textarea class="form-control" placeholder="Observação" id="observacao" th:field="*{enderecosModel.observacao}" style="height: 80px" required></textarea>
+                                                        <textarea class="form-control" placeholder="Observação" id="observacao" th:field="${enderecosModel.endObservacao}" style="height: 80px"></textarea>
                                                         <label for="observacao">Observação</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                     <!--
-
                                     <div class="row border-top mx-0" id="desabilitar">
                                         <div class="row py-2">
                                             <div class="col-sm">
@@ -209,7 +214,7 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovelCobranca">
+                                                        <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovelCobranca" th:field="*{listEnderecos[1].endDescricao}" required/>
                                                         <label for="descricaoImovel">Descrição do Imóvel</label>
                                                     </div>
                                                 </div>
@@ -218,7 +223,7 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm-3">
                                                     <div class="form-floating">
-                                                        <select name="tipoLogradouro" class="custom-select form-select" id="documentoCobranca">
+                                                        <select name="tipoLogradouro" class="custom-select form-select" id="documentoCobranca" th:field="*{listEnderecos[1].endTipo}" required>
                                                             <option value="" selected>Tipo de Logradouro</option>
                                                             <option value="Aeroporto">Aeroporto</option>
                                                             <option value="Alameda">Alameda</option>
@@ -271,7 +276,7 @@
                                                 
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Logradouro" id="logradouroCobranca">
+                                                        <input type="text" class="form-control" placeholder="Logradouro" id="logradouroCobranca" th:field="*{listEnderecos[1].endLogradouro}" required/>
                                                         <label for="logradouro">Logradouro</label>
                                                     </div>
                                                 </div>
@@ -280,19 +285,19 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Número" id="enderecoNumCobranca">
+                                                        <input type="text" class="form-control" placeholder="Número" id="enderecoNumCobranca" th:field="*{listEnderecos[1].endNumero}" required/>
                                                         <label for="endereçoNum">Número</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Complemento" id="complementoCobranca">
+                                                        <input type="text" class="form-control" placeholder="Complemento" id="complementoCobranca" th:field="*{listEnderecos[1].endComplemento}" required/>
                                                         <label for="complemento">Complemento</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="00000-000" id="CEPCobranca">
+                                                        <input type="text" class="form-control" placeholder="00000-000" id="CEPCobranca" th:field="*{listEnderecos[1].endCep}" required/>
                                                         <label for="CEP">CEP</label>
                                                     </div>
                                                 </div>
@@ -301,14 +306,14 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Cidade" id="cidadeCobranca">
+                                                        <input type="text" class="form-control" placeholder="Cidade" id="cidadeCobranca" th:field="*{listEnderecos[1].endCidade}" required/>
                                                         <label for="cidade">Cidade</label>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <select name="Estado" class="custom-select form-select" id="estadoCobranca">
+                                                        <select name="Estado" class="custom-select form-select" id="estadoCobranca" th:field="*{listEnderecos[1].endEstado}" required>
                                                             <option value="" selected>Selecione o Estado</option>
                                                             <option value="AC">Acre</option>
                                                             <option value="AL">Alagoas</option>
@@ -343,7 +348,7 @@
                                                 </div>
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="País" id="paisCobranca">
+                                                        <input type="text" class="form-control" placeholder="País" id="paisCobranca" th:field="*{listEnderecos[1].endPais}" required/>
                                                         <label for="pais">País</label>
                                                     </div>
                                                 </div>
@@ -352,7 +357,7 @@
                                             <div class="row pb-3 pe-0">
                                                 <div class="col-sm pe-0">
                                                     <div class="form-floating">
-                                                        <textarea class="form-control" placeholder="Observação" id="observacaoCobranca" style="height: 80px"></textarea>
+                                                        <textarea class="form-control" placeholder="Observação" id="observacaoCobranca" th:field="*{listEnderecos[1].endObservacao}" style="height: 80px"></textarea>
                                                         <label for="observacao">Observação</label>
                                                     </div>
                                                 </div>

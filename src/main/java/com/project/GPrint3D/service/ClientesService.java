@@ -20,25 +20,19 @@ public class ClientesService
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        if (cliente.getUsuario().getId().equals(0))
-        {
+        if (cliente.getUsuario().getUsuId().equals(0)) {
             cliente.setUsuario(null);
         }
 
-        try 
-        {
+        try {
             clientes.save(cliente);
 
             response[0] = msg1;
             response[1] = "Cliente cadastrado com sucesso!";
-        }
-        catch (DataIntegrityViolationException e)
-        {
+        } catch (DataIntegrityViolationException e) {
             response[0] = msg2;
             response[1] = "Cliente já cadastrado";
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             response[0] = msg2;
             response[1] = "Erro ao cadastrar o cliente";
         }
@@ -46,14 +40,13 @@ public class ClientesService
         return response;
     }
 
-    public String[] atualizar(ClientesModel cliente)
-    {
+    public String[] atualizar(ClientesModel cliente) {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        if (cliente.getUsuario().getId().equals(0))
+        if (cliente.getUsuario().getUsuId().equals(0))
         {
             cliente.setUsuario(null);
         }

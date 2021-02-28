@@ -19,19 +19,19 @@ public class TelefonesModel
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tel_id", insertable = false, updatable = false)
-    private Integer id;
+    private Integer telId;
 
     @NotEmpty(message = "Tipo é obrigatório")
     @Column(name = "tel_tipo")
-    private String tipo;
+    private String telTipo;
 
     @NotEmpty(message = "DDD é obrigatório")
     @Column(name = "tel_ddd")
-    private String ddd;
+    private String telDdd;
 
     @NotEmpty(message = "Número é obrigatório")
     @Column(name = "tel_numero")
-    private String numero;
+    private String telNumero;
 
     @ManyToOne
     @JoinColumn(name = "tel_cli_id", referencedColumnName = "cli_id")
@@ -39,58 +39,62 @@ public class TelefonesModel
 
     public TelefonesModel() 
     {
-        this.id = 0;
-        this.tipo = "";
-        this.ddd = "";
-        this.numero = "";
+        super();
+		
+        this.telId = 0;
+        this.telTipo = "";
+        this.telDdd = "";
+        this.telNumero = "";
     }
 
-    public TelefonesModel(Integer id, String tipo, String ddd, String numero) 
+    public TelefonesModel(Integer telId, String telTipo, String telDdd, String telNumero) 
     {
-        this.id = id;
-        this.tipo = tipo;
-        this.ddd = ddd;
-        this.numero = numero;
+        super();
+
+        this.telId = telId;
+        this.telTipo = telTipo;
+        this.telDdd = telDdd;
+        this.telNumero = telNumero;
     }
 
-    public Integer getId() 
+    public Integer getTelId() 
     {
-        return this.id;
+        return this.telId;
     }
 
-    public void setId(Integer id) 
+    public void setTelId(Integer telId) 
     {
-        this.id = id;
+        this.telId = telId;
     }
 
-    public String getTipo() 
+    public String getTelTipo() 
     {
-        return this.tipo;
+        return this.telTipo;
     }
 
-    public void setTipo(String tipo) 
+    public void setTelTipo(String telTipo) 
     {
-        this.tipo = tipo;
+        this.telTipo = telTipo;
     }
 
-    public String getDdd() 
+    public String getTelDdd() 
     {
-        return this.ddd;
+        return this.telDdd;
     }
 
-    public void setDdd(String ddd) 
+    public void setTelDdd(String telDdd) 
     {
-        this.ddd = ddd;
+        this.telDdd = telDdd;
     }
 
-    public String getNumero() 
+    public String getTelNumero() 
     {
-        return this.numero;
+        return this.telNumero;
     }
 
-    public void setNumero(String numero) 
+    public void setTelNumero(String telNumero) 
     {
-        this.numero = numero;
+        this.telNumero = telNumero;
     }
 
     public ClientesModel getCliente() 
@@ -106,22 +110,22 @@ public class TelefonesModel
     @Override
     public boolean equals(Object o) 
     {
-        if (o == this)
+        if (o == this) 
         {
             return true;
         }
-            
+
         if (!(o instanceof TelefonesModel)) 
         {
             return false;
         }
         TelefonesModel telefonesModel = (TelefonesModel) o;
-        return Objects.equals(id, telefonesModel.id);
+        return Objects.equals(telId, telefonesModel.telId);
     }
 
     @Override
     public int hashCode() 
     {
-        return Objects.hashCode(id);
+        return Objects.hashCode(telId);
     }
 }

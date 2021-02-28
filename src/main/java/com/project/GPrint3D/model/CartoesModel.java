@@ -20,27 +20,27 @@ public class CartoesModel
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "crt_id", insertable = false, updatable = false)
-    private Integer id;
+    private Integer crtId;
 
     @NotEmpty(message = "Bandeira é obrigatória")
     @Column(name = "crt_bandeira")
-    private String bandeira;
+    private String crtBandeira;
 
     @NotEmpty(message = "Nome é obrigatório")
     @Column(name = "crt_nome")
-    private String nome;
+    private String crtNome;
 
     @NotEmpty(message = "Número é obrigatório")
     @Column(name = "crt_numero")
-    private String numero;
+    private String crtNumero;
 
     @NotEmpty(message = "Validade é obrigatória")
     @Column(name = "crt_validade")
-    private Date validade;
+    private Date crtValidade;
 
     @NotEmpty(message = "CVV é obrigatório")
     @Column(name = "crt_cvv")
-    private String cvv;
+    private String crtCvv;
 
     @ManyToOne
     @JoinColumn(name = "crt_cli_id", referencedColumnName = "cli_id")
@@ -48,82 +48,86 @@ public class CartoesModel
 
     public CartoesModel() 
     {
-        this.id = 0;
-        this.bandeira = "";
-        this.nome = "";
-        this.numero = "";
-        this.validade = null;
-        this.cvv = "";
+        super();
+
+        this.crtId = 0;
+        this.crtBandeira = "";
+        this.crtNome = "";
+        this.crtNumero = "";
+        this.crtValidade = null;
+        this.crtCvv = "";
     }
 
-    public CartoesModel(Integer id, String bandeira, String nome, String numero, Date validade, String cvv) 
+    public CartoesModel(Integer crtId, String crtBandeira, String crtNome, String crtNumero, Date crtValidade, String crtCvv) 
     {
-        this.id = id;
-        this.bandeira = bandeira;
-        this.nome = nome;
-        this.numero = numero;
-        this.validade = validade;
-        this.cvv = cvv;
+        super( );
+
+        this.crtId = crtId;
+        this.crtBandeira = crtBandeira;
+        this.crtNome = crtNome;
+        this.crtNumero = crtNumero;
+        this.crtValidade = crtValidade;
+        this.crtCvv = crtCvv;
     }
 
-    public Integer getId() 
+    public Integer getCrtId() 
     {
-        return this.id;
+        return this.crtId;
     }
 
-    public void setId(Integer id) 
+    public void setCrtId(Integer crtId) 
     {
-        this.id = id;
+        this.crtId = crtId;
     }
 
-    public String getBandeira() 
+    public String getCrtBandeira() 
     {
-        return this.bandeira;
+        return this.crtBandeira;
     }
 
-    public void setBandeira(String bandeira) 
+    public void setCrtBandeira(String crtBandeira) 
     {
-        this.bandeira = bandeira;
+        this.crtBandeira = crtBandeira;
     }
 
-    public String getNome() 
+    public String getCrtNome() 
     {
-        return this.nome;
+        return this.crtNome;
     }
 
-    public void setNome(String nome) 
+    public void setCrtNome(String crtNome) 
     {
-        this.nome = nome;
+        this.crtNome = crtNome;
     }
 
-    public String getNumero() 
+    public String getCrtNumero() 
     {
-        return this.numero;
+        return this.crtNumero;
     }
 
-    public void setNumero(String numero) 
+    public void setCrtNumero(String crtNumero) 
     {
-        this.numero = numero;
+        this.crtNumero = crtNumero;
     }
 
-    public Date getValidade() 
+    public Date getCrtValidade() 
     {
-        return this.validade;
+        return this.crtValidade;
     }
 
-    public void setValidade(Date validade) 
+    public void setCrtValidade(Date crtValidade) 
     {
-        this.validade = validade;
+        this.crtValidade = crtValidade;
     }
 
-    public String getCvv() 
+    public String getCrtCvv() 
     {
-        return this.cvv;
+        return this.crtCvv;
     }
 
-    public void setCvv(String cvv) 
+    public void setCrtCvv(String crtCvv) 
     {
-        this.cvv = cvv;
+        this.crtCvv = crtCvv;
     }
 
     public ClientesModel getCliente() 
@@ -139,22 +143,23 @@ public class CartoesModel
     @Override
     public boolean equals(Object o) 
     {
-        if (o == this)
+        if (o == this) 
         {
             return true;
         }
-            
+
         if (!(o instanceof CartoesModel)) 
         {
             return false;
         }
         CartoesModel cartoesModel = (CartoesModel) o;
-        return Objects.equals(id, cartoesModel.id);
+        return Objects.equals(crtId, cartoesModel.crtId);
     }
 
     @Override
     public int hashCode() 
+    
     {
-        return Objects.hashCode(id);
+        return Objects.hashCode(crtId);
     }
 }

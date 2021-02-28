@@ -12,16 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UsuariosRepository extends JpaRepository<UsuariosModel, Integer>
 {
     // Listagem de usuários não ativos
-    @Query(value = "SELECT * FROM usuarios WHERE ativo_usuario = 0", nativeQuery = true)
+    @Query(value = "SELECT * FROM usuarios WHERE usu_aitvo = 0", nativeQuery = true)
     public List<UsuariosModel> findAllNotAtivo();
 
     // Procura por nome de usuário
-    @Query(value = "SELECT * FROM usuarios WHERE user_usuario = ?", nativeQuery = true)
-    public UsuariosModel findByUsername(String username);
+    @Query(value = "SELECT * FROM usuarios WHERE usu_email = ?", nativeQuery = true)
+    public UsuariosModel findByEmail(String email);
 
     // Atualiza a senha para o usuario referente
     @Modifying
     @Transactional(readOnly = false)
-    @Query(value = "UPDATE usuarios SET password_usuario = ?1 WHERE id_usuario = ?2", nativeQuery = true)
-    public void updatePass(String password, Integer id);
+    @Query(value = "UPDATE usuarios SET usu_senha = ?1 WHERE usu_id = ?2", nativeQuery = true)
+    public void updateSenha(String senha, Integer id);
 }

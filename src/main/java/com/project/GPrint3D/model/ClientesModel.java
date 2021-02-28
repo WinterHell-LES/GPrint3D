@@ -22,26 +22,26 @@ public class ClientesModel
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cli_id", insertable = false, updatable = false)
-	private Integer id;
+	private Integer cliId;
 
 	@NotEmpty(message = "Tipo é obrigatório")
     @Column(name = "cli_tipo")
-	private String tipo;
+	private String cliTipo;
 
 	@NotEmpty(message = "Nome é obrigatório")
     @Column(name = "cli_nome")
-	private String nome;
+	private String cliNome;
 
 	@NotEmpty(message = "Sobrenome é obrigatório")
     @Column(name = "cli_sobrenome")
-	private String sobrenome;
+	private String cliSobrenome;
 
 	@NotEmpty(message = "Sexo é obrigatório")
     @Column(name = "cli_sexo")
-	private String sexo;
+	private String cliSexo;
 
     @Column(name = "cli_dtnasc")
-	private Date dtNasc;
+	private Date cliDtNasc;
 
 	@OneToOne
     @JoinColumn(name = "cli_usu_id", referencedColumnName = "usu_id")
@@ -63,78 +63,84 @@ public class ClientesModel
 	{
 		super();
 
-		this.id = 0;
-		this.nome = "";
-		this.tipo = "";
+		this.cliId = 0;
+		this.cliTipo = "";
+		this.cliNome = "";
+		this.cliSobrenome = "";
+		this.cliSexo = "";
+		this.cliDtNasc = null;
 	}
 
-	public ClientesModel(Integer id, String nome, String tipo) 
+	public ClientesModel(Integer cliId, String cliTipo, String cliNome, String cliSobrenome, String cliSexo, Date cliDtNasc) 
 	{
 		super( );
 
-		this.id = id;
-		this.nome = nome;
-		this.tipo = tipo;
+		this.cliId = cliId;
+		this.cliTipo = cliTipo;
+		this.cliNome = cliNome;
+		this.cliSobrenome = cliSobrenome;
+		this.cliSexo = cliSexo;
+		this.cliDtNasc = cliDtNasc;
 	}
 
-	public Integer getId() 
+	public Integer getCliId() 
 	{
-		return this.id;
+		return this.cliId;
 	}
 
-	public void setId(Integer id) 
+	public void setCliId(Integer cliId) 
 	{
-		this.id = id;
+		this.cliId = cliId;
 	}
 
-	public String getTipo() 
+	public String getCliTipo() 
 	{
-		return this.tipo;
+		return this.cliTipo;
 	}
 
-	public void setTipo(String tipo) 
+	public void setCliTipo(String cliTipo) 
 	{
-		this.tipo = tipo;
+		this.cliTipo = cliTipo;
 	}
 
-	public String getNome() 
+	public String getCliNome() 
 	{
-		return this.nome;
+		return this.cliNome;
 	}
 
-	public void setNome(String nome) 
+	public void setCliNome(String cliNome) 
 	{
-		this.nome = nome;
+		this.cliNome = cliNome;
 	}
 
-	public String getSobrenome() 
+	public String getCliSobrenome() 
 	{
-		return this.sobrenome;
+		return this.cliSobrenome;
 	}
 
-	public void setSobrenome(String sobrenome) 
+	public void setCliSobrenome(String cliSobrenome) 
 	{
-		this.sobrenome = sobrenome;
+		this.cliSobrenome = cliSobrenome;
 	}
 
-	public String getSexo() 
+	public String getCliSexo() 
 	{
-		return this.sexo;
+		return this.cliSexo;
 	}
 
-	public void setSexo(String sexo) 
+	public void setCliSexo(String cliSexo) 
 	{
-		this.sexo = sexo;
+		this.cliSexo = cliSexo;
 	}
 
-	public Date getDtNasc() 
+	public Date getCliDtNasc() 
 	{
-		return this.dtNasc;
+		return this.cliDtNasc;
 	}
 
-	public void setDtNasc(Date dtNasc) 
+	public void setCliDtNasc(Date cliDtNasc) 
 	{
-		this.dtNasc = dtNasc;
+		this.cliDtNasc = cliDtNasc;
 	}
 
 	public UsuariosModel getUsuario() 
@@ -190,22 +196,22 @@ public class ClientesModel
 	@Override
 	public boolean equals(Object o) 
 	{
-		if (o == this)
+		if (o == this) 
 		{
 			return true;
 		}
-			
+
 		if (!(o instanceof ClientesModel)) 
 		{
 			return false;
 		}
 		ClientesModel clientesModel = (ClientesModel) o;
-		return id == clientesModel.id;
+		return cliId == clientesModel.cliId;
 	}
 
 	@Override
 	public int hashCode() 
 	{
-		return Objects.hashCode(id);
+		return Objects.hashCode(cliId);
 	}
 }

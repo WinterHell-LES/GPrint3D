@@ -8,11 +8,14 @@ import com.project.GPrint3D.model.DocumentosModel;
 import com.project.GPrint3D.model.EnderecosModel;
 import com.project.GPrint3D.model.TelefonesModel;
 import com.project.GPrint3D.model.UsuariosModel;
+import com.project.GPrint3D.repository.ClientesRepository;
+import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.CartoesService;
 import com.project.GPrint3D.service.ClientesService;
 import com.project.GPrint3D.service.DocumentosService;
 import com.project.GPrint3D.service.EnderecosService;
 import com.project.GPrint3D.service.TelefonesService;
+import com.project.GPrint3D.service.UsuariosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +28,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/cliente")
 public class CadClienteController 
-{    
+{ 
+    private UsuariosModel usuariosMod;
+    private ClientesModel clientesMod;
+    private DocumentosModel documentosMod;
+    private TelefonesModel telefonesMod; 
+    private EnderecosModel enderecosMod;
+
     @Autowired
     private CartoesService cartoesService;
 
@@ -40,66 +49,94 @@ public class CadClienteController
 
     @Autowired
     private TelefonesService telefonesService;
+
+    @Autowired
+    private UsuariosService usuariosService;
+
+    @Autowired
+    private ClientesRepository clientes;
+
+    @Autowired
+    private UsuariosRepository usuarios;
     
     // Controle de cadastro de dados pessoais
     @RequestMapping("/cadastroDadosPessoais")
-    public ModelAndView cadastroDadosPessoais(ClientesModel cliente, TelefonesModel telefone, DocumentosModel documento, UsuariosModel usuario, EnderecosModel endereco, CartoesModel cartao)
+    public ModelAndView cadastroDadosPessoais(ClientesModel cliente, TelefonesModel telefone, DocumentosModel documento, UsuariosModel usuario)
     {
         ModelAndView mv = new ModelAndView("/cliente/cadastro/cadDadosPessoais");
 
         return mv;
     }
     @PostMapping("/cadastroDadosPessoais")
-    public ModelAndView cadastrarDadosPessoais(@Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, @Valid EnderecosModel endereco, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarDadosPessoais(@Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
-            return cadastroDadosPessoais(cliente, telefone, documento, usuario, endereco, cartao);
+            return cadastroDadosPessoais(cliente, telefone, documento, usuario);
         }
 
-        return cadastroEndereco(cliente, telefone, documento, usuario, endereco, cartao);
+        clientesMod = cliente;
+        telefonesMod = telefone;
+        documentosMod = documento;
+
+        usuario.setUsuRegra("ROLE_CLI");
+
+        usuariosMod = usuario;
+
+        return new ModelAndView("redirect:/cliente/cadastroEndereco");
     }
 
     @RequestMapping("/cadastroEndereco")
-    public ModelAndView cadastroEndereco(ClientesModel cliente, TelefonesModel telefone, DocumentosModel documento, UsuariosModel usuario, EnderecosModel endereco, CartoesModel cartao)
+    public ModelAndView cadastroEndereco(EnderecosModel endereco)
     {
         ModelAndView mv = new ModelAndView("/cliente/cadastro/cadEndereco");
 
         return mv;
     }
     @PostMapping("/cadastroEndereco")
-    public ModelAndView cadastrarEndereco(@Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, @Valid EnderecosModel endereco, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarEndereco(@Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
-            return cadastroEndereco(cliente, telefone, documento, usuario, endereco, cartao);
+            return cadastroEndereco(endereco);
         }
 
-        return cadastroCartao(cliente, telefone, documento, usuario, endereco, cartao);
+        enderecosMod = endereco;
+
+        return new ModelAndView("redirect:/cliente/cadastroCartao");
     }
 
     @RequestMapping("/cadastroCartao")
-    public ModelAndView cadastroCartao(ClientesModel cliente, TelefonesModel telefone, DocumentosModel documento, UsuariosModel usuario, EnderecosModel endereco, CartoesModel cartao)
+    public ModelAndView cadastroCartao(CartoesModel cartao)
     {
         ModelAndView mv = new ModelAndView("/cliente/cadastro/cadCartao");
 
         return mv;
     }
     @PostMapping("/cadastroCartao")
-    public ModelAndView cadastrarCartao(@Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, @Valid EnderecosModel endereco, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarCartao(@Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
-            return cadastroCartao(cliente, telefone, documento, usuario, endereco, cartao);
+            return cadastroCartao(cartao);
         }
 
-        String[] mensagem1 = clientesService.cadastrar(cliente);
-        telefonesService.cadastrar(telefone);
-        documentosService.cadastrar(documento);
-        enderecosService.cadastrar(endereco);
+        usuariosService.cadastrar(usuariosMod);
+        UsuariosModel usu = usuarios.findByEmail(usuariosMod.getUsuEmail());
+        clientesMod.setUsuario(usu);
+
+        clientesService.cadastrar(clientesMod);
+        ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
+
+        telefonesMod.setCliente(cli);
+        documentosMod.setCliente(cli);
+        enderecosMod.setCliente(cli);
+        cartao.setCliente(cli);
+
+        telefonesService.cadastrar(telefonesMod);
+        enderecosService.cadastrar(enderecosMod);
+        documentosService.cadastrar(documentosMod);
         cartoesService.cadastrar(cartao);
-  
-        attributes.addFlashAttribute(mensagem1[0], mensagem1[1]);
 
         return new ModelAndView("redirect:/index");
     }

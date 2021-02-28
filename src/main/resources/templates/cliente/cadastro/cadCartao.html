@@ -29,14 +29,14 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Número do Cartão" id="numCartao" th:field="*{cartoesModel.numero}" required/>
+                                                    <input type="text" class="form-control" placeholder="Número do Cartão" id="numCartao" th:field="*{cartoesModel.crtNumero}" required/>
                                                     <label for="numCartao">Número do cartão</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Nome Impresso" id="nomeCartao" th:field="*{cartoesModel.nome}" required/>
+                                                    <input type="text" class="form-control" placeholder="Nome Impresso" id="nomeCartao" th:field="*{cartoesModel.crtNome}" required/>
                                                     <label for="nomeCartao">Nome impresso</label>
                                                 </div>
                                             </div>
@@ -45,7 +45,7 @@
                                         <div class="row pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" th:field="*{cartoesModel.bandeira}" required>
+                                                    <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" th:field="*{cartoesModel.crtBandeira}" required>
                                                         <option value="" selected>Bandeira do Cartão</option>
                                                         <option value="Elo">Elo</option>
                                                         <option value="Mastercard">Mastercard</option>
@@ -57,14 +57,14 @@
 
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="date" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" th:field="*{cartoesModel.validade}" required/>
+                                                    <input type="date" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" th:field="*{cartoesModel.crtValidade}" required/>
                                                     <label for="validadedCartao">Validade do Cartão</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" th:field="*{cartoesModel.cvv}" required/>
+                                                    <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" th:field="*{cartoesModel.crtCvv}" required/>
                                                     <label for="cvvCartao">Código de Segurança</label>
                                                 </div>
                                             </div>

@@ -25,31 +25,12 @@
                                 </div>
 
                                 <form th:action="@{/cliente/cadastroDadosPessoais}" method="POST">
-                                    <input type="hidden" name="" value="Pessoa física">
-
                                     <div class="row pb-3 pe-0">
                                         <div class="row pb-3 pe-0">
-                                            <div class="col-sm-3">
-                                                <div class="form-floating">
-                                                    <select name="tipoPassoa" class="custom-select form-select" id="tipoPassoa" th:field="${clientesModel.cliTipo}">
-                                                        <option value="" selected>Tipo de indivíduo</option>
-                                                        <option value="Celular">Pessoa física</option>
-                                                        <option value="Comercial">Pessoa jurídica</option>
-                                                    </select>
-                                                    <label for="tipoPassoa">Tipo de indivíduo</label>
-                                                </div>
-                                            </div>
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Nome" id="nome" th:field="${clientesModel.cliNome}">
-                                                    <label for="nome">Nome</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm pe-0">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Sobrenome" id="sobrenome" th:field="${clientesModel.cliSobrenome}">
-                                                    <label for="sobrenome">Sobrenome</label>
+                                                    <input type="text" class="form-control" placeholder="Nome completo ou nome da empresa" id="nome" th:field="${clientesModel.cliNome}">
+                                                    <label for="nome">Nome completo ou nome da empresa</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,26 +105,17 @@
                                                 <div class="form-floating">
                                                     <select name="tipoDocumento" class="custom-select form-select" id="documento" th:field="${documentosModel.docNome}">
                                                         <option value="" selected>Tipo de Documento</option>
-                                                        <option value="CNH">CNH</option>
                                                         <option value="CNPJ">CNPJ</option>
                                                         <option value="CPF">CPF</option>
-                                                        <option value="RG">RG</option>
                                                     </select>
-                                                    <label for="documento">Documento</label>
+                                                    <label for="documento">Tipo de Documento</label>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm">
+                                            <div class="col-sm  pe-0">
                                                 <div class="form-floating">
                                                     <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento" th:field="${documentosModel.docNumero}">
                                                     <label for="numeroDocumento">Número do documento</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm pe-0">
-                                                <div class="form-floating">
-                                                    <input type="date" class="form-control" placeholder="Validade" id="validadeDocumento" th:field="${documentosModel.docValidade}">
-                                                    <label for="validadeDocumento">Validade do Documento</label>
                                                 </div>
                                             </div>
                                         </div>

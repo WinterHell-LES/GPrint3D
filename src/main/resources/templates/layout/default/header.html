@@ -26,8 +26,31 @@
                             </ul>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a class="btn btn-outline-light col-10" href="/cliente/cadastroDadosPessoais">Crie sua conta</a>
-                            <a class="btn btn-outline-light" href="#">Entre</a>
+                            <a class="btn btn-outline-light col-8" href="/cliente/cadastroDadosPessoais">Criar conta</a>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-light btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Login
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end p-0 m-0">
+                                    <div class="dropdown-item nohover nofocus notactive p-0 m-0" style="width: 250px;" disabled>
+                                        <form class="form-signin" th:action=@{/login} method="POST">
+                                            <div class="shadow-lg p-3 bg-light rounded">
+                                                <div class="alert alert-danger" role="alert" th:if="${#bools.isTrue(param.error)}">
+                                                    Usuário e/ou senha inválido(s)
+                                                </div>
+
+                                                <label for="inputUsuario" class="sr-only">Usuário</label>
+                                                <input type="text" id="inputUsuario" class="form-control mb-2" name="username" placeholder="Usuário" required autofocus>
+                                
+                                                <label for="inputPassword" class="sr-only">Senha</label>
+                                                <input type="password" id="inputPassword" class="form-control mb-2" name="password" placeholder="Senha" required>
+                                
+                                                <button class="btn btn-outline-light bg-secondary rounded" type="submit" style="width:100%">Entrar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </nav>

@@ -3620,11 +3620,11 @@ textarea.form-control-lg {
   background-color: transparent;
   border: 0;
 }
-.dropdown-item:hover, .dropdown-item:focus {
+.dropdown-item:not(.nohover):hover, .dropdown-item:not(.nofocus):focus {
   color: #1e2125;
   background-color: #f8f9fa;
 }
-.dropdown-item.active, .dropdown-item:active {
+.dropdown-item.active:not(.notactivate), .dropdown-item:not(.notactivate):active {
   color: #fff;
   text-decoration: none;
   background-color: #0d6efd;

@@ -6,9 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>GPrint3D - Cliente - Cadastro de Endereço</title>
-
-        <!-- Script-->
-        <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>
     </head>
 
     <body>
@@ -29,6 +26,7 @@
                                             <div class="col-lg-9">
                                                 <h5>Endereço</h5>
                                             </div>
+                                            
                                             <div class="col-sm pe-0">
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" th:field="${enderecosModel.endEntrega}"/>
@@ -46,6 +44,7 @@
                                                     </div>
                                                 </div>-->
                                             </div>
+                                            
                                         </div>
 
                                         <div class="row pe-0">
@@ -129,7 +128,7 @@
                                                 </div>
                                                 <div class="col-sm">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="Complemento" id="complemento" th:field="${enderecosModel.endComplemento}" required/>
+                                                        <input type="text" class="form-control" placeholder="Complemento" id="complemento" th:field="${enderecosModel.endComplemento}"/>
                                                         <label for="complemento">Complemento</label>
                                                     </div>
                                                 </div>
@@ -412,6 +411,9 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Script-->
+            <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>
         </section>
     </body>
 </html>

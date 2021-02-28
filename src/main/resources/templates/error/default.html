@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br"
+    layout:decorate="~{layout/default/layout}">
+    
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,17 +9,21 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/bootstrap/bootstrap.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/error.css}">
-
+        
         <title>???</title>
     </head>
 
-    <body class="text-center">
+    <body>
         <section layout:fragment="conteudo">
-            <div class="error-message">
-                <h1 class="h1 mb-3 font-weight-normal">???</h3>
-                <h5 class="h5 mb-3 font-weight-normal">Desculpe, ocorreu um erro desconhecido</h1>
-                <h5 class="h5 mb-3 font-weight-normal">Verifique se a URL está correta ou entre em contato com a gente se precisar de ajuda</h1>
-                <a href="javascript:history.back()" class="btn btn-lg btn-dark btn-block">Voltar</a>
+            <div class="error-box">
+                <div class="col-sm text-center">
+                    <div class="error-message border shadow p-2 rounded-3">
+                        <h1 class="h1 mb-3 font-weight-normal">???</h3>
+                        <h5 class="h5 mb-3 font-weight-normal">Desculpe, a página que você tentou acessar não foi encontrada ou não existe mais</h1>
+                        <h5 class="h5 mb-3 font-weight-normal">Verifique se a URL está correta ou entre em contato com a gente se precisar de ajuda</h1>
+                        <a href="javascript:history.back()" class="btn btn-lg btn-dark btn-block">Voltar</a>
+                    </div>
+                </div>
             </div>
         </section>
     </body>

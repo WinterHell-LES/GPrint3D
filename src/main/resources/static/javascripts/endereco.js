@@ -15,7 +15,7 @@ function removerCampos(id){
     node1.removeChild(node1.childNodes[0]);
 }
 
-function desabilitarEndereco(id) {
+function desabilitarEndereco() {
     var checkBox = document.getElementById('enderecoPadrao');
     var desabilitarDiv = document.getElementById('desabilitar');
     var camposInput = desabilitarDiv.getElementsByTagName('input');
@@ -41,7 +41,16 @@ function desabilitarEndereco(id) {
      else {
      desabilitarDiv.style.display = 'flex';
      }
-    
-    
+}
+
+function validateCheckboxes(elem) {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+
+
+    if (!checkedOne) {
+        alert("É preciso deixar ao menos um tipo de endereço selecionado!");
+        elem.checked = true;
+    }
 
 }

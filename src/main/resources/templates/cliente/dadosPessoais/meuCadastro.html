@@ -23,17 +23,10 @@
 
                                 <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Nome" id="nome">
-                                                <label for="nome">Nome</label>
-                                            </div>
-                                        </div>
-
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Sobrenome" id="sobrenome">
-                                                <label for="sobrenome">Sobrenome</label>
+                                                <input type="text" class="form-control" placeholder="Nome" id="nome" th:value="${cliente.cliNome}">
+                                                <label for="nome">Nome completo ou nome da empresa</label>
                                               </div>
                                         </div>
                                     </div>
@@ -41,7 +34,7 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Data de Nascimento" id="dataNascimento">
+                                                <input type="text" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" th:value="${cliente.cliDtNasc}">
                                                 <label for="dataNascimento">Data de Nascimento</label>
                                             </div>
                                         </div>
@@ -50,9 +43,9 @@
                                             <div class="form-floating">
                                                 <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone">
                                                     <option selected>Tipo de Telefone</option>
-                                                    <option value="Celular">Celular</option>
-                                                    <option value="Comercial">Comercial</option>
-                                                    <option value="Residencial">Residencial</option>
+                                                    <option value="Celular" th:selected="${telefone.telTipo}">Celular</option>
+                                                    <option value="Comercial" th:selected="${telefone.telTipo}">Comercial</option>
+                                                    <option value="Residencial" th:selected="${telefone.telTipo}">Residencial</option>
                                                 </select>
                                                 <label for="tipoTelefone">Tipo de Telefone</label>
                                             </div>
@@ -60,14 +53,14 @@
 
                                         <div class="col-sm-1">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="DDD" id="DDD">
+                                                <input type="text" class="form-control" placeholder="DDD" id="DDD" th:value="${telefone.telDdd}">
                                                 <label for="DDD">DDD</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Telefone" id="telefone">
+                                                <input type="text" class="form-control" placeholder="Telefone" id="telefone" th:value="${telefone.telNumero}">
                                                 <label for="telefone">Telefone</label>
                                             </div>
                                         </div>
@@ -85,19 +78,15 @@
                                                 <div class="col-sm">
                                                     <div class="col-sm d-flex align-items-center">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sexoMasculino">
-                                                            <label class="form-check-label" for="sexoMasculino">
-                                                            Masculino
-                                                            </label>
+                                                            <input class="form-check-input" type="radio" name="Masculino" value="Masculino" id="Masculino" th:checked="${cliente.cliSexo}">
+                                                            <label class="form-check-label" for="Masculino">Masculino</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-sm d-flex align-items-center">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="sexoFeminino">
-                                                            <label class="form-check-label" for="sexoFeminino">
-                                                            Feminino
-                                                            </label>
+                                                            <input class="form-check-input" type="radio" name="Feminino" value="Feminino" id="Feminino" th:checked="${cliente.cliSexo}">
+                                                            <label class="form-check-label" for="Feminino">Feminino</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -108,10 +97,8 @@
                                             <div class="form-floating">
                                                 <select name="tipoDocumento" class="custom-select form-select" id="documento">
                                                     <option selected>Tipo de Documento</option>
-                                                    <option value="CNH">CNH</option>
-                                                    <option value="CNPJ">CNPJ</option>
-                                                    <option value="CPF">CPF</option>
-                                                    <option value="RG">RG</option>
+                                                    <option value="CNPJ" th:selected="${documento.docNome}">CNPJ</option>
+                                                    <option value="CPF" th:selected="${documento.docNome}">CPF</option>
                                                 </select>
                                                 <label for="documento">Documento</label>
                                             </div>
@@ -119,7 +106,7 @@
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento">
+                                                <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento" th:value="${documento.docNumero}">
                                                 <label for="numeroDocumento">Número do documento</label>
                                             </div>
                                         </div>

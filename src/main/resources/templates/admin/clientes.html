@@ -21,16 +21,16 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th style="width: 150px;">CPF</th>
+                        <th>Sobrenome</th>
                         <th>E-mail</th>
                         <th style="width: 100px;">Editar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Nome</td>
-                        <td>CPF</td>
-                        <td>E-mail</td>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.cliNome}">Nome</td>
+                        <td th:text="${cliente.cliSobrenome}">Sobrenome</td>
+                        <td th:text="${cliente.usuario.usuEmail}">E-mail</td>
                         <td>
                             <form action="#" method="POST">
                                 <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModalCenter">

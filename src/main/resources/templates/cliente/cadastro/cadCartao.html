@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/cliente/layout}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Cliente - Cadastro de Cartões</title>
+    </head>
+
+    <body>
+        <!-- Conteudo da página -->
+       <section layout:fragment="conteudo">
+            <div class="my-5">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="row">
+                            <p class="h2">Cadastrar cartão</p>
+                        </div>
+
+                        <form class="form-group" th:action="@{/cliente/cadastrarCartao/} + ${cliente}" method="POST">
+                            <div class="row border shadow p-2 rounded-3">
+                                <div class="row py-3">
+                                    <h5>Dados dos cartão</h5>
+                                </div>
+
+                                <div class="row pb-3 pe-0">
+                                    <div class="row pb-3 pe-0">
+                                        <div class="col-sm ">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" placeholder="Número do Cartão" id="numCartao" th:field="${cartoesModel.crtNumero}">
+                                                <label for="numCartao">Número do Cartão</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm pe-0">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" placeholder="Nome Impresso" id="nomeCartao" th:field="${cartoesModel.crtNome}">
+                                                <label for="nomeCartao">Nome Impresso</label>
+                                              </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row pe-0">
+                                        <div class="col-sm">
+                                            <div class="form-floating">
+                                                <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" th:field="${cartoesModel.crtBandeira}">
+                                                    <option value="" selected>Bandeira do Cartão</option>
+                                                    <option value="Elo">Elo</option>
+                                                    <option value="Mastercard">Mastercard</option>
+                                                    <option value="Visa">Visa</option>
+                                                </select>
+                                                <label for="bandeiraCartao">Bandeira do Cartão</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" th:field="${cartoesModel.crtValidade}">
+                                                <label for="validadedCartao">Validade do Cartão</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm pe-0">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" th:field="${cartoesModel.crtCvv}">
+                                                <label for="cvvCartao">Código de Segurança</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row pe-0 pb-3">
+                                    <div class="row pe-0">
+                                        <div class="col-sm pe-0">
+                                            <div class="text-end">
+                                                <button type="submit" class="btn border shadow-sm">Salvar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" th:field="${cartoesModel.cliente.cliId}">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

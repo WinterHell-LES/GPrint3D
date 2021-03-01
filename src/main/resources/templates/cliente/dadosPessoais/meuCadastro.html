@@ -13,19 +13,36 @@
        <section layout:fragment="conteudo">
             <div class="my-5">
                 <div class="row">
+                    
+                    <div class="alert alert-success" role="alert" th:if="${not #strings.isEmpty(alteracaoSuccess)}">
+                        <span th:text=${alteracaoSuccess}></span>
+                    </div>
+                    <div class="alert alert-danger" role="alert" th:if="${not #strings.isEmpty(alteracaoError)}">
+                        <span th:text=${alteracaoError}></span>
+                    </div>
+                    
                     <div class="col-sm">
                         <div class="row">
                             <p class="h2">Meu cadastro</p>
                         </div>
 
-                        <div class="form-group">
+                        <form class="form-group" th:action="@{/cliente/meuCadastro}" method="POST">
                             <div class="row border shadow p-2 rounded-3">
+
+                                <input type="hidden" th:value="${cliente.cliId}" th:field="${cliente.cliId}"></input>
+                                <input type="hidden" th:value="${cliente.cliRanking}" th:field="${cliente.cliRanking}"></input>
+                                <input type="hidden" th:value="${telefone.telId}" th:field="${telefone.telId}"></input>
+                                <input type="hidden" th:value="${documento.docId}" th:field="${documento.docId}"></input>
+
+                                <input type="hidden" th:value="${cliente.usuario.usuId}" th:field="${cliente.usuario.usuId}"></input>
+                                <input type="hidden" th:value="${telefone.cliente.cliId}" th:field="${telefone.cliente.cliId}"></input>
+                                <input type="hidden" th:value="${documento.cliente.cliId}" th:field="${documento.cliente.cliId}"></input>
 
                                 <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Nome" id="nome" th:value="${cliente.cliNome}">
+                                                <input type="text" class="form-control" placeholder="Nome" id="nome" th:value="${cliente.cliNome}" th:field="${cliente.cliNome}">
                                                 <label for="nome">Nome completo ou nome da empresa</label>
                                               </div>
                                         </div>
@@ -34,18 +51,18 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" th:value="${cliente.cliDtNasc}">
+                                                <input type="text" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" th:value="${cliente.cliDtNasc}" th:field="${cliente.cliDtNasc}">
                                                 <label for="dataNascimento">Data de Nascimento</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3">
                                             <div class="form-floating">
-                                                <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone">
-                                                    <option selected>Tipo de Telefone</option>
-                                                    <option value="Celular" th:selected="${telefone.telTipo}">Celular</option>
-                                                    <option value="Comercial" th:selected="${telefone.telTipo}">Comercial</option>
-                                                    <option value="Residencial" th:selected="${telefone.telTipo}">Residencial</option>
+                                                <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone" th:selected="${telefone.telTipo}" th:field="${telefone.telTipo}">
+                                                    <option value="" selected>Tipo de Telefone</option>
+                                                    <option value="Celular">Celular</option>
+                                                    <option value="Comercial">Comercial</option>
+                                                    <option value="Residencial">Residencial</option>
                                                 </select>
                                                 <label for="tipoTelefone">Tipo de Telefone</label>
                                             </div>
@@ -53,14 +70,14 @@
 
                                         <div class="col-sm-1">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="DDD" id="DDD" th:value="${telefone.telDdd}">
+                                                <input type="text" class="form-control" placeholder="DDD" id="DDD" th:value="${telefone.telDdd}" th:field="${telefone.telDdd}">
                                                 <label for="DDD">DDD</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Telefone" id="telefone" th:value="${telefone.telNumero}">
+                                                <input type="text" class="form-control" placeholder="Telefone" id="telefone" th:value="${telefone.telNumero}" th:field="${telefone.telNumero}">
                                                 <label for="telefone">Telefone</label>
                                             </div>
                                         </div>
@@ -78,14 +95,14 @@
                                                 <div class="col-sm">
                                                     <div class="col-sm d-flex align-items-center">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="Masculino" value="Masculino" id="Masculino" th:checked="${cliente.cliSexo}">
+                                                            <input class="form-check-input" type="radio" name="sexoMasculino" value="Masculino" id="Masculino" th:checked="${#strings.equals(cliente.cliSexo, 'Masculino')}" th:field="${cliente.cliSexo}">
                                                             <label class="form-check-label" for="Masculino">Masculino</label>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-sm d-flex align-items-center">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="Feminino" value="Feminino" id="Feminino" th:checked="${cliente.cliSexo}">
+                                                            <input class="form-check-input" type="radio" name="sexoFeminino" value="Feminino" id="Feminino" th:checked="${#strings.equals(cliente.cliSexo, 'Feminino')}" th:field="${cliente.cliSexo}">
                                                             <label class="form-check-label" for="Feminino">Feminino</label>
                                                         </div>
                                                     </div>
@@ -95,10 +112,10 @@
 
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <select name="tipoDocumento" class="custom-select form-select" id="documento">
-                                                    <option selected>Tipo de Documento</option>
-                                                    <option value="CNPJ" th:selected="${documento.docNome}">CNPJ</option>
-                                                    <option value="CPF" th:selected="${documento.docNome}">CPF</option>
+                                                <select name="tipoDocumento" class="custom-select form-select" id="documento" th:selected="${documento.docTipo}" th:field="${documento.docTipo}">
+                                                    <option value="" selected>Tipo de Documento</option>
+                                                    <option value="CNPJ">CNPJ</option>
+                                                    <option value="CPF">CPF</option>
                                                 </select>
                                                 <label for="documento">Documento</label>
                                             </div>
@@ -106,7 +123,7 @@
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento" th:value="${documento.docNumero}">
+                                                <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento" th:value="${documento.docNumero}" th:field="${documento.docNumero}">
                                                 <label for="numeroDocumento">Número do documento</label>
                                             </div>
                                         </div>
@@ -117,13 +134,13 @@
                                     <div class="row pe-0">
                                         <div class="col-sm pe-0">
                                             <div class="text-end">
-                                                <button type="button" class="btn border shadow-sm">Salvar</button>
+                                                <button type="submit" class="btn border shadow-sm">Alterar</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

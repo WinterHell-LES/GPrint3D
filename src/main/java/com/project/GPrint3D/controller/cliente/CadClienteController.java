@@ -140,20 +140,4 @@ public class CadClienteController
 
         return new ModelAndView("redirect:/index");
     }
-
-    @RequestMapping("/cadastroEndereco2")
-    public ModelAndView cadEndereco2(ClientesModel cliente)
-    {
-        ModelAndView mv = new ModelAndView("/cadastro/cadEndereco2");
-
-        return mv;
-    }
-
-    @RequestMapping("/cadastroCartao2")
-    public ModelAndView cadCartao2(ClientesModel cliente)
-    {
-        ModelAndView mv = new ModelAndView("/cadastro/cadCartao2");
-
-        return mv;
-    }
 }

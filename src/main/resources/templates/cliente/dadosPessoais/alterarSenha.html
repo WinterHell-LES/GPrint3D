@@ -18,8 +18,24 @@
                             <p class="h2">Alteração de senha</p>
                         </div>
 
-                        <div class="form-group">
+                        <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
                             <div class="row border shadow p-2 rounded-3">
+
+                                <!--<input type="hidden" th:value="${oldUsuario.usuId}" th:field="${oldUsuario.usuId}"></input>
+                                <input type="hidden" th:value="${oldUsuario.usuEmail}" th:field="${oldUsuario.usuEmail}"></input>
+                                <input type="hidden" th:value="${oldUsuario.usuSenha}" th:field="${oldUsuario.usuSenha}"></input>
+                                <input type="hidden" th:value="${oldUsuario.usuRegra}" th:field="${oldUsuario.usuRegra}"></input>
+                                <input type="hidden" th:value="${oldUsuario.usuAtivo}" th:field="${oldUsuario.usuAtivo}"></input>
+                                
+                                <input type="hidden" th:value="${checkOldUsuario.usuId}" th:field="${checkOldUsuario.usuId}"></input>
+                                <input type="hidden" th:value="${checkOldUsuario.usuEmail}" th:field="${checkOldUsuario.usuEmail}"></input>
+                                <input type="hidden" th:value="${checkOldUsuario.usuRegra}" th:field="${checkOldUsuario.usuRegra}"></input>
+                                <input type="hidden" th:value="${checkOldUsuario.usuAtivo}" th:field="${checkOldUsuario.usuAtivo}"></input>-->
+
+                                <input type="hidden" th:value="${usuario.usuId}" th:field="${usuario.usuId}"></input>
+                                <input type="hidden" th:value="${usuario.usuEmail}" th:field="${usuario.usuEmail}"></input>
+                                <input type="hidden" th:value="${usuario.usuRegra}" th:field="${usuario.usuRegra}"></input>
+                                <input type="hidden" th:value="${usuario.usuAtivo}" th:field="${usuario.usuAtivo}"></input>
 
                                 <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">
@@ -32,7 +48,7 @@
 
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Nova Senha" id="newPassword">
+                                                <input type="password" class="form-control" placeholder="Nova Senha" id="newPassword" th:field="${usuario.usuSenha}">
                                                 <label for="newPassword">Nova Senha</label>
                                             </div>
                                         </div>
@@ -58,13 +74,13 @@
                                     <div class="row pe-0">
                                         <div class="col-sm pe-0">
                                             <div class="text-end">
-                                                <button type="button" class="btn border shadow-sm">Alterar</button>
+                                                <button type="submit" class="btn border shadow-sm">Alterar</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

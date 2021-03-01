@@ -19,59 +19,30 @@
                     <p class="h2">Endereço de Entrega</p>
                 </div>
 
-                <div class="row mb-4">
-                    <div class="row my-2">
+                <div class="row">
+                    <div class="row my-3">
                         <div class="row">
                             <div class="col">
                                 <div class="text-end">
-                                    <a href="/cliente/cadastrarEndereco"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
+                                    <a th:href="'/cliente/cadastrarEndereco/' + ${cliente.cliId} + '/0'" style="color: black;"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col d-flex justify-content-center">
+                    <div class="col-4 mb-5 d-flex justify-content-center" th:each="endereco : ${cliente.listEndereco}" th:if="${endereco.endEntrega == true}">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title">Endereço 1</h5>
+                                <h5 class="card-title" th:text="${endereco.endDescricao}">Endereço 1</h5>
                                 <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Rua exemplo.</p>
+                                    <div class="col-10 pe-0">
+                                        <p class="card-text" th:text="${endereco.endTipo} + ' ' + ${endereco.endLogradouro}">Rua exemplo.</p>
                                     </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Endereço 2</h5>
-                                <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Rua exemplo.</p>
-                                    </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Endereço 3</h5>
-                                <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Rua exemplo.</p>
-                                    </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
+                                    <div class="col-2 px-0">
+                                        <form th:action="@{/cliente/deletarEndereco}" method="POST">
+                                            <button class="m-0 p-0" style="background-color: transparent; border-color: transparent;" type="submit" name="id" th:value="${endereco.endId}"><i class="bi bi-trash" style="cursor: pointer;"></i></button>
+                                            <a th:href="'/cliente/alterarEndereco/' + ${endereco.endId}" style="color: black;"><i class="bi bi-pencil-square" style="cursor: pointer;"></i></a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -85,59 +56,30 @@
                     <p class="h2">Endereço de Cobrança</p>
                 </div>
 
-                <div class="row mb-4">
-                    <div class="row my-2">
+                <div class="row">
+                    <div class="row my-3">
                         <div class="row">
                             <div class="col">
                                 <div class="text-end">
-                                    <i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i>
+                                    <a th:href="'/cliente/cadastrarEndereco/' + ${cliente.cliId} + '/1'" style="color: black;"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="col d-flex justify-content-center">
+                    <div class="col-4 mb-5 d-flex justify-content-center" th:each="endereco : ${cliente.listEndereco}" th:if="${endereco.endCobranca == true}">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title">Endereço 1</h5>
+                                <h5 class="card-title" th:text="${endereco.endDescricao}">Endereço 1</h5>
                                 <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Rua exemplo.</p>
+                                    <div class="col-10 pe-0">
+                                        <p class="card-text" th:text="${endereco.endTipo} + ' ' + ${endereco.endLogradouro}">Rua exemplo.</p>
                                     </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Endereço 2</h5>
-                                <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Rua exemplo.</p>
-                                    </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Endereço 3</h5>
-                                <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Rua exemplo.</p>
-                                    </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
+                                    <div class="col-2 px-0">
+                                        <form th:action="@{/cliente/deletarEndereco}" method="POST">
+                                            <button class="m-0 p-0" style="background-color: transparent; border-color: transparent;" type="submit" name="id" th:value="${endereco.endId}"><i class="bi bi-trash" style="cursor: pointer;"></i></button>
+                                            <a th:href="'/cliente/alterarEndereco/' + ${endereco.endId}" style="color: black;"><i class="bi bi-pencil-square" style="cursor: pointer;"></i></a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -19,64 +19,36 @@
                     <p class="h2">Cartões</p>
                 </div>
 
-                <div class="row mb-4">
-                    <div class="row my-2">
+                <div class="row">
+                    <div class="row my-3">
                         <div class="row">
                             <div class="col">
                                 <div class="text-end">
-                                    <a href="/cliente/cadastrarCartao"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
+                                    <a th:href="'/cliente/cadastrarCartao/' + ${cliente.cliId}" style="color: black;"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col d-flex justify-content-center">
+                    <div class="col-4 mb-5 d-flex justify-content-center" th:each="cartao : ${cliente.listCartao}">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                                <h5 class="card-title">Cartão 1</h5>
+                                <h5 class="card-title" th:text="${cartao.crtNumero}">Cartão X</h5>
                                 <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Descrição do produto.</p>
+                                    <div class="col-10 pe-0">
+                                        <p class="card-text" th:text="${cartao.crtBandeira}">Bandeira</p>
                                     </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Cartão 2</h5>
-                                <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Descrição do produto.</p>
-                                    </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
+                                    <div class="col-2 px-0">
+                                        <form th:action="@{/cliente/deletarCartao}" method="POST">
+                                            <button class="m-0 p-0" style="background-color: transparent; border-color: transparent;" type="submit" name="id" th:value="${cartao.crtId}"><i class="bi bi-trash" style="cursor: pointer;"></i></button>
+                                            <a th:href="'/cliente/alterarCartao/' + ${cartao.crtId}" style="color: black;"><i class="bi bi-pencil-square" style="cursor: pointer;"></i></a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col d-flex justify-content-center">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-body">
-                                <h5 class="card-title">Cartão 3</h5>
-                                <div class="row">
-                                    <div class="col-11 pe-0">
-                                        <p class="card-text">Descrição do produto.</p>
-                                    </div>
-                                    <div class="col-1 px-0">
-                                        <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>

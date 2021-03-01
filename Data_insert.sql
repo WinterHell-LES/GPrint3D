@@ -20,13 +20,17 @@ values ('CPF', '91294168509', '1');
 
 -- Endereço
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (true, false, 'Casa', 'Rua', 'General Osório', '683', '79904596', null, 'Ponta Porã', 'Mato Grosso do Sul', 'Brasil', null, '1');
+values (true, false, 'Casa', 'Rua', 'General Osório', '683', '79904596', null, 'Ponta Porã', 'MS', 'Brasil', null, '1');
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (false, true, 'Mãe', 'Rua', 'General Osório', '683', '79904596', null, 'Ponta Porãs', 'Mato Grosso do Sul', 'Brasil', null, '1');
+values (false, true, 'Mãe', 'Rua', 'General Osório', '683', '79904596', null, 'Ponta Porãs', 'MS', 'Brasil', null, '1');
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
 values ('Comercial', '67', '36975899', '1');
+
+-- Cartao
+insert into cartoes(crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', 'Sérgio Levi Yuri Melo', '1234568888855221', '07/20', '333', '1');
 
 
 
@@ -44,13 +48,17 @@ values ('CPF', '03784356397', '2');
 
 -- Endereço
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (true, false, 'Casa', 'Rua', 'Manoel Miguel Alves Filho', '905', '81940500', null, 'Curitiba', 'Paraná', 'Brasil', null, '2');
+values (true, false, 'Casa', 'Rua', 'Manoel Miguel Alves Filho', '905', '81940500', null, 'Curitiba', 'PR', 'Brasil', null, '2');
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (false, true, 'Mãe', 'Rua', 'Manoel Miguel Alves Filho', '905', '81940500', null, 'Curitiba', 'Paraná', 'Brasil', null, '2');
+values (false, true, 'Mãe', 'Rua', 'Manoel Miguel Alves Filho', '905', '81940500', null, 'Curitiba', 'PR', 'Brasil', null, '2');
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
 values ('Celular', '41', '987211324', '2');
+
+-- Cartao
+insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', 'Cauã Luiz Lima', '1234568888855221', '07/20', '333', '2');
 
 
 
@@ -68,13 +76,17 @@ values ('CPF', '35308521719', '3');
 
 -- Endereço
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (true, false, 'Casa', 'Rua', 'Treze', '906', '78053733', null, 'Cuiabá', 'Mato Grosso', 'Brasil', null, '3');
+values (true, false, 'Casa', 'Rua', 'Treze', '906', '78053733', null, 'Cuiabá', 'MG', 'Brasil', null, '3');
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (false, true, 'Mãe', 'Rua', 'Treze', '906', '78053733', null, 'Cuiabá', 'Mato Grosso', 'Brasil', null, '3');
+values (false, true, 'Mãe', 'Rua', 'Treze', '906', '78053733', null, 'Cuiabá', 'MG', 'Brasil', null, '3');
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
 values ('Comercial', '65', '36706873', '3');
+
+-- Cartao
+insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', 'Renato Nicolas Lorenzo Araújo', '1234568888855221', '07/20', '333', '3');
 
 
 
@@ -92,13 +104,17 @@ values ('CPF', '58748412708', '4');
 
 -- Endereço
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (true, false, 'Casa', 'Rua', 'Guaçuí', '810', '29177280', null, 'Serra', 'Espiríto Santo', 'Brasil', null, '4');
+values (true, false, 'Casa', 'Rua', 'Guaçuí', '810', '29177280', null, 'Serra', 'ES', 'Brasil', null, '4');
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (false, true, 'Mãe', 'Rua', 'Guaçuí', '810', '29177280', null, 'Serra', 'Espiríto Santo', 'Brasil', null, '4');
+values (false, true, 'Mãe', 'Rua', 'Guaçuí', '810', '29177280', null, 'Serra', 'ES', 'Brasil', null, '4');
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
 values ('Celular', '27', '995943161', '4');
+
+-- Cartao
+insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', 'Theo Heitor Henrique da Paz', '1234568888855221', '07/20', '333', '4');
 
 
 
@@ -116,10 +132,14 @@ values ('CPF', '47196638344', '5');
 
 -- Endereço
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (true, false, 'Casa', 'Rua', 'Antônio Lucas de Carvalho', '884', '58419373', null, 'Campina Grande', 'Paraíba', 'Brasil', null, '5');
+values (true, false, 'Casa', 'Rua', 'Antônio Lucas de Carvalho', '884', '58419373', null, 'Campina Grande', 'PB', 'Brasil', null, '5');
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
-values (true, false, 'Mãe', 'Rua', 'Antônio Lucas de Carvalho', '884', '58419373', null, 'Campina Grande', 'Paraíba', 'Brasil', null, '5');
+values (true, false, 'Mãe', 'Rua', 'Antônio Lucas de Carvalho', '884', '58419373', null, 'Campina Grande', 'PB', 'Brasil', null, '5');
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
 values ('Celular', '83', '983300010', '5');
+
+-- Cartao
+insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', 'Calebe Mateus Daniel Barbosa', '1234568888855221', '07/20', '333', '5');

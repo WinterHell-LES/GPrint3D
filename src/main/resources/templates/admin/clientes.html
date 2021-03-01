@@ -23,6 +23,7 @@
                         <th>Nome completo ou nome da empresa</th>
                         <th>E-mail</th>
                         <th>Documento</th>
+                        <th style="width: 150px;">Ranking</th>
                         <th style="width: 100px;">Ativo</th>
                         <th style="width: 100px;">Editar</th>
                     </tr>
@@ -32,10 +33,11 @@
                         <td th:text="${cliente.cliNome}">Nome</td>
                         <td th:text="${cliente.usuario.usuEmail}">E-mail</td>
                         <td th:each="documento : ${cliente.listDocumento}" th:text="${documento.docTipo} + ': ' + ${documento.docNumero}">Documento</td>
+                        <td th:text="${cliente.cliRanking}">Ranking</td>
                         <td th:text="${cliente.usuario.usuAtivo}">Ativo</td>
                         <td>
                             <form th:action="@{/admin/clientesAtiva}" method="POST">
-                                <a class="btn btn-outline-dark" th:href="'/admin/cliente/' + ${cliente.cliId}">
+                                <a class="btn btn-outline-dark" th:href="'/admin/cliente/' + ${cliente.cliId} + '/dados'">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
                                         <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                                     </svg>
@@ -57,6 +59,7 @@
                         <th><input style="width: 100%" type="text" placeholder="Procurar nome"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar e-mail"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar número de documento"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar ranking"></th>
                         <th></th>
                         <th></th>
                     </tr>

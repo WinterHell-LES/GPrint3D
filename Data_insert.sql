@@ -8,11 +8,11 @@ values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJz
 -- Clientes
 -- Usuario - Cliente 1
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
-values ('cliente1@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_CLI', true);
+values ('cliente1@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_CLI', 1);
 
 -- Cliente
 insert into clientes (cli_ranking, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
-values ('Bronze', 'Sérgio Levi Yuri Melo', 'Masculino', '1945-09-23', '2');
+values ('Bronze', 'Sérgio Levi', 'Masculino', '1945-09-23', '2');
 
 -- Documento
 insert into documentos (doc_tipo, doc_numero, doc_cli_id)

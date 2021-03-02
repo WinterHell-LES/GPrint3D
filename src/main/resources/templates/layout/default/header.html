@@ -35,8 +35,8 @@
                                     <div class="dropdown-item nohover nofocus notactive p-0 m-0" style="width: 250px;" disabled>
                                         <form class="form-signin" th:action=@{/login} method="POST">
                                             <div class="shadow-lg p-3 bg-light rounded">
-                                                <div class="alert alert-danger" role="alert" th:if="${#bools.isTrue(param.error)}">
-                                                    Usuário e/ou senha inválido(s)
+                                                <div class="alert alert-danger text-center p-0" role="alert" th:if="${#bools.isTrue(param.error)}">
+                                                    Usuário e/ou<br>senha inválido(s)
                                                 </div>
 
                                                 <label for="inputEmail" class="sr-only">E-mail</label>

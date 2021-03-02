@@ -21,21 +21,11 @@
                         <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
                             <div class="row border shadow p-2 rounded-3">
 
-                                <!--<input type="hidden" th:value="${oldUsuario.usuId}" th:field="${oldUsuario.usuId}"></input>
-                                <input type="hidden" th:value="${oldUsuario.usuEmail}" th:field="${oldUsuario.usuEmail}"></input>
-                                <input type="hidden" th:value="${oldUsuario.usuSenha}" th:field="${oldUsuario.usuSenha}"></input>
-                                <input type="hidden" th:value="${oldUsuario.usuRegra}" th:field="${oldUsuario.usuRegra}"></input>
-                                <input type="hidden" th:value="${oldUsuario.usuAtivo}" th:field="${oldUsuario.usuAtivo}"></input>
-                                
-                                <input type="hidden" th:value="${checkOldUsuario.usuId}" th:field="${checkOldUsuario.usuId}"></input>
-                                <input type="hidden" th:value="${checkOldUsuario.usuEmail}" th:field="${checkOldUsuario.usuEmail}"></input>
-                                <input type="hidden" th:value="${checkOldUsuario.usuRegra}" th:field="${checkOldUsuario.usuRegra}"></input>
-                                <input type="hidden" th:value="${checkOldUsuario.usuAtivo}" th:field="${checkOldUsuario.usuAtivo}"></input>-->
-
-                                <input type="hidden" th:value="${usuario.usuId}" th:field="${usuario.usuId}"></input>
-                                <input type="hidden" th:value="${usuario.usuEmail}" th:field="${usuario.usuEmail}"></input>
-                                <input type="hidden" th:value="${usuario.usuRegra}" th:field="${usuario.usuRegra}"></input>
-                                <input type="hidden" th:value="${usuario.usuAtivo}" th:field="${usuario.usuAtivo}"></input>
+                                <!--<input type="hidden" th:value="${checkOldPass.senha}" th:field="${checkOldPass.senha}">-->
+                                <input type="hidden" th:value="${usuario.usuId}" th:field="${usuario.usuId}">
+                                <input type="hidden" th:value="${usuario.usuEmail}" th:field="${usuario.usuEmail}">
+                                <input type="hidden" th:value="${usuario.usuRegra}" th:field="${usuario.usuRegra}">
+                                <input type="hidden" th:value="${usuario.usuAtivo}" th:field="${usuario.usuAtivo}">
 
                                 <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">

@@ -1,4 +1,4 @@
-package com.project.GPrint3D.controller.cliente;
+package com.project.GPrint3D.controller.cliente.pedidos;
 
 import java.security.Principal;
 

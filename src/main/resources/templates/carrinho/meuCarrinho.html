@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/default/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Home</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+
+            <div class="container">
+                <div class="row border-bottom">
+                    <div class="col-6 text-start">
+                        <p class="h2">Meu carrinho</p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button type="submit" class="btn border shadow-sm">Remover tudo</button>
+                        <a href="/cliente/carrinho/confirmarEndereco"><button type="submit" class="btn border shadow-sm">Comprar</button></a>
+                    </div>
+                </div>
+
+                <div class="row mt-2 pb-2 text-center border-bottom">
+                    <div class="col-5 flex-column d-flex justify-content-center text-start border-end">
+                        <p class="h5 m-0 p-0">Produto</p>
+                    </div>
+                    <div class="col-2 flex-column d-flex justify-content-center text-center border-end">
+                        <p class="h5 m-0 p-0">Qtd</p>
+                    </div>
+                    <div class="col-2 flex-column d-flex justify-content-center text-center border-end">
+                        <p class="h5 m-0 p-0">Preço un.</p>
+                    </div>
+                    <div class="col-2 flex-column d-flex justify-content-center text-center border-end">
+                        <p class="h5 m-0 p-0">Sub-Total</p>
+                    </div>
+                    <div class="col-1 flex-column d-flex justify-content-center text-center">
+                        <p class="h5 m-0 p-0">Remover</p>
+                    </div>
+                </div>
+
+                <div class="row my-2 pb-2 border-bottom">
+                    <div class="col-2">
+                        <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
+                    </div>
+                    <div class="col-3 flex-column d-flex align-self-stretch justify-content-center border-end">
+                        <h5>Produto 1</h5>
+                        <p>Descrição do produto.</p>
+                    </div>
+                    <div class="col-2 flex-column d-flex align-self-stretch justify-content-center border-end">
+                        <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="input-group">
+                              <div class="input-group-text" id="btnGroupAddon">-</div>
+                              <input type="text" class="form-control px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" style="width: 50px; text-align: center;">
+                              <div class="input-group-text" id="btnGroupAddon">+</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 flex-column d-flex align-self-stretch justify-content-center text-center border-end">
+                        <p class="m-0 p-0">R$50,00</p>
+                    </div>
+                    <div class="col-2 flex-column d-flex align-self-stretch justify-content-center text-center border-end">
+                        <p class="m-0 p-0">R$150,00</p>
+                    </div>
+                    <div class="col-1  flex-column d-flex align-self-stretch justify-content-center text-center">
+                        <i class="bi bi-x-square fs-5" style="cursor: pointer;"></i>
+                    </div>
+                </div>
+
+                <div class="row mt-2 pt-2">
+                    <div class="col-2 flex-column d-flex justify-content-center text-end pe-2">
+                        <span>Insira seu CEP:</span>
+                    </div>
+                    <div class="col-1 px-0">
+                        <input type="text" class="form-control px-1" id="CEP" placeholder="00000-000" style="width: 100px; text-align: center;">
+                    </div>
+                    <div class="col-1">
+                        <button type="submit" class="btn border shadow-sm">Calcular</button>
+                    </div>
+                    <div class="col-2 flex-column d-flex justify-content-center">
+                        <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu cep</a>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-2 flex-column d-flex justify-content-center text-end border-end">
+                        <p class="h6">Total do pedido:</p>
+                    </div>
+                    <div class="col-2 flex-column d-flex justify-content-center text-center">
+                        <p class="h6">R$150,00</p>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6 border shadow p-3">
+                        <div class="form-check pb-2">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00
+                            </label>
+                            </div>
+                            <div class="form-check pb-2">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Correios - SEDEX - Receba em até 07 dia(s) útil(eis). - R$18,00
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                Correios - SEDEX 10 - Receba em até 01 dia(s) útil(eis). - R$25,00
+                                </label>
+                            </div>
+                    </div>
+                    <div class="col-6 flex-row d-flex justify-content-end align-items-start text-end gap-1">
+                        <button type="submit" class="btn border shadow-sm">Remover tudo</button>
+                        <button type="submit" class="btn border shadow-sm">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,19 +1,20 @@
 package com.project.GPrint3D.controller.cliente.alterar;
 
 import java.security.Principal;
-
 import javax.servlet.http.HttpServletRequest;
-
 import javax.validation.Valid;
 
+import com.project.GPrint3D.configuration.SecurityConfig;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.UsuariosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,19 +22,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/cliente")
 public class AltPassCliController 
 {
+    private UsuariosModel oldUser;
+
     @Autowired
     private UsuariosRepository usuarios;
 
     @Autowired
     private UsuariosService usuariosService;
 
+    @Autowired
+    private SecurityConfig securityConfig;
+
     //Tela de alteração de senha do usuario
     @RequestMapping("/alterarSenha")
-    public ModelAndView alterarSenha(HttpServletRequest auth, Principal principal)
+    public ModelAndView alteracaoSenha(HttpServletRequest auth, Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarSenha");
 
-        UsuariosModel usu = usuarios.findByEmail(principal.getName());        
+        UsuariosModel usu = usuarios.findByEmail(principal.getName());
+        
+        oldUser = usu;
         
         mv.addObject("usuario", usu);
 
@@ -42,25 +50,34 @@ public class AltPassCliController
 
     //Alterar a senha do cliente
     @PostMapping("/alterarSenha")
-    public ModelAndView alteracaoSenha(@Valid UsuariosModel Usuario, RedirectAttributes attributes)
+    public ModelAndView alterarSenha(@RequestParam(name = "oldPassword") String oldPass, @RequestParam(name = "confirmNewPassword") String confirmNewPass, @Valid UsuariosModel Usuario, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
     {
-        /*if (oldUsuario.getUsuSenha() == checkOldUsuario.getUsuSenha())
+
+        if (result.hasErrors())
         {
-            //usuariosService.atualizarPass(newUsuario);
-            System.out.println(oldUsuario.getUsuSenha());
-            System.out.println(checkOldUsuario.getUsuSenha());
-            
-            return new ModelAndView("redirect:/cliente/alterarSenha");
+            return alteracaoSenha(auth, principal);
         }
-        
-        else
+
+        String oldUserPass = oldUser.getUsuSenha();
+        String newUserPass = Usuario.getUsuSenha();
+
+        if (securityConfig.passwordEncoder().matches(oldPass, oldUserPass))
         {
-            return new ModelAndView("redirect:/cliente/index");
-        }*/
+            if (confirmNewPass.equals(newUserPass))
+            {
+                System.out.println("Sucesso!");
+                usuariosService.atualizarPass(Usuario);
 
-        usuariosService.atualizarPass(Usuario);
+                return new ModelAndView("redirect:/cliente/index");
+            }else{
+                String msgError = "Senha nova diferente da confirmação de senha, favor digitar corretamente.";
+                System.out.println("Fracasso newConfirm != new!");
+            }
+        }else{
+            String msgError = "Senha antiga não confere, favor digitar corretamente.";
+            System.out.println("Fracasso oldTyped != realOld!");
+        }
 
-        return new ModelAndView("redirect:/cliente/index");
-
+        return alteracaoSenha(auth, principal);
     }
 }

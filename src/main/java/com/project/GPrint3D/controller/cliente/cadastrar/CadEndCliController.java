@@ -39,7 +39,7 @@ public class CadEndCliController
     @RequestMapping("/cadastrarEndereco/{id}/{check}")
     public ModelAndView cadastroEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, EnderecosModel endereco, HttpServletRequest auth, Principal principal)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastro/cadEndereco");
+        ModelAndView mv = new ModelAndView("/cliente/cadastrar/cadastrarEndereco");
         
         mv.addObject("cliente", String.valueOf(id));
         mv.addObject("check", check);

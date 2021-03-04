@@ -57,7 +57,7 @@
 
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" onkeyup="mascaraValCard(this)" th:field="*{cartoesModel.crtValidade}" required/>
+                                                    <input type="date" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" onkeyup="mascaraValCard(this)" th:field="*{cartoesModel.crtValidade}" required/>
                                                     <label for="validadedCartao">Validade do Cartão</label>
                                                 </div>
                                             </div>
@@ -118,8 +118,8 @@
                 </div>
             </div>
             
-            <!-- Script-->
-            <script type="text/javascript" th:src="@{/javascripts/cartao.js}"></script>
+            <!-- Script
+            <script type="text/javascript" th:src="@{/javascripts/cartao.js}"></script>-->
         </section>
     </body>
 </html>

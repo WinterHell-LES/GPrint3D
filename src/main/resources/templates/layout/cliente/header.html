@@ -10,11 +10,23 @@
                 <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <ul class="navbar-nav px-3">
-                    <li class="nav-item text-nowrap">
-                        <a class="btn btn-outline-light col px-2" href="/logout">Sair</a>
-                    </li>
-                </ul>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end pe-3">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary py-0 pe-0">
+                            <a class="d-flex flex-row d-flex justify-content-center align-items-center" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
+                                <i class="bi bi-cart3 fs-5"></i>
+                                <span class="badge badge-pill badge-danger align-self-center fs-7"  style="color: white; text-decoration: none;">1</span>
+                            </a>
+                        </button>
+                        <button type="button" class="btn btn-secondary py-0">
+                            <a href="/index" style="color: white; text-decoration: none;"><i class="bi bi-house fs-5"></i></a>
+                        </button>
+                        <button type="button" class="btn btn-secondary py-0">
+                            <a href="/logout" style="color: white; text-decoration: none;"><i class="bi bi-box-arrow-right fs-5"></i></a>
+                        </button>
+                    </div>
+                </div>
             </header>
         </div>
     </body>

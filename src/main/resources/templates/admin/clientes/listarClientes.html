@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Admin - Clientes</title>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/dataTables/jquery.dataTables.css}">
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Clientes</h1>
+            </div>
+
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nome completo ou nome da empresa</th>
+                        <th>E-mail</th>
+                        <th>Documento</th>
+                        <th style="width: 150px;">Ranking</th>
+                        <th style="width: 100px;">Ativo</th>
+                        <th style="width: 100px;">Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.cliNome}">Nome</td>
+                        <td th:text="${cliente.usuario.usuEmail}">E-mail</td>
+                        <td th:each="documento : ${cliente.listDocumento}" th:text="${documento.docTipo} + ': ' + ${documento.docNumero}">Documento</td>
+                        <td th:text="${cliente.cliRanking}">Ranking</td>
+                        <td th:text="${cliente.usuario.usuAtivo}">Ativo</td>
+                        <td class="py-0 my-0">
+                            <form th:action="@{/admin/clientesAtiva}" method="POST">
+                                <a style="text-decoration: none;" th:href="'/admin/cliente/' + ${cliente.cliId} + '/dados'">
+                                    <i class="bi bi-info-square fs-4" style="color: black;"></i>
+                                </a>
+                                <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${cliente.usuario.usuId}">
+                                    <i class="bi bi-unlock fs-4" th:if="${cliente.usuario.usuAtivo == true}"></i>
+                                    <i class="bi bi-lock fs-4" th:if="${cliente.usuario.usuAtivo == false}"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar nome"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar e-mail"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar número de documento"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar ranking"></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- Script -->
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.dataTables.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.tableControl.admin.cliente.js}"></script>
+        </section>
+    </body>
+</html>

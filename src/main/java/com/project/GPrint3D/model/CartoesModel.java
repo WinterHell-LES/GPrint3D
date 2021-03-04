@@ -1,6 +1,5 @@
 package com.project.GPrint3D.model;
 
-import java.sql.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -36,7 +35,7 @@ public class CartoesModel
 
     @NotEmpty(message = "Validade é obrigatória")
     @Column(name = "crt_validade")
-    private Date crtValidade;
+    private String crtValidade;
 
     @NotEmpty(message = "CVV é obrigatório")
     @Column(name = "crt_cvv")
@@ -58,7 +57,7 @@ public class CartoesModel
         this.crtCvv = "";
     }
 
-    public CartoesModel(Integer crtId, String crtBandeira, String crtNome, String crtNumero, Date crtValidade, String crtCvv) 
+    public CartoesModel(Integer crtId, String crtBandeira, String crtNome, String crtNumero, String crtValidade, String crtCvv) 
     {
         super( );
 
@@ -110,12 +109,12 @@ public class CartoesModel
         this.crtNumero = crtNumero;
     }
 
-    public Date getCrtValidade() 
+    public String getCrtValidade() 
     {
         return this.crtValidade;
     }
 
-    public void setCrtValidade(Date crtValidade) 
+    public void setCrtValidade(String crtValidade) 
     {
         this.crtValidade = crtValidade;
     }

@@ -70,14 +70,14 @@
 
                                         <div class="col-sm-1">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="DDD" id="DDD" th:value="${telefone.telDdd}" th:field="${telefone.telDdd}">
+                                                <input type="text" class="form-control ddd" placeholder="DDD" id="DDD" th:value="${telefone.telDdd}" th:field="${telefone.telDdd}">
                                                 <label for="DDD">DDD</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Telefone" id="telefone" th:value="${telefone.telNumero}" th:field="${telefone.telNumero}">
+                                                <input type="text" class="form-control celphone" placeholder="Telefone" id="telefone" th:value="${telefone.telNumero}" th:field="${telefone.telNumero}">
                                                 <label for="telefone">Telefone</label>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Número do documento" id="numeroDocumento" th:value="${documento.docNumero}" th:field="${documento.docNumero}">
+                                                <input type="text" class="form-control cpf-cnpj" placeholder="Número do documento" id="numeroDocumento" th:value="${documento.docNumero}" th:field="${documento.docNumero}">
                                                 <label for="numeroDocumento">Número do documento</label>
                                             </div>
                                         </div>
@@ -144,6 +144,10 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Script-->
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
         </section>
     </body>
 </html>

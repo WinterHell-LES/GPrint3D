@@ -32,7 +32,7 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm ">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Número do Cartão" id="numCartao" th:value="${cartao.crtNumero}" th:field="${cartao.crtNumero}">
+                                                <input type="text" class="form-control cartao" placeholder="Número do Cartão" id="numCartao" th:value="${cartao.crtNumero}" th:field="${cartao.crtNumero}">
                                                 <label for="numCartao">Número do Cartão</label>
                                             </div>
                                         </div>
@@ -60,7 +60,7 @@
 
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="date" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" th:date="${cartao.crtValidade}" th:field="${cartao.crtValidade}">
+                                                <input type="text" class="form-control validade" placeholder="Validade do Cartão" id="validadedCartao" th:date="${cartao.crtValidade}" th:field="${cartao.crtValidade}">
                                                 <label for="validadedCartao">Validade do Cartão</label>
                                             </div>
                                         </div>
@@ -88,6 +88,10 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Script-->
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
         </section>
     </body>
 </html>

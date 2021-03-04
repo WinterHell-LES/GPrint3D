@@ -12,10 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/admin")
 public class AdminGraphController 
 {
-    @RequestMapping("graficos")
+    @RequestMapping("visualizarVendas")
     public ModelAndView graficos(HttpServletRequest auth, Principal principal)
     {
-        ModelAndView mv = new ModelAndView("/admin/graficos");
+        ModelAndView mv = new ModelAndView("/admin/graficos/visualizarVendas");
 
         return mv;
     }

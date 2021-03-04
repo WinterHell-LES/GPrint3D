@@ -131,7 +131,7 @@
                                             </div>
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="00000-000" id="CEP" th:value="${endereco.endCep}" th:field="${endereco.endCep}">
+                                                    <input type="text" class="form-control cep" placeholder="00000-000" id="CEP" th:value="${endereco.endCep}" th:field="${endereco.endCep}">
                                                     <label for="CEP">CEP</label>
                                                 </div>
                                             </div>
@@ -217,6 +217,8 @@
             
             <!-- Script-->
             <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
         </section>
     </body>
 </html>

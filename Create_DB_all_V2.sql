@@ -10,7 +10,7 @@ CREATE TABLE cartoes (
     crt_bandeira		VARCHAR(20) NOT NULL,
     crt_nome         	VARCHAR(50) NOT NULL,
     crt_numero       	VARCHAR(50) NOT NULL,
-    crt_validade     	DATE NOT NULL,
+    crt_validade     	VARCHAR(10) NOT NULL,
     crt_cvv          	VARCHAR(10) NOT NULL,
     crt_cli_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_crt PRIMARY KEY ( crt_id )

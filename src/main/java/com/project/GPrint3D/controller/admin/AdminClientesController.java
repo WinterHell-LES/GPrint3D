@@ -28,27 +28,15 @@ public class AdminClientesController
     private ClientesRepository clientes;
 
     @Autowired
-    private DocumentosRepository documentos;
-
-    @Autowired
-    private TelefonesRepository telefones;
-
-    @Autowired
-    private EnderecosRepository enderecos;
-
-    @Autowired
-    private CartoesRepository cartoes;
-
-    @Autowired
     private UsuariosRepository usuarios;
 
     @Autowired
     private UsuariosService usuariosService;
 
-    @RequestMapping("/clientes")
+    @RequestMapping("/listarClientes")
     public ModelAndView listagemAlunos(ClientesModel cliente) 
     {
-        ModelAndView mv = new ModelAndView("admin/clientes");
+        ModelAndView mv = new ModelAndView("admin/clientes/listarClientes");
 
         mv.addObject("clientes", clientes.findAll());
 
@@ -79,7 +67,7 @@ public class AdminClientesController
     @GetMapping(value = "/cliente/{id}/dados")
     public ModelAndView listagemDadosCliente(@PathVariable("id") Integer id)
     {
-        ModelAndView mv = new ModelAndView("/admin/infoClientesDados");
+        ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesDados");
 
         mv.addObject("cliente", clientes.findOneById(id));
 
@@ -89,7 +77,7 @@ public class AdminClientesController
     @GetMapping(value = "/cliente/{id}/documentos")
     public ModelAndView listagemDocumentosCliente(@PathVariable("id") Integer id)
     {
-        ModelAndView mv = new ModelAndView("/admin/infoClientesDocumentos");
+        ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesDocumentos");
 
         mv.addObject("cliente", clientes.findOneById(id));
 
@@ -99,7 +87,7 @@ public class AdminClientesController
     @GetMapping(value = "/cliente/{id}/telefones")
     public ModelAndView listagemTelefonesCliente(@PathVariable("id") Integer id)
     {
-        ModelAndView mv = new ModelAndView("/admin/infoClientesTelefones");
+        ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesTelefones");
 
         mv.addObject("cliente", clientes.findOneById(id));
 
@@ -109,7 +97,7 @@ public class AdminClientesController
     @GetMapping(value = "/cliente/{id}/enderecos")
     public ModelAndView listagemEnderecosCliente(@PathVariable("id") Integer id)
     {
-        ModelAndView mv = new ModelAndView("/admin/infoClientesEnderecos");
+        ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesEnderecos");
 
         mv.addObject("cliente", clientes.findOneById(id));
 
@@ -119,7 +107,7 @@ public class AdminClientesController
     @GetMapping(value = "/cliente/{id}/cartoes")
     public ModelAndView listagemCartoesCliente(@PathVariable("id") Integer id, UsuariosModel usuario)
     {
-        ModelAndView mv = new ModelAndView("/admin/infoClienteCartoes");
+        ModelAndView mv = new ModelAndView("/admin/clientes/infoClienteCartoes");
 
         mv.addObject("cliente", clientes.findOneById(id));
 
@@ -129,7 +117,7 @@ public class AdminClientesController
     @GetMapping(value = "/cliente/{id}/usuario")
     public ModelAndView listagemUsuariosCliente(@PathVariable("id") Integer id, UsuariosModel usuario)
     {
-        ModelAndView mv = new ModelAndView("/admin/infoClientesUsuario");
+        ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesUsuario");
 
         mv.addObject("cliente", clientes.findOneById(id));
 

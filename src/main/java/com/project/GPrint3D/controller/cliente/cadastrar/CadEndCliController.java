@@ -37,11 +37,11 @@ public class CadEndCliController
 
     //Tela de cadastro de novo endereço do cliente
     @RequestMapping("/cadastrarEndereco/{id}/{check}")
-    public ModelAndView cadastroEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, EnderecosModel endereco, HttpServletRequest auth, Principal principal)
+    public ModelAndView cadastroEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, EnderecosModel endereco)
     {
         ModelAndView mv = new ModelAndView("/cliente/cadastrar/cadastrarEndereco");
         
-        mv.addObject("cliente", String.valueOf(id));
+        mv.addObject("cliente", id);
         mv.addObject("check", check);
 
         return mv;
@@ -49,7 +49,7 @@ public class CadEndCliController
 
     //Cadastrar novo endereço do cliente
     @PostMapping("/cadastrarEndereco/{id}/{check}")
-    public ModelAndView cadastrarEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
+    public ModelAndView cadastrarEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, Principal principal)
     {
         if (result.hasErrors())
         {

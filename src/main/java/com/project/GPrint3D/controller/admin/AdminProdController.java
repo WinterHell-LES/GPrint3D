@@ -29,6 +29,16 @@ public class AdminProdController
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarProdutos");
 
+        System.out.println("Acessou");
+
+        return mv;
+    }
+
+    @RequestMapping("alterarProdutos")
+    public ModelAndView alterarProdutos()
+    {
+        ModelAndView mv = new ModelAndView("/admin/produtos/alterarProdutos");
+
         return mv;
     }
 }

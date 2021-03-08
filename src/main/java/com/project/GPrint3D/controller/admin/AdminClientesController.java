@@ -3,10 +3,6 @@ package com.project.GPrint3D.controller.admin;
 import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.ClientesRepository;
-import com.project.GPrint3D.repository.DocumentosRepository;
-import com.project.GPrint3D.repository.TelefonesRepository;
-import com.project.GPrint3D.repository.EnderecosRepository;
-import com.project.GPrint3D.repository.CartoesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.UsuariosService;
 

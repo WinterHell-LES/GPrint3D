@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/uikit/uikit.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/drag.and.drop.css}">
 
         <title>GPrint3D - Admin - Produtos</title>
     </head>
@@ -14,7 +14,7 @@
     <body>
         <section layout:fragment="conteudo">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Cadastro de produtos</h1>
+                <h1 class="h2">Alterar produto</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <a href="/admin/listarProdutos" class="btn btn-sm btn-outline-secondary">
                         Voltar
@@ -22,30 +22,30 @@
                 </div>
             </div>
 
-            <form th:action="@{/cadastro/cadastroCartao}" method="POST">
+            <form th:action="@{/admin/alterarProdutos}" method="POST">
                 <div class="row pb-3 pe-0">
                     <div class="row pb-3 pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovel" required/>
-                                <label for="descricaoImovel">Nome do produto</label>
+                                <input type="text" class="form-control" placeholder="Nome do produto" id="nomeProduto" required/>
+                                <label for="nomeProduto">Nome</label>
                             </div>
                         </div>
                     </div>
                     <div class="row pe-0">
                         <div class="col-sm">
                             <div class="form-floating">
-                                <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" required>
+                                <select name="categoria" class="custom-select form-select" id="categoria" required>
                                     <option value="" selected>Categoria</option>
                                 </select>
-                                <label for="bandeiraCartao">Categoria</label>
+                                <label for="categoria">Categoria</label>
                             </div>
                         </div>
 
                         <div class="col-sm">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Validade do Cartão" id="validadedCartao" required/>
-                                <label for="validadedCartao">Preço</label>
+                                <input type="text" class="form-control" placeholder="Preço" id="preco" required/>
+                                <label for="preco">Preço</label>
                             </div>
                         </div>
 
@@ -58,16 +58,10 @@
                     </div>
                 </div>
 
-                <div class="js-upload uk-placeholder uk-text-center">
-                    <span uk-icon="icon: cloud-upload"></span>
-                    <span class="uk-text-middle">Arraste a imagem e solte-a aqui ou,</span>
-                    <div uk-form-custom>
-                        <input type="file" multiple>
-                        <a href="">selecione um arquivo</a>
-                    </div>
+                <div class="drop-zone mb-3" id="drop-zone">
+                    <span class="drop-zone__prompt">Arraste a imagem e solte-a aqui ou selecione um arquivo</span>
+                    <input type="file" name="foto" class="drop-zone__input" accept="image/*"/>
                 </div>
-                
-                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
                 <div class="row pe-0 pb-3">
                     <div class="row pe-0">
@@ -80,9 +74,7 @@
                 </div>
             </form>
 
-            <script type="text/javascript" th:src="@{/javascripts/uikit/uikit.min.js}"></script>
-            <script type="text/javascript" th:src="@{/javascripts/uikit/uikit-icons.min.js}"></script>
-            <script type="text/javascript" th:src="@{/javascripts/uikit/uikit.upload.progressbar.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/drag.and.drop.js}"></script>
         </section>
     </body>
 </html>

@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="cliente : ${clientes}">
-                        <td th:text="${cliente.cliNome}">Nome</td>
+                        <td th:text="${cliente.cliNome}">Nome completo ou nome da empresa</td>
                         <td th:text="${cliente.usuario.usuEmail}">E-mail</td>
                         <td th:each="documento : ${cliente.listDocumento}" th:text="${documento.docTipo} + ': ' + ${documento.docNumero}">Documento</td>
                         <td th:text="${cliente.cliRanking}">Ranking</td>

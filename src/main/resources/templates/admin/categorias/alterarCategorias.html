@@ -13,6 +13,11 @@
         <section layout:fragment="conteudo">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Cadastro de categoria</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/listarCategorias" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
             </div>
 
             <form th:action="@{/admin/alterarCategoria}" method="POST">
@@ -21,7 +26,7 @@
                         <div class="col-sm pe-0">
                             <div class="form-floating">
                                 <input type="text" class="form-control" placeholder="Nome da categoria" id="nomeCategoria" required/>
-                                <label for="nomeCategoria">Nome da categoria</label>
+                                <label for="nomeCategoria">Nome</label>
                             </div>
                         </div>
                     </div>

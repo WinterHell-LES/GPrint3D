@@ -1,9 +1,5 @@
 package com.project.GPrint3D.controller.admin;
 
-import java.security.Principal;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,10 +8,26 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/admin")
 public class AdminPedidosController 
 {
-    @RequestMapping("pedidos")
-    public ModelAndView listagemPedidos(HttpServletRequest auth, Principal principal)
+    @RequestMapping("listarPedidos")
+    public ModelAndView listagemPedidos()
     {
-        ModelAndView mv = new ModelAndView("/admin/pedidos");
+        ModelAndView mv = new ModelAndView("/admin/pedidos/listarPedidos");
+
+        return mv;
+    }
+
+    @RequestMapping("infoPedidos")
+    public ModelAndView informacoesPedidos()
+    {
+        ModelAndView mv = new ModelAndView("/admin/pedidos/infoPedidos");
+
+        return mv;
+    }
+
+    @RequestMapping("alterarPedidos")
+    public ModelAndView alterarPedidos()
+    {
+        ModelAndView mv = new ModelAndView("/admin/pedidos/alterarPedidos");
 
         return mv;
     }

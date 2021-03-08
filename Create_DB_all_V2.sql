@@ -1,7 +1,9 @@
+-- DATABASE
 DROP DATABASE IF EXISTS crud_gprint3d;
 CREATE DATABASE crud_gprint3d;
 USE crud_gprint3d;
-	
+
+-- TABLES
 DROP TABLE IF EXISTS cartoes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -86,6 +88,7 @@ CREATE TABLE usuarios (
     CONSTRAINT uk_usu UNIQUE ( usu_email )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- FOREIGN KEYS
 ALTER TABLE clientes
     ADD CONSTRAINT fk_cli_usu FOREIGN KEY ( cli_usu_id )
         REFERENCES usuarios ( usu_id );
@@ -106,6 +109,9 @@ ALTER TABLE enderecos
     ADD CONSTRAINT fk_end_cli FOREIGN KEY ( end_cli_id )
         REFERENCES clientes ( cli_id );
         
--- Usuário - Administrador
+-- TRIGGERS
+
+
+-- USERS - ADM
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', 1);

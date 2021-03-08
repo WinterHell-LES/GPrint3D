@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/cliente")
-public class ConfEndCliController
+public class EscolherEndCliController
 {
     @Autowired
     private ClientesRepository clientes;
@@ -25,10 +25,10 @@ public class ConfEndCliController
     private UsuariosRepository usuarios;
     
     //Tela dos enderços do clientes
-    @RequestMapping("/carrinho/confirmarEndereco")
-    public ModelAndView confirmarEndereco(HttpServletRequest auth, Principal principal)
+    @RequestMapping("/carrinho/escolherEndereco")
+    public ModelAndView escolherEndereco(HttpServletRequest auth, Principal principal)
     {
-        ModelAndView mv = new ModelAndView("/cliente/carrinho/confirmarEndereco");
+        ModelAndView mv = new ModelAndView("/cliente/carrinho/escolherEndereco");
         
         UsuariosModel usu = usuarios.findByEmail(principal.getName());
         ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());

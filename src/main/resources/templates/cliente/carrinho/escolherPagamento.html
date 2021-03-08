@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/default/layout}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Cliente - Confirmar Pagamento</title>
+    </head>
+
+    <body>
+        <!-- Conteudo da página -->
+        <section layout:fragment="conteudo">
+            <div class="container mb-4">
+                <div class="row pe-0 pb-3">
+                    <div class="col-sm pe-0">
+                        <div class="row" style="height: 17.5px;">
+                            <div class="col"></div>
+
+                            <div class="col-4 align-bottom">
+                                <input type="range" class="form-range" min="0" max="3" step="1" value="2" id="fluxoCompra" disabled>
+                            </div>
+
+                            <div class="col"></div>
+                        </div>
+        
+                        <div class="row" style="height: 17.5px;">
+                            <div class="col"></div>
+
+                            <div class="col-1 text-start">
+                                <i class="bi bi-cart3 fs-4"></i>
+                            </div>
+
+                            <div class="col-1 text-center ps-0">
+                                <i class="bi bi-truck fs-4"></i>
+                            </div>
+
+                            <div class="col-1 text-start ps-5">
+                                <i class="bi bi-credit-card fs-4"></i>
+                            </div>
+
+                            <div class="col-1 text-end pe-1">
+                                <i class="bi bi-check2-circle  fs-4"></i>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mb-4">
+                <div class="row">
+                    <p class="h2">Escolha o método de pagamento</p>
+                </div>
+            </div>
+
+            <div class="container mb-4">
+                <div class="row border-bottom">
+                    <div class="col-8">
+                        <p class="h5">Valor total do pedido</p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <p class="fst-italic d-inline">R$162,00</p>
+                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesValores', this)"></i>
+                    </div>
+                </div>
+
+                <table class="table mt-2" id="detalhesValores" style="display: none !important;">
+                    <tbody>
+                        <tr>
+                            <th scope="col" class="col-2">Produto</th>
+                            <th scope="col" class="col-2 text-center">Qtd</th>
+                            <th scope="col" class="col-2 text-center">Preço un</th>
+                            <th scope="col" class="col-2 text-center">Sub-total</th>
+                        </tr>
+                        <tr>
+                            <td>Produto 1</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">R$50,00</td>
+                            <td class="text-center">R$150,00</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="border-0">Frete:</th>
+                            <td colspan="3" class="border-0 text-center">R$12,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container my-4">
+                <div class="row border-bottom">
+                    <div class="col-8">
+                        <p class="h5">Cupons</p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <p class="fst-italic d-inline">-R$30,00</p>
+                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesCupons', this)"></i>
+                    </div>
+                </div>
+
+                <div class="row" id="detalhesCupons" style="display: none !important;">
+                    <div class="col-6">
+                        <div class="row pt-2 pb-0">
+                            <p>Possui algum cupom?</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="text" class="form-control" placeholder="" id="cupom">
+                            </div>
+                            <div class="col-2 text-end pb-2">
+                                <a href="#"><button type="submit" class="btn border shadow-sm">Aplicar</button></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="row pt-2 pb-0">
+                            <p>Cupons aplicados:</p>
+                        </div>
+                        <div class="row fst-italic">
+                            <div class="col">
+                                <i class="bi bi-x-circle d-inline" style="cursor: pointer; color: red;"></i>
+                                <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$30,00</span><span>.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container my-4">
+                <div class="row border-bottom">
+                    <div class="col-8">
+                        <p class="h5">Meus cartões</p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesCartoes', this)"></i>
+                    </div>
+                </div>
+
+                <div class="row" id="detalhesCartoes" style="display: none !important;">
+                    <div class="row my-3">
+                        <div class="col">
+                            <div class="text-end">
+                                <a th:href="'/cliente/cadastrarCartao/' + ${cliente.cliId}" style="color: black;"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-4 mb-5 d-flex justify-content-center" th:each="cartao : ${cliente.listCartao}">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-10">
+                                        <h5 class="card-title" th:text="${cartao.crtNumero}">Cartão X</h5>
+                                    </div>
+                                    <div class="col-2 px-1 text-end">
+                                        <i class="bi bi-check2-square fs-5"></i>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-9 pe-0 ">
+                                        <p class="card-text" th:text="${cartao.crtBandeira}">Bandeira</p>
+                                    </div>
+                                    <div class="col-3 px-2 text-end">
+                                        <form th:action="@{/cliente/deletarCartao}" method="POST">
+                                            <button class="m-0 p-0" style="background-color: transparent; border-color: transparent;" type="submit" name="id" th:value="${cartao.crtId}"><i class="bi bi-trash" style="cursor: pointer;"></i></button>
+                                            <a th:href="'/cliente/alterarCartao/' + ${cartao.crtId}" style="color: black;"><i class="bi bi-pencil-square" style="cursor: pointer;"></i></a>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="row pt-2">
+                                    <div class="col d-flex flex-column text-center">
+                                        <a href="#" class="btn border shadow-sm">Selecionar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container my-4">
+                <div class="row border-bottom">
+                    <div class="d-flex flex-column justify-content-end">
+                        <p class="h5">Pagamento</p>
+                    </div>
+                </div>
+
+                <table class="table mt-2">
+                    <tbody>
+                        <tr>
+                            <th scope="col" class="col-3">Número</th>
+                            <th scope="col" class="col-3">Nome</th>
+                            <th scope="col" class="col-2">Bandeira</th>
+                            <th scope="col" class="col-2 text-center">Valor</th>
+                            <th scope="col" class="col-2 text-center">Remover</th>
+                        </tr>
+                        <tr>
+                            <td>1234 1234 1234 1234</td>
+                            <td>José da Silva</td>
+                            <td>Visa</td>
+                            <td><input type="text" class="form-control" placeholder="" value="R$132,00" id="valor" style="text-align: center;"></td>
+                            <td class="text-center"><i class="bi bi-x-square fs-5" style="cursor: pointer"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-7 text-end fw-bold">
+                        <p>Total:</p>
+                    </div>
+                    <div class="col-2 text-center">
+                        <p>R$132,00</p>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+
+                <div class="row pb-2">
+                    <div class="col-7 text-start">
+                        <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm">Voltar</button></a>
+                    </div>
+                    <div class="col text-end">
+                        <a href="/cliente/carrinho/confirmarPedido"><button type="submit" class="btn border shadow-sm">Confirmar</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Script
+            <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>-->
+            <script type="text/javascript" th:src="@{/javascripts/cartoes.js}"></script>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/default/layout}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Cliente - Confirmar Pedido</title>
+    </head>
+
+    <body>
+        <!-- Conteudo da página -->
+        <section layout:fragment="conteudo">
+            <div class="container mb-4">
+                <div class="row pe-0 pb-3">
+                    <div class="col-sm pe-0">
+                        <div class="row" style="height: 17.5px;">
+                            <div class="col"></div>
+
+                            <div class="col-4 align-bottom">
+                                <input type="range" class="form-range" min="0" max="3" step="1" value="3" id="fluxoCompra" disabled>
+                            </div>
+
+                            <div class="col"></div>
+                        </div>
+        
+                        <div class="row" style="height: 17.5px;">
+                            <div class="col"></div>
+
+                            <div class="col-1 text-start">
+                                <i class="bi bi-cart3 fs-4"></i>
+                            </div>
+
+                            <div class="col-1 text-center ps-0">
+                                <i class="bi bi-truck fs-4"></i>
+                            </div>
+
+                            <div class="col-1 text-start ps-5">
+                                <i class="bi bi-credit-card fs-4"></i>
+                            </div>
+
+                            <div class="col-1 text-end pe-1">
+                                <i class="bi bi-check2-circle  fs-4"></i>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mb-4">
+                <div class="row">
+                    <p class="h2">Confirme os dados do pedido</p>
+                </div>
+            </div>
+
+            <div class="container mb-4">
+                <div class="row border-bottom">
+                    <div class="col-8">
+                        <p class="h5">Produtos</p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <p class="fst-italic d-inline">R$150,00</p>
+                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesValores', this)"></i>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <table class="table mt-2" id="detalhesValores" style="display: none !important;">
+                        <tbody>
+                            <tr>
+                                <th scope="col" class="col-2">Produto</th>
+                                <th scope="col" class="col-2 text-center">Qtd</th>
+                                <th scope="col" class="col-2 text-center">Preço un</th>
+                                <th scope="col" class="col-2 text-center">Sub-total</th>
+                            </tr>
+                            <tr>
+                                <td>Produto 1</td>
+                                <td class="text-center">3</td>
+                                <td class="text-center">R$50,00</td>
+                                <td class="text-center">R$150,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container my-4">
+                <div class="row border-bottom">
+                    <div class="col-8">
+                        <p class="h5">Endereço de entrega</p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <p class="fst-italic d-inline">R$12,00</p>
+                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesEndereco', this)"></i>
+                    </div>
+                </div>
+
+                <div class="row" id="detalhesEndereco" style="display: none !important;">
+                    <div class="col-6">
+                        <table class="table mb-3">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="col-3">Descrição:</th>
+                                    <td>Casa</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Endereço:</th>
+                                    <td>Rua João das Neves, 123 - Complemento</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Cidade / UF:</th>
+                                    <td>Mogi das Cruzes / SP</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">CEP:</th>
+                                    <td>12345-123</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6">
+                        <div class="row border shadow p-3 m-3">
+                            <div class="form-check pb-2">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container my-4">
+                <div class="row border-bottom">
+                    <div class="col-8">
+                        <p class="h5">Cupons</p>
+                    </div>
+                    <div class="col-4 text-end">
+                        <p class="fst-italic d-inline">-R$30,00</p>
+                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesCupons', this)"></i>
+                    </div>
+                </div>
+
+                <div class="row" id="detalhesCupons" style="display: none !important;">
+                    <div class="col">
+                        <div class="row pt-2 pb-0">
+                            <p>Cupons aplicados:</p>
+                        </div>
+                        <div class="row fst-italic">
+                            <div class="col">
+                                <i class="bi bi-check-circle d-inline" style="cursor: pointer;"></i>
+                                <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$30,00</span><span>.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container my-4">
+                <div class="row border-bottom">
+                    <div class="col-8">
+                        <p class="h5">Pagamento</p>
+                    </div>
+                    
+                    <div class="col-4 text-end">
+                        <p class="fst-italic d-inline">-R$132,00</p>
+                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesPagamento', this)"></i>
+                    </div>
+                </div>
+
+                <div class="row" id="detalhesPagamento" style="display: none !important;">
+                    <table class="table mt-2">
+                        <tbody>
+                            <tr>
+                                <th scope="col" class="col-4">Número</th>
+                                <th scope="col" class="col-4">Nome</th>
+                                <th scope="col" class="col-2">Bandeira</th>
+                                <th scope="col" class="col-2 text-center">Valor</th>
+                            </tr>
+                            <tr>
+                                <td>1234 1234 1234 1234</td>
+                                <td>José da Silva</td>
+                                <td>Visa</td>
+                                <td class="text-center">R$132,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row mt-2 pb-2">
+                    <div class="col-7 text-start">
+                        <a href="/cliente/carrinho/escolherPagamento"><button type="submit" class="btn border shadow-sm">Voltar</button></a>
+                    </div>
+                    <div class="col text-end">
+                        <a href="#"><button type="submit" class="btn border shadow-sm">Confirmar</button></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Script
+            <script type="text/javascript" th:src="@{/javascripts/enderecos.js}"></script>-->
+            <script type="text/javascript" th:src="@{/javascripts/cartoes.js}"></script>
+        </section>
+    </body>
+</html>

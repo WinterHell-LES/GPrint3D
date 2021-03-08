@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,22 +32,51 @@ public class AltEndCliController
 
     //Tela de alteração de dados do endereço do cliente
     @RequestMapping("/alterarEndereco/{id}")
-    public ModelAndView alterarEndereco(@PathVariable("id") Integer id, HttpServletRequest auth, Principal principal)
+    public ModelAndView alterarEndereco(@PathVariable("id") Integer id, boolean endPadrao, HttpServletRequest auth, Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarEndereco");
 
-        mv.addObject("endereco", enderecos.findOneById(id));
+        EnderecosModel endereco = enderecos.findOneById(id);
+
+        
+        if (endereco.isEndCobrancaPadrao())
+        {
+            endPadrao = true;
+        }
+        else if (endereco.isEndEntregaPadrao()) 
+        {
+            endPadrao = true;
+        }
+
+        mv.addObject("endereco", endereco);
+        mv.addObject("endPadrao", endPadrao);
 
         return mv;
     }
 
     //Alterar os dados do endereço do cliente
     @PostMapping("/alterarEndereco/{id}")
-    public ModelAndView alteraEndereco(@PathVariable("id") Integer id, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
+    public ModelAndView alteraEndereco(@PathVariable("id") Integer id, @RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
     {
         if (result.hasErrors())
         {
             return new ModelAndView("redirect:/cliente/alterarEndereco");
+        }
+        
+        if (endPadrao == true)
+        {
+            if (endereco.isEndCobranca())
+            {
+                endereco.setEndCobrancaPadrao(true);
+            }
+            else if (endereco.isEndEntrega()) 
+            {
+                endereco.setEndEntregaPadrao(true);
+            }
+        }else
+        {
+            endereco.setEndEntregaPadrao(false);
+            endereco.setEndCobrancaPadrao(false);
         }
         
        enderecosService.atualizar(endereco);

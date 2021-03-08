@@ -32,7 +32,7 @@
                                     <div class="col-10">
                                         <h5 class="card-title" th:text="${endereco.endDescricao}">Endereço 1</h5>
                                     </div>
-                                    <div class="col-2 px-1 text-end">
+                                    <div class="col-2 px-1 text-end" th:if="${endereco.endEntregaPadrao == true}">
                                         <i class="bi bi-check2-square fs-5"></i>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                     <div class="col-10">
                                         <h5 class="card-title" th:text="${endereco.endDescricao}">Endereço 1</h5>
                                     </div>
-                                    <div class="col-2 px-1 text-end">
+                                    <div class="col-2 px-1 text-end" th:if="${endereco.endCobrancaPadrao == true}">
                                         <i class="bi bi-check2-square fs-5"></i>
                                     </div>
                                 </div>

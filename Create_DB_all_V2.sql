@@ -60,7 +60,9 @@ DROP TABLE IF EXISTS enderecos;
 CREATE TABLE enderecos (
     end_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
     end_entrega			BOOLEAN,
+    end_ent_padrao      BOOLEAN,
     end_cobranca		BOOLEAN,
+    end_cob_padrao      BOOLEAN,
     end_descricao		VARCHAR(255) NOT NULL,
     end_tipolog        	VARCHAR(20) NOT NULL,
     end_logradouro   	VARCHAR(255) NOT NULL,

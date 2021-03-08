@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -94,7 +95,7 @@ public class CadClienteController
         return mv;
     }
     @PostMapping("/cadastroEndereco")
-    public ModelAndView cadastrarEndereco(@Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarEndereco(@RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
@@ -102,6 +103,22 @@ public class CadClienteController
         }
 
         enderecosMod = endereco;
+
+        if (endPadrao == true)
+        {
+            if (endereco.isEndCobranca())
+            {
+                endereco.setEndCobrancaPadrao(true);
+            }
+            else if (endereco.isEndEntrega()) 
+            {
+                endereco.setEndEntregaPadrao(true);
+            }
+        }else
+        {
+            endereco.setEndEntregaPadrao(false);
+            endereco.setEndCobrancaPadrao(false);
+        }
 
         return new ModelAndView("redirect:/cadastro/cadastroCartao");
     }

@@ -22,7 +22,7 @@ public class FotosModel
 
     private long ftoSize;
 
-    private Date ftoUploadDate
+    private Date ftoUploadDate;
 
     private byte[] ftoContent;
 }

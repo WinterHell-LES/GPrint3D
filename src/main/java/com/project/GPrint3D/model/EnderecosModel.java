@@ -24,8 +24,14 @@ public class EnderecosModel
     @Column(name = "end_entrega")
 	private boolean endEntrega;
 
+    @Column(name = "end_ent_padrao")
+	private boolean endEntregaPadrao;
+
     @Column(name = "end_cobranca")
 	private boolean endCobranca;
+
+    @Column(name = "end_cob_padrao")
+	private boolean endCobrancaPadrao;
 
 	@NotEmpty(message = "Descrição é obrigatória")
     @Column(name = "end_descricao")
@@ -75,7 +81,9 @@ public class EnderecosModel
 		
 		this.endId = 0;
 		this.endEntrega = false;
+		this.endEntregaPadrao = false;
 		this.endCobranca = false;
+		this.endCobrancaPadrao = false;
 		this.endDescricao = "";
 		this.endTipo = "";
 		this.endLogradouro = "";
@@ -88,7 +96,7 @@ public class EnderecosModel
 		this.endObservacao = "";
 	}
 
-	public EnderecosModel(Integer endId, boolean endEntrega, boolean endCobranca, String endDescricao, String endTipo,
+	public EnderecosModel(Integer endId, boolean endEntrega, boolean endEntregaPadrao, boolean endCobranca, boolean endCobrancaPadrao, String endDescricao, String endTipo,
 			String endLogradouro, String endNumero, String endCep, String endComplemento, String endCidade, String endEstado, String endPais,
 			String endObservacao) 
 	{
@@ -96,7 +104,9 @@ public class EnderecosModel
 
 		this.endId = endId;
 		this.endEntrega = endEntrega;
+		this.endEntregaPadrao = endEntregaPadrao;
 		this.endCobranca = endCobranca;
+		this.endCobrancaPadrao = endCobrancaPadrao;
 		this.endDescricao = endDescricao;
 		this.endTipo = endTipo;
 		this.endLogradouro = endLogradouro;
@@ -134,6 +144,21 @@ public class EnderecosModel
 		this.endEntrega = endEntrega;
 	}
 
+	public boolean isEndEntregaPadrao() 
+	{
+		return this.endEntregaPadrao;
+	}
+
+	public boolean getEndEntregaPadrao() 
+	{
+		return this.endEntregaPadrao;
+	}
+
+	public void setEndEntregaPadrao(boolean endEntregaPadrao) 
+	{
+		this.endEntregaPadrao = endEntregaPadrao;
+	}
+
 	public boolean isEndCobranca() 
 	{
 		return this.endCobranca;
@@ -147,6 +172,21 @@ public class EnderecosModel
 	public void setEndCobranca(boolean endCobranca) 
 	{
 		this.endCobranca = endCobranca;
+	}
+
+	public boolean isEndCobrancaPadrao() 
+	{
+		return this.endCobrancaPadrao;
+	}
+
+	public boolean getEndCobrancaPadrao() 
+	{
+		return this.endCobrancaPadrao;
+	}
+
+	public void setEndCobrancaPadrao(boolean endCobrancaPadrao) 
+	{
+		this.endCobrancaPadrao = endCobrancaPadrao;
 	}
 
 	public String getEndDescricao() 

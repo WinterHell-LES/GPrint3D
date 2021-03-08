@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,7 +50,7 @@ public class CadEndCliController
 
     //Cadastrar novo endereço do cliente
     @PostMapping("/cadastrarEndereco/{id}/{check}")
-    public ModelAndView cadastrarEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, Principal principal)
+    public ModelAndView cadastrarEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, @RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, Principal principal)
     {
         if (result.hasErrors())
         {
@@ -58,7 +59,23 @@ public class CadEndCliController
 
         UsuariosModel usu = usuarios.findByEmail(principal.getName());
         ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
-        
+                
+        if (endPadrao == true)
+        {
+            if (endereco.isEndCobranca())
+            {
+                endereco.setEndCobrancaPadrao(true);
+            }
+            else if (endereco.isEndEntrega()) 
+            {
+                endereco.setEndEntregaPadrao(true);
+            }
+        }else
+        {
+            endereco.setEndEntregaPadrao(false);
+            endereco.setEndCobrancaPadrao(false);
+        }
+
         endereco.setCliente(cli);
 
         enderecosService.cadastrar(endereco);

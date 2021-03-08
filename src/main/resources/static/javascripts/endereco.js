@@ -44,9 +44,9 @@ function desabilitarEndereco() {
 }
 
 function validateCheckboxes(elem) {
+    var types = ["endEntrega", "endCobranca"];
     var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
-
+    var checkedOne = Array.prototype.slice.call(checkboxes).filter(x => Object.values(types).includes(x.id)).some(x => x.checked);
 
     if (!checkedOne) {
         alert("É preciso deixar ao menos um tipo de endereço selecionado!");

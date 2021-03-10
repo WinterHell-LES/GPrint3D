@@ -21,14 +21,23 @@
                         <form class="form-group" th:action="@{/cliente/cadastrarCartao/} + ${cliente}" method="POST">
                             <div class="row border shadow p-2 rounded-3">
                                 <div class="row py-3">
-                                    <h5>Dados dos cartão</h5>
+                                    <div class="col-sm d-flex flex-column align-self-center">
+                                        <h5>Dados dos cartão</h5>
+                                    </div>
+
+                                    <div class="col-sm-8 d-flex justify-content-end me-1">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="crtPadrao" name="crtPadrao" th:field="${cartoesModel.crtPadrao}">
+                                            <label class="form-check-label" for="crtPadrao">Cartão padrão</label>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row pb-3 pe-0">
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm ">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control cartao" placeholder="Número do Cartão" id="numCartao" th:field="${cartoesModel.crtNumero}">
+                                                <input type="text" class="form-control cartao" placeholder="Número do Cartão" minlength="19" id="numCartao" th:field="${cartoesModel.crtNumero}">
                                                 <label for="numCartao">Número do Cartão</label>
                                             </div>
                                         </div>
@@ -63,7 +72,7 @@
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" th:field="${cartoesModel.crtCvv}">
+                                                <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" minlength="3" maxlength="3" th:field="${cartoesModel.crtCvv}">
                                                 <label for="cvvCartao">Código de Segurança</label>
                                             </div>
                                         </div>

@@ -48,7 +48,7 @@
                 <tbody>
                     <tr th:each="telefone : ${cliente.listTelefone}">
                         <th scope="row" th:text="${telefone.telTipo}">Tipo</th>
-                        <td th:text="'(' + ${telefone.telDdd} + ') ' + ${telefone.telNumero}">Tipo</td>
+                        <td th:text="${telefone.telDdd} + ${telefone.telNumero}">Tipo</td>
                     </tr>
                 </tbody>
             </table>

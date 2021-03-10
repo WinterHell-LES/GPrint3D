@@ -69,9 +69,17 @@ public class CadClienteController
         return mv;
     }
     @PostMapping("/cadastroDadosPessoais")
-    public ModelAndView cadastrarDadosPessoais(@Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarDadosPessoais(@RequestParam(name = "confirm_password") String confirmPass, @Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
+        {
+            return cadastroDadosPessoais(cliente, telefone, documento, usuario);
+        }
+
+
+        String newUserPass = usuario.getUsuSenha();
+
+        if (!confirmPass.equals(newUserPass))
         {
             return cadastroDadosPessoais(cliente, telefone, documento, usuario);
         }
@@ -81,6 +89,7 @@ public class CadClienteController
         documentosMod = documento;
 
         usuario.setUsuRegra("ROLE_CLI");
+        cliente.setCliRanking("0");
 
         usuariosMod = usuario;
 
@@ -95,7 +104,7 @@ public class CadClienteController
         return mv;
     }
     @PostMapping("/cadastroEndereco")
-    public ModelAndView cadastrarEndereco(@RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarEndereco(@Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
@@ -104,21 +113,10 @@ public class CadClienteController
 
         enderecosMod = endereco;
 
-        if (endPadrao == true)
-        {
-            if (endereco.isEndCobranca())
-            {
-                endereco.setEndCobrancaPadrao(true);
-            }
-            else if (endereco.isEndEntrega()) 
-            {
-                endereco.setEndEntregaPadrao(true);
-            }
-        }else
-        {
-            endereco.setEndEntregaPadrao(false);
-            endereco.setEndCobrancaPadrao(false);
-        }
+        endereco.setEndEntrega(true);
+        endereco.setEndEntregaPadrao(true);
+        endereco.setEndCobranca(true);
+        endereco.setEndCobrancaPadrao(true);
 
         return new ModelAndView("redirect:/cadastro/cadastroCartao");
     }

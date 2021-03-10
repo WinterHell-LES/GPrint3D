@@ -65,10 +65,17 @@ public class CadEndCliController
             if (endereco.isEndCobranca())
             {
                 endereco.setEndCobrancaPadrao(true);
+            } else
+            {
+                endereco.setEndCobrancaPadrao(false);
             }
-            else if (endereco.isEndEntrega()) 
+            
+            if (endereco.isEndEntrega()) 
             {
                 endereco.setEndEntregaPadrao(true);
+            } else
+            {
+                endereco.setEndEntregaPadrao(false);
             }
         }else
         {

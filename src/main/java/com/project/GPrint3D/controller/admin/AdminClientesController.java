@@ -57,7 +57,7 @@ public class AdminClientesController
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
-        return new ModelAndView("redirect:/admin/clientes");
+        return new ModelAndView("redirect:/admin/listarClientes");
     }
 
     @GetMapping(value = "/cliente/{id}/dados")

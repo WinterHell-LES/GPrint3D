@@ -52,6 +52,6 @@ public class VisCrtCliController
     {
         cartoesService.excluir(id);
 
-        return new ModelAndView("redirect:/cliente/visualizar/meusCartoes");
+        return new ModelAndView("redirect:/cliente/meusCartoes");
     }
 }

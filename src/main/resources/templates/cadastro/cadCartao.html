@@ -21,15 +21,19 @@
                         <div class="form-group">
                             <div class="row border shadow p-2 rounded-3">
                                 <form th:action="@{/cadastro/cadastroCartao}" method="POST">
+                                    <input class="visually-hidden" type="boolean" value="true" th:field="${cartoesModel.crtPadrao}">
+
                                     <div class="row py-3">
-                                        <h5>Informações de pagamento</h5>
+                                        <div class="col-sm d-flex flex-column align-self-center">
+                                            <h5>Informações de pagamento</h5>
+                                        </div>
                                     </div>
 
                                     <div class="row pb-3 pe-0">
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control cartao" placeholder="Número do Cartão" id="numCartao" th:field="*{cartoesModel.crtNumero}" required/>
+                                                    <input type="text" class="form-control cartao" placeholder="Número do Cartão" id="numCartao" minlength="19" th:field="*{cartoesModel.crtNumero}" required/>
                                                     <label for="numCartao">Número do cartão</label>
                                                 </div>
                                             </div>
@@ -64,7 +68,7 @@
 
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" th:field="*{cartoesModel.crtCvv}" required/>
+                                                    <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" minlength="3" maxlength="3" th:field="*{cartoesModel.crtCvv}" required/>
                                                     <label for="cvvCartao">Código de Segurança</label>
                                                 </div>
                                             </div>

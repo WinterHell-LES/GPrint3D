@@ -21,6 +21,9 @@ public class CartoesModel
     @Column(name = "crt_id", insertable = false, updatable = false)
     private Integer crtId;
 
+    @Column(name = "crt_padrao")
+    private Boolean crtPadrao;
+
     @NotEmpty(message = "Bandeira é obrigatória")
     @Column(name = "crt_bandeira")
     private String crtBandeira;
@@ -50,6 +53,7 @@ public class CartoesModel
         super();
 
         this.crtId = 0;
+        this.crtPadrao = false;
         this.crtBandeira = "";
         this.crtNome = "";
         this.crtNumero = "";
@@ -57,11 +61,12 @@ public class CartoesModel
         this.crtCvv = "";
     }
 
-    public CartoesModel(Integer crtId, String crtBandeira, String crtNome, String crtNumero, String crtValidade, String crtCvv) 
+    public CartoesModel(Integer crtId, Boolean crtPadrao, String crtBandeira, String crtNome, String crtNumero, String crtValidade, String crtCvv) 
     {
         super( );
 
         this.crtId = crtId;
+        this.crtPadrao = crtPadrao;
         this.crtBandeira = crtBandeira;
         this.crtNome = crtNome;
         this.crtNumero = crtNumero;
@@ -77,6 +82,16 @@ public class CartoesModel
     public void setCrtId(Integer crtId) 
     {
         this.crtId = crtId;
+    }
+
+    public Boolean getCrtPadrao() 
+    {
+        return this.crtPadrao;
+    }
+
+    public void setCrtPadrao(Boolean crtPadrao) 
+    {
+        this.crtPadrao = crtPadrao;
     }
 
     public String getCrtBandeira() 

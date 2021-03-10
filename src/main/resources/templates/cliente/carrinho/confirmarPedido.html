@@ -66,7 +66,7 @@
                 </div>
                 
                 <div class="row">
-                    <table class="table mt-2" id="detalhesValores" style="display: none !important;">
+                    <table class="table mt-2 visually-hidden" id="detalhesValores">
                         <tbody>
                             <tr>
                                 <th scope="col" class="col-2">Produto</th>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class="row" id="detalhesEndereco" style="display: none !important;">
+                <div class="row visually-hidden" id="detalhesEndereco">
                     <div class="col-6">
                         <table class="table mb-3">
                             <tbody>
@@ -121,12 +121,8 @@
                         </table>
                     </div>
                     <div class="col-6">
-                        <div class="row border shadow p-3 m-3">
-                            <div class="form-check pb-2">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked >
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00
-                                </label>
+                        <div class="row d-flex flex-column align-self-center border shadow p-3 m-4">
+                                <p class="m-0">Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00</p>
                             </div>
                         </div>
                     </div>
@@ -144,14 +140,14 @@
                     </div>
                 </div>
 
-                <div class="row" id="detalhesCupons" style="display: none !important;">
+                <div class="row visually-hidden" id="detalhesCupons">
                     <div class="col">
                         <div class="row pt-2 pb-0">
                             <p>Cupons aplicados:</p>
                         </div>
                         <div class="row fst-italic">
                             <div class="col">
-                                <i class="bi bi-check-circle d-inline" style="cursor: pointer;"></i>
+                                <i class="bi bi-check-circle d-inline"></i>
                                 <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$30,00</span><span>.</span>
                             </div>
                         </div>
@@ -171,7 +167,7 @@
                     </div>
                 </div>
 
-                <div class="row" id="detalhesPagamento" style="display: none !important;">
+                <div class="row visually-hidden" id="detalhesPagamento">
                     <table class="table mt-2">
                         <tbody>
                             <tr>

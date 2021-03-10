@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -33,7 +34,7 @@ public class AltCrtCliController
     @RequestMapping("/alterarCartao/{id}")
     public ModelAndView alterarCartao(@PathVariable("id") Integer id, HttpServletRequest auth, Principal principal)
     {
-        ModelAndView mv = new ModelAndView("/cliente/cadastrar/alterarCartao");
+        ModelAndView mv = new ModelAndView("/cliente/alterar/alterarCartao");
 
         mv.addObject("cartao", cartoes.findOneById(id));
 

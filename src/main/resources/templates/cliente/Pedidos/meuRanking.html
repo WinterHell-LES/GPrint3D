@@ -6,12 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>GPrint3D - Cliente - Ranking</title>
+        
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/css-circular-prog-bar.css}">
     </head>
 
     <body>
         <!-- Conteudo da página -->
        <section layout:fragment="conteudo">
-            <div class="my-5">
+            <div class="mt-5">
                 <div class="row">
                     <div class="col-sm">
                         <div class="row">
@@ -19,6 +21,151 @@
                         </div>
                     </div>
                 </div>
+            </div>
+                
+            
+            <div class="row d-flex justify-content-center my-4">
+                <div class="card shadow col-md-8">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="row">
+                                    <div class="col-sm d-flex justify-content-center">
+                                        <div class="progress-circle p10 m-2">
+                                            <span><i class="bi bi-person-circle"></i></span>
+                                            <div class="left-half-clipper">
+                                                <div class="first50-bar"></div>
+                                                <div class="value-bar"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm text-center">
+                                        <span class="border rounded secondary p-1">30/300</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm d-flex flex-column justify-content-start align-self-center">
+                                <h5 class="card-title">Parabéns, você está no nível X!</h5>
+                                <p class="card-text">Acumule mais 300-30 pontos para subir para o nível X+1.</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="py-4">
+                <!--Carousel Wrapper-->
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+                
+                    <!--Slides-->
+                    <div class="carousel-inner row" role="listbox">
+                        <div class="col-sm-1 d-flex flex-column align-self-center">
+                            <a class="btn" href="#carouselExampleIndicators" data-bs-slide="prev"><i class="fs-2 bi bi-arrow-left-circle"></i></a>
+                        </div>
+
+                        <div class="col-sm-10">
+                            <!--First slide-->
+                            <div class="carousel-item active">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-sm-6">
+                                        <div class="card mb-2">
+                                            <div class="card-header text-center fw-bold" style="background-color: #b87333;">
+                                                <span class="fs-5">Nível 1 - Bronze</span>
+                                                <i class="bi bi-unlock fw-bold fs-5"></i>
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="card-title">Benefícios Bronze</h4>
+                                                <ol>
+                                                    <li class="card-text">Frete grátis em compras acima de R$500,00</li>
+                                                    <li class="card-text">Devolução grátis</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="col-sm-6">
+                                        <div class="card mb-2">
+                                            <div class="card-header text-center fw-bold" style="background-color: #c0c0c0;">
+                                                <span class="fs-5">Nível 2 - Prata</span>
+                                                <i class="bi bi-lock fw-bold fs-5"></i>
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="card-title">Benefícios Prata</h4>
+                                                <ol>
+                                                    <li class="card-text">Frete grátis em compras acima de R$400,00</li>
+                                                    <li class="card-text">Devolução grátis</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.First slide-->
+                        
+                            <!--Second slide-->
+                            <div class="carousel-item">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-sm-6">
+                                        <div class="card mb-2">
+                                            <div class="card-header text-center fw-bold" style="background-color: #FFD700;">
+                                                <span class="fs-5">Nível 3 - Ouro</span>
+                                                <i class="bi bi-lock fw-bold fs-5"></i>
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="card-title">Benefícios Ouro</h4>
+                                                <ol>
+                                                    <li class="card-text">Frete grátis em compras acima de R$250,00</li>
+                                                    <li class="card-text">Devolução grátis</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    <div class="col-sm-6">
+                                        <div class="card mb-2">
+                                            <div class="card-header text-center fw-bold" style="background-color: #B9F2FF;">
+                                                <span class="fs-5">Nível 4 - Diamante</span>
+                                                <i class="bi bi-lock fw-bold fs-5"></i>
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="card-title">Benefícios Diamante</h4>
+                                                <ol>
+                                                    <li class="card-text">Frete grátis em compras acima de R$100,00</li>
+                                                    <li class="card-text">Devolução grátis</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/.Second slide-->
+                        
+                        </div>
+
+                        <div class="col-sm-1 d-flex flex-column align-self-center">
+                            <a class="btn" href="#carouselExampleIndicators" data-bs-slide="next"><i class="fs-2 bi bi-arrow-right-circle"></i></a>
+                        </div>
+                
+                    </div>
+                    <!--/.Slides-->
+
+                    <!--Controls and Indicators-->
+                    <ol class="carousel-indicators" style="padding-right: 25px; position: relative;">
+                        <li type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Page 1" style="background-color: gray;"></li>
+                        <li type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Page 2" style="background-color: gray;"></li>
+                    </ol>
+                    <!--/.Controls and Indicators-->
+                
+                </div>
+                <!--/.Carousel Wrapper-->
             </div>
         </section>
     </body>

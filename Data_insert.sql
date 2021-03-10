@@ -26,11 +26,11 @@ values ('0', '0', '1', '1', 'Mãe', 'Rua', 'General Osório', '683', '79904596',
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
-values ('Comercial', '67', '36975899', '1');
+values ('Comercial', '(67)', '36975899', '1');
 
 -- Cartao
-insert into cartoes(crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
-values ('Visa', 'Sérgio Levi Yuri Melo', '1234568888855221', '07/20', '333', '1');
+insert into cartoes(crt_bandeira, crt_padrao, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', '1', 'Sérgio Levi Yuri Melo', '1234 5688 8885 5221', '07/20', '333', '1');
 
 
 
@@ -54,11 +54,11 @@ values ('0', '0', '1', '1', 'Mãe', 'Rua', 'Manoel Miguel Alves Filho', '905', '
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
-values ('Celular', '41', '987211324', '2');
+values ('Celular', '(41)', '987211324', '2');
 
 -- Cartao
-insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
-values ('Visa', 'Cauã Luiz Lima', '1234568888855221', '07/20', '333', '2');
+insert into cartoes (crt_bandeira, crt_padrao, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', '1', 'Cauã Luiz Lima', '1234 5688 8885 5221', '07/20', '333', '2');
 
 
 
@@ -82,11 +82,11 @@ values ('0', '0', '1', '1', 'Mãe', 'Rua', 'Treze', '906', '78053733', null, 'Cu
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
-values ('Comercial', '65', '36706873', '3');
+values ('Comercial', '(65)', '36706873', '3');
 
 -- Cartao
-insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
-values ('Visa', 'Renato Nicolas Lorenzo Araújo', '1234568888855221', '07/20', '333', '3');
+insert into cartoes (crt_bandeira, crt_padrao, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', '1', 'Renato Nicolas Lorenzo Araújo', '1234 5688 8885 5221', '07/20', '333', '3');
 
 
 
@@ -110,11 +110,11 @@ values ('0', '0', '1', '1', 'Mãe', 'Rua', 'Guaçuí', '810', '29177280', null, 
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
-values ('Celular', '27', '995943161', '4');
+values ('Celular', '(27)', '995943161', '4');
 
 -- Cartao
-insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
-values ('Visa', 'Theo Heitor Henrique da Paz', '1234568888855221', '07/20', '333', '4');
+insert into cartoes (crt_bandeira, crt_padrao, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', '1', 'Theo Heitor Henrique da Paz', '1234 5688 8885 5221', '07/20', '333', '4');
 
 
 
@@ -138,8 +138,8 @@ values ('0', '0', '1', '1', 'Mãe', 'Rua', 'Antônio Lucas de Carvalho', '884', 
 
 -- Telefones
 insert into telefones (tel_tipo, tel_ddd, tel_numero, tel_cli_id)
-values ('Celular', '83', '983300010', '5');
+values ('Celular', '(83)', '983300010', '5');
 
 -- Cartao
-insert into cartoes (crt_bandeira, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
-values ('Visa', 'Calebe Mateus Daniel Barbosa', '1234568888855221', '07/20', '333', '5');
+insert into cartoes (crt_bandeira, crt_padrao, crt_nome, crt_numero, crt_validade, crt_cvv, crt_cli_id)
+values ('Visa', '1', 'Calebe Mateus Daniel Barbosa', '1234 5688 8885 5221', '07/20', '333', '5');

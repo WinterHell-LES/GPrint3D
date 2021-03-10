@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS cartoes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE cartoes (
     crt_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    crt_padrao          BOOLEAN,
     crt_bandeira		VARCHAR(20) NOT NULL,
     crt_nome         	VARCHAR(50) NOT NULL,
     crt_numero       	VARCHAR(50) NOT NULL,

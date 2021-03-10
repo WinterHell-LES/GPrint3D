@@ -31,21 +31,21 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Senha Antiga" name="oldPassword" id="oldPassword">
+                                                <input type="password" class="form-control" placeholder="Senha Antiga" name="oldPassword" id="oldPassword" minlength="8">
                                                 <label for="oldPassword">Senha Antiga</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Nova Senha" id="newPassword" th:field="${usuario.usuSenha}">
+                                                <input type="password" class="form-control" placeholder="Nova Senha" id="newPassword" minlength="8" th:field="${usuario.usuSenha}">
                                                 <label for="newPassword">Nova Senha</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Confirmação de Nova Senha" name="confirmNewPassword" id="confirmNewPassword">
+                                                <input type="password" class="form-control" placeholder="Confirmação de Nova Senha" name="confirmNewPassword" id="confirmNewPassword" minlength="8">
                                                 <label for="confirmNewPassword">Confirmação de Nova Senha</label>
                                             </div>
                                         </div>

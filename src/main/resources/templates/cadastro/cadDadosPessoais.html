@@ -130,14 +130,14 @@
 
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="password" class="form-control" placeholder="Senha" id="password" th:field="${usuariosModel.usuSenha}" required>
+                                                    <input type="password" class="form-control" placeholder="Senha" id="password" minlength="8" th:field="${usuariosModel.usuSenha}" required>
                                                     <label for="password">Senha</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="password" class="form-control" placeholder="Confirmação de Senha" name="confirm_password" id="confirm_password" required>
+                                                    <input type="password" class="form-control" placeholder="Confirmação de Senha" name="confirm_password" id="confirm_password" minlength="8" required>
                                                     <label for="confirm_password">Confirmação de Senha</label>
                                                 </div>
                                             </div>

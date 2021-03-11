@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -74,6 +75,12 @@ public class EnderecosModel
 	@ManyToOne
     @JoinColumn(name = "end_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
+
+	@OneToOne(mappedBy = "endereco")
+	private EndEntregasPadroesModel endEntregasPadrao;
+
+	@OneToOne(mappedBy = "endereco")
+	private EndCobrancasPadroesModel endCobrancasPadrao;
 
 	public EnderecosModel() 
 	{
@@ -297,6 +304,26 @@ public class EnderecosModel
 	public void setCliente(ClientesModel cliente) 
 	{
 		this.cliente = cliente;
+	}
+
+	public EndEntregasPadroesModel getEndEntregasPadrao() 
+	{
+		return this.endEntregasPadrao;
+	}
+
+	public void setEndEntregasPadrao(EndEntregasPadroesModel endEntregasPadrao) 
+	{
+		this.endEntregasPadrao = endEntregasPadrao;
+	}
+
+	public EndCobrancasPadroesModel getEndCobrancasPadrao() 
+	{
+		return this.endCobrancasPadrao;
+	}
+
+	public void setEndCobrancasPadrao(EndCobrancasPadroesModel endCobrancasPadrao) 
+	{
+		this.endCobrancasPadrao = endCobrancasPadrao;
 	}
 
 	@Override

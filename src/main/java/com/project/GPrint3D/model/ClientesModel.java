@@ -55,8 +55,19 @@ public class ClientesModel
 	@OneToMany(mappedBy = "cliente")
     private List<TelefonesModel> listTelefone;
 
+	@OneToOne(mappedBy = "cliente")
+	private CartoesPadroesModel cartaoPadrao;
+
+	@OneToOne(mappedBy = "cliente")
+	private EndEntregasPadroesModel endEntregasPadrao;
+
+	@OneToOne(mappedBy = "cliente")
+	private EndCobrancasPadroesModel endCobrancaPadrao;
+
 	public ClientesModel() 
 	{
+		super();
+
 		this.cliId = 0;
 		this.cliRanking = "";
 		this.cliNome = "";
@@ -66,6 +77,8 @@ public class ClientesModel
 
 	public ClientesModel(Integer cliId, String cliRanking, String cliNome, String cliSexo, Date cliDtNasc) 
 	{
+		super( );
+
 		this.cliId = cliId;
 		this.cliRanking = cliRanking;
 		this.cliNome = cliNome;
@@ -171,6 +184,36 @@ public class ClientesModel
 	public void setListTelefone(List<TelefonesModel> listTelefone) 
 	{
 		this.listTelefone = listTelefone;
+	}
+
+	public CartoesPadroesModel getCartaoPadrao() 
+	{
+		return this.cartaoPadrao;
+	}
+
+	public void setCartaoPadrao(CartoesPadroesModel cartaoPadrao) 
+	{
+		this.cartaoPadrao = cartaoPadrao;
+	}
+
+	public EndEntregasPadroesModel getEndEntregasPadrao() 
+	{
+		return this.endEntregasPadrao;
+	}
+
+	public void setEndEntregasPadrao(EndEntregasPadroesModel endEntregasPadrao) 
+	{
+		this.endEntregasPadrao = endEntregasPadrao;
+	}
+
+	public EndCobrancasPadroesModel getEndCobrancaPadrao() 
+	{
+		return this.endCobrancaPadrao;
+	}
+
+	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) 
+	{
+		this.endCobrancaPadrao = endCobrancaPadrao;
 	}
 
 	@Override

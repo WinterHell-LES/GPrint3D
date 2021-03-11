@@ -1,5 +1,6 @@
 package com.project.GPrint3D.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -7,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -33,6 +36,15 @@ public class UsuariosModel
 
     @Column(name = "usu_ativo")
     private boolean usuAtivo;
+
+    @OneToOne(mappedBy = "usuario")
+    private ClientesModel cliente;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<EntradasModel> listEntradas;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<SaidasModel> listSaidas;
 
     public UsuariosModel()
     {
@@ -109,6 +121,36 @@ public class UsuariosModel
     public void setUsuAtivo(boolean usuAtivo) 
     {
         this.usuAtivo = usuAtivo;
+    }
+
+    public ClientesModel getCliente() 
+    {
+        return this.cliente;
+    }
+
+    public void setCliente(ClientesModel cliente) 
+    {
+        this.cliente = cliente;
+    }
+
+    public List<EntradasModel> getListEntradas() 
+    {
+        return this.listEntradas;
+    }
+
+    public void setListEntradas(List<EntradasModel> listEntradas) 
+    {
+        this.listEntradas = listEntradas;
+    }
+
+    public List<SaidasModel> getListSaidas() 
+    {
+        return this.listSaidas;
+    }
+
+    public void setListSaidas(List<SaidasModel> listSaidas) 
+    {
+        this.listSaidas = listSaidas;
     }
 
     @Override

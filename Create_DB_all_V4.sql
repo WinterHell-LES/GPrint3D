@@ -32,8 +32,10 @@ DROP TABLE IF EXISTS cartoes_padroes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE cartoes_padroes (
     ctp_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    ctp_crt_id		    MEDIUMINT NOT NULL UNIQUE,
-    CONSTRAINT pk_ctp PRIMARY KEY ( ctp_id )
+    ctp_crt_id		    MEDIUMINT NOT NULL,
+    ctp_cli_id			MEDIUMINT NOT NULL,
+    CONSTRAINT pk_ctp PRIMARY KEY ( ctp_id ),
+    CONSTRAINT uk_ctp UNIQUE ( ctp_crt_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS categorias;
@@ -109,8 +111,10 @@ DROP TABLE IF EXISTS enderecos_cobrancas_padroes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE enderecos_cobrancas_padroes (
     ecp_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    ecp_end_id		    MEDIUMINT NOT NULL UNIQUE,
-    CONSTRAINT pk_ctp PRIMARY KEY ( ecp_id )
+    ecp_end_id		    MEDIUMINT NOT NULL,
+    ecp_cli_id			MEDIUMINT NOT NULL,
+    CONSTRAINT pk_ecp PRIMARY KEY ( ecp_id ),
+    CONSTRAINT uk_ecp UNIQUE ( ecp_end_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS enderecos_entregas_padroes;
@@ -118,8 +122,10 @@ DROP TABLE IF EXISTS enderecos_entregas_padroes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE enderecos_entregas_padroes (
     eep_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    eep_end_id		    MEDIUMINT NOT NULL UNIQUE,
-    CONSTRAINT pk_ctp PRIMARY KEY ( eep_id )
+    eep_end_id		    MEDIUMINT NOT NULL,
+    eep_cli_id			MEDIUMINT NOT NULL,
+    CONSTRAINT pk_eep PRIMARY KEY ( eep_id ),
+    CONSTRAINT uk_eep UNIQUE ( eep_end_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS entradas;
@@ -141,6 +147,8 @@ DROP TABLE IF EXISTS fotos;
 CREATE TABLE fotos (
 	fto_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
     fto_nome			VARCHAR(100) NOT NULL,
+    fto_data			DATE,
+    fto_content			MEDIUMBLOB,
     fto_prd_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_fto PRIMARY KEY ( fto_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -259,6 +267,10 @@ ALTER TABLE cartoes
 ALTER TABLE cartoes_padroes
     ADD CONSTRAINT fk_ctp_crt FOREIGN KEY ( ctp_crt_id )
         REFERENCES cartoes ( crt_id );
+        
+ALTER TABLE cartoes_padroes
+    ADD CONSTRAINT fk_ctp_cli FOREIGN KEY ( ctp_cli_id )
+        REFERENCES clientes ( cli_id );
 
 ALTER TABLE cupons
     ADD CONSTRAINT fk_cpn_ctg FOREIGN KEY ( cpn_ctg_id )
@@ -272,9 +284,17 @@ ALTER TABLE enderecos_cobrancas_padroes
     ADD CONSTRAINT fk_ecp_end FOREIGN KEY ( ecp_end_id )
         REFERENCES enderecos ( end_id );
 
+ALTER TABLE enderecos_cobrancas_padroes
+    ADD CONSTRAINT fk_ecp_cli FOREIGN KEY ( ecp_cli_id )
+        REFERENCES clientes ( cli_id );
+
 ALTER TABLE enderecos_entregas_padroes
     ADD CONSTRAINT fk_eep_end FOREIGN KEY ( eep_end_id )
         REFERENCES enderecos ( end_id );
+        
+ALTER TABLE enderecos_entregas_padroes
+    ADD CONSTRAINT fk_eep_cli FOREIGN KEY ( eep_cli_id )
+        REFERENCES clientes ( cli_id );
 
 ALTER TABLE entradas
     ADD CONSTRAINT fk_ent_prd FOREIGN KEY ( ent_prd_id )

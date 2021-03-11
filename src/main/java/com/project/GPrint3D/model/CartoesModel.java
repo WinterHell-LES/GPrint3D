@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -47,6 +48,9 @@ public class CartoesModel
     @ManyToOne
     @JoinColumn(name = "crt_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
+
+    @OneToOne(mappedBy = "cartao")
+    private CartoesPadroesModel cartoesPadrao;
 
     public CartoesModel() 
     {
@@ -152,6 +156,16 @@ public class CartoesModel
     public void setCliente(ClientesModel cliente) 
     {
         this.cliente = cliente;
+    }
+
+    public CartoesPadroesModel getCartoesPadrao() 
+    {
+        return this.cartoesPadrao;
+    }
+
+    public void setCartoesPadrao(CartoesPadroesModel cartoesPadrao) 
+    {
+        this.cartoesPadrao = cartoesPadrao;
     }
 
     @Override

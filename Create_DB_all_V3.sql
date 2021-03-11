@@ -11,7 +11,7 @@ CREATE TABLE carrinhos (
     car_id          	MEDIUMINT NOT NULL AUTO_INCREMENT,
     car_cli_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_car PRIMARY KEY ( car_id )
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS cartoes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -36,7 +36,7 @@ CREATE TABLE categorias (
     ctg_nome       		VARCHAR(100),
     ctg_descricao  		VARCHAR(255),
     CONSTRAINT pk_ctg PRIMARY KEY ( ctg_id )
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS clientes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -117,6 +117,8 @@ DROP TABLE IF EXISTS fotos;
 CREATE TABLE fotos (
 	fto_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
     fto_nome			VARCHAR(100) NOT NULL,
+    fto_data			DATE,
+    fto_content			MEDIUMBLOB,
     fto_prd_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_fto PRIMARY KEY ( fto_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -322,6 +324,13 @@ BEGIN
 		UPDATE produtos SET prd_quantidade = prd_quantidade - prd_quantidade WHERE prd_id = NEW.sai_prd_id;
     END IF;
 END; $$
+
+SELECT *
+FROM cartoes_padroes ctp
+INNER JOIN cartoes crt
+ON ctp.ctp_crt_id = crt.crt_id
+INNER JOIN clientes cli
+ON cli.cli_id = crt.crt_cli_id;
 
 -- USERS - ADM
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)

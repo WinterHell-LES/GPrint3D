@@ -6,7 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/carrinho")
-public class cartCliController
+public class CartCliController
 {
     //Tela de alteração de dados do cartão do cliente
     @RequestMapping("/meuCarrinho")

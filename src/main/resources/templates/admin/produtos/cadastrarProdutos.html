@@ -17,13 +17,21 @@
                 <h1 class="h2">Cadastro de produtos</h1>
             </div>
 
-            <form th:action="@{/cadastro/cadastroCartao}" method="POST">
+            <form th:action="@{/cadastro/cadastroProduto}" method="POST">
                 <div class="row pb-3 pe-0">
                     <div class="row pb-3 pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
                                 <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovel" required/>
                                 <label for="descricaoImovel">Nome do produto</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pb-3 pe-0">
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Descrição" id="descricao" style="height: 80px"></textarea>
+                                <label for="observacao">Descrição</label>
                             </div>
                         </div>
                     </div>

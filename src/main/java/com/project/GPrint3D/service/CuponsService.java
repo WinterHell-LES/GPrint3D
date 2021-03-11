@@ -1,74 +1,64 @@
 package com.project.GPrint3D.service;
 
-import com.project.GPrint3D.model.ClientesModel;
-import com.project.GPrint3D.repository.ClientesRepository;
+import com.project.GPrint3D.model.CuponsModel;
+import com.project.GPrint3D.repository.CuponsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ClientesService
+public class CuponsService 
 {
     @Autowired
-    private ClientesRepository clientes;
+    private CuponsRepository cupons;
 
-    public String[] cadastrar(ClientesModel cliente)
+    public String[] cadastrar(CuponsModel cupom)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        if (cliente.getUsuario().getUsuId().equals(0)) 
-        {
-            cliente.setUsuario(null);
-        }
-
         try 
         {
-            clientes.save(cliente);
+            cupons.save(cupom);
 
             response[0] = msg1;
-            response[1] = "Cliente cadastrado com sucesso!";
-        } 
-        catch (DataIntegrityViolationException e) 
+            response[1] = "Cupom cadastrado com sucesso!";
+        }
+        catch (DataIntegrityViolationException e)
         {
             response[0] = msg2;
-            response[1] = "Cliente já cadastrado";
-        } 
-        catch (Exception e) 
+            response[1] = "Cupom já cadastrado";
+        }
+        catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao cadastrar o cliente";
+            response[1] = "Erro ao cadastrar o cupom";
         }
 
         return response;
     }
 
-    public String[] atualizar(ClientesModel cliente) 
+    public String[] atualizar(CuponsModel cupom)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        if (cliente.getUsuario().getUsuId().equals(0))
-        {
-            cliente.setUsuario(null);
-        }
-
         try 
         {
-            clientes.save(cliente);
+            cupons.save(cupom);
 
             response[0] = msg1;
-            response[1] = "Cadastro de cliente alterado com sucesso!";
+            response[1] = "Cadastro de cupom alterado com sucesso!";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao alterar o cliente";
+            response[1] = "Erro ao alterar o cupom";
         }
         
         return response;
@@ -83,17 +73,17 @@ public class ClientesService
 
         try 
         {
-            clientes.deleteById(id);
+            cupons.deleteById(id);
 
             response[0] = msg1;
-            response[1] = "Cadastro de cliente deletado com sucesso!";
+            response[1] = "Cadastro de cupom deletado com sucesso!";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao deletar o cliente";
+            response[1] = "Erro ao deletar o cupom";
         }
         
         return response;
-    }
+    }    
 }

@@ -3,9 +3,7 @@ package com.project.GPrint3D.repository;
 import com.project.GPrint3D.model.ClientesModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface ClientesRepository extends JpaRepository<ClientesModel, Integer>
 {

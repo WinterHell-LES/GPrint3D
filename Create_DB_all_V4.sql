@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS clientes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE clientes (
     cli_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    cli_ranking			VARCHAR(20) NOT NULL DEFAULT 'Bronze',
+    cli_ranking			VARCHAR(20) NOT NULL DEFAULT '0',
     cli_nome	       	VARCHAR(255) NOT NULL,
     cli_sexo			VARCHAR(20) NOT NULL,
     cli_dtnasc			DATE NOT NULL,

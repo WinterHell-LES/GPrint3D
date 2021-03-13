@@ -19,20 +19,17 @@
                                         Categorias
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="#">Categoria 1</a></li>
-                                        <li><a class="dropdown-item" href="#">Categoria 2</a></li>
+                                        <li><a class="dropdown-item" href="/categoria1">Categoria 1</a></li>
+                                        <li><a class="dropdown-item" href="/categoria2">Categoria 2</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end" sec:authorize="!isAuthenticated()">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-secondary py-0">
-                                    <a class="d-flex flex-row d-flex justify-content-center align-items-center" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
-                                        <i class="bi bi-cart3 fs-5"></i>
-                                        <span class="badge badge-pill badge-danger align-self-center fs-7"  style="color: white; text-decoration: none;">1</span>
-                                    </a>
-                                </button>
+                                <a class="btn btn-secondary py-0 d-flex flex-row d-flex justify-content-center align-items-center" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
+                                    <i class="bi bi-cart3 fs-5"></i>
+                                </a>
                                 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                     <i class="bi bi-box-arrow-in-right fs-5"></i>
                                 </button>
@@ -63,12 +60,9 @@
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end" sec:authorize="isAuthenticated()">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-secondary py-0">
-                                    <a class="d-flex flex-row d-flex justify-content-center align-items-center" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
-                                        <i class="bi bi-cart3 fs-5"></i>
-                                        <span class="badge badge-pill badge-danger align-self-center fs-7"  style="color: white; text-decoration: none;">1</span>
-                                    </a>
-                                </button>
+                                <a class="btn btn-secondary" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
+                                    <i class="bi bi-cart3 fs-5"></i>
+                                </a>
                                 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                     <i class="bi bi-person-square fs-5"></i>
                                 </button>

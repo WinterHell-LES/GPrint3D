@@ -8,12 +8,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CartoesPadroesService 
+public class CartoesPadroesService
 {
     @Autowired
-    private CartoesPadroesRepository cartoesPadroes;
+    private CartoesPadroesRepository cartoes_padroes;
 
-    public String[] cadastrar(CartoesPadroesModel cartoesPadrao)
+    public String[] cadastrar(CartoesPadroesModel cartao_padrao)
     {
         String[] response = new String[2];
 
@@ -22,7 +22,7 @@ public class CartoesPadroesService
 
         try 
         {
-            cartoesPadroes.save(cartoesPadrao);
+            cartoes_padroes.save(cartao_padrao);
 
             response[0] = msg1;
             response[1] = "Cartão padrão cadastrado com sucesso!";
@@ -41,7 +41,7 @@ public class CartoesPadroesService
         return response;
     }
 
-    public String[] atualizar(CartoesPadroesModel cartoesPadrao)
+    public String[] atualizar(CartoesPadroesModel cartao_padrao)
     {
         String[] response = new String[2];
 
@@ -50,10 +50,10 @@ public class CartoesPadroesService
 
         try 
         {
-            cartoesPadroes.save(cartoesPadrao);
+            cartoes_padroes.save(cartao_padrao);
 
             response[0] = msg1;
-            response[1] = "Cadastro do cartão padrão alterado com sucesso!";
+            response[1] = "Cadastro de cartão padrão alterado com sucesso!";
         }
         catch (Exception e)
         {
@@ -73,10 +73,10 @@ public class CartoesPadroesService
 
         try 
         {
-            cartoesPadroes.deleteById(id);
+            cartoes_padroes.deleteById(id);
 
             response[0] = msg1;
-            response[1] = "Cadastro do cartão padrão deletado com sucesso!";
+            response[1] = "Cadastro de cartão padrão deletado com sucesso!";
         }
         catch (Exception e)
         {

@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CartoesModel;
+import com.project.GPrint3D.model.CartoesPadroesModel;
+import com.project.GPrint3D.repository.CartoesPadroesRepository;
 import com.project.GPrint3D.repository.CartoesRepository;
+import com.project.GPrint3D.service.CartoesPadroesService;
 import com.project.GPrint3D.service.CartoesService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,13 @@ public class AltCrtCliController
     private CartoesRepository cartoes;
     
     @Autowired
+    private CartoesPadroesRepository cartoesPadroes;
+    
+    @Autowired
     private CartoesService cartoesService;
+    
+    @Autowired
+    private CartoesPadroesService cartoesPadroesService;
 
     //Tela de alteração de dados do cartão do cliente
     @RequestMapping("/alterarCartao/{id}")
@@ -36,18 +45,35 @@ public class AltCrtCliController
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarCartao");
 
-        mv.addObject("cartao", cartoes.findOneById(id));
+        CartoesModel cartao = cartoes.findOneById(id);
+        CartoesPadroesModel cartaoPadrao = cartoesPadroes.findByCartaoId(cartao.getCrtId());
+
+        mv.addObject("cartao", cartao);
+
+        if (cartaoPadrao != null)
+        {
+            mv.addObject("cartaoPadrao", cartaoPadrao);
+        }
 
         return mv;
     }
 
     //Alterar os dados do cartão do cliente
     @PostMapping("/alterarCartao/{id}")
-    public ModelAndView alteraCartao(@PathVariable("id") Integer id, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
+    public ModelAndView alteraCartao(@PathVariable("id") Integer id, @RequestParam(name = "crtPadrao", defaultValue = "false") Boolean crtPadrao, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
     {
+        CartoesPadroesModel cartaoPadrao = cartoesPadroes.findByClienteId(cartao.getCliente().getCliId());
+
         if (result.hasErrors())
         {
             return new ModelAndView("redirect:/cliente/alterarCartao");
+        }
+
+        if (crtPadrao == true)
+        {
+            cartaoPadrao.setCartao(cartao);
+            
+            cartoesPadroesService.atualizar(cartaoPadrao);
         }
         
         cartoesService.atualizar(cartao);

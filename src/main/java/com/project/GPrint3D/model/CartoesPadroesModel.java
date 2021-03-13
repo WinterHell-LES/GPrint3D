@@ -27,6 +27,7 @@ public class CartoesPadroesModel
     @OneToOne
     @JoinColumn(name = "ctp_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
+    
 
     public CartoesPadroesModel() 
     {
@@ -38,7 +39,7 @@ public class CartoesPadroesModel
     public CartoesPadroesModel(Integer ctpId) 
     {
         super( );
-        
+
         this.ctpId = ctpId;
     }
 
@@ -52,6 +53,7 @@ public class CartoesPadroesModel
         this.ctpId = ctpId;
     }
 
+    
     public CartoesModel getCartao() 
     {
         return this.cartao;
@@ -62,35 +64,33 @@ public class CartoesPadroesModel
         this.cartao = cartao;
     }
 
-    public ClientesModel getCliente() 
-    {
+    public ClientesModel getCliente() {
         return this.cliente;
     }
 
-    public void setCliente(ClientesModel cliente) 
-    {
+    public void setCliente(ClientesModel cliente) {
         this.cliente = cliente;
     }
 
     @Override
     public boolean equals(Object o) 
     {
-        if (o == this)
+        if (o == this) 
         {
             return true;
         }
-            
+
         if (!(o instanceof CartoesPadroesModel)) 
         {
             return false;
         }
-
         CartoesPadroesModel cartoesPadroesModel = (CartoesPadroesModel) o;
         return Objects.equals(ctpId, cartoesPadroesModel.ctpId);
     }
 
     @Override
     public int hashCode() 
+    
     {
         return Objects.hashCode(ctpId);
     }

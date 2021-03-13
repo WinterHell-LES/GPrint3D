@@ -18,7 +18,7 @@
                                     <h5 class="card-title" th:text="${cartao.crtNumero}">Cartão X</h5>
                                 </div>
                                 <div class="col-2 px-1 text-end">
-                                    <i class="bi bi-check2-square fs-5" style="color: limegreen;" th:if="${cartao.crtPadrao} == ${true}"></i>
+                                    <i class="bi bi-check2-square fs-5" style="color: limegreen;" th:if="${cartao.cartaoPadrao != null} AND ${cartao.cartaoPadrao.cartao.crtId} == ${cartao.crtId}"></i>
                                 </div>
                             </div>
                             <div class="row">

@@ -31,7 +31,7 @@
 
                                     <div class="col-sm-8 d-flex justify-content-end me-1">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="crtPadrao" name="crtPadrao" th:checked="${cartao.crtPadrao} == ${true}" th:field="${cartao.crtPadrao}">
+                                            <input class="form-check-input" type="checkbox" id="crtPadrao" name="crtPadrao" th:checked="${cartaoPadrao != null} AND ${cartaoPadrao.cartao.crtId} == ${cartao.crtId}">
                                             <label class="form-check-label" for="crtPadrao">Cartão padrão</label>
                                         </div>
                                     </div>
@@ -41,7 +41,7 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm ">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control cartao" placeholder="Número do Cartão" id="numCartao" minlength="19" th:value="${cartao.crtNumero}" th:field="${cartao.crtNumero}">
+                                                <input type="text" class="form-control cartao" placeholder="Número do Cartão" id="numCartao" minlength="19" maxlength="19" th:value="${cartao.crtNumero}" th:field="${cartao.crtNumero}">
                                                 <label for="numCartao">Número do Cartão</label>
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@
 
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control validade" placeholder="Validade do Cartão" id="validadedCartao" minlength="3" maxlenght="3" th:value="${cartao.crtValidade}" th:field="${cartao.crtValidade}">
+                                                <input type="text" class="form-control validade" placeholder="Validade do Cartão" id="validadedCartao" minlength="5" maxlenght="5" th:value="${cartao.crtValidade}" th:field="${cartao.crtValidade}">
                                                 <label for="validadedCartao">Validade do Cartão</label>
                                             </div>
                                         </div>

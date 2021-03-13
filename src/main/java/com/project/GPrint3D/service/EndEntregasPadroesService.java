@@ -8,12 +8,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EndEntregasPadroesService 
+public class EndEntregasPadroesService
 {
     @Autowired
     private EndEntregasPadroesRepository endEntregasPadroes;
 
-    public String[] cadastrar(EndEntregasPadroesModel endEntregasPadrao)
+    public String[] cadastrar(EndEntregasPadroesModel endEntregaPadrao)
     {
         String[] response = new String[2];
 
@@ -22,26 +22,26 @@ public class EndEntregasPadroesService
 
         try 
         {
-            endEntregasPadroes.save(endEntregasPadrao);
+            endEntregasPadroes.save(endEntregaPadrao);
 
             response[0] = msg1;
-            response[1] = "Endereço de entragas padrão cadastrado com sucesso!";
+            response[1] = "Endereço de entrega padrão cadastrado com sucesso!";
         }
         catch (DataIntegrityViolationException e)
         {
             response[0] = msg2;
-            response[1] = "Endereço de entragas padrão já cadastrado";
+            response[1] = "Endereço de entrega padrão já cadastrado";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao cadastrar o endereço de entragas padrão";
+            response[1] = "Erro ao cadastrar o endereço de entrega padrão";
         }
 
         return response;
     }
 
-    public String[] atualizar(EndEntregasPadroesModel endEntregasPadrao)
+    public String[] atualizar(EndEntregasPadroesModel endEntregaPadrao)
     {
         String[] response = new String[2];
 
@@ -50,15 +50,15 @@ public class EndEntregasPadroesService
 
         try 
         {
-            endEntregasPadroes.save(endEntregasPadrao);
+            endEntregasPadroes.save(endEntregaPadrao);
 
             response[0] = msg1;
-            response[1] = "Cadastro de endereço de entragas padrão alterado com sucesso!";
+            response[1] = "Cadastro de endereço de entrega padrão alterado com sucesso!";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao alterar o endereço de entragas padrão";
+            response[1] = "Erro ao alterar o endereço de entrega padrão";
         }
         
         return response;
@@ -76,12 +76,12 @@ public class EndEntregasPadroesService
             endEntregasPadroes.deleteById(id);
 
             response[0] = msg1;
-            response[1] = "Cadastro de endereço de entragas padrão deletado com sucesso!";
+            response[1] = "Cadastro de endereço de entrega padrão deletado com sucesso!";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao deletar o endereço de entragas padrão";
+            response[1] = "Erro ao deletar o endereço de entrega padrão";
         }
         
         return response;

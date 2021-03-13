@@ -25,14 +25,8 @@ public class EnderecosModel
     @Column(name = "end_entrega")
 	private boolean endEntrega;
 
-    @Column(name = "end_ent_padrao")
-	private boolean endEntregaPadrao;
-
     @Column(name = "end_cobranca")
 	private boolean endCobranca;
-
-    @Column(name = "end_cob_padrao")
-	private boolean endCobrancaPadrao;
 
 	@NotEmpty(message = "Descrição é obrigatória")
     @Column(name = "end_descricao")
@@ -77,10 +71,10 @@ public class EnderecosModel
     private ClientesModel cliente;
 
 	@OneToOne(mappedBy = "endereco")
-	private EndEntregasPadroesModel endEntregasPadrao;
+	private EndEntregasPadroesModel endEntregaPadrao;
 
 	@OneToOne(mappedBy = "endereco")
-	private EndCobrancasPadroesModel endCobrancasPadrao;
+	private EndCobrancasPadroesModel endCobrancaPadrao;
 
 	public EnderecosModel() 
 	{
@@ -88,9 +82,7 @@ public class EnderecosModel
 		
 		this.endId = 0;
 		this.endEntrega = false;
-		this.endEntregaPadrao = false;
 		this.endCobranca = false;
-		this.endCobrancaPadrao = false;
 		this.endDescricao = "";
 		this.endTipo = "";
 		this.endLogradouro = "";
@@ -103,7 +95,7 @@ public class EnderecosModel
 		this.endObservacao = "";
 	}
 
-	public EnderecosModel(Integer endId, boolean endEntrega, boolean endEntregaPadrao, boolean endCobranca, boolean endCobrancaPadrao, String endDescricao, String endTipo,
+	public EnderecosModel(Integer endId, boolean endEntrega, boolean endCobranca, String endDescricao, String endTipo,
 			String endLogradouro, String endNumero, String endCep, String endComplemento, String endCidade, String endEstado, String endPais,
 			String endObservacao) 
 	{
@@ -111,9 +103,7 @@ public class EnderecosModel
 
 		this.endId = endId;
 		this.endEntrega = endEntrega;
-		this.endEntregaPadrao = endEntregaPadrao;
 		this.endCobranca = endCobranca;
-		this.endCobrancaPadrao = endCobrancaPadrao;
 		this.endDescricao = endDescricao;
 		this.endTipo = endTipo;
 		this.endLogradouro = endLogradouro;
@@ -136,64 +126,28 @@ public class EnderecosModel
 		this.endId = endId;
 	}
 
-	public boolean isEndEntrega() 
-	{
+	public boolean isEndEntrega() {
 		return this.endEntrega;
 	}
 
-	public boolean getEndEntrega() 
-	{
+	public boolean getEndEntrega() {
 		return this.endEntrega;
 	}
 
-	public void setEndEntrega(boolean endEntrega) 
-	{
+	public void setEndEntrega(boolean endEntrega) {
 		this.endEntrega = endEntrega;
 	}
 
-	public boolean isEndEntregaPadrao() 
-	{
-		return this.endEntregaPadrao;
-	}
-
-	public boolean getEndEntregaPadrao() 
-	{
-		return this.endEntregaPadrao;
-	}
-
-	public void setEndEntregaPadrao(boolean endEntregaPadrao) 
-	{
-		this.endEntregaPadrao = endEntregaPadrao;
-	}
-
-	public boolean isEndCobranca() 
-	{
+	public boolean isEndCobranca() {
 		return this.endCobranca;
 	}
 
-	public boolean getEndCobranca() 
-	{
+	public boolean getEndCobranca() {
 		return this.endCobranca;
 	}
 
-	public void setEndCobranca(boolean endCobranca) 
-	{
+	public void setEndCobranca(boolean endCobranca) {
 		this.endCobranca = endCobranca;
-	}
-
-	public boolean isEndCobrancaPadrao() 
-	{
-		return this.endCobrancaPadrao;
-	}
-
-	public boolean getEndCobrancaPadrao() 
-	{
-		return this.endCobrancaPadrao;
-	}
-
-	public void setEndCobrancaPadrao(boolean endCobrancaPadrao) 
-	{
-		this.endCobrancaPadrao = endCobrancaPadrao;
 	}
 
 	public String getEndDescricao() 
@@ -306,24 +260,20 @@ public class EnderecosModel
 		this.cliente = cliente;
 	}
 
-	public EndEntregasPadroesModel getEndEntregasPadrao() 
-	{
-		return this.endEntregasPadrao;
+	public EndEntregasPadroesModel getEndEntregaPadrao() {
+		return this.endEntregaPadrao;
 	}
 
-	public void setEndEntregasPadrao(EndEntregasPadroesModel endEntregasPadrao) 
-	{
-		this.endEntregasPadrao = endEntregasPadrao;
+	public void setEndEntregaPadrao(EndEntregasPadroesModel endEntregaPadrao) {
+		this.endEntregaPadrao = endEntregaPadrao;
 	}
 
-	public EndCobrancasPadroesModel getEndCobrancasPadrao() 
-	{
-		return this.endCobrancasPadrao;
+	public EndCobrancasPadroesModel getEndCobrancaPadrao() {
+		return this.endCobrancaPadrao;
 	}
 
-	public void setEndCobrancasPadrao(EndCobrancasPadroesModel endCobrancasPadrao) 
-	{
-		this.endCobrancasPadrao = endCobrancasPadrao;
+	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) {
+		this.endCobrancaPadrao = endCobrancaPadrao;
 	}
 
 	@Override

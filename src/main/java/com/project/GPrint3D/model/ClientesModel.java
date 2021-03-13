@@ -59,7 +59,7 @@ public class ClientesModel
 	private CartoesPadroesModel cartaoPadrao;
 
 	@OneToOne(mappedBy = "cliente")
-	private EndEntregasPadroesModel endEntregasPadrao;
+	private EndEntregasPadroesModel endEntregaPadrao;
 
 	@OneToOne(mappedBy = "cliente")
 	private EndCobrancasPadroesModel endCobrancaPadrao;
@@ -196,23 +196,19 @@ public class ClientesModel
 		this.cartaoPadrao = cartaoPadrao;
 	}
 
-	public EndEntregasPadroesModel getEndEntregasPadrao() 
-	{
-		return this.endEntregasPadrao;
+	public EndEntregasPadroesModel getEndEntregaPadrao() {
+		return this.endEntregaPadrao;
 	}
 
-	public void setEndEntregasPadrao(EndEntregasPadroesModel endEntregasPadrao) 
-	{
-		this.endEntregasPadrao = endEntregasPadrao;
+	public void setEndEntregaPadrao(EndEntregasPadroesModel endEntregaPadrao) {
+		this.endEntregaPadrao = endEntregaPadrao;
 	}
 
-	public EndCobrancasPadroesModel getEndCobrancaPadrao() 
-	{
+	public EndCobrancasPadroesModel getEndCobrancaPadrao() {
 		return this.endCobrancaPadrao;
 	}
 
-	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) 
-	{
+	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) {
 		this.endCobrancaPadrao = endCobrancaPadrao;
 	}
 

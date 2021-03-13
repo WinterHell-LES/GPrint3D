@@ -2,15 +2,19 @@ package com.project.GPrint3D.controller.cliente.cadastrar;
 
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
-
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.ClientesModel;
+import com.project.GPrint3D.model.EndCobrancasPadroesModel;
+import com.project.GPrint3D.model.EndEntregasPadroesModel;
 import com.project.GPrint3D.model.EnderecosModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.ClientesRepository;
+import com.project.GPrint3D.repository.EndCobrancasPadroesRepository;
+import com.project.GPrint3D.repository.EndEntregasPadroesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
+import com.project.GPrint3D.service.EndCobrancasPadroesService;
+import com.project.GPrint3D.service.EndEntregasPadroesService;
 import com.project.GPrint3D.service.EnderecosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,23 +38,43 @@ public class CadEndCliController
     private UsuariosRepository usuarios;
 
     @Autowired
+    private EndCobrancasPadroesRepository endCobrancasPadroes;
+
+    @Autowired
+    private EndEntregasPadroesRepository endEntregasPadroes;
+
+    @Autowired
     private EnderecosService enderecosService;
+
+    @Autowired
+    private EndCobrancasPadroesService endCobrancasPadroesService;
+
+    @Autowired
+    private EndEntregasPadroesService endEntregasPadroesService;
 
     //Tela de cadastro de novo endereço do cliente
     @RequestMapping("/cadastrarEndereco/{id}/{check}")
     public ModelAndView cadastroEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, EnderecosModel endereco)
     {
         ModelAndView mv = new ModelAndView("/cliente/cadastrar/cadastrarEndereco");
+
+        if (check == 0)
+        {
+            endereco.setEndEntrega(true);
+        }
+        else
+        {
+            endereco.setEndCobranca(true);
+        }
         
         mv.addObject("cliente", id);
-        mv.addObject("check", check);
 
         return mv;
     }
 
     //Cadastrar novo endereço do cliente
     @PostMapping("/cadastrarEndereco/{id}/{check}")
-    public ModelAndView cadastrarEndereco(@PathVariable("id") Integer id, @PathVariable("check") Integer check, @RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, Principal principal)
+    public ModelAndView cadastrarEndereco(@PathVariable("id") Integer id, @RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, Principal principal)
     {
         if (result.hasErrors())
         {
@@ -59,33 +83,29 @@ public class CadEndCliController
 
         UsuariosModel usu = usuarios.findByEmail(principal.getName());
         ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
-                
-        if (endPadrao == true)
-        {
-            if (endereco.isEndCobranca())
-            {
-                endereco.setEndCobrancaPadrao(true);
-            } else
-            {
-                endereco.setEndCobrancaPadrao(false);
-            }
-            
-            if (endereco.isEndEntrega()) 
-            {
-                endereco.setEndEntregaPadrao(true);
-            } else
-            {
-                endereco.setEndEntregaPadrao(false);
-            }
-        }else
-        {
-            endereco.setEndEntregaPadrao(false);
-            endereco.setEndCobrancaPadrao(false);
-        }
+        EndCobrancasPadroesModel endCobrancaPadrao = endCobrancasPadroes.findByClienteId(endereco.getCliente().getCliId());
+        EndEntregasPadroesModel endEntregaPadrao = endEntregasPadroes.findByClienteId(endereco.getCliente().getCliId());
 
         endereco.setCliente(cli);
 
         enderecosService.cadastrar(endereco);
+
+        if (endPadrao == true)
+        {
+            if (endereco.isEndCobranca())
+            {
+                endCobrancaPadrao.setEndereco(endereco);
+
+                endCobrancasPadroesService.atualizar(endCobrancaPadrao);
+            }
+
+            if (endereco.isEndEntrega())
+            {
+                endEntregaPadrao.setEndereco(endereco);
+
+                endEntregasPadroesService.atualizar(endEntregaPadrao);
+            }
+        }
 
         return new ModelAndView("redirect:/cliente/meusEnderecos");
     }

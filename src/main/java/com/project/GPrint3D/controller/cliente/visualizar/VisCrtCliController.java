@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/cliente")
@@ -48,7 +47,7 @@ public class VisCrtCliController
 
     //Deletar cartão do cliente
     @PostMapping("/deletarCartao")
-    public ModelAndView deletarCartao(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
+    public ModelAndView deletarCartao(@RequestParam(name = "id") Integer id) 
     {
         cartoesService.excluir(id);
 

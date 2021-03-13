@@ -24,7 +24,8 @@ CREATE TABLE cartoes (
     crt_validade     	VARCHAR(10) NOT NULL,
     crt_cvv          	VARCHAR(10) NOT NULL,
     crt_cli_id  		MEDIUMINT NOT NULL,
-    CONSTRAINT pk_crt PRIMARY KEY ( crt_id )
+    CONSTRAINT pk_crt PRIMARY KEY ( crt_id ),
+    CONSTRAINT uk_crt UNIQUE ( crt_numero, crt_cli_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS cartoes_padroes;
@@ -33,7 +34,7 @@ DROP TABLE IF EXISTS cartoes_padroes;
 CREATE TABLE cartoes_padroes (
     ctp_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
     ctp_crt_id		    MEDIUMINT NOT NULL,
-    ctp_cli_id			MEDIUMINT NOT NULL,
+    ctp_cli_id          MEDIUMINT NOT NULL,
     CONSTRAINT pk_ctp PRIMARY KEY ( ctp_id ),
     CONSTRAINT uk_ctp UNIQUE ( ctp_crt_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -112,7 +113,7 @@ DROP TABLE IF EXISTS enderecos_cobrancas_padroes;
 CREATE TABLE enderecos_cobrancas_padroes (
     ecp_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
     ecp_end_id		    MEDIUMINT NOT NULL,
-    ecp_cli_id			MEDIUMINT NOT NULL,
+    ecp_cli_id		    MEDIUMINT NOT NULL,
     CONSTRAINT pk_ecp PRIMARY KEY ( ecp_id ),
     CONSTRAINT uk_ecp UNIQUE ( ecp_end_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -123,7 +124,7 @@ DROP TABLE IF EXISTS enderecos_entregas_padroes;
 CREATE TABLE enderecos_entregas_padroes (
     eep_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
     eep_end_id		    MEDIUMINT NOT NULL,
-    eep_cli_id			MEDIUMINT NOT NULL,
+    eep_cli_id		    MEDIUMINT NOT NULL,
     CONSTRAINT pk_eep PRIMARY KEY ( eep_id ),
     CONSTRAINT uk_eep UNIQUE ( eep_end_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -267,7 +268,7 @@ ALTER TABLE cartoes
 ALTER TABLE cartoes_padroes
     ADD CONSTRAINT fk_ctp_crt FOREIGN KEY ( ctp_crt_id )
         REFERENCES cartoes ( crt_id );
-        
+
 ALTER TABLE cartoes_padroes
     ADD CONSTRAINT fk_ctp_cli FOREIGN KEY ( ctp_cli_id )
         REFERENCES clientes ( cli_id );
@@ -291,7 +292,7 @@ ALTER TABLE enderecos_cobrancas_padroes
 ALTER TABLE enderecos_entregas_padroes
     ADD CONSTRAINT fk_eep_end FOREIGN KEY ( eep_end_id )
         REFERENCES enderecos ( end_id );
-        
+
 ALTER TABLE enderecos_entregas_padroes
     ADD CONSTRAINT fk_eep_cli FOREIGN KEY ( eep_cli_id )
         REFERENCES clientes ( cli_id );

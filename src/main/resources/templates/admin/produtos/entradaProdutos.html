@@ -44,8 +44,11 @@
                     </div>
                 </div>
             </form>
-
-            <script type="text/javascript" th:src="@{/javascripts/drag.and.drop.js}"></script>
         </section>
+
+        <th:block layout:fragment="javascripts">
+            <!-- Script -->
+            <script type="text/javascript" th:src="@{/javascripts/drag.and.drop.js}"></script>
+        </th:block>
     </body>
 </html>

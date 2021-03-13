@@ -1,5 +1,6 @@
 package com.project.GPrint3D.service;
 
+import com.project.GPrint3D.configuration.SecurityConfig;
 import com.project.GPrint3D.model.CartoesModel;
 import com.project.GPrint3D.repository.CartoesRepository;
 
@@ -13,6 +14,9 @@ public class CartoesService
     @Autowired
     private CartoesRepository cartoes;
 
+    @Autowired
+    private SecurityConfig securityConfig;
+
     public String[] cadastrar(CartoesModel cartao)
     {
         String[] response = new String[2];
@@ -22,6 +26,8 @@ public class CartoesService
 
         try 
         {
+            cartao.setCrtCvv(securityConfig.passwordEncoder().encode(cartao.getCrtCvv()));
+
             cartoes.save(cartao);
 
             response[0] = msg1;

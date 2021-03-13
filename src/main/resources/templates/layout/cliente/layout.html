@@ -14,27 +14,29 @@
 
         <title>Layout</title>
     </head>
-    <body>
+    <body> 
+        <!-- Loader -->
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+        
+        <!-- Header -->
+        <div th:insert="~{layout/cliente/header :: header}"></div>
+        
+        <!-- Sidebar -->
+        <div th:insert="~{layout/cliente/sidebar :: sidebar}"></div>
+        
+        
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">       
+            <!-- Conteudo da página -->
+            <section class="container-fluid" layout:fragment="conteudo"></section>
+        </main>
+        
         <!-- Scripts -->
         <script type="text/javascript" th:src="@{/javascripts/jquery/jquery-3.5.1.min.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/bootstrap/bootstrap.bundle.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/loader.js}"></script>
         
-        <!-- Loader -->
-        <div class="loader-wrapper">
-            <span class="loader"><span class="loader-inner"></span></span>
-        </div>
-
-        <!-- Header -->
-        <div th:insert="~{layout/cliente/header :: header}"></div>
-
-        <!-- Sidebar -->
-        <div th:insert="~{layout/cliente/sidebar :: sidebar}"></div>
-        
-
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">       
-            <!-- Conteudo da página -->
-            <section class="container-fluid" layout:fragment="conteudo"></section>
-        </main>
+        <th:block layout:fragment="javascripts"></th:block>
     </body>
 </html>

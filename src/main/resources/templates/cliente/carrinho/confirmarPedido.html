@@ -195,10 +195,13 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Script
-            <script type="text/javascript" th:src="@{/javascripts/enderecos.js}"></script>-->
-            <script type="text/javascript" th:src="@{/javascripts/cartoes.js}"></script>
         </section>
+        
+        <th:block layout:fragment="javascripts">
+            <!-- Script-->
+            <script type="text/javascript" th:src="@{/javascripts/cartoes.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
+        </th:block>
     </body>
 </html>

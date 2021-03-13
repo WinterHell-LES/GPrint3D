@@ -16,23 +16,25 @@
     </head>
 
     <body>
+        <!-- Loader -->
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+        
+        <!-- Header -->
+        <div th:insert="~{layout/default/header :: header}"></div>
+        
+        <!-- Conteudo da página -->
+        <section class="container-fluid my-2 pt-5 px-5 col col-xl-10" layout:fragment="conteudo"></section>
+        
+        <!-- Footer -->
+        <div th:insert="~{layout/default/footer :: footer}"></div>
+        
         <!-- Scripts -->
         <script type="text/javascript" th:src="@{/javascripts/jquery/jquery-3.5.1.min.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/bootstrap/bootstrap.bundle.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/loader.js}"></script>
         
-        <!-- Loader -->
-        <div class="loader-wrapper">
-            <span class="loader"><span class="loader-inner"></span></span>
-        </div>
-
-        <!-- Header -->
-        <div th:insert="~{layout/default/header :: header}"></div>
-
-        <!-- Conteudo da página -->
-        <section class="container-fluid my-2 pt-5 px-5 col col-xl-10" layout:fragment="conteudo"></section>
-
-        <!-- Footer -->
-        <div th:insert="~{layout/default/footer :: footer}"></div>
+        <th:block layout:fragment="javascripts"></th:block>
     </body>
 </html>

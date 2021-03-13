@@ -22,7 +22,7 @@ CREATE TABLE cartoes (
     crt_nome         	VARCHAR(50) NOT NULL,
     crt_numero       	VARCHAR(50) NOT NULL,
     crt_validade     	VARCHAR(10) NOT NULL,
-    crt_cvv          	VARCHAR(10) NOT NULL,
+    crt_cvv          	VARCHAR(255) NOT NULL,
     crt_cli_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_crt PRIMARY KEY ( crt_id ),
     CONSTRAINT uk_crt UNIQUE ( crt_numero, crt_cli_id )

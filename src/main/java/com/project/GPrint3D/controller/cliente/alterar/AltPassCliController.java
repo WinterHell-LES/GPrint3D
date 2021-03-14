@@ -66,7 +66,9 @@ public class AltPassCliController
             if (confirmNewPass.equals(newUserPass))
             {
                 System.out.println("Sucesso!");
-                usuariosService.atualizarPass(Usuario);
+                String[] msgDeErro = usuariosService.atualizarPass(Usuario);
+
+                attributes.addFlashAttribute(msgDeErro[0], msgDeErro[1]);
 
                 return new ModelAndView("redirect:/cliente/index");
             }else{

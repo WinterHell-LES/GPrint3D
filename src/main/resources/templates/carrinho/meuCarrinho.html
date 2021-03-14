@@ -116,7 +116,7 @@
                         <span>Insira seu CEP:</span>
                     </div>
                     <div class="col-1 px-0">
-                        <input type="text" class="form-control px-1" id="CEP" placeholder="00000-000" style="width: 100px; text-align: center;">
+                        <input type="text" class="form-control px-1 cep" id="CEP" placeholder="00000-000"  minlength="9" maxlength="9" style="width: 100px; text-align: center;">
                     </div>
                     <div class="col-1">
                         <button type="submit" class="btn border shadow-sm">Calcular</button>
@@ -162,5 +162,11 @@
                 </div>
             </div>
         </section>
+
+        <th:block layout:fragment="javascripts">
+            <!-- Script-->
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
+        </th:block>
     </body>
 </html>

@@ -163,24 +163,26 @@
                     
                     <div class="col-4 text-end">
                         <p class="fst-italic d-inline">-R$132,00</p>
-                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesPagamento', this)"></i>
+                        <i class="bi bi-caret-up d-inline" style="cursor: pointer;" onclick="hideElem('detalhesPagamento', this)"></i>
                     </div>
                 </div>
 
-                <div class="row visually-hidden" id="detalhesPagamento">
+                <div class="row" id="detalhesPagamento">
                     <table class="table mt-2">
                         <tbody>
                             <tr>
-                                <th scope="col" class="col-4">Número</th>
+                                <th scope="col" class="col-3">Número</th>
                                 <th scope="col" class="col-4">Nome</th>
                                 <th scope="col" class="col-2">Bandeira</th>
                                 <th scope="col" class="col-2 text-center">Valor</th>
+                                <th scope="col" class="col-1-sm text-center">CVV</th>
                             </tr>
                             <tr>
                                 <td>1234 1234 1234 1234</td>
                                 <td>José da Silva</td>
                                 <td>Visa</td>
                                 <td class="text-center">R$132,00</td>
+                                <td><input type="text" class="form-control cvv px-0" placeholder="" minlength="3" maxlength="3" id="cvv" style="text-align: center;"></td>
                             </tr>
                         </tbody>
                     </table>

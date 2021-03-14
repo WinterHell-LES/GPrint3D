@@ -10,6 +10,7 @@ $(function($)
     $('.phone_us').mask('(000) 000-00000');
     $('.cartao').mask('0000 0000 0000 0000');
     $('.validade').mask('00/00');
+    $('.cvv').mask('000');
 
     $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
         console.log('Mask is done!:', cep);

@@ -45,6 +45,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" href="/cliente/meusCupons" th:classappend="${#httpServletRequest.requestURI.contains('meusCupons')} ? 'active'">
+                                        Meus cupons
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" href="/cliente/meuRanking" th:classappend="${#httpServletRequest.requestURI.contains('meuRanking')} ? 'active'">
                                         Meu ranking
                                     </a>

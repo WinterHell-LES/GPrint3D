@@ -94,6 +94,7 @@ public class CadClienteController
 
         return mv;
     }
+    
     @PostMapping("/cadastroDadosPessoais")
     public ModelAndView cadastrarDadosPessoais(@RequestParam(name = "confirm_password") String confirmPass, @Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
     {
@@ -130,6 +131,7 @@ public class CadClienteController
 
         return mv;
     }
+
     @PostMapping("/cadastroEndereco")
     public ModelAndView cadastrarEndereco(@Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes)
     {
@@ -151,6 +153,7 @@ public class CadClienteController
 
         return mv;
     }
+
     @PostMapping("/cadastroCartao")
     public ModelAndView cadastrarCartao(@Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
     {
@@ -202,7 +205,7 @@ public class CadClienteController
             //Configura o novo cliente e novo endereço no endereço de entrega padrao
             endEntregasPadroesMod.setCliente(cli);
             endEntregasPadroesMod.setEndereco(end);
-            endEntregasPadroesService.cadastrar(endEntregasPadroesMod)
+            endEntregasPadroesService.cadastrar(endEntregasPadroesMod);
         }
 
         //Busca o novo cartão cadastrado

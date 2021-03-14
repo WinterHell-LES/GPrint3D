@@ -39,13 +39,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CadClienteController 
 { 
     private UsuariosModel usuariosMod;
-    private CartoesPadroesModel cartaoPadraoMod;
+    private CartoesPadroesModel cartaoPadraoMod = new CartoesPadroesModel();
     private ClientesModel clientesMod;
     private DocumentosModel documentosMod;
     private TelefonesModel telefonesMod; 
     private EnderecosModel enderecosMod;
-    private EndCobrancasPadroesModel endCobrancasPadroesMod;
-    private EndEntregasPadroesModel endEntregasPadroesMod;
+    private EndCobrancasPadroesModel endCobrancasPadroesMod = new EndCobrancasPadroesModel();
+    private EndEntregasPadroesModel endEntregasPadroesMod = new EndEntregasPadroesModel();
 
     @Autowired
     private CartoesService cartoesService;
@@ -128,6 +128,9 @@ public class CadClienteController
     public ModelAndView cadastroEndereco(EnderecosModel endereco)
     {
         ModelAndView mv = new ModelAndView("/cadastro/cadEndereco");
+
+        //Define endereço de entrega como escolha inicial do tipo de endereço
+        endereco.setEndEntrega(true);
 
         return mv;
     }

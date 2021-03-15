@@ -6,10 +6,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>GPrint3D - Home</title>
-
         <!-- CSS -->
-        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/product.css}">
+        <th:block layout:fragment="css">
+            <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/product.css}">
+        </th:block>
+
+        <title>GPrint3D - Home</title>
     </head>
 
     <body>
@@ -35,12 +37,15 @@
                             <span class="fs-4 fw-bolder">R$ 50,00</span>
                         </div>
                         <i class="bi bi-truck mb-1"></i><span> Calcule o frete:</span>
-                        <div class="d-flex flex-row gap-3 my-1">
+                        <div class="d-flex flex-row justify-content-center gap-3 mb-3 mt-1">
                             <input type="text" class="form-control px-1 cep" id="CEP" minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px; text-align: center;">
                             <button type="button" class="btn border shadow-sm">Calcular</button>
                         </div>
                         <p class="fs-8 mb-1 mt-3">Quantidade em estoque: X itens.</p>
-                        <div class="row px-3">
+                        <div class="row px-3 mb-2 mt-1">
+                            <a href="#" class="btn border shadow-sm">Adicionar ao carrinho</a>
+                        </div>
+                        <div class="row px-3 my-2">
                             <a href="/carrinho/meuCarrinho" class="btn border shadow-sm">Comprar</a>
                         </div>
 
@@ -121,9 +126,6 @@
                     <ul><span>Desvantagens:</span>
                         <li class="ms-5">Desvantagens 1</li>
                         <li class="ms-5">Desvantagens 2</li>
-                        <li class="ms-5">Desvantagens 3</li>
-                        <li class="ms-5">Desvantagens 4</li>
-                        <li class="ms-5">Desvantagens 5</li>
                     </ul>
                 </div>
             </div>

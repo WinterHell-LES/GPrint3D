@@ -1,0 +1,7 @@
+.pedidos {
+    cursor: pointer;
+}
+
+.pedidos:hover {
+    background-color: lightgrey;
+}

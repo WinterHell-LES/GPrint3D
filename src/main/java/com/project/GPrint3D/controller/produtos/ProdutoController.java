@@ -1,4 +1,4 @@
-package com.project.GPrint3D.controller.produtos.produtos;
+package com.project.GPrint3D.controller.produtos;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ public class ProdutoController
     @RequestMapping("/produto")
     public ModelAndView produto()
     {
-        ModelAndView mv = new ModelAndView("/produtos/descricao/descricaoProduto");
+        ModelAndView mv = new ModelAndView("/produtos/detalhesProduto");
 
         return mv;
     }

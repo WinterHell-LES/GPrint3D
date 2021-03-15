@@ -23,7 +23,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-9 pe-0">
-                                    <p class="card-text" th:text="${cartao.crtBandeira}">Bandeira</p>
+                                    <p class="card-text" th:text="${cartao.bandeira.banNome}">Bandeira</p>
                                 </div>
                                 <div class="col-3 px-2 text-end">
                                     <form th:action="@{/cliente/deletarCartao}" method="POST">
@@ -44,7 +44,7 @@
 
             <th:block layout:fragment="javascripts">
                 <!-- Script -->
-                <script type="text/javascript" th:src="@{/javascripts/cartoes.js}"></script>
+                <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
             </th:block>
         </div>
     </body>

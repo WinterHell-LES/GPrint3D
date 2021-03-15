@@ -20,7 +20,7 @@ public class CarrinhosModel
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_id", insertable = false, updatable = false)
-    Integer carId;
+    private Integer carId;
 
     @OneToMany(mappedBy = "carrinho")
     private List<PrdCarrinhosModel> listProdutos;

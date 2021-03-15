@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/drag.and.drop.css}">
+
+        <title>GPrint3D - Admin - Produtos</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Entrada de produtos</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/listarProdutos" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+
+            <form th:action="@{/admin/entradaProdutos}" method="POST">
+                <div class="row pb-3 pe-0">
+                    <div class="row pe-0">
+                        <div class="col-lg-10 pe-0">
+                            <div class="form-floating">
+                                <select name="entradaProduto" class="custom-select form-select" id="entradaProduto" required>
+                                    <option value="" selected>Produto</option>
+                                </select>
+                                <label for="entradaProduto">Produto</label>
+                            </div>
+                        </div>
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <input type="number" class="form-control" placeholder="Quantidade" id="quantidade" required/>
+                                <label for="preco">Quantidade</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pb-3 pe-0">
+                    <div class="row pe-0">
+                        <div class="col-sm pe-0">
+                            <div class="text-end">
+                                <button type="submit" class="btn border shadow-sm">Cadastrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <th:block layout:fragment="javascripts">
+            <!-- Script -->
+            <script type="text/javascript" th:src="@{/javascripts/drag.and.drop.js}"></script>
+        </th:block>
+    </body>
+</html>

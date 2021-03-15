@@ -38,12 +38,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/cadastro")
 public class CadClienteController 
 { 
-    private UsuariosModel usuariosMod;
+    private UsuariosModel usuariosMod = new UsuariosModel();
     private CartoesPadroesModel cartaoPadraoMod = new CartoesPadroesModel();
-    private ClientesModel clientesMod;
-    private DocumentosModel documentosMod;
-    private TelefonesModel telefonesMod; 
-    private EnderecosModel enderecosMod;
+    private ClientesModel clientesMod = new ClientesModel();
+    private DocumentosModel documentosMod = new DocumentosModel();
+    private TelefonesModel telefonesMod = new TelefonesModel(); 
+    private EnderecosModel enderecosMod = new EnderecosModel();
     private EndCobrancasPadroesModel endCobrancasPadroesMod = new EndCobrancasPadroesModel();
     private EndEntregasPadroesModel endEntregasPadroesMod = new EndEntregasPadroesModel();
 
@@ -145,6 +145,9 @@ public class CadClienteController
 
         //Atribui as informações do html à variável
         enderecosMod = endereco;
+
+        endereco.setEndEntrega(true);
+        endereco.setEndCobranca(true);
 
         return new ModelAndView("redirect:/cadastro/cadastroCartao");
     }

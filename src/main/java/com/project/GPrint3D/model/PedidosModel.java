@@ -28,6 +28,12 @@ public class PedidosModel
     @Column(name = "ped_data")
     private Date pedData;
 
+    @Column(name = "ped_statuspedido")
+    private String pedStatusPedido;
+
+    @Column(name = "ped_statuslogistica")
+    private String pedStatusLogistica;
+
     @OneToOne
     @JoinColumn(name = "ped_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
@@ -53,14 +59,18 @@ public class PedidosModel
 
         this.pedId = 0;
         this.pedData = new Date(dataAtual.getTime());
+        this.pedStatusPedido = "";
+        this.pedStatusLogistica = "";
     }
 
-    public PedidosModel(Integer pedId, Date pedData) 
+    public PedidosModel(Integer pedId, Date pedData, String pedStatusPedido, String pedStatusLogistica) 
     {
         super( );
 
         this.pedId = pedId;
         this.pedData = pedData;
+        this.pedStatusPedido = pedStatusPedido;
+        this.pedStatusLogistica = pedStatusLogistica;
     }
 
     public Integer getPedId() 
@@ -83,6 +93,26 @@ public class PedidosModel
         this.pedData = pedData;
     }
 
+    public String getPedStatusPedido() 
+    {
+        return this.pedStatusPedido;
+    }
+
+    public void setPedStatusPedido(String pedStatusPedido) 
+    {
+        this.pedStatusPedido = pedStatusPedido;
+    }
+
+    public String getPedStatusLogistica() 
+    {
+        return this.pedStatusLogistica;
+    }
+
+    public void setPedStatusLogistica(String pedStatusLogistica) 
+    {
+        this.pedStatusLogistica = pedStatusLogistica;
+    }
+    
     public ClientesModel getCliente() 
     {
         return this.cliente;

@@ -1,19 +1,19 @@
 package com.project.GPrint3D.service;
 
-import com.project.GPrint3D.model.CuponsModel;
-import com.project.GPrint3D.repository.CuponsRepository;
+import com.project.GPrint3D.model.CuponsTrocasModel;
+import com.project.GPrint3D.repository.CuponsTrocasRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CuponsService 
+public class CuponsTrocasService 
 {
     @Autowired
-    private CuponsRepository cupons;
+    private CuponsTrocasRepository cupons;
 
-    public String[] cadastrar(CuponsModel cupom)
+    public String[] cadastrar(CuponsTrocasModel cupom)
     {
         String[] response = new String[2];
 
@@ -41,7 +41,7 @@ public class CuponsService
         return response;
     }
 
-    public String[] atualizar(CuponsModel cupom)
+    public String[] atualizar(CuponsTrocasModel cupom)
     {
         String[] response = new String[2];
 
@@ -85,5 +85,5 @@ public class CuponsService
         }
         
         return response;
-    }    
+    }
 }

@@ -260,19 +260,23 @@ public class EnderecosModel
 		this.cliente = cliente;
 	}
 
-	public EndEntregasPadroesModel getEndEntregaPadrao() {
+	public EndEntregasPadroesModel getEndEntregaPadrao() 
+	{
 		return this.endEntregaPadrao;
 	}
 
-	public void setEndEntregaPadrao(EndEntregasPadroesModel endEntregaPadrao) {
+	public void setEndEntregaPadrao(EndEntregasPadroesModel endEntregaPadrao) 
+	{
 		this.endEntregaPadrao = endEntregaPadrao;
 	}
 
-	public EndCobrancasPadroesModel getEndCobrancaPadrao() {
+	public EndCobrancasPadroesModel getEndCobrancaPadrao() 
+	{
 		return this.endCobrancaPadrao;
 	}
 
-	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) {
+	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) 
+	{
 		this.endCobrancaPadrao = endCobrancaPadrao;
 	}
 

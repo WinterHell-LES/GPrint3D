@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -21,10 +22,6 @@ public class CartoesModel
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "crt_id", insertable = false, updatable = false)
     private Integer crtId;
-
-    @NotEmpty(message = "Bandeira é obrigatória")
-    @Column(name = "crt_bandeira")
-    private String crtBandeira;
 
     @NotEmpty(message = "Nome é obrigatório")
     @Column(name = "crt_nome")
@@ -43,6 +40,10 @@ public class CartoesModel
     private String crtCvv;
 
     @ManyToOne
+    @JoinColumn(name = "crt_ban_id", referencedColumnName = "ban_id")
+    private BandeirasModel bandeira;
+
+    @ManyToOne
     @JoinColumn(name = "crt_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
 
@@ -54,19 +55,17 @@ public class CartoesModel
         super();
 
         this.crtId = 0;
-        this.crtBandeira = "";
         this.crtNome = "";
         this.crtNumero = "";
         this.crtValidade = null;
         this.crtCvv = "";
     }
 
-    public CartoesModel(Integer crtId, String crtBandeira, String crtNome, String crtNumero, String crtValidade, String crtCvv) 
+    public CartoesModel(Integer crtId, String crtNome, String crtNumero, String crtValidade, String crtCvv) 
     {
         super( );
 
         this.crtId = crtId;
-        this.crtBandeira = crtBandeira;
         this.crtNome = crtNome;
         this.crtNumero = crtNumero;
         this.crtValidade = crtValidade;
@@ -81,16 +80,6 @@ public class CartoesModel
     public void setCrtId(Integer crtId) 
     {
         this.crtId = crtId;
-    }
-
-    public String getCrtBandeira() 
-    {
-        return this.crtBandeira;
-    }
-
-    public void setCrtBandeira(String crtBandeira) 
-    {
-        this.crtBandeira = crtBandeira;
     }
 
     public String getCrtNome() 
@@ -131,6 +120,16 @@ public class CartoesModel
     public void setCrtCvv(String crtCvv) 
     {
         this.crtCvv = crtCvv;
+    }
+
+    public BandeirasModel getBandeira() 
+    {
+        return this.bandeira;
+    }
+
+    public void setBandeira(BandeirasModel bandeira) 
+    {
+        this.bandeira = bandeira;
     }
 
     public ClientesModel getCliente() 

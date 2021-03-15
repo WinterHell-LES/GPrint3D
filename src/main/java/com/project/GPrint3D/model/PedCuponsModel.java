@@ -21,8 +21,8 @@ public class PedCuponsModel
     private Integer pcpId;
 
     @ManyToOne
-    @JoinColumn(name = "pcp_cpn_id", referencedColumnName = "cpn_id")
-    private CuponsModel cupom;
+    @JoinColumn(name = "pcp_cpp_id", referencedColumnName = "cpp_id")
+    private CuponsPromocoesModel cupom;
 
     @ManyToOne
     @JoinColumn(name = "pcp_ped_id", referencedColumnName = "ped_id")
@@ -52,12 +52,12 @@ public class PedCuponsModel
         this.pcpId = pcpId;
     }
 
-    public CuponsModel getCupom() 
+    public CuponsPromocoesModel getCupom() 
     {
         return this.cupom;
     }
 
-    public void setCupom(CuponsModel cupom) 
+    public void setCupom(CuponsPromocoesModel cupom) 
     {
         this.cupom = cupom;
     }

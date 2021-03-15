@@ -29,10 +29,10 @@ public class CategoriasModel
     private String ctgDescricao;
 
     @OneToMany(mappedBy = "categoria")
-    private List<ProdutosModel> listProdutos;
+    private List<CuponsPromocoesModel> listCupons;
 
     @OneToMany(mappedBy = "categoria")
-    private List<CuponsModel> listCupons;
+    private List<CategoriasProdutosModel> listCategoriasProdutos;
 
     public CategoriasModel() 
     {
@@ -82,24 +82,24 @@ public class CategoriasModel
         this.ctgDescricao = ctgDescricao;
     }
 
-    public List<ProdutosModel> getListProdutos() 
-    {
-        return this.listProdutos;
-    }
-
-    public void setListProdutos(List<ProdutosModel> listProdutos) 
-    {
-        this.listProdutos = listProdutos;
-    }
-
-    public List<CuponsModel> getListCupons() 
+    public List<CuponsPromocoesModel> getListCupons() 
     {
         return this.listCupons;
     }
 
-    public void setListCupons(List<CuponsModel> listCupons) 
+    public void setListCupons(List<CuponsPromocoesModel> listCupons) 
     {
         this.listCupons = listCupons;
+    }
+
+    public List<CategoriasProdutosModel> getListCategoriasProdutos() 
+    {
+        return this.listCategoriasProdutos;
+    }
+
+    public void setListCategoriasProdutos(List<CategoriasProdutosModel> listCategoriasProdutos) 
+    {
+        this.listCategoriasProdutos = listCategoriasProdutos;
     }
 
     @Override

@@ -6,29 +6,29 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>GPrint3D - Admin - Pedidos</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/drag.and.drop.css}">
+
+        <title>GPrint3D - Admin - Produtos</title>
     </head>
 
     <body>
         <section layout:fragment="conteudo">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Alteração do status do pedido</h1>
+                <h1 class="h2">Justificar ativação / inativação</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <a href="/admin/listarPedidos" class="btn btn-sm btn-outline-secondary">
+                    <a href="/admin/listarProdutos" class="btn btn-sm btn-outline-secondary">
                         Voltar
                     </a>
                 </div>
             </div>
 
-            <form th:action="@{/admin/alterarPedido}" method="POST">
+            <form th:action="@{/admin/alterarProdutos}" method="POST">
                 <div class="row pb-3 pe-0">
                     <div class="row pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <select name="statusPedido" class="custom-select form-select" id="pedido" required>
-                                    <option value="">Status do pedido</option>
-                                </select>
-                                <label for="statusPedido">Status do pedido</label>
+                                <textarea class="form-control" placeholder="Justificativa" id="justificativa" style="height: 80px"></textarea>
+                                <label for="justificativa">Justificativa</label>
                             </div>
                         </div>
                     </div>

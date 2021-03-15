@@ -17,37 +17,37 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "CUPONS")
-public class CuponsModel 
+@Table(name = "CUPONS_PROMOCOES")
+public class CuponsPromocoesModel 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cpn_id", insertable = false, updatable = false)
+    @Column(name = "cpp_id", insertable = false, updatable = false)
     private Integer cpnId;
 
     @NotEmpty(message = "Nome é obrigatório")
-    @Column(name = "cpn_nome")
+    @Column(name = "cpp_nome")
     private String cpnNome;
 
     @NotEmpty(message = "Código é obrigatório")
-    @Column(name = "cpn_codigo")
+    @Column(name = "cpp_codigo")
     private String cpnCodigo;
 
     @NotNull(message = "Desconto é obrigatório")
-    @Column(name = "cpn_desconto")
+    @Column(name = "cpp_desconto")
     private Integer cpnDesconto;
 
-    @Column(name = "cpn_validade")
+    @Column(name = "cpp_validade")
     private Date cpnValidade;
 
     @ManyToOne
-    @JoinColumn(name = "cpn_ctg_id", referencedColumnName = "ctg_id")
+    @JoinColumn(name = "cpp_ctg_id", referencedColumnName = "ctg_id")
     private CategoriasModel categoria;
 
     @OneToMany(mappedBy = "cupom")
     private List<PedCuponsModel> listPedCupons;
 
-    public CuponsModel() 
+    public CuponsPromocoesModel() 
     {
         super();
 
@@ -58,7 +58,7 @@ public class CuponsModel
         this.cpnValidade = null;
     }
 
-    public CuponsModel(Integer cpnId, String cpnNome, String cpnCodigo, Integer cpnDesconto, Date cpnValidade) 
+    public CuponsPromocoesModel(Integer cpnId, String cpnNome, String cpnCodigo, Integer cpnDesconto, Date cpnValidade) 
     {
         super( );
 
@@ -147,12 +147,12 @@ public class CuponsModel
             return true;
         }
             
-        if (!(o instanceof CuponsModel)) 
+        if (!(o instanceof CuponsPromocoesModel)) 
         {
             return false;
         }
         
-        CuponsModel cuponsModel = (CuponsModel) o;
+        CuponsPromocoesModel cuponsModel = (CuponsPromocoesModel) o;
         return Objects.equals(cpnId, cuponsModel.cpnId);
     }
 

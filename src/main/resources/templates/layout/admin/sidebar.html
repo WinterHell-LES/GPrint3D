@@ -3,84 +3,149 @@
         <div th:fragment="sidebar">
             <div class="container-fluid">
                 <div class="row">
-                    <nav id="sidebarMenu" class="col-sm-2 d-sm-block bg-light sidebar collapse">
+                    <nav id="sidebarMenu" class="col-sm-2 d-sm-block bg-light sidebar collapse overflow-auto">
                         <div class="position-sticky pt-3">
-                            <ul class="nav flex-column">
+                            <ul class="nav flex-column mx-2">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/admin/index" th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
+                                    <a class="btn d-inline-flex align-items-center rounded collapsed" href="/admin/index" th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
                                         Início
                                     </a>
                                 </li>
 
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Categoria</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/cadastrarCategorias" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCategorias')} ? 'active'">
-                                        Cadastro de categoria
-                                    </a>
+                                <li class="my-3 me-2 border-top"></li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#bandeiras_cartao" aria-expanded="false">
+                                        Bandeiras de cartão
+                                    </button>
+                                    <div class="collapse" id="bandeiras_cartao">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/cadastrarBandeiras" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarBandeiras')} ? 'active'">Cadastro de bandeira</a></li>
+                                            <li><a class="nav-link" href="/admin/listarBandeiras" th:classappend="${#httpServletRequest.requestURI.contains('listarBandeiras')} ? 'active'">Listagem de bandeira</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarCategorias" th:classappend="${#httpServletRequest.requestURI.contains('listarCategorias')} ? 'active'">
-                                        Listagem de categoria
-                                    </a>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#categorias" aria-expanded="false">
+                                        Categorias
+                                    </button>
+                                    <div class="collapse" id="categorias">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/cadastrarCategorias" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCategorias')} ? 'active'">Cadastro de categorias</a></li>
+                                            <li><a class="nav-link" href="/admin/listarCategorias" th:classappend="${#httpServletRequest.requestURI.contains('listarCategorias')} ? 'active'">Listagem de categorias</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#produtos" aria-expanded="false">
+                                        Produtos
+                                    </button>
+                                    <div class="collapse" id="produtos">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/cadastrarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">Cadastro de produtos</a></li>
+                                            <li><a class="nav-link" href="/admin/listarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('listarProdutos')} ? 'active'">Listagem de produtos</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#entradas" aria-expanded="false">
+                                        Entradas
+                                    </button>
+                                    <div class="collapse" id="entradas">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/cadastrarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarEntradas')} ? 'active'">Cadastro de entradas</a></li>
+                                            <li><a class="nav-link" href="/admin/listarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('listarEntradas')} ? 'active'">Listagem de entradas</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#cupons" aria-expanded="false">
+                                        Cupons
+                                    </button>
+                                    <div class="collapse" id="cupons">
+                                        <ul class="list-unstyled ms-2">
+                                            <li class="mb-1">
+                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#cupons_promocionais" aria-expanded="false">
+                                                    Cupons promocionais
+                                                </button>
+                                                <div class="collapse" id="cupons_promocionais">
+                                                    <ul class="list-unstyled">
+                                                        <li><a class="nav-link" href="/admin/cupons/cadastrarCuponsPromocionais" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCuponsPromocionais')} ? 'active'">Cadastro de cupons</a></li>
+                                                        <li><a class="nav-link" href="/admin/cupons/listarCuponsPromocionais" th:classappend="${#httpServletRequest.requestURI.contains('listarCuponsPromocionais')} ? 'active'">Listagem de cupons</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#cupons_trocas" aria-expanded="false">
+                                                    Cupons de troca
+                                                </button>
+                                                <div class="collapse" id="cupons_trocas">
+                                                    <ul class="list-unstyled">
+                                                        <li><a class="nav-link" href="/admin/cupons/listarCuponsTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarCuponsTrocas')} ? 'active'">Listagem de cupons</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#pedidos" aria-expanded="false">
+                                        Pedidos
+                                    </button>
+                                    <div class="collapse" id="pedidos">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/listarPedidos" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidos')} AND ${!#httpServletRequest.requestURI.contains('Trocas')} ? 'active'">Listagem de pedidos</a></li>
+                                            <li><a class="nav-link" href="/admin/listarPedidosTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidosTrocas')} ? 'active'">Listagem de pedidos de troca</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#logistica" aria-expanded="false">
+                                        Logística
+                                    </button>
+                                    <div class="collapse" id="logistica">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaPedidos" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaPedidos')} ? 'active'">Logística de pedidos</a></li>
+                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaTrocas')} ? 'active'">Logística de trocas</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
                                 
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Produtos</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/cadastrarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">
-                                        Cadastro de produtos
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('listarProdutos')} ? 'active'">
-                                        Listagem de produtos
-                                    </a>
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#clientes" aria-expanded="false">
+                                        Clientes
+                                    </button>
+                                    <div class="collapse" id="clientes">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/listarClientes" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">Listagem de clientes</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
 
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Cupons</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/cadastrarCupons" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCupons')} ? 'active'">
-                                        Cadastro de cupons
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarCupons" th:classappend="${#httpServletRequest.requestURI.contains('listarCupons')} ? 'active'">
-                                        Listagem de cupons
-                                    </a>
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#graficos" aria-expanded="false">
+                                        Gráficos
+                                    </button>
+                                    <div class="collapse" id="graficos">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/visualizarVendas" th:classappend="${#httpServletRequest.requestURI.contains('visualizarVendas')} ? 'active'">Gráfico de vendas</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
 
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Pedidos</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarPedidos" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidos')} ? 'active'">
-                                        Listagem de pedidos
-                                    </a>
-                                </li>
+                                <li class="my-3 me-2 border-top"></li>
 
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Clientes</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/listarClientes" th:classappend="${#httpServletRequest.requestURI.contains('listarClientes')} ? 'active'">
-                                        <span data-feather="shopping-cart"></span>
-                                        Listagem de clientes
+                                <li class="nav-item mb-3">
+                                    <a class="btn d-inline-flex align-items-center rounded collapsed" href="/admin/listarLogsTransacoes" th:classappend="${#httpServletRequest.requestURI.contains('listarLogsTransacoes')} ? 'active'">
+                                        Logs de transações
                                     </a>
-                                </li>
-
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Graficos</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/admin/visualizarVendas" th:classappend="${#httpServletRequest.requestURI.contains('visualizarVendas')} ? 'active'">
-                                        Vendas
-                                    </a>
-                                </li>
+                                </li>                                                               
                             </ul>
                         </div>
                     </nav>

@@ -64,6 +64,9 @@ public class ClientesModel
 	@OneToOne(mappedBy = "cliente")
 	private EndCobrancasPadroesModel endCobrancaPadrao;
 
+	@OneToMany(mappedBy = "cliente")
+    private List<CuponsTrocasModel> listCuponsTrocas;
+
 	public ClientesModel() 
 	{
 		super();
@@ -196,20 +199,34 @@ public class ClientesModel
 		this.cartaoPadrao = cartaoPadrao;
 	}
 
-	public EndEntregasPadroesModel getEndEntregaPadrao() {
+	public EndEntregasPadroesModel getEndEntregaPadrao() 
+	{
 		return this.endEntregaPadrao;
 	}
 
-	public void setEndEntregaPadrao(EndEntregasPadroesModel endEntregaPadrao) {
+	public void setEndEntregaPadrao(EndEntregasPadroesModel endEntregaPadrao) 
+	{
 		this.endEntregaPadrao = endEntregaPadrao;
 	}
 
-	public EndCobrancasPadroesModel getEndCobrancaPadrao() {
+	public EndCobrancasPadroesModel getEndCobrancaPadrao() 
+	{
 		return this.endCobrancaPadrao;
 	}
 
-	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) {
+	public void setEndCobrancaPadrao(EndCobrancasPadroesModel endCobrancaPadrao) 
+	{
 		this.endCobrancaPadrao = endCobrancaPadrao;
+	}
+
+	public List<CuponsTrocasModel> getListCuponsTrocas() 
+	{
+		return this.listCuponsTrocas;
+	}
+
+	public void setListCuponsTrocas(List<CuponsTrocasModel> listCuponsTrocas) 
+	{
+		this.listCuponsTrocas = listCuponsTrocas;
 	}
 
 	@Override

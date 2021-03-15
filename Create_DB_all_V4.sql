@@ -13,16 +13,25 @@ CREATE TABLE carrinhos (
     CONSTRAINT pk_car PRIMARY KEY ( car_id )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+DROP TABLE IF EXISTS bandeiras;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE bandeiras (
+    ban_id          	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    ban_nome	  		VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_ban PRIMARY KEY ( ban_id )
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 DROP TABLE IF EXISTS cartoes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE cartoes (
     crt_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    crt_bandeira		VARCHAR(20) NOT NULL,
     crt_nome         	VARCHAR(50) NOT NULL,
     crt_numero       	VARCHAR(50) NOT NULL,
     crt_validade     	VARCHAR(10) NOT NULL,
     crt_cvv          	VARCHAR(255) NOT NULL,
+    crt_ban_id			MEDIUMINT NOT NULL,
     crt_cli_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_crt PRIMARY KEY ( crt_id ),
     CONSTRAINT uk_crt UNIQUE ( crt_numero, crt_cli_id )
@@ -47,7 +56,17 @@ CREATE TABLE categorias (
     ctg_nome       		VARCHAR(100),
     ctg_descricao  		VARCHAR(255),
     CONSTRAINT pk_ctg PRIMARY KEY ( ctg_id )
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS categorias_produtos;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE categorias_produtos (
+    cpr_id         		MEDIUMINT NOT NULL AUTO_INCREMENT,
+    cpr_ctg_id    		VARCHAR(100),
+    cpr_prd_id  		VARCHAR(255),
+    CONSTRAINT pk_cpr PRIMARY KEY ( cpr_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS clientes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -62,17 +81,42 @@ CREATE TABLE clientes (
     CONSTRAINT pk_cli PRIMARY KEY ( cli_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP TABLE IF EXISTS cupons;
+DROP TABLE IF EXISTS cupons_promocoes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE cupons (
-    cpn_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    cpn_nome           	VARCHAR(100) NOT NULL,
-    cpn_codigo         	VARCHAR(255) NOT NULL,
-    cpn_desconto       	MEDIUMINT NOT NULL,
-    cpn_validade       	DATE NOT NULL,
-    cpn_ctg_id  		MEDIUMINT NOT NULL,
-    CONSTRAINT pk_cpn PRIMARY KEY ( cpn_id )
+CREATE TABLE cupons_promocoes (
+    cpp_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    cpp_nome           	VARCHAR(100) NOT NULL,
+    cpp_codigo         	VARCHAR(255) NOT NULL,
+    cpp_desconto       	MEDIUMINT NOT NULL,
+    cpp_validade       	DATE NOT NULL,
+    cpp_ctg_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_cpp PRIMARY KEY ( cpp_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS cupons_trocas;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE cupons_trocas (
+    cpt_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    cpt_status          VARCHAR(100) NOT NULL,
+    cpt_validade        DATE NOT NULL,
+    cpt_valor       	FLOAT NOT NULL,
+    cpt_saldo       	FLOAT NOT NULL,
+    cpt_codigo			VARCHAR(20) NOT NULL,
+    cpt_cli_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_cpt PRIMARY KEY ( cpt_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS historicos_cupons_trocas;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE historicos_cupons_trocas (
+    hct_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    hct_data	        VARCHAR(100) NOT NULL,
+    hct_saldo       	FLOAT NOT NULL,
+    hct_cpt_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_hct PRIMARY KEY ( hct_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS documentos;
@@ -160,6 +204,8 @@ DROP TABLE IF EXISTS pedidos;
 CREATE TABLE pedidos (
     ped_id            	MEDIUMINT NOT NULL AUTO_INCREMENT,
     ped_data			DATE NOT NULL,
+    ped_statuspedido	VARCHAR(50),
+    ped_statuslogistica	VARCHAR(50),
     ped_cli_id   		MEDIUMINT NOT NULL,
     ped_end_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_ped PRIMARY KEY ( ped_id )
@@ -175,12 +221,12 @@ CREATE TABLE pedidos_cartoes (
     CONSTRAINT pk_pct PRIMARY KEY ( pct_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP TABLE IF EXISTS pedidos_cupons;
+DROP TABLE IF EXISTS pedidos_cupons_promocoes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE pedidos_cupons (
+CREATE TABLE pedidos_cupons_promocoes (
 	pcp_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
-    pcp_cpn_id   		MEDIUMINT NOT NULL,
+    pcp_cpp_id   		MEDIUMINT NOT NULL,
     pcp_ped_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_pcp PRIMARY KEY ( pcp_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -190,6 +236,7 @@ DROP TABLE IF EXISTS pedidos_produtos;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE pedidos_produtos (
 	ppd_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
+    ppd_quantidade		MEDIUMINT NOT NULL,
     ppd_ped_id   		MEDIUMINT NOT NULL,
     ppd_prd_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_ppd PRIMARY KEY ( ppd_id )
@@ -202,9 +249,18 @@ CREATE TABLE produtos (
     prd_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
     prd_nome           	VARCHAR(255) NOT NULL,
     prd_descricao      	VARCHAR(255),
+    prd_dim_prd_al  	FLOAT, 
+    prd_dim_prd_la		FLOAT,
+    prd_dim_prd_pr		FLOAT,
+    prd_dim_prd_pe		FLOAT,
+    prd_dim_emb_al		FLOAT,
+    prd_dim_emb_la		FLOAT,
+    prd_dim_emb_pr		FLOAT,
+    prd_dim_emb_pe		FLOAT,
+    prd_fabricante		VARCHAR(100),
+    prd_modelo			VARCHAR(100),
     prd_quantidade     	MEDIUMINT NOT NULL,
     prd_preco          	FLOAT NOT NULL,
-    prd_ctg_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_prd PRIMARY KEY ( prd_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -256,6 +312,18 @@ CREATE TABLE usuarios (
     CONSTRAINT uk_usu UNIQUE ( usu_email )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+DROP TABLE IF EXISTS log_transacoes;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE log_transacoes (
+    log_id     			MEDIUMINT NOT NULL AUTO_INCREMENT,
+    log_data  			VARCHAR(100) NOT NULL,
+    log_acao			VARCHAR(50) NOT NULL,
+    log_descricao  		VARCHAR(255) NOT NULL,
+    log_usuario 		VARCHAR(100) NOT NULL,
+    CONSTRAINT pk_log PRIMARY KEY ( log_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- FOREIGN KEYS
 ALTER TABLE carrinhos
     ADD CONSTRAINT fk_car_cli FOREIGN KEY ( car_cli_id )
@@ -264,6 +332,10 @@ ALTER TABLE carrinhos
 ALTER TABLE cartoes
     ADD CONSTRAINT fk_crt_cli FOREIGN KEY ( crt_cli_id )
         REFERENCES clientes ( cli_id );
+        
+ALTER TABLE cartoes
+    ADD CONSTRAINT fk_crt_ban FOREIGN KEY ( crt_ban_id )
+        REFERENCES bandeiras ( ban_id );
 
 ALTER TABLE cartoes_padroes
     ADD CONSTRAINT fk_ctp_crt FOREIGN KEY ( ctp_crt_id )
@@ -272,10 +344,26 @@ ALTER TABLE cartoes_padroes
 ALTER TABLE cartoes_padroes
     ADD CONSTRAINT fk_ctp_cli FOREIGN KEY ( ctp_cli_id )
         REFERENCES clientes ( cli_id );
+        
+ALTER TABLE categorias_produtos
+	ADD CONSTRAINT fk_cpr_ctg FOREIGN KEY ( cpr_ctg_id )
+		REFERENCES categorias ( ctg_id );
+        
+ALTER TABLE categorias_produtos
+	ADD CONSTRAINT fk_cpr_prd FOREIGN KEY ( cpr_prd_id )
+		REFERENCES produtos ( prd_id );
 
-ALTER TABLE cupons
-    ADD CONSTRAINT fk_cpn_ctg FOREIGN KEY ( cpn_ctg_id )
+ALTER TABLE cupons_promocoes
+    ADD CONSTRAINT fk_cpp_ctg FOREIGN KEY ( cpp_ctg_id )
         REFERENCES categorias ( ctg_id );
+        
+ALTER TABLE cupons_trocas
+    ADD CONSTRAINT fk_cpt_cli FOREIGN KEY ( cpt_cli_id )
+        REFERENCES clientes ( cli_id );
+        
+ALTER TABLE historicos_cupons_trocas
+    ADD CONSTRAINT fk_hct_cpt FOREIGN KEY ( hct_cpt_id )
+        REFERENCES cupons_trocas ( cpt_id );
 
 ALTER TABLE enderecos
     ADD CONSTRAINT fk_end_cli FOREIGN KEY ( end_cli_id )
@@ -317,16 +405,12 @@ ALTER TABLE pedidos
     ADD CONSTRAINT fk_ped_end FOREIGN KEY ( ped_end_id )
         REFERENCES enderecos ( end_id );
 
-ALTER TABLE produtos
-    ADD CONSTRAINT fk_prd_ctg FOREIGN KEY ( prd_ctg_id )
-        REFERENCES categorias ( ctg_id );
+ALTER TABLE pedidos_cupons_promocoes
+    ADD CONSTRAINT fk_pcp_cpp FOREIGN KEY ( pcp_cpp_id )
+        REFERENCES cupons_promocoes ( cpp_id );
 
-ALTER TABLE pedidos_cupons
-    ADD CONSTRAINT fk_pcp_cpn_1 FOREIGN KEY ( pcp_cpn_id )
-        REFERENCES cupons ( cpn_id );
-
-ALTER TABLE pedidos_cupons
-    ADD CONSTRAINT fk_pcp_cpn_2 FOREIGN KEY ( pcp_ped_id )
+ALTER TABLE pedidos_cupons_promocoes
+    ADD CONSTRAINT fk_pcp_ped FOREIGN KEY ( pcp_ped_id )
         REFERENCES pedidos ( ped_id );
 
 ALTER TABLE pedidos_produtos

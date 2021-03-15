@@ -28,11 +28,78 @@
                         <div class="col-sm pe-0">
                             <div class="form-floating">
                                 <input type="text" class="form-control" placeholder="Nome do produto" id="nomeProduto" required/>
-                                <label for="nomeProduto">Nome</label>
+                                <label for="nomeProduto">Nome do produto</label>
                             </div>
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2 border-bottom">
+                        <span class="h6">Dimensões do produto</span>
+                    </div>
                     <div class="row pb-3 pe-0">
+                        <div class="col-sm">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Altura do produto" id="alturaProduto" required/>
+                                <label for="alturaProduto">Altura</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Largura do produto" id="larguraProduto" required/>
+                                <label for="larguraProduto">Largura</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Profundidade do produto" id="profundidadeProduto" required/>
+                                <label for="profundidadeProduto">Profundidade</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Peso do produto" id="pesoProduto" required/>
+                                <label for="pesoProduto">Peso</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-2 border-bottom">
+                        <span class="h6">Dimensões da embalagem</span>
+                    </div>
+                    <div class="row pb-3 pe-0">
+                        <div class="col-sm">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Altura da embalagem" id="alturaEmbalagem" required/>
+                                <label for="alturaEmbalagem">Altura</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Largura da embalagem" id="larguraEmbalagem" required/>
+                                <label for="larguraEmbalagem">Largura</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Profundidade da embalagem" id="profundidadeEmbalagem" required/>
+                                <label for="profundidadeEmbalagem">Profundidade</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Peso da embalagem" id="pesoEmbalagem" required/>
+                                <label for="pesoEmbalagem">Peso</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row pb-3 pe-0 pt-3">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
                                 <textarea class="form-control" placeholder="Descrição" id="descricao" style="height: 80px"></textarea>
@@ -43,17 +110,17 @@
                     <div class="row pe-0">
                         <div class="col-sm">
                             <div class="form-floating">
-                                <select name="categoria" class="custom-select form-select" id="categoria" required>
+                                <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" required>
                                     <option value="" selected>Categoria</option>
                                 </select>
-                                <label for="categoria">Categoria</label>
+                                <label for="bandeiraCartao">Categoria</label>
                             </div>
                         </div>
 
                         <div class="col-sm">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Preço" id="preco" required/>
-                                <label for="preco">Preço</label>
+                                <input type="text" class="form-control" placeholder="Preço do produto" id="precoProduto" required/>
+                                <label for="precoProduto">Preço</label>
                             </div>
                         </div>
 
@@ -75,7 +142,7 @@
                     <div class="row pe-0">
                         <div class="col-sm pe-0">
                             <div class="text-end">
-                                <button type="submit" class="btn border shadow-sm">Alterar</button>
+                                <button type="submit" class="btn border shadow-sm">Salvar</button>
                             </div>
                         </div>
                     </div>

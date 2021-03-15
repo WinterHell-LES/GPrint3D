@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Admin - Logs de transações</title>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/dataTables/jquery.dataTables.css}">
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Logs de transações</h1>
+            </div>
+
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width: 100px;">Ação</th>
+                        <th>Descrição</th>
+                        <th>Usuário</th>
+                        <th style="width: 150px;">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ação</td>
+                        <td>Descrição</td>
+                        <td>Usuário</td>
+                        <td>Data</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar ação"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar descrição"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar usuário"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar Data"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <th:block layout:fragment="javascripts">
+            <!-- Script -->
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.dataTables.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.tableControl.admin.cliente.js}"></script>
+        </th:block>
+    </body>
+</html>

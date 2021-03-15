@@ -16,6 +16,14 @@ public class AdminPedidosController
         return mv;
     }
 
+    @RequestMapping("listarPedidosTrocas")
+    public ModelAndView listarPedidosTrocas()
+    {
+        ModelAndView mv = new ModelAndView("/admin/pedidos/listarPedidosTrocas");
+
+        return mv;
+    }
+
     @RequestMapping("infoPedidos")
     public ModelAndView informacoesPedidos()
     {
@@ -28,6 +36,14 @@ public class AdminPedidosController
     public ModelAndView alterarPedidos()
     {
         ModelAndView mv = new ModelAndView("/admin/pedidos/alterarPedidos");
+
+        return mv;
+    }
+
+    @RequestMapping("alterarPedidosTrocas")
+    public ModelAndView alterarPedidosTrocas()
+    {
+        ModelAndView mv = new ModelAndView("/admin/pedidos/alterarPedidosTrocas");
 
         return mv;
     }

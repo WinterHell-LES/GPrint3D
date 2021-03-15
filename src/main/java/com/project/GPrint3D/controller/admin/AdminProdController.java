@@ -40,10 +40,10 @@ public class AdminProdController
         return mv;
     }
 
-    @RequestMapping("entradaProdutos")
-    public ModelAndView entradaProdutos()
+    @RequestMapping("justificarProdutos")
+    public ModelAndView justificarProdutos()
     {
-        ModelAndView mv = new ModelAndView("/admin/produtos/entradaProdutos");
+        ModelAndView mv = new ModelAndView("/admin/produtos/justificarProdutos");
 
         return mv;
     }

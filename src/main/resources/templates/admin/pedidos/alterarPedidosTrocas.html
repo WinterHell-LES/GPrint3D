@@ -6,29 +6,29 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/drag.and.drop.css}">
-
-        <title>GPrint3D - Admin - Produtos</title>
+        <title>GPrint3D - Admin - Pedidos de troca</title>
     </head>
 
     <body>
         <section layout:fragment="conteudo">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Registro de entrada de produtos - (Nome)</h1>
+                <h1 class="h2">Alteração do status da troca</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <a href="/admin/listarProdutos" class="btn btn-sm btn-outline-secondary">
+                    <a href="/admin/listarPedidosTrocas" class="btn btn-sm btn-outline-secondary">
                         Voltar
                     </a>
                 </div>
             </div>
 
-            <form th:action="@{/admin/entradaProdutos}" method="POST">
+            <form th:action="@{/admin/alterarCategoria}" method="POST">
                 <div class="row pb-3 pe-0">
                     <div class="row pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="number" class="form-control" placeholder="Quantidade" id="quantidade" required/>
-                                <label for="preco">Quantidade</label>
+                                <select name="statusTroca" class="custom-select form-select" id="statusTroca" required>
+                                    <option value="" selected>Status da troca</option>
+                                </select>
+                                <label for="statusTroca">Status da troca</label>
                             </div>
                         </div>
                     </div>
@@ -38,17 +38,12 @@
                     <div class="row pe-0">
                         <div class="col-sm pe-0">
                             <div class="text-end">
-                                <button type="submit" class="btn border shadow-sm">Cadastrar</button>
+                                <button type="submit" class="btn border shadow-sm">Alterar</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </section>
-
-        <th:block layout:fragment="javascripts">
-            <!-- Script -->
-            <script type="text/javascript" th:src="@{/javascripts/drag.and.drop.js}"></script>
-        </th:block>
     </body>
 </html>

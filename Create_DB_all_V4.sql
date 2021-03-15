@@ -63,8 +63,8 @@ DROP TABLE IF EXISTS categorias_produtos;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE categorias_produtos (
     cpr_id         		MEDIUMINT NOT NULL AUTO_INCREMENT,
-    cpr_ctg_id    		VARCHAR(100),
-    cpr_prd_id  		VARCHAR(255),
+    cpr_ctg_id    		MEDIUMINT NOT NULL,
+    cpr_prd_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_cpr PRIMARY KEY ( cpr_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

@@ -36,10 +36,12 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Script
-            <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>-->
-            <script type="text/javascript" th:src="@{/javascripts/cartoes.js}"></script>
+            
+            <th:block layout:fragment="javascripts">
+                <!-- Script
+                <script type="text/javascript" th:src="@{/javascripts/endereco.js}"></script>-->
+                <script type="text/javascript" th:src="@{/javascripts/cartoes.js}"></script>
+            </th:block>
         </div>
     </body>
 </html>

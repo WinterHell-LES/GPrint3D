@@ -5,11 +5,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/bootstrap/bootstrap.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/error.css}">
         
+        <!-- CSS -->
+        <th:block layout:fragment="css">
+            <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/error.css}">
+        </th:block>
+
         <title>Erro 404</title>
     </head>
 

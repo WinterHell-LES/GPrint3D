@@ -1,7 +1,7 @@
-.pedidos {
+.pedido {
     cursor: pointer;
 }
 
-.pedidos:hover {
-    background-color: lightgrey;
+.pedido-body {
+    position: relative;
 }

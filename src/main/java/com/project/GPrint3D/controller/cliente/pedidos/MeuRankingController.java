@@ -10,12 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/cliente")
-public class PedidosClienteController 
+public class MeuRankingController 
 {
-    @RequestMapping("/meusPedidos")
-    public ModelAndView meusPedidos(HttpServletRequest auth, Principal principal)
+    @RequestMapping("/meuRanking")
+    public ModelAndView meuRanking(HttpServletRequest auth, Principal principal)
     {
-        ModelAndView mv = new ModelAndView("/cliente/Pedidos/meusPedidos");
+        ModelAndView mv = new ModelAndView("/cliente/Pedidos/meuRanking");
 
         return mv;
     }

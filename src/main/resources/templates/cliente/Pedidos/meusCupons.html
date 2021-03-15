@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/cliente/layout}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!--CSS-->
+        <th:block layout:fragment="css">
+            <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/cupom.css}">
+        </th:block>
+
+        <title>GPrint3D - Cliente - Cupons</title>
+    </head>
+
+    <body>
+        <!-- Conteudo da página -->
+       <section layout:fragment="conteudo">
+            <div class="my-5">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="row border-bottom mb-4">
+                            <p class="h2">Meus cupons</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="my-5">
+                <div class="row mt-2 pb-2 table-header mb-4 border-bottom">
+                    <div class="col-3 text-center border-end">
+                        <p class="h5 m-0 p-0">Status</p>
+                    </div>
+                    <div class="col-3 text-center border-end">
+                        <p class="h5 m-0 p-0">Validade</p>
+                    </div>
+                    <div class="col-3 text-center border-end">
+                        <p class="h5 m-0 p-0">Valor</p>
+                    </div>
+                    <div class="col-3 text-center">
+                        <p class="h5 m-0 p-0">Saldo</p>
+                    </div>
+                </div>
+
+                <div class="row border mx-2 cupom shadow">
+                    <div class="col cupom-header"  onclick="showElement(this)">
+                        <div class="row my-2 py-2 cupom-name">
+                            <div class="col text-start">
+                                <span class="h5 ps-5">Cupom 1</span>
+                            </div>
+                                    
+                            <div class="col-1 text-center">
+                                <i class="bi bi-caret-down"></i>
+                            </div>
+                        </div>
+
+                        <div class="row my-2">
+                            <div class="col-3 text-center border-end">
+                                <span>Ativo</span>
+                            </div>
+                            <div class="col-3 text-center border-end">
+                                <span>01/01/2022</span>
+                            </div>
+                            <div class="col-3 text-center border-end">
+                                <span>R$50,00</span>
+                            </div>
+                            <div class="col-3 text-center">
+                                <span>R$50,00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cupom-body-container bg-light">
+                        <div class="cupom-body border-top visually-hidden">
+                            <div class="row my-2 cupom-history">
+                                <div class="col text-start">
+                                    <span class="h6 ps-5">Histórico de uso</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cupom-usage">
+                                <div class="row my-2">
+                                    <div class="col-3">
+                                        <div class="col py-2 border text-center bg-white">
+                                            <span>12/03/2021</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="col py-2 border text-center bg-white">
+                                            <span>Cupom criado</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="col py-2 border text-center bg-white">
+                                            <span>R$50,00</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-3 d-flex flex-column align-items-stretch">
+                                        <div class="col py-2 border text-center bg-white">
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--Scripts-->
+            <th:block layout:fragment="javascripts">
+                <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
+            </th:block>
+        </section>
+    </body>
+</html>

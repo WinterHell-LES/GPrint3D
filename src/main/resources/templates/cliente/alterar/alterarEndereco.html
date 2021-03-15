@@ -112,7 +112,7 @@
                                             
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Logradouro" id="logradouro" th:value="${endereco.endLogradouro}" th:field="${endereco.endLogradouro}">
+                                                    <input type="text" class="form-control" placeholder="Logradouro" id="logradouro" th:field="${endereco.endLogradouro}" required>
                                                     <label for="logradouro">Logradouro</label>
                                                 </div>
                                             </div>
@@ -121,19 +121,19 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Número" id="enderecoNum" th:value="${endereco.endNumero}" th:field="${endereco.endNumero}">
+                                                    <input type="text" class="form-control" placeholder="Número" id="enderecoNum" th:field="${endereco.endNumero}" required>
                                                     <label for="endereçoNum">Número</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Complemento" id="complemento" th:value="${endereco.endComplemento}" th:field="${endereco.endComplemento}">
+                                                    <input type="text" class="form-control" placeholder="Complemento" id="complemento" th:field="${endereco.endComplemento}">
                                                     <label for="complemento">Complemento</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control cep" placeholder="00000-000" id="CEP" th:value="${endereco.endCep}" th:field="${endereco.endCep}">
+                                                    <input type="text" class="form-control cep" placeholder="00000-000" id="CEP" th:field="${endereco.endCep}" required>
                                                     <label for="CEP">CEP</label>
                                                 </div>
                                             </div>
@@ -142,7 +142,7 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Cidade" id="cidade" th:value="${endereco.endCidade}" th:field="${endereco.endCidade}">
+                                                    <input type="text" class="form-control" placeholder="Cidade" id="cidade" th:field="${endereco.endCidade}" required>
                                                     <label for="cidade">Cidade</label>
                                                 </div>
                                             </div>
@@ -184,7 +184,7 @@
                                             </div>
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="País" id="pais" th:value="${endereco.endPais}" th:field="${endereco.endPais}">
+                                                    <input type="text" class="form-control" placeholder="País" id="pais" th:field="${endereco.endPais}" required>
                                                     <label for="pais">País</label>
                                                 </div>
                                             </div>
@@ -193,7 +193,7 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <textarea class="form-control" placeholder="Observação" id="observacao" style="height: 80px" th:value="${endereco.endObservacao}" th:field="${endereco.endObservacao}"></textarea>
+                                                    <textarea class="form-control" placeholder="Observação" id="observacao" style="height: 80px" th:field="${endereco.endObservacao}"></textarea>
                                                     <label for="observacao">Observação</label>
                                                 </div>
                                             </div>

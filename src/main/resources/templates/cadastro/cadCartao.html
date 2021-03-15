@@ -48,11 +48,9 @@
                                         <div class="row pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" th:field="*{cartoesModel.crtBandeira}" required>
+                                                    <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" th:field="*{cartoesModel.bandeira}" required>
                                                         <option value="" selected>Bandeira do Cartão</option>
-                                                        <option value="Elo">Elo</option>
-                                                        <option value="Mastercard">Mastercard</option>
-                                                        <option value="Visa">Visa</option>
+                                                        <option th:each="bandeira : ${bandeiras}" th:value="${bandeira.banId}" th:text="${bandeira.banNome}">Nome da bandeira</option>
                                                     </select>
                                                     <label for="bandeiraCartao">Bandeira do Cartão</label>
                                                 </div>

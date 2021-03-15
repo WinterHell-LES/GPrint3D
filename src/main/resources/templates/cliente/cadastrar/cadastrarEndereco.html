@@ -47,7 +47,7 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovel" th:field="${enderecosModel.endDescricao}">
+                                                    <input type="text" class="form-control" placeholder="Descrição do Imóvel" id="descricaoImovel" th:field="${enderecosModel.endDescricao}" required>
                                                     <label for="descricaoImovel">Descrição do Imóvel</label>
                                                 </div>
                                             </div>
@@ -56,7 +56,7 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm-3">
                                                 <div class="form-floating">
-                                                    <select name="tipoLogradouro" class="custom-select form-select" id="documento" th:field="${enderecosModel.endTipo}">
+                                                    <select name="tipoLogradouro" class="custom-select form-select" id="documento" th:field="${enderecosModel.endTipo}" required>
                                                         <option value="" selected>Tipo de Logradouro</option>
                                                         <option value="Aeroporto">Aeroporto</option>
                                                         <option value="Alameda">Alameda</option>
@@ -109,7 +109,7 @@
                                             
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Logradouro" id="logradouro" th:field="${enderecosModel.endLogradouro}">
+                                                    <input type="text" class="form-control" placeholder="Logradouro" id="logradouro" th:field="${enderecosModel.endLogradouro}" required>
                                                     <label for="logradouro">Logradouro</label>
                                                 </div>
                                             </div>
@@ -118,7 +118,7 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Número" id="enderecoNum" th:field="${enderecosModel.endNumero}">
+                                                    <input type="text" class="form-control" placeholder="Número" id="enderecoNum" th:field="${enderecosModel.endNumero}" required>
                                                     <label for="endereçoNum">Número</label>
                                                 </div>
                                             </div>
@@ -130,7 +130,7 @@
                                             </div>
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control cep" placeholder="00000-000" id="CEP" th:field="${enderecosModel.endCep}">
+                                                    <input type="text" class="form-control cep" placeholder="00000-000" id="CEP" th:field="${enderecosModel.endCep}" required>
                                                     <label for="CEP">CEP</label>
                                                 </div>
                                             </div>
@@ -139,14 +139,14 @@
                                         <div class="row pb-3 pe-0">
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="Cidade" id="cidade" th:field="${enderecosModel.endCidade}">
+                                                    <input type="text" class="form-control" placeholder="Cidade" id="cidade" th:field="${enderecosModel.endCidade}" required>
                                                     <label for="cidade">Cidade</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm">
                                                 <div class="form-floating">
-                                                    <select name="Estado" class="custom-select form-select" id="estado" th:field="${enderecosModel.endEstado}">
+                                                    <select name="Estado" class="custom-select form-select" id="estado" th:field="${enderecosModel.endEstado}" required>
                                                         <option value="" selected>Selecione o Estado</option>
                                                         <option value="AC">Acre</option>
                                                         <option value="AL">Alagoas</option>
@@ -181,7 +181,7 @@
                                             </div>
                                             <div class="col-sm pe-0">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" placeholder="País" id="pais" th:field="${enderecosModel.endPais}">
+                                                    <input type="text" class="form-control" placeholder="País" id="pais" th:field="${enderecosModel.endPais}" required>
                                                     <label for="pais">País</label>
                                                 </div>
                                             </div>

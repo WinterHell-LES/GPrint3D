@@ -10,6 +10,7 @@ import com.project.GPrint3D.model.CartoesModel;
 import com.project.GPrint3D.model.CartoesPadroesModel;
 import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.UsuariosModel;
+import com.project.GPrint3D.repository.BandeirasRepository;
 import com.project.GPrint3D.repository.CartoesPadroesRepository;
 import com.project.GPrint3D.repository.CartoesRepository;
 import com.project.GPrint3D.repository.ClientesRepository;
@@ -39,6 +40,9 @@ public class CadCrtCliController
 
     @Autowired
     private CartoesRepository cartoes;
+
+    @Autowired
+    private BandeirasRepository bandeiras;
     
     @Autowired
     private CartoesPadroesRepository cartoesPadroes;
@@ -56,6 +60,7 @@ public class CadCrtCliController
         ModelAndView mv = new ModelAndView("/cliente/cadastrar/cadastrarCartao");
         
         mv.addObject("cliente", String.valueOf(id));
+        mv.addObject("bandeiras", bandeiras.findAll());
 
         return mv;
     }
@@ -86,12 +91,12 @@ public class CadCrtCliController
             {
                 cartoesPadroesService.atualizar(cartaoPadrao);
 
-                System.out.println("Cartão padrão atualizado com sucesso!!");
+                //System.out.println("Cartão padrão atualizado com sucesso!!");
             }else // Pode excluir, não pode ocorrer essa ação.
             {
                 cartoesPadroesService.cadastrar(cartaoPadrao);
                 
-                System.out.println("Cartão padrão cadastrado com sucesso!!");
+                //System.out.println("Cartão padrão cadastrado com sucesso!!");
             }
         }
 

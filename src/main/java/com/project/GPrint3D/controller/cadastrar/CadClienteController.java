@@ -11,6 +11,7 @@ import com.project.GPrint3D.model.EndCobrancasPadroesModel;
 import com.project.GPrint3D.model.EndEntregasPadroesModel;
 import com.project.GPrint3D.model.TelefonesModel;
 import com.project.GPrint3D.model.UsuariosModel;
+import com.project.GPrint3D.repository.BandeirasRepository;
 import com.project.GPrint3D.repository.CartoesRepository;
 import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.EnderecosRepository;
@@ -73,6 +74,9 @@ public class CadClienteController
 
     @Autowired
     private UsuariosService usuariosService;
+
+    @Autowired
+    private BandeirasRepository bandeiras;
 
     @Autowired
     private CartoesRepository cartoes;
@@ -156,6 +160,8 @@ public class CadClienteController
     public ModelAndView cadastroCartao(CartoesModel cartao)
     {
         ModelAndView mv = new ModelAndView("/cadastro/cadCartao");
+        
+        mv.addObject("bandeiras", bandeiras.findAll());
 
         return mv;
     }

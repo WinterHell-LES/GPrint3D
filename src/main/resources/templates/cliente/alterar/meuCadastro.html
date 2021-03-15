@@ -42,7 +42,7 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Nome" id="nome" th:value="${cliente.cliNome}" th:field="${cliente.cliNome}">
+                                                <input type="text" class="form-control" placeholder="Nome" id="nome" th:field="${cliente.cliNome}" required>
                                                 <label for="nome">Nome completo ou nome empresarial</label>
                                               </div>
                                         </div>
@@ -51,14 +51,14 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" th:value="${cliente.cliDtNasc}" th:field="${cliente.cliDtNasc}">
+                                                <input type="text" class="form-control" placeholder="Data de Nascimento" id="dataNascimento" th:field="${cliente.cliDtNasc}" required>
                                                 <label for="dataNascimento">Data de Nascimento</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-3">
                                             <div class="form-floating">
-                                                <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone" th:field="${telefone.telTipo}">
+                                                <select name="tipoTelefone" class="custom-select form-select" id="tipoTelefone" th:field="${telefone.telTipo}" required>
                                                     <option value="" selected>Tipo de Telefone</option>
                                                     <option value="Celular">Celular</option>
                                                     <option value="Comercial">Comercial</option>
@@ -70,14 +70,14 @@
 
                                         <div class="col-sm-1">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control ddd" placeholder="DDD" id="DDD" th:value="${telefone.telDdd}" th:field="${telefone.telDdd}">
+                                                <input type="text" class="form-control ddd" placeholder="DDD" id="DDD" th:field="${telefone.telDdd}" required>
                                                 <label for="DDD">DDD</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control celphone" placeholder="Telefone" id="telefone" th:value="${telefone.telNumero}" th:field="${telefone.telNumero}">
+                                                <input type="text" class="form-control celphone" placeholder="Telefone" id="telefone" th:field="${telefone.telNumero}" required>
                                                 <label for="telefone">Telefone</label>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control cpf-cnpj" placeholder="Número do documento" id="numeroDocumento" th:value="${documento.docNumero}" th:field="${documento.docNumero}">
+                                                <input type="text" class="form-control cpf-cnpj" placeholder="Número do documento" id="numeroDocumento" th:field="${documento.docNumero}" required>
                                                 <label for="numeroDocumento">Número do documento</label>
                                             </div>
                                         </div>

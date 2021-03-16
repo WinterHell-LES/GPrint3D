@@ -320,7 +320,8 @@ CREATE TABLE log_transacoes (
     log_data  			VARCHAR(100) NOT NULL,
     log_acao			VARCHAR(50) NOT NULL,
     log_descricao  		VARCHAR(255) NOT NULL,
-    log_usuario 		VARCHAR(100) NOT NULL,
+    log_tabela			VARCHAR(50) NOT NULL,
+    log_dado	 		MEDIUMINT NOT NULL,
     CONSTRAINT pk_log PRIMARY KEY ( log_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -444,26 +445,3 @@ ALTER TABLE telefones
 ALTER TABLE saidas
     ADD CONSTRAINT fk_sai_prd FOREIGN KEY ( sai_prd_id )
         REFERENCES produtos ( prd_id );
-        
--- TRIGGERS
-DELIMITER $$
-DROP TRIGGER IF EXISTS tg_entrada_produto; $$
-CREATE TRIGGER tg_entrada_produto AFTER INSERT ON entradas FOR EACH ROW
-BEGIN
-	UPDATE produtos SET prd_quantidade = prd_quantidade + NEW.ent_quantidade WHERE prd_id = NEW.ent_prd_id;
-END; $$
-
-DELIMITER $$
-DROP TRIGGER IF EXISTS tg_saida_produto; $$
-CREATE TRIGGER tg_saida_produto BEFORE INSERT ON saidas FOR EACH ROW
-BEGIN
-	IF prd_quantidade < prd_quantidade THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'QUANTIDADE DE PRODUTOS INSUFICIENTE';
-    ELSE
-		UPDATE produtos SET prd_quantidade = prd_quantidade - prd_quantidade WHERE prd_id = NEW.sai_prd_id;
-    END IF;
-END; $$
-
--- USERS - ADM
-insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
-values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', 1);

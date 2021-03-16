@@ -27,12 +27,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Nome</td>
-                        <td>Produtos cadastrados</td>
-                        <td>Ativo</td>
+                    <tr th:each="categoria : ${categorias}">
+                        <td th:text="${categoria.ctgNome}">Nome</td>
+                        <td th:text="${categoria.listCategoriasProdutos.size}">Produtos cadastrados</td>
+                        <td>true</td>
                         <td class="py-0 my-0">
-                            <form action="" method="POST">
+                            <form th:action="@{/admin/deleteCategorias}" method="POST">
                                 <a style="text-decoration: none;" href="/admin/alterarCategorias">
                                     <i class="bi bi-pencil-square fs-4" style="color: black;"></i>
                                 </a>

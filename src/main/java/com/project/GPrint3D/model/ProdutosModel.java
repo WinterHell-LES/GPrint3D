@@ -97,7 +97,7 @@ public class ProdutosModel
         this.prdFabricante = "";
         this.prdModelo = "";
         this.prdQuantidade = 0;
-        this.prdPreco = 0.0;
+        this.prdPreco = 0.00;
     }
 
     public ProdutosModel(Integer prdId, String prdNome, String prdDescricao, double prdDimPrdAl, double prdDimPrdLa, double prdDimPrdPr, double prdDimPrdPe, double prdDimEmbAl, double prdDimEmbLa, double prdDimEmbPr, double prdDimEmbPe, String prdFabricante, String prdModelo, Integer prdQuantidade, double prdPreco) 

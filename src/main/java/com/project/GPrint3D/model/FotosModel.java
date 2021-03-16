@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -26,11 +28,15 @@ public class FotosModel
     private String ftoNome;
 
     @NotNull(message = "Data é obrigatória")
-    @Column(name = "fto_upload_date")
-    private Date ftoUploadDate;
+    @Column(name = "fto_data")
+    private Date ftoData;
 
     @Column(name = "fto_content")
     private byte[] ftoContent;
+
+    @ManyToOne
+    @JoinColumn(name = "fto_prd_id", referencedColumnName = "prd_id")
+    private ProdutosModel produto;
 
     public FotosModel() 
     {
@@ -38,15 +44,15 @@ public class FotosModel
         
         this.ftoId = 0;
         this.ftoNome = "";
-        this.ftoUploadDate = new Date(dataAtual.getTime());
+        this.ftoData = new Date(dataAtual.getTime());
         this.ftoContent = null;
     }
 
-    public FotosModel(Integer ftoId, String ftoNome, Date ftoUploadDate, byte[] ftoContent) 
+    public FotosModel(Integer ftoId, String ftoNome, Date ftoData, byte[] ftoContent) 
     {
         this.ftoId = ftoId;
         this.ftoNome = ftoNome;
-        this.ftoUploadDate = ftoUploadDate;
+        this.ftoData = ftoData;
         this.ftoContent = ftoContent;
     }
 
@@ -70,14 +76,14 @@ public class FotosModel
         this.ftoNome = ftoNome;
     }
 
-    public Date getFtoUploadDate() 
+    public Date getFtoData() 
     {
-        return this.ftoUploadDate;
+        return this.ftoData;
     }
 
-    public void setFtoUploadDate(Date ftoUploadDate) 
+    public void setFtoData(Date ftoData) 
     {
-        this.ftoUploadDate = ftoUploadDate;
+        this.ftoData = ftoData;
     }
 
     public byte[] getFtoContent() 
@@ -88,6 +94,16 @@ public class FotosModel
     public void setFtoContent(byte[] ftoContent) 
     {
         this.ftoContent = ftoContent;
+    }
+
+    public ProdutosModel getProduto() 
+    {
+        return this.produto;
+    }
+
+    public void setProduto(ProdutosModel produto) 
+    {
+        this.produto = produto;
     }
 
     @Override

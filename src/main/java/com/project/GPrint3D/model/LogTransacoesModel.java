@@ -9,11 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "LOG_TRASACOES")
+@Table(name = "LOG_TRANSACOES")
 public class LogTransacoesModel 
 {
     @Id
@@ -21,21 +19,20 @@ public class LogTransacoesModel
     @Column(name = "log_id")
     private Integer logId;
 
-    @NotNull(message = "data é obrigatória")
     @Column(name = "log_data")
     private Date logData;
 
-    @NotEmpty(message = "Ação é obrigatória")
     @Column(name = "log_acao")
     private String logAcao;
 
-    @NotEmpty(message = "Descrição é obrigatória")
     @Column(name = "log_descricao")
     private String logDescricao;
 
-    @NotEmpty(message = "Usuário é obrigatório")
-    @Column(name = "log_usuario")
-    private String logUsuario;
+    @Column(name = "log_tabela")
+    private String logTabela;
+
+    @Column(name = "log_dado")
+    private Integer logDado;
 
     public LogTransacoesModel() 
     {
@@ -47,10 +44,10 @@ public class LogTransacoesModel
         this.logData = new Date(dataAtual.getTime());
         this.logAcao = "";
         this.logDescricao = "";
-        this.logUsuario = "";
+        this.logDado = 0;
     }
 
-    public LogTransacoesModel(Integer logId, Date logData, String logAcao, String logDescricao, String logUsuario) 
+    public LogTransacoesModel(Integer logId, Date logData, String logAcao, String logDescricao, Integer logDado) 
     {
         super( );
 
@@ -58,7 +55,7 @@ public class LogTransacoesModel
         this.logData = logData;
         this.logAcao = logAcao;
         this.logDescricao = logDescricao;
-        this.logUsuario = logUsuario;
+        this.logDado = logDado;
     }
 
     public Integer getLogId() 
@@ -101,14 +98,24 @@ public class LogTransacoesModel
         this.logDescricao = logDescricao;
     }
 
-    public String getLogUsuario() 
+    public String getLogTabela() 
     {
-        return this.logUsuario;
+        return this.logTabela;
     }
 
-    public void setLogUsuario(String logUsuario) 
+    public void setLogTabela(String logTabela) 
     {
-        this.logUsuario = logUsuario;
+        this.logTabela = logTabela;
+    }
+
+    public Integer getLogDado() 
+    {
+        return this.logDado;
+    }
+
+    public void setLogDado(Integer logDado) 
+    {
+        this.logDado = logDado;
     }
 
     @Override

@@ -22,24 +22,27 @@
                     <tr>
                         <th style="width: 100px;">Ação</th>
                         <th>Descrição</th>
-                        <th>Usuário</th>
+                        <th>Tabela</th>
+                        <th style="width: 150px;">ID</th>
                         <th style="width: 150px;">Data</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Ação</td>
-                        <td>Descrição</td>
-                        <td>Usuário</td>
-                        <td>Data</td>
+                    <tr th:each="log : ${logs}">
+                        <td th:text="${log.logAcao}">Ação</td>
+                        <td th:text="${log.logDescricao}">Descrição</td>
+                        <td th:text="${log.logTabela}">Tabela</td>
+                        <td th:text="${log.logDado}">ID</td>
+                        <td th:text="${#dates.format(log.logData, 'dd/MM/yyyy')}">Data</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <th><input style="width: 100%" type="text" placeholder="Procurar ação"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar descrição"></th>
-                        <th><input style="width: 100%" type="text" placeholder="Procurar usuário"></th>
-                        <th><input style="width: 100%" type="text" placeholder="Procurar Data"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar tabela"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar id"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar data"></th>
                     </tr>
                 </tfoot>
             </table>

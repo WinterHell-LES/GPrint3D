@@ -1,17 +1,31 @@
 use crud_gprint3d;
 
-/*--- Admin
+--- Admin
 -- Usuarios
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
-values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', '1');*/
+values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', '1');
 
--- Ba
+-- Bandeiras
 insert into bandeiras (ban_nome)
 values ('Mastercard');
 insert into bandeiras (ban_nome)
 values ('Visa');
 insert into bandeiras (ban_nome)
 values ('Elo');
+
+-- Categorias
+insert into categorias (ctg_nome, ctg_descricao)
+values ('Impressoras 3D', '');
+insert into categorias (ctg_nome, ctg_descricao)
+values ('Filamentos ABS', '');
+insert into categorias (ctg_nome, ctg_descricao)
+values ('Filamentos PLA', '');
+insert into categorias (ctg_nome, ctg_descricao)
+values ('Filamentos PETG', '');
+insert into categorias (ctg_nome, ctg_descricao)
+values ('Resinas', '');
+insert into categorias (ctg_nome, ctg_descricao)
+values ('Partes', '');
 
 -- Clientes
 -- Usuario - Cliente 1

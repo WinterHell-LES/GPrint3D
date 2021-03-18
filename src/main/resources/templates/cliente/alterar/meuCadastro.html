@@ -27,17 +27,17 @@
                         </div>
 
                         <form class="form-group" th:action="@{/cliente/meuCadastro}" method="POST">
-                            <div class="row border shadow p-2 rounded-3">
 
-                                <input type="hidden" th:value="${cliente.cliId}" th:field="${cliente.cliId}"></input>
-                                <input type="hidden" th:value="${cliente.cliRanking}" th:field="${cliente.cliRanking}"></input>
-                                <input type="hidden" th:value="${telefone.telId}" th:field="${telefone.telId}"></input>
-                                <input type="hidden" th:value="${documento.docId}" th:field="${documento.docId}"></input>
+                            <input type="hidden" th:value="${cliente.cliId}" th:field="${cliente.cliId}"></input>
+                            <input type="hidden" th:value="${cliente.cliRanking}" th:field="${cliente.cliRanking}"></input>
+                            <input type="hidden" th:value="${telefone.telId}" th:field="${telefone.telId}"></input>
+                            <input type="hidden" th:value="${documento.docId}" th:field="${documento.docId}"></input>
 
-                                <input type="hidden" th:value="${cliente.usuario.usuId}" th:field="${cliente.usuario.usuId}"></input>
-                                <input type="hidden" th:value="${telefone.cliente.cliId}" th:field="${telefone.cliente.cliId}"></input>
-                                <input type="hidden" th:value="${documento.cliente.cliId}" th:field="${documento.cliente.cliId}"></input>
+                            <input type="hidden" th:value="${cliente.usuario.usuId}" th:field="${cliente.usuario.usuId}"></input>
+                            <input type="hidden" th:value="${telefone.cliente.cliId}" th:field="${telefone.cliente.cliId}"></input>
+                            <input type="hidden" th:value="${documento.cliente.cliId}" th:field="${documento.cliente.cliId}"></input>
 
+                            <div class="container border shadow rounded-3 py-2">
                                 <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm pe-0">
@@ -132,6 +132,11 @@
 
                                 <div class="row pb-2 pe-0">
                                     <div class="row pe-0">
+                                        <div class="col-sm pe-0">
+                                            <div class="text-start">
+                                                <a class="btn border shadow-sm" onclick="window.history.back();">Voltar</a>
+                                            </div>
+                                        </div>
                                         <div class="col-sm pe-0">
                                             <div class="text-end">
                                                 <button type="submit" class="btn border shadow-sm">Alterar</button>

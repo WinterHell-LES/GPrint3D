@@ -19,7 +19,12 @@
                         </div>
 
                         <form class="form-group" th:action="@{/cliente/cadastrarEndereco/} + ${cliente} + '/' + ${check}" method="POST">
-                            <div class="row border shadow rounded-3 py-2">
+
+                            <input type="hidden" th:field="${enderecosModel.cliente.cliId}">
+                            <input type="hidden" th:field="${enderecosModel.endEntregaPadrao}">
+                            <input type="hidden" th:field="${enderecosModel.endCobrancaPadrao}">
+
+                            <div class="container border shadow p-2 rounded-3">
                                 <div class="row mx-0">
                                     <div class="row py-3">
                                         <div class="col-sm d-flex flex-column align-self-center">
@@ -196,21 +201,25 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row pe-0">
-                                    <div class="row pe-0">
+                                    <div class="row pe-0 pb-3">
                                         <div class="col-sm">
-                                            <div class="text-end">
-                                                <button type="submit" class="btn border shadow-sm">Salvar</button>
+                                            <div class="row pe-0">
+                                                <div class="col-sm">
+                                                    <div class="text-start">
+                                                        <a class="btn border shadow-sm" onclick="window.history.back();">Voltar</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm">
+                                                    <div class="text-end">
+                                                        <button type="submit" class="btn border shadow-sm">Salvar</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" th:field="${enderecosModel.cliente.cliId}">
-                            <input type="hidden" th:field="${enderecosModel.endEntregaPadrao}">
-                            <input type="hidden" th:field="${enderecosModel.endCobrancaPadrao}">
                         </form>
                     </div>
                 </div>

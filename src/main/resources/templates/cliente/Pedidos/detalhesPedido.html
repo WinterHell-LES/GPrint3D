@@ -16,7 +16,7 @@
         <!-- Conteudo da página -->
        <section layout:fragment="conteudo">
             <div class="mt-5">
-                <div class="row">
+                <div class="co">
                     <div class="col-sm">
                         <div class="row border-bottom mb-4">
                             <p class="h2">Detalhes do pedido 1</p>
@@ -25,191 +25,189 @@
                 </div>
             </div>
 
-            <div class="row p-5">
-                <div class="col-sm pedido border shadow">
-                    <div class="row ps-2 pedido-header">
-                        <div class="col pt-3 pb-2">
-                            <p class="h5">Pedido 1</p>
+            <div class="container my-5 border shadow">
+                <div class="pedido-header row">
+                    <div class="col-sm pedido">
+                        <div class="row ps-2 ">
+                            <div class="col pt-3 pb-2">
+                                <p class="h5">Pedido 1</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pedido-body row border-top">
+                    <div class="dados-compras col border my-4 mx-5">
+                        <div class="row">
+                            <div class="col-4 pt-2 bg-light pagamento border-end">
+                                <div class="row text-center border-bottom">
+                                    <p class="h6">Pagamento</p>
+                                </div>
+                            </div>
+                            <div class="col-4 pt-2 bg-light valores border-end">
+                                <div class="row text-center border-bottom">
+                                    <p class="h6">Total pago</p>
+                                </div>
+                            </div>
+                            <div class="col-4 pt-2 bg-light endereços">
+                                <div class="row text-center border-bottom">
+                                    <p class="h6">Endereço</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-4 pagamento border-end">
+                                <div class="cupom mt-2">
+                                    <div class="row d-inline">
+                                        <i class="bi bi-tag pe-0"></i>
+                                        <span class="h7 my-1">Cupom XXXXX</span>
+                                    </div>
+                                    <div class="row text-end border-bottom">
+                                        <span class="h7 my-1">R$ 30,00</span>
+                                    </div>
+                                </div>
+                                <div class="cartao mt-2">
+                                    <div class="row d-inline">
+                                        <i class="bi bi-credit-card pe-0"></i>
+                                        <span class="h7 my-1">1234 XXXX XXXX 1234</span>
+                                    </div>
+                                    <div class="row text-end">
+                                        <span class="h7 my-1">R$ 132,00</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-4 d-flex flex-column justify-content-end border-end valores">
+                                <div class="row pt-2 pb-1">
+                                    <div class="col">
+                                        <span class="h7 my-1">Subtotal</span>
+                                    </div>
+                                    <div class="col text-end">
+                                        <span class="h7 my-1">R$ 120,00</span>
+                                    </div>
+                                </div>
+                                <div class="row pt-1 pb-2 border-bottom">
+                                    <div class="col">
+                                        <span class="h7 my-1">Frete</span>
+                                    </div>
+                                    <div class="col text-end">
+                                        <span class="h7 my-1">R$ 12,00</span>
+                                    </div>
+                                </div>
+                                <div class="row py-2 align-self-str">
+                                    <div class="col">
+                                        <span class="h7 my-1">Total</span>
+                                    </div>
+                                    <div class="col text-end">
+                                        <span class="h7 my-1">R$ 132,00</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-4 endereços">
+                                <div class="row">
+                                    <p class="h6 my-1">Descrição do Imóvel</p>
+                                </div>
+                                <div class="row">
+                                    <span class="h7 my-1">Rua João das Neves, 123 - Complemento</span>
+                                </div>
+                                <div class="row">
+                                    <span class="h7 my-1">Mogi das Cruzes / SP</span>
+                                </div>
+                                <div class="row">
+                                    <span class="h7 my-1">12345-123</span>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row pedido-body">
-                        <div class="row mb-4 produto">
-                            <div class="row mx-3 border-top pt-3 mb-3">
-                                <div class="col">
-                                    <div class="d-flex flex-row gap-4">
-                                        <img th:src="@{/images/Teste.png}" class="img-fluid" alt="..." style="max-width: 200px; height: auto;">
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <p class="h6">Produto 1</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-1 d-grid tex-center align-content-center border-start">
-                                    <div class="row text-center">
-                                        <p class="fw-bold">QTD</p>
-                                    </div>
-                                    <div class="row text-center">
-                                        <p>3</p>
-                                    </div>
-                                </div>
+                    <div class="logistica mb-4 border-top">
+                        <div class="row pt-3 mb-3">
+                            <div class="col"></div>
 
-                                <div class="col-1 d-grid tex-center align-content-center border-start">
-                                    <div class="row text-center">
-                                        <p class="fw-bold">VALOR</p>
-                                    </div>
-                                    <div class="row text-center">
-                                        <p>R$ 50,00</p>
-                                    </div>
-                                </div>
-
-                                <div class="col-1 d-grid tex-center align-content-center border-start">
-                                    <div class="row text-center">
-                                        <p class="fw-bold">TOTAL</p>
-                                    </div>
-                                    <div class="row text-center">
-                                        <p>R$132,00</p>
-                                    </div>
-                                </div>
+                            <div class="col-8 align-bottom">
+                                <input type="range" class="form-range" min="0" max="4" step="1" value="3" id="fluxoCompra" disabled>
                             </div>
+
+                            <div class="col"></div>
                         </div>
 
-                        <div class="mb-4 logistica">
-                            <div class="row">
-                                <div class="col"></div>
-    
-                                <div class="col-8 align-bottom">
-                                    <input type="range" class="form-range" min="0" max="4" step="1" value="3" id="fluxoCompra" disabled>
-                                </div>
-    
-                                <div class="col"></div>
+                        <div class="row">
+                            <div class="col"></div>
+
+                            <div class="col-2 text-center">
+                                <span class="fs-7">Pedido recebido</span>
                             </div>
 
-                            <div class="row logistica">
-                                <div class="col"></div>
-    
-                                <div class="col-2 text-center">
-                                    <span class="fs-7">Pedido recebido</span>
-                                </div>
-    
-                                <div class="col-2 text-center">
-                                    <span class="fs-7">Pagamento aprovado</span>
-                                </div>
-    
-                                <div class="col-2 text-center">
-                                    <span class="fs-7">Nota Fiscal disponível</span>
-                                </div>
-    
-                                <div class="col-2 text-center">
-                                    <span class="fs-7">Em transporte</span>
-                                </div>
-    
-                                <div class="col-2 text-center">
-                                    <span class="fs-7">Pedido entregue</span>
-                                </div>
-                                <div class="col"></div>
+                            <div class="col-2 text-center">
+                                <span class="fs-7">Pagamento aprovado</span>
                             </div>
+
+                            <div class="col-2 text-center">
+                                <span class="fs-7">Nota Fiscal disponível</span>
+                            </div>
+
+                            <div class="col-2 text-center">
+                                <span class="fs-7">Em transporte</span>
+                            </div>
+
+                            <div class="col-2 text-center">
+                                <span class="fs-7">Pedido entregue</span>
+                            </div>
+                            <div class="col"></div>
                         </div>
+                    </div>
 
-                        <div class="dados-compras">
-                            <div class="row pt-2 px-6">
-                                <div class="col-4 pagamento border-end">
-                                    <div class="row text-center border-bottom">
-                                        <p class="h6">Pagamento</p>
+                    <div class="produto mb-4 border-top">
+                        <div class="row mx-3">
+                            <div class="col">
+                                <div class="d-flex flex-row gap-4 pt-3">
+                                    <img th:src="@{/images/Teste.png}" class="img-fluid" alt="..." style="max-width: 200px; height: auto;">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <p class="h6">Produto 1</p>
                                     </div>
                                 </div>
-                                <div class="col-4 valores border-end">
-                                    <div class="row text-center border-bottom">
-                                        <p class="h6">Total pago</p>
-                                    </div>
-                                </div>
-                                <div class="col-4 endereços">
-                                    <div class="row text-center border-bottom">
-                                        <p class="h6">Endereço</p>
-                                    </div>
-                                </div>
-
                             </div>
                             
-                            <div class="row pb-2 px-6">
-                                <div class="col-4 pagamento border-end">
-                                    <div class="row mb-2">
-                                        <p class="h6 my-1">Cupom + Cartão</p>
-                                    </div>
-                                    <div class="cupom">
-                                        <div class="row d-inline">
-                                            <i class="bi bi-tag pe-0"></i>
-                                            <span class="h7 my-1">Cupom XXXXX</span>
-                                        </div>
-                                        <div class="row text-end border-bottom">
-                                            <span class="h7 my-1">R$ 30,00</span>
-                                        </div>
-                                    </div>
-                                    <div class="cartao mt-2">
-                                        <div class="row d-inline">
-                                            <i class="bi bi-credit-card pe-0"></i>
-                                            <span class="h7 my-1">1234 XXXX XXXX 1234</span>
-                                        </div>
-                                        <div class="row text-end">
-                                            <span class="h7 my-1">R$ 132,00</span>
-                                        </div>
-                                    </div>
-
+                            <div class="col-1 d-grid tex-center align-content-center border-start">
+                                <div class="row text-center">
+                                    <p class="fw-bold">QTD</p>
                                 </div>
-                                <div class="col-4 d-flex flex-column justify-content-end border-end valores">
-                                    <div class="row pt-2 pb-1">
-                                        <div class="col">
-                                            <span class="h7 my-1">Subtotal</span>
-                                        </div>
-                                        <div class="col text-end">
-                                            <span class="h7 my-1">R$ 120,00</span>
-                                        </div>
-                                    </div>
-                                    <div class="row pt-1 pb-2 border-bottom">
-                                        <div class="col">
-                                            <span class="h7 my-1">Frete</span>
-                                        </div>
-                                        <div class="col text-end">
-                                            <span class="h7 my-1">R$ 12,00</span>
-                                        </div>
-                                    </div>
-                                    <div class="row py-2 align-self-str">
-                                        <div class="col">
-                                            <span class="h7 my-1">Total</span>
-                                        </div>
-                                        <div class="col text-end">
-                                            <span class="h7 my-1">R$ 132,00</span>
-                                        </div>
-                                    </div>
+                                <div class="row text-center">
+                                    <p>3</p>
                                 </div>
+                            </div>
 
-                                <div class="col-4 endereços">
-                                    <div class="row">
-                                        <p class="h6 my-1">Descrição do Imóvel</p>
-                                    </div>
-                                    <div class="row">
-                                        <span class="h7 my-1">Rua João das Neves, 123 - Complemento</span>
-                                    </div>
-                                    <div class="row">
-                                        <span class="h7 my-1">Mogi das Cruzes / SP</span>
-                                    </div>
-                                    <div class="row">
-                                        <span class="h7 my-1">12345-123</span>
-                                    </div>
+                            <div class="col-1 d-grid tex-center align-content-center border-start">
+                                <div class="row text-center">
+                                    <p class="fw-bold">VALOR</p>
+                                </div>
+                                <div class="row text-center">
+                                    <p>R$ 50,00</p>
+                                </div>
+                            </div>
 
+                            <div class="col-1 d-grid tex-center align-content-center border-start">
+                                <div class="row text-center">
+                                    <p class="fw-bold">TOTAL</p>
+                                </div>
+                                <div class="row text-center">
+                                    <p>R$132,00</p>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="mt-3 mb-4 ferramentas">
-                            <div class="col text-center">
-                                <a href="#" class="btn mx-2 border shadow-sm">Cancelar pedido</a>
-                                <a href="#" class="btn mx-2 border shadow-sm">Solicitar troca</a>
-                            </div>
-                        </div>
-
                     </div>
 
+                </div>
+
+                <div class="pedido-footer row border-top py-4 ferramentas">
+                    <div class="col text-center">
+                        <a href="#" class="btn mx-2 border shadow-sm">Cancelar pedido</a>
+                        <a href="#" class="btn mx-2 border shadow-sm">Solicitar troca</a>
+                    </div>
                 </div>
             </div>
 

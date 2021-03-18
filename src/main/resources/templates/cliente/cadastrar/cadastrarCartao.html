@@ -19,14 +19,14 @@
                         </div>
 
                         <form class="form-group" th:action="@{/cliente/cadastrarCartao/} + ${cliente}" method="POST">
-                            <div class="row border shadow p-2 rounded-3">
+                            <div class="container border shadow py-2 rounded-3">
                                 <div class="row py-3">
                                     <div class="col-sm d-flex flex-column align-self-center">
                                         <h5>Dados dos cartão</h5>
                                     </div>
 
                                     <div class="col-sm-8 d-flex justify-content-end me-1">
-                                        <div class="form-check form-check-inline">
+                                        <div class="form-check border rounded ps-4emeio pe-3 py-2">
                                             <input class="form-check-input" type="checkbox" id="crtPadrao" name="crtPadrao">
                                             <label class="form-check-label" for="crtPadrao">Cartão padrão</label>
                                         </div>
@@ -78,10 +78,17 @@
                                 </div>
 
                                 <div class="row pe-0 pb-3">
-                                    <div class="row pe-0">
-                                        <div class="col-sm pe-0">
-                                            <div class="text-end">
-                                                <button type="submit" class="btn border shadow-sm">Salvar</button>
+                                    <div class="col-sm">
+                                        <div class="row pe-0">
+                                            <div class="col-sm">
+                                                <div class="text-start">
+                                                    <a class="btn border shadow-sm" onclick="window.history.back();">Voltar</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn border shadow-sm">Salvar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

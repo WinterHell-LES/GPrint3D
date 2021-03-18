@@ -10,7 +10,7 @@
 
     <body>
         <!-- Conteudo da página -->
-       <section layout:fragment="conteudo">
+        <section layout:fragment="conteudo">
             <div class="my-5">
                 <div class="row">
                     <div class="col-sm">
@@ -23,14 +23,14 @@
                             <input type="hidden" th:value="${cartao.crtId}" th:field="${cartao.crtId}"></input>
                             <input type="hidden" th:value="${cartao.cliente.cliId}" th:field="${cartao.cliente.cliId}"></input>
 
-                            <div class="row border shadow p-2 rounded-3">
+                            <div class="container border shadow rounded-3 py-2">
                                 <div class="row py-3">
                                     <div class="col-sm d-flex flex-column align-self-center">
                                         <h5>Informações de Pagamento</h5>
                                     </div>
 
                                     <div class="col-sm-8 d-flex justify-content-end me-1">
-                                        <div class="form-check form-check-inline">
+                                        <div class="form-check border rounded ps-4emeio pe-3 py-2">
                                             <input class="form-check-input" type="checkbox" id="crtPadrao" name="crtPadrao" th:checked="${cartaoPadrao != null} AND ${cartaoPadrao.cartao.crtId} == ${cartao.crtId}">
                                             <label class="form-check-label" for="crtPadrao">Cartão padrão</label>
                                         </div>
@@ -69,14 +69,14 @@
 
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control validade" placeholder="Validade do Cartão" id="validadedCartao" minlength="5" maxlenght="5" th:value="empty" th:field="${cartao.crtValidade}" required>
+                                                <input type="text" class="form-control validade" placeholder="Validade do Cartão" id="validadedCartao" minlength="5" maxlenght="5" th:field="${cartao.crtValidade}" required>
                                                 <label for="validadedCartao">Validade do Cartão</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" minlength="3" maxlength="3" th:field="${cartao.crtCvv}" value="${t}" required>
+                                                <input type="text" class="form-control" placeholder="CVV" id="cvvCartao" minlength="3" maxlength="3" th:field="${cartao.crtCvv}" required>
                                                 <label for="cvvCartao">Código de Segurança</label>
                                             </div>
                                         </div>
@@ -84,10 +84,17 @@
                                 </div>
 
                                 <div class="row pe-0 pb-3">
-                                    <div class="row pe-0">
-                                        <div class="col-sm pe-0">
-                                            <div class="text-end">
-                                                <button type="submit" class="btn border shadow-sm">Salvar</button>
+                                    <div class="col-sm">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="text-start">
+                                                    <a class="btn border shadow-sm" onclick="window.history.back();">Voltar</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn border shadow-sm">Alterar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

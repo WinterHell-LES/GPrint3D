@@ -4,6 +4,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <!--CSS-->
+        <th:block layout:fragment="css">
+            <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/pedidos.css}">
+        </th:block>
 
         <title>GPrint3D - Cliente - Confirmar Pagamento</title>
     </head>
@@ -17,7 +22,7 @@
                         <div class="row" style="height: 17.5px;">
                             <div class="col"></div>
 
-                            <div class="col-4 align-bottom">
+                            <div class="col-3 align-bottom px-0">
                                 <input type="range" class="form-range" min="0" max="3" step="1" value="2" id="fluxoCompra" disabled>
                             </div>
 
@@ -27,20 +32,20 @@
                         <div class="row" style="height: 17.5px;">
                             <div class="col"></div>
 
-                            <div class="col-1 text-start">
+                            <div class="col-1 text-center">
                                 <i class="bi bi-cart3 fs-4"></i>
                             </div>
 
-                            <div class="col-1 text-center ps-0">
+                            <div class="col-1 text-center">
                                 <i class="bi bi-truck fs-4"></i>
                             </div>
 
-                            <div class="col-1 text-start ps-5">
+                            <div class="col-1 text-center">
                                 <i class="bi bi-credit-card fs-4"></i>
                             </div>
 
-                            <div class="col-1 text-end pe-1">
-                                <i class="bi bi-check2-circle  fs-4"></i>
+                            <div class="col-1 text-center">
+                                <i class="bi bi-check2-circle fs-4"></i>
                             </div>
                             <div class="col"></div>
                         </div>
@@ -54,128 +59,152 @@
                 </div>
             </div>
 
-            <div class="container mb-4">
-                <div class="row border-bottom">
-                    <div class="col-8">
+            <div class="container border shadow my-4">
+                <div class="row valores" onclick="showElement(this)">
+                    <div class="col pt-3 pb-2">
                         <p class="h5">Valor total do pedido</p>
                     </div>
-                    <div class="col-4 text-end">
-                        <p class="fst-italic d-inline">R$162,00</p>
-                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesValores', this)"></i>
+                    <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
+                        <span class="fst-italic">R$162,00</span>
+                    </div>
+                    <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
+                        <i class="bi bi-caret-down"></i>
                     </div>
                 </div>
 
-                <table class="table mt-2 visually-hidden" id="detalhesValores">
-                    <tbody>
-                        <tr>
-                            <th scope="col" class="col-2">Produto</th>
-                            <th scope="col" class="col-2 text-center">Qtd</th>
-                            <th scope="col" class="col-2 text-center">Preço un</th>
-                            <th scope="col" class="col-2 text-center">Sub-total</th>
-                        </tr>
-                        <tr>
-                            <td>Produto 1</td>
-                            <td class="text-center">3</td>
-                            <td class="text-center">R$50,00</td>
-                            <td class="text-center">R$150,00</td>
-                        </tr>
-                        <tr>
-                            <th scope="row" class="border-0">Frete:</th>
-                            <td colspan="3" class="border-0 text-center">R$12,00</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="detalhesValores">
+                    <div class="border-top visually-hidden">
+                        <table class="table mt-2">
+                            <tbody>
+                                <tr>
+                                    <th scope="col" class="col-2">Produto</th>
+                                    <th scope="col" class="col-2 text-center">Qtd</th>
+                                    <th scope="col" class="col-2 text-center">Preço un</th>
+                                    <th scope="col" class="col-2 text-center">Sub-total</th>
+                                </tr>
+                                <tr>
+                                    <td>Produto 1</td>
+                                    <td class="text-center">3</td>
+                                    <td class="text-center">R$50,00</td>
+                                    <td class="text-center">R$150,00</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="border-0">Frete:</th>
+                                    <td colspan="3" class="border-0 text-center">R$12,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
-            <div class="container my-4">
-                <div class="row border-bottom">
-                    <div class="col-8">
+            <div class="container border shadow my-4">
+                <div class="row cupons" onclick="showElement(this)">
+                    <div class="col pt-3 pb-2">
                         <p class="h5">Cupons</p>
                     </div>
-                    <div class="col-4 text-end">
-                        <p class="fst-italic d-inline">-R$30,00</p>
-                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesCupons', this)"></i>
+                    <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
+                        <span class="fst-italic">-R$30,00</span>
+                    </div>
+                    <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
+                        <i class="bi bi-caret-down"></i>
                     </div>
                 </div>
 
-                <div class="row visually-hidden" id="detalhesCupons">
-                    <div class="col-6">
-                        <div class="row pt-2 pb-0">
-                            <p>Possui algum cupom?</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <input type="text" class="form-control" placeholder="" id="cupom">
+                <div id="detalhesCupons">
+                    <div class="border-top visually-hidden">
+                        <div class="row p-2">
+                            <div class="col-6">
+                                <div class="row pt-2 pb-0">
+                                    <p>Possui algum cupom?</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" placeholder="" id="cupom">
+                                    </div>
+                                    <div class="col-2 text-end pb-2">
+                                        <a href="#"><button type="submit" class="btn border shadow-sm">Aplicar</button></a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-2 text-end pb-2">
-                                <a href="#"><button type="submit" class="btn border shadow-sm">Aplicar</button></a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-6">
-                        <div class="row pt-2 pb-0">
-                            <p>Cupons aplicados:</p>
-                        </div>
-                        <div class="row fst-italic">
-                            <div class="col">
-                                <i class="bi bi-x-circle d-inline" style="cursor: pointer; color: red;"></i>
-                                <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$30,00</span><span>.</span>
+                            <div class="col-6">
+                                <div class="row pt-2 pb-0">
+                                    <p>Cupons aplicados:</p>
+                                </div>
+                                <div class="row fst-italic">
+                                    <div class="col">
+                                        <i class="bi bi-x-circle d-inline" style="cursor: pointer; color: red;"></i>
+                                        <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$30,00</span><span>.</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="container my-4">
-                <div class="row border-bottom">
-                    <div class="col-8">
+            <div class="container border shadow my-4">
+                <div class="row cupons" onclick="showElement(this)">
+                    <div class="col pt-3 pb-2">
                         <p class="h5">Meus cartões</p>
                     </div>
-                    <div class="col-4 text-end">
-                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesCartoes', this)"></i>
+                    <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
+                        <i class="bi bi-caret-down"></i>
                     </div>
                 </div>
                 
                 <!-- Listagem dos cartões -->
-                <div th:insert="~{cliente/visualizar/listaCartoes :: listaCartoes}" id="detalhesCartoes" class="visually-hidden"></div>
+                <div>
+                    <div th:insert="~{cliente/visualizar/listaCartoes :: listaCartoes}" id="detalhesCartoes" class="visually-hidden border-top"></div>
+                </div>
+            </div>
+
+            <div class="container border shadow my-4">
+                <div class="row pagamentos" onclick="hideElement(this)">
+                    <div class="col pt-3 pb-2">
+                        <p class="h5">Pagamento</p>
+                    </div>
+                    <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
+                        <i class="bi bi-caret-up"></i>
+                    </div>
+                </div>
+
+                
+                <div id="detalhesPagamentos">
+                    <div class="border-top">
+                        <table class="table mt-2">
+                            <tbody>
+                                <tr>
+                                    <th scope="col" class="col-3">Número</th>
+                                    <th scope="col" class="col-3">Nome</th>
+                                    <th scope="col" class="col-2">Bandeira</th>
+                                    <th scope="col" class="col-2 text-center">Valor</th>
+                                    <th scope="col" class="col-2 text-center">Remover</th>
+                                </tr>
+                                <tr>
+                                    <td>1234 1234 1234 1234</td>
+                                    <td>José da Silva</td>
+                                    <td>Visa</td>
+                                    <td><input type="text" class="form-control" placeholder="" value="R$132,00" id="valor" style="text-align: center;"></td>
+                                    <td class="text-center"><i class="bi bi-x-square fs-5" style="cursor: pointer"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-8 text-end fw-bold">
+                                <p>Total:</p>
+                            </div>
+                            <div class="col-2 text-center">
+                                <p>R$132,00</p>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="container my-4">
-                <div class="row border-bottom">
-                    <div class="d-flex flex-column justify-content-end">
-                        <p class="h5">Pagamento</p>
-                    </div>
-                </div>
-
-                <table class="table mt-2">
-                    <tbody>
-                        <tr>
-                            <th scope="col" class="col-3">Número</th>
-                            <th scope="col" class="col-3">Nome</th>
-                            <th scope="col" class="col-2">Bandeira</th>
-                            <th scope="col" class="col-2 text-center">Valor</th>
-                            <th scope="col" class="col-2 text-center">Remover</th>
-                        </tr>
-                        <tr>
-                            <td>1234 1234 1234 1234</td>
-                            <td>José da Silva</td>
-                            <td>Visa</td>
-                            <td><input type="text" class="form-control" placeholder="" value="R$132,00" id="valor" style="text-align: center;"></td>
-                            <td class="text-center"><i class="bi bi-x-square fs-5" style="cursor: pointer"></i></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="row">
-                    <div class="col-7 text-end fw-bold">
-                        <p>Total:</p>
-                    </div>
-                    <div class="col-2 text-center">
-                        <p>R$132,00</p>
-                    </div>
-                    <div class="col-3"></div>
-                </div>
-
                 <div class="row pb-2">
                     <div class="col-7 text-start">
                         <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm">Voltar</button></a>

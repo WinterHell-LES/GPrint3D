@@ -4,6 +4,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <!--CSS-->
+        <th:block layout:fragment="css">
+            <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/pedidos.css}">
+        </th:block>
 
         <title>GPrint3D - Cliente - Confirmar Endereço</title>
     </head>
@@ -17,7 +22,7 @@
                         <div class="row" style="height: 17.5px;">
                             <div class="col"></div>
 
-                            <div class="col-4 align-bottom">
+                            <div class="col-3 align-bottom px-0">
                                 <input type="range" class="form-range" min="0" max="3" step="1" value="1" id="fluxoCompra" disabled>
                             </div>
 
@@ -27,20 +32,20 @@
                         <div class="row" style="height: 17.5px;">
                             <div class="col"></div>
 
-                            <div class="col-1 text-start">
+                            <div class="col-1 text-center">
                                 <i class="bi bi-cart3 fs-4"></i>
                             </div>
 
-                            <div class="col-1 text-center ps-0">
+                            <div class="col-1 text-center">
                                 <i class="bi bi-truck fs-4"></i>
                             </div>
 
-                            <div class="col-1 text-start ps-5">
+                            <div class="col-1 text-center">
                                 <i class="bi bi-credit-card fs-4"></i>
                             </div>
 
-                            <div class="col-1 text-end pe-1">
-                                <i class="bi bi-check2-circle  fs-4"></i>
+                            <div class="col-1 text-center">
+                                <i class="bi bi-check2-circle fs-4"></i>
                             </div>
                             <div class="col"></div>
                         </div>
@@ -116,18 +121,20 @@
                 </div>
             </div>
 
-            <div class="container mb-5">
-                <div class="row border-bottom">
-                    <div class="col-8">
+            <div class="container border shadow my-4">
+                <div class="row enderecos" onclick="showElement(this)">
+                    <div class="col pt-3 pb-2">
                         <p class="h5">Escolher outro endereço</p>
                     </div>
-                    <div class="col-4 text-end">
-                        <i class="bi bi-caret-down d-inline" style="cursor: pointer;" onclick="showElem('detalhesOutrosEnderecos', this)"></i>
+                    <div class="col-1 d-flex flex-column justify-content-center text-center">
+                        <i class="bi bi-caret-down d-inline"></i>
                     </div>
                 </div>
                 
                 <!-- Listagem dos endereços de entrega -->
-                <div th:insert="~{cliente/visualizar/listaEnderecosEntrega :: listaEnderecoEntrega}" id="detalhesOutrosEnderecos" class="visually-hidden"></div>
+                <div>
+                    <div th:insert="~{cliente/visualizar/listaEnderecosEntrega :: listaEnderecoEntrega}" id="detalhesOutrosEnderecos" class="visually-hidden border-top"></div>
+                </div>
             </div>
         </section>
     </body>

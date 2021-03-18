@@ -5,3 +5,23 @@
 .pedido-body {
     position: relative;
 }
+
+.enderecos {
+    cursor: pointer;
+}
+
+.valores {
+    cursor: pointer;
+}
+
+.cupons {
+    cursor: pointer;
+}
+
+.cartoes {
+    cursor: pointer;
+}
+
+.pagamentos {
+    cursor: pointer;
+}

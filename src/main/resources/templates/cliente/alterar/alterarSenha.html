@@ -19,14 +19,14 @@
                         </div>
 
                         <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
-                            <div class="row border shadow p-2 rounded-3">
 
-                                <!--<input type="hidden" th:value="${checkOldPass.senha}" th:field="${checkOldPass.senha}">-->
-                                <input type="hidden" th:value="${usuario.usuId}" th:field="${usuario.usuId}">
-                                <input type="hidden" th:value="${usuario.usuEmail}" th:field="${usuario.usuEmail}">
-                                <input type="hidden" th:value="${usuario.usuRegra}" th:field="${usuario.usuRegra}">
-                                <input type="hidden" th:value="${usuario.usuAtivo}" th:field="${usuario.usuAtivo}">
-
+                            <!--<input type="hidden" th:value="${checkOldPass.senha}" th:field="${checkOldPass.senha}">-->
+                            <input type="hidden" th:value="${usuario.usuId}" th:field="${usuario.usuId}">
+                            <input type="hidden" th:value="${usuario.usuEmail}" th:field="${usuario.usuEmail}">
+                            <input type="hidden" th:value="${usuario.usuRegra}" th:field="${usuario.usuRegra}">
+                            <input type="hidden" th:value="${usuario.usuAtivo}" th:field="${usuario.usuAtivo}">
+                            
+                            <div class="container border shadow rounded-3 py-2">
                                 <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
@@ -61,10 +61,17 @@
                                 </div>
 
                                 <div class="row pe-0 pb-3">
-                                    <div class="row pe-0">
-                                        <div class="col-sm pe-0">
-                                            <div class="text-end">
-                                                <button type="submit" class="btn border shadow-sm">Alterar</button>
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="text-start">
+                                                    <a class="btn border shadow-sm" onclick="window.history.back();">Voltar</a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="text-end">
+                                                    <button type="submit" class="btn border shadow-sm">Alterar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

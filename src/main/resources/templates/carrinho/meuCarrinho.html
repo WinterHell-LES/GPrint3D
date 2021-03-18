@@ -24,88 +24,104 @@
 
                 <div class="row mt-2 pb-2 border-bottom">
                     <div class="col-5 d-flex flex-column justify-content-center text-start border-end">
-                        <p class="h5 m-0 p-0">Produto</p>
+                        <span class="h5">Produto</span>
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
-                        <p class="h5 m-0 p-0">Qtd</p>
+                        <span class="h5">Qtd</span>
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
-                        <p class="h5 m-0 p-0">Preço un.</p>
+                        <span class="h5">Preço un.</span>
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
-                        <p class="h5 m-0 p-0">Sub-Total</p>
+                        <span class="h5">Sub-Total</span>
                     </div>
                     <div class="col-1 d-flex flex-column justify-content-center text-center">
-                        <p class="h5 m-0 p-0">Ferram.</p>
+                        <span class="h5">Ferram.</span>
                     </div>
                 </div>
 
-                <div class="row mt-2 pb-2 border-bottom">
-                    <div class="col d-flex flex-column justify-content-center text-start">
-                        <p class="h7 m-0 p-0">Produtos ativos</p>
-                    </div>
-                </div>
 
-                <div class="row my-2 pb-2 border-bottom">
-                    <div class="col-2">
-                        <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
+                <div id="produtosAtivos">
+                    <div class="row mt-2 pb-2 border-bottom" onclick="hideElement(this)" style="cursor: pointer;">
+                        <div class="col">
+                            <span class="h7">Produtos ativos</span>
+                        </div>
+                        <div class="col-1 d-flex flex-column justify-content-center text-center">
+                            <i class="bi bi-caret-up"></i>
+                        </div>
                     </div>
-                    <div class="col-3 d-flex flex-column align-self-stretch justify-content-center border-end">
-                        <h5>Produto 1</h5>
-                        <p>Descrição do produto.</p>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-self-stretch justify-content-center border-end">
-                        <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="input-group">
-                              <div class="input-group-text " id="btnGroupAddon" style="cursor: pointer;">-</div>
-                              <input type="text" class="form-control px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" value="3" style="width: 50px; text-align: center;">
-                              <div class="input-group-text" id="btnGroupAddon" style="cursor: pointer;">+</div>
+
+                    <div id="listaProdutosAtivos">
+                        <div class="row my-2 pb-2 border-bottom">
+                            <div class="col-2">
+                                <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
+                            </div>
+                            <div class="col-3 d-flex flex-column align-self-stretch justify-content-center border-end">
+                                <h5>Produto 1</h5>
+                                <p>Descrição do produto.</p>
+                            </div>
+                            <div class="col-2 d-flex flex-column align-self-stretch justify-content-center border-end">
+                                <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                    <div class="input-group">
+                                    <div class="input-group-text " id="btnGroupAddon" style="cursor: pointer;">-</div>
+                                    <input type="text" class="form-control px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" value="3" style="width: 50px; text-align: center;">
+                                    <div class="input-group-text" id="btnGroupAddon" style="cursor: pointer;">+</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end">
+                                <span>R$50,00</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end">
+                                <span>R$150,00</span>
+                            </div>
+                            <div class="col-1  d-flex flex-column align-self-stretch justify-content-center text-center">
+                                <i class="bi bi-x-square fs-5" style="cursor: pointer;"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end">
-                        <p class="m-0 p-0">R$50,00</p>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end">
-                        <p class="m-0 p-0">R$150,00</p>
-                    </div>
-                    <div class="col-1  d-flex flex-column align-self-stretch justify-content-center text-center">
-                        <i class="bi bi-x-square fs-5" style="cursor: pointer;"></i>
-                    </div>
                 </div>
 
-                <div class="row mt-2 pb-2 border-bottom">
-                    <div class="col d-flex flex-column justify-content-center text-start">
-                        <p class="h7 m-0 p-0">Produtos expirados</p>
-                    </div>
-                </div>
-                <div class="row my-2 pb-2 border-bottom">
-                    <div class="col-2 opacity-50">
-                        <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
-                    </div>
-                    <div class="col-3 d-flex flex-column align-self-stretch justify-content-center border-end  opacity-50">
-                        <h5>Produto 2</h5>
-                        <p>Descrição do produto.</p>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-self-stretch justify-content-center border-end opacity-50">
-                        <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="input-group">
-                              <div class="input-group-text " id="btnGroupAddon" style="cursor: none;">-</div>
-                              <input type="text" class="form-control px-2 disabled" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" value="2" style="width: 50px; text-align: center;">
-                              <div class="input-group-text" id="btnGroupAddon" style="cursor: none;">+</div>
-                            </div>
+                <div id="produtosExpirados">
+                    <div class="row mt-2 pb-2 border-bottom" onclick="hideElement(this)" style="cursor: pointer;">
+                        <div class="col">
+                            <span class="h7">Produtos expirados</span>
+                        </div>
+                        <div class="col-1 d-flex flex-column justify-content-center text-center">
+                            <i class="bi bi-caret-up"></i>
                         </div>
                     </div>
-                    <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end opacity-50">
-                        <p class="m-0 p-0">R$20,00</p>
-                    </div>
-                    <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end opacity-50">
-                        <p class="m-0 p-0">R$40,00</p>
-                    </div>
-                    <div class="col-1 d-flex flex-column align-self-stretch justify-content-center">
-                        <div class="d-flex flex-row align-self-stretch justify-content-center text-center gap-2">
-                            <i class="bi bi-arrow-up-circle fs-5" style="cursor: pointer"></i>
-                            <i class="bi bi-x-square fs-5" style="cursor: pointer"></i>
+
+                    <div id="listaProdutosExpirados">
+                        <div class="row my-2 pb-2 border-bottom">
+                            <div class="col-2 opacity-50">
+                                <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
+                            </div>
+                            <div class="col-3 d-flex flex-column align-self-stretch justify-content-center border-end  opacity-50">
+                                <h5>Produto 2</h5>
+                                <p>Descrição do produto.</p>
+                            </div>
+                            <div class="col-2 d-flex flex-column align-self-stretch justify-content-center border-end opacity-50">
+                                <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                    <div class="input-group">
+                                    <div class="input-group-text " id="btnGroupAddon" style="cursor: none;">-</div>
+                                    <input type="text" class="form-control px-2 disabled" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" value="2" style="width: 50px; text-align: center;">
+                                    <div class="input-group-text" id="btnGroupAddon" style="cursor: none;">+</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end opacity-50">
+                                <span>R$20,00</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column align-self-stretch justify-content-center text-center border-end opacity-50">
+                                <span>R$40,00</spanclass=>
+                            </div>
+                            <div class="col-1 d-flex flex-column align-self-stretch justify-content-center">
+                                <div class="d-flex flex-row align-self-stretch justify-content-center text-center gap-2">
+                                    <i class="bi bi-arrow-up-circle fs-5" style="cursor: pointer"></i>
+                                    <i class="bi bi-x-square fs-5" style="cursor: pointer"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -166,6 +182,7 @@
             <!-- Script-->
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
         </th:block>
     </body>
 </html>

@@ -40,8 +40,8 @@
                     <p class="h2" th:text="${categoria.ctgNome}">Categoria</p>
                 </div>
                 <div class="row my-4">
-                    <div class="col d-flex justify-content-center mb-4" th:each="produto : ${categoria.listCategoriasProdutos}">
-                        <div class="card shadow" style="width: 18rem;" th:if="${produto.produto.prdAtivo AND produto.produto.prdQuantidade > 0}">
+                    <div class="col d-flex justify-content-center mb-4" th:each="produto : ${categoria.listCategoriasProdutos}" th:if="${produto.produto.prdAtivo AND produto.produto.prdQuantidade > 0}">
+                        <div class="card shadow" style="width: 18rem;">
                             <img th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" class="card-img-top" alt="...">
                             <img th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" alt="">
                             <div class="card-body">

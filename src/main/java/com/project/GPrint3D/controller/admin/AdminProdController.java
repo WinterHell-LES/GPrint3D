@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -139,8 +141,8 @@ public class AdminProdController
 
         if (prd.getPrdAtivo())
         {
-            titulo = "intativação";
-            botao = "Intativar";
+            titulo = "inativação";
+            botao = "Inativar";
         }
         else
         {
@@ -196,5 +198,44 @@ public class AdminProdController
         mv.addObject("justificativas", produtosJustificativas.findAll());
 
         return mv;
+    }
+
+    @GetMapping("cadastroFotos/{id}")
+    public ModelAndView cadastroFotos(@PathVariable(value = "id") Integer id)
+    {
+        ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarFotos");
+
+        ProdutosModel prd = produtos.findOneById(id);
+
+        mv.addObject("produto", prd);
+        mv.addObject("fotos", prd.getListFotos());
+
+        return mv;
+    }
+    @PostMapping("addFotos")
+    public ModelAndView addFotos(@RequestParam("foto") MultipartFile multipartFile, @Valid ProdutosModel produto, BindingResult result, RedirectAttributes attributes) throws IOException
+    {
+        String fotoNome = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+
+        FotosModel foto = new FotosModel();
+        foto.setFtoNome(fotoNome);
+        foto.setFtoContent(multipartFile.getBytes());
+        foto.setFtoData(new Date(new java.util.Date().getTime()));
+        foto.setProduto(produto);
+
+        String[] mensagem = fotosService.cadastrar(foto);
+
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+
+        return new ModelAndView("redirect:/admin/cadastroFotos/" + produto.getPrdId());
+    }
+    @PostMapping("deleteFotos")
+    public ModelAndView deleteFotos(@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto, RedirectAttributes attributes)
+    {
+        String[] mensagem = fotosService.excluir(id);
+  
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+
+        return new ModelAndView("redirect:/admin/cadastroFotos/" + produto.getPrdId());
     }
 }

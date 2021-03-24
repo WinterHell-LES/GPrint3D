@@ -144,11 +144,6 @@
                     </div>
                 </div>
 
-                <div class="drop-zone mb-3" id="drop-zone">
-                    <span class="drop-zone__prompt">Arraste a imagem e solte-a aqui ou selecione um arquivo</span>
-                    <input type="file" name="foto" class="drop-zone__input" accept="image/*"/>
-                </div>
-
                 <div class="row pe-0 pb-3">
                     <div class="row pe-0">
                         <div class="col-sm pe-0">
@@ -160,10 +155,5 @@
                 </div>
             </form>
         </section>
-
-        <!-- Script -->
-        <th:block layout:fragment="javascripts">
-            <script type="text/javascript" th:src="@{/javascripts/drag.and.drop.js}"></script>
-        </th:block>
     </body>
 </html>

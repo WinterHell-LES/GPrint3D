@@ -25,11 +25,11 @@
                         
                         <!-- <div class="mt-3"></div> -->
                         <img th:if="${produto.listFotos.size == 0}" src="/images/Teste.png" class="img-thumbnail selectable active-thumbnail mb-3">
-                        <img th:each="foto, stat : ${produto.listFotos}" th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}" th:classappend="${stat.first} ? 'active-thumbnail'" th:alt="${produto.prdNome}" onclick="activate(this)">
+                        <img class="img-thumbnail selectable" id="img-zoom" th:each="foto, stat : ${produto.listFotos}" th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}" th:classappend="${stat.first} ? 'active-thumbnail'" th:alt="${produto.prdNome}" onclick="activate(this)">
                         <!-- <div class="mb-3"></div> -->
                     </div>
                     <div class="col-8 d-flex align-items-center justify-content-center my-3">
-                        <img src="/images/Teste.png" class="img-fluid mx-auto" alt="..." style="width: 40hw; height: 40vh;">
+                        <img id="imageZoom" src="/images/Teste.png" class="img-fluid mx-auto" alt="..." style="width: 40hw; height: 40vh;">
                     </div>
                     <div class="col-3 border-start pt-4">
                         <div class="row">

@@ -46,6 +46,11 @@
                                         </button>
                                     </form>
                                 </div>
+                                <div class="col-auto mr-auto px-0 mx-2 d-flex">
+                                    <a th:href="@{/admin/cadastroFotos/} + ${produto.prdId}" class="align-self-center" style="background-color: transparent; border-color: transparent; color: black;">
+                                        <i class="bi bi-images fs-4"></i>
+                                    </a>
+                                </div>
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/ativarProdutos}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${produto.prdId}">

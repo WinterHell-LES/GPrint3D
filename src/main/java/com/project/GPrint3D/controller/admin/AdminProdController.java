@@ -5,11 +5,17 @@ import java.sql.Date;
 
 import javax.validation.Valid;
 
+import com.project.GPrint3D.model.CategoriasModel;
+import com.project.GPrint3D.model.CategoriasProdutosModel;
 import com.project.GPrint3D.model.FotosModel;
+import com.project.GPrint3D.model.ProdutosJustificativasModel;
 import com.project.GPrint3D.model.ProdutosModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
+import com.project.GPrint3D.repository.ProdutosJustificativasRepository;
 import com.project.GPrint3D.repository.ProdutosRepository;
+import com.project.GPrint3D.service.CategoriasProdutosService;
 import com.project.GPrint3D.service.FotosService;
+import com.project.GPrint3D.service.ProdutosJustificativasService;
 import com.project.GPrint3D.service.ProdutosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +38,18 @@ public class AdminProdController
 
     @Autowired
     private CategoriasRepository categorias;
+    
+    @Autowired
+    private ProdutosJustificativasRepository produtosJustificativas;
 
     @Autowired
     private ProdutosService produtosService;
+
+    @Autowired
+    private CategoriasProdutosService categoriasProdutosService;
+
+    @Autowired
+    private ProdutosJustificativasService produtosJustificativasService;
 
     @Autowired
     private FotosService fotosService;
@@ -59,7 +74,7 @@ public class AdminProdController
         return mv;
     }
     @PostMapping("cadastrarProdutos")
-    public ModelAndView cadastroProdutos(@Valid ProdutosModel produto, @RequestParam("foto") MultipartFile multipartFile, BindingResult result, RedirectAttributes attributes) throws IOException
+    public ModelAndView cadastroProdutos(@Valid ProdutosModel produto, @RequestParam("categoriaProduto") Integer ctgId, @RequestParam("foto") MultipartFile multipartFile, BindingResult result, RedirectAttributes attributes) throws IOException
     {
         if (result.hasErrors())
         {
@@ -69,6 +84,14 @@ public class AdminProdController
         produtosService.cadastrar(produto);
 
         ProdutosModel prod = produtos.findOneByNome(produto.getPrdNome());
+        CategoriasModel ctg = categorias.findOneById(ctgId);
+        
+        CategoriasProdutosModel ctgPrd = new CategoriasProdutosModel();
+
+        ctgPrd.setProduto(prod);
+        ctgPrd.setCategoria(ctg);
+
+        categoriasProdutosService.cadastrar(ctgPrd);
 
         String fotoNome = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 
@@ -85,18 +108,92 @@ public class AdminProdController
         return mv;
     }
 
-    @RequestMapping("alterarProdutos")
-    public ModelAndView alterarProdutos()
+    @PostMapping("/alterarProdutos")
+    public ModelAndView alterarProdutos(@RequestParam(name = "id") Integer id, ProdutosModel produto, CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/alterarProdutos");
 
+        mv.addObject("produto", produtos.findOneById(id));
+        mv.addObject("categorias", categorias.findAll());
+
         return mv;
     }
+    @PostMapping("/alterarProduto")
+    public ModelAndView alterarProduto(@Valid ProdutosModel produto, RedirectAttributes attributes)
+    {
+        String[] mensagem = produtosService.atualizar(produto);
+  
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
-    @RequestMapping("justificarProdutos")
-    public ModelAndView justificarProdutos()
+        return new ModelAndView("redirect:/admin/listarProdutos");
+    }
+
+    @PostMapping("/ativarProdutos")
+    public ModelAndView ativarProdutos(@RequestParam(name = "id") Integer id, ProdutosJustificativasModel produtosJustificativa)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/justificarProdutos");
+
+        ProdutosModel prd = produtos.findOneById(id);
+        String titulo = "";
+        String botao = "";
+
+        if (prd.getPrdAtivo())
+        {
+            titulo = "intativação";
+            botao = "Intativar";
+        }
+        else
+        {
+            titulo = "ativação";
+            botao = "Ativar";
+        }
+
+        mv.addObject("produto", prd);
+        mv.addObject("titulo", titulo);
+        mv.addObject("botao", botao);
+
+        return mv;
+    }
+    @PostMapping("/ativaProdutos")
+    public ModelAndView ativaProdutos(@RequestParam(name = "id") Integer id, @Valid ProdutosJustificativasModel produtosJustificativa, RedirectAttributes attributes)
+    {
+        ProdutosModel prd = produtos.findOneById(id);
+        
+        produtosJustificativa.setPjuProduto(prd.getPrdNome());
+
+        for (int i = 0 ; i < prd.getListCategoriasProdutos().size() ; i++)
+        {
+            produtosJustificativa.setPjuCategorias(prd.getListCategoriasProdutos().get(i).getCategoria().getCtgNome());
+
+            if (i < prd.getListCategoriasProdutos().size() - 1)
+            {
+                produtosJustificativa.setPjuCategorias(", ");
+            }
+        }
+
+        if (prd.getPrdAtivo())
+        {
+            produtosJustificativa.setPjuAcao("DESATIVAR");
+        }
+        else
+        {
+            produtosJustificativa.setPjuAcao("ATIVAR");
+        }
+
+        String[] mensagem1 = produtosJustificativasService.cadastrar(produtosJustificativa);
+        String[] mensagem2 = produtosService.ativar(!prd.getPrdAtivo(), id);
+  
+        attributes.addFlashAttribute(mensagem2[0], mensagem2[1]);
+
+        return new ModelAndView("redirect:/admin/listarProdutos");
+    }
+
+    @RequestMapping("justificativasProdutos")
+    public ModelAndView justificativasProdutos(ProdutosJustificativasModel produtosJustificativa)
+    {
+        ModelAndView mv = new ModelAndView("/admin/produtos/justificativasProdutos");
+
+        mv.addObject("justificativas", produtosJustificativas.findAll());
 
         return mv;
     }

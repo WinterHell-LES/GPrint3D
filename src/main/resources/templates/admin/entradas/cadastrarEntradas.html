@@ -15,28 +15,43 @@
         <section layout:fragment="conteudo">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Entrada de produtos</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <a href="/admin/listarProdutos" class="btn btn-sm btn-outline-secondary">
-                        Voltar
-                    </a>
-                </div>
             </div>
 
-            <form th:action="@{/admin/entradaProdutos}" method="POST">
+            <form th:action="@{/admin/cadastrarEntradas}" th:object="${entradasModel}" method="POST">
                 <div class="row pb-3 pe-0">
                     <div class="row pe-0">
                         <div class="col-lg-10 pe-0">
                             <div class="form-floating">
-                                <select name="entradaProduto" class="custom-select form-select" id="entradaProduto" required>
+                                <select name="entradaProduto" class="custom-select form-select" id="entradaProduto" th:field="*{produto.prdId}" required>
                                     <option value="" selected>Produto</option>
+                                    <optgroup th:each="categoria, stat : ${categorias}" th:label="${categoria.ctgNome}" th:if="${categoria.listCategoriasProdutos.size > 0}">
+                                        <option th:each="listProdutos : ${categoria.listCategoriasProdutos}" th:value="${listProdutos.produto.prdId}" th:text="${listProdutos.produto.prdNome}"></option>
+                                    </optgroup>
                                 </select>
                                 <label for="entradaProduto">Produto</label>
                             </div>
                         </div>
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="number" class="form-control" placeholder="Quantidade" id="quantidade" required/>
-                                <label for="preco">Quantidade</label>
+                                <input type="number" class="form-control" placeholder="Quantidade" id="quantidade" th:field="*{entQuantidade}" required/>
+                                <label for="quantidade">Quantidade</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pb-3 pe-0">
+                    <div class="row pe-0">
+                        <div class="col pe-0">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Fornecedor" id="fornecedor" th:field="*{entFornecedor}" required/>
+                                <label for="fornecedor">Fornecedor</label>
+                            </div>
+                        </div>
+                        <div class="col pe-0">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Preço de custo" id="precoCusto" th:field="*{entPrecoCusto}" required/>
+                                <label for="precoCusto">Preço de custo</label>
                             </div>
                         </div>
                     </div>

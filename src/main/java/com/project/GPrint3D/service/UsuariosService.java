@@ -107,12 +107,12 @@ public class UsuariosService
             usuarios.updadeAtiva(ativa, id);
 
             response[0] = msg1;
-            response[1] = "Cadastro de usuário deletado com sucesso!";
+            response[1] = "Cadastro de usuário alterado com sucesso!";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao deletar o usuário";
+            response[1] = "Erro ao alterar o usuário";
         }
         
         return response;

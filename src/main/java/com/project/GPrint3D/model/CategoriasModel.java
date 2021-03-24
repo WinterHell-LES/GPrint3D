@@ -28,6 +28,9 @@ public class CategoriasModel
     @Column(name = "ctg_descricao")
     private String ctgDescricao;
 
+    @Column(name = "ctg_ativo")
+    private boolean ctgAtivo;
+
     @OneToMany(mappedBy = "categoria")
     private List<CuponsPromocoesModel> listCupons;
 
@@ -41,15 +44,17 @@ public class CategoriasModel
         this.ctgId = 0;
         this.ctgNome = "";
         this.ctgDescricao = "";
+        this.ctgAtivo = false;
     }
 
-    public CategoriasModel(Integer ctgId, String ctgNome, String ctgDescricao) 
+    public CategoriasModel(Integer ctgId, String ctgNome, String ctgDescricao, boolean ctgAtivo) 
     {
         super( );
 
         this.ctgId = ctgId;
         this.ctgNome = ctgNome;
         this.ctgDescricao = ctgDescricao;
+        this.ctgAtivo = ctgAtivo;
     }
 
     public Integer getCtgId() 
@@ -82,6 +87,21 @@ public class CategoriasModel
         this.ctgDescricao = ctgDescricao;
     }
 
+    public boolean isCtgAtivo() 
+    {
+        return this.ctgAtivo;
+    }
+
+    public boolean getCtgAtivo() 
+    {
+        return this.ctgAtivo;
+    }
+
+    public void setCtgAtivo(boolean ctgAtivo) 
+    {
+        this.ctgAtivo = ctgAtivo;
+    }
+
     public List<CuponsPromocoesModel> getListCupons() 
     {
         return this.listCupons;
@@ -102,6 +122,19 @@ public class CategoriasModel
         this.listCategoriasProdutos = listCategoriasProdutos;
     }
 
+    public boolean getVerifCategoria()
+    {
+        for (CategoriasProdutosModel aux : this.listCategoriasProdutos)
+        {
+            if (aux.getProduto().isPrdAtivo() && (aux.getProduto().getPrdQuantidade() > 0))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) 
     {
@@ -114,7 +147,7 @@ public class CategoriasModel
         {
             return false;
         }
-        
+
         CategoriasModel categoriasModel = (CategoriasModel) o;
         return Objects.equals(ctgId, categoriasModel.ctgId);
     }

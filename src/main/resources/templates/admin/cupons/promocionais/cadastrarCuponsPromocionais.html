@@ -15,20 +15,21 @@
                 <h1 class="h2">Cadastro de cupons</h1>
             </div>
 
-            <form th:action="@{/admin/cadastroCupons}" method="POST">
+            <form th:action="@{/admin/cupons/cadastrarCuponsPromocionais}" th:object="${cuponsPromocoesModel}" method="POST">
                 <div class="row pb-3 pe-0">
                     <div class="row pb-3 pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Nome" id="nomeCupom" required/>
+                                <input type="text" class="form-control" placeholder="Nome" id="nomeCupom" th:field="*{cppNome}" required/>
                                 <label for="nomeCupom">Nome</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <select name="categoria" class="custom-select form-select" id="categoria" required>
+                                <select name="categoria" class="custom-select form-select" id="categoria" th:field="*{categoria.ctgId}" required>
                                     <option value="" selected>Categoria</option>
+                                    <option th:each="categoria :${categorias}" th:value="${categoria.ctgId}" th:text="${categoria.ctgNome}"></option>
                                 </select>
                                 <label for="categoria">Categoria</label>
                             </div>
@@ -37,21 +38,14 @@
                     <div class="row pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Código" id="codigoCupom" style="text-transform:uppercase" required/>
-                                <label for="codigoCupom">Código</label>
-                            </div>
-                        </div>
-
-                        <div class="col-sm">
-                            <div class="form-floating">
-                                <input type="number" class="form-control" placeholder="Desconto" id="desconto" required/>
+                                <input type="number" class="form-control" placeholder="Desconto" id="desconto" th:field="*{cppDesconto}" required/>
                                 <label for="desconto">Desconto</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="date" class="form-control" placeholder="Validade" id="validadeCupom" required/>
+                                <input type="date" class="form-control" placeholder="Validade" id="validadeCupom" th:min="${#dates.year(#dates.createNow())}" th:field="*{cppValidade}" required/>
                                 <label for="validadeCupom">Validade</label>
                             </div>
                         </div>

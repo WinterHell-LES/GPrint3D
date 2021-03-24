@@ -46,6 +46,7 @@
                                         <ul class="list-unstyled">
                                             <li><a class="nav-link" href="/admin/cadastrarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">Cadastro de produtos</a></li>
                                             <li><a class="nav-link" href="/admin/listarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('listarProdutos')} ? 'active'">Listagem de produtos</a></li>
+                                            <li><a class="nav-link" href="/admin/justificativasProdutos" th:classappend="${#httpServletRequest.requestURI.contains('justificativasProdutos')} ? 'active'">Justificativas de produtos</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -123,7 +124,7 @@
                                     </button>
                                     <div class="collapse" id="clientes">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/listarClientes" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">Listagem de clientes</a></li>
+                                            <li><a class="nav-link" href="/admin/listarClientes" th:classappend="${#httpServletRequest.requestURI.contains('listarClientes')} ? 'active'">Listagem de clientes</a></li>
                                         </ul>
                                     </div>
                                 </li>

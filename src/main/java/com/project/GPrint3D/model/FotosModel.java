@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 @Entity
 @Table(name = "FOTOS")
 public class FotosModel 
@@ -104,6 +106,11 @@ public class FotosModel
     public void setProduto(ProdutosModel produto) 
     {
         this.produto = produto;
+    }
+
+    public String generateBase64Image()
+    {
+        return Base64.encodeBase64String(this.getFtoContent());
     }
 
     @Override

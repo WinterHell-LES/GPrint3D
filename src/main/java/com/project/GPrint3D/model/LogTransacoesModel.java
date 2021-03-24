@@ -16,7 +16,7 @@ public class LogTransacoesModel
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "log_id")
+    @Column(name = "log_id", insertable = false, updatable = false)
     private Integer logId;
 
     @Column(name = "log_data")

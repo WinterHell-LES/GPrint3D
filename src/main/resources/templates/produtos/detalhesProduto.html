@@ -19,22 +19,27 @@
             <div class="container mb-5 border shadow">
                 <div class="row border-bottom">
                     <div class="col-1 d-grid gap-3 py-4">
-                        <img src="/images/Teste.png" id="img-zoom" class="img-thumbnail selectable active-thumbnail mt-3" alt="..." onclick="activate(this)">
+                        <!-- <img src="/images/Teste.png" id="img-zoom" class="img-thumbnail selectable active-thumbnail mt-3" alt="..." onclick="activate(this)">
                         <img src="/images/Teste.png" class="img-thumbnail selectable" alt="..." onclick="activate(this)">
                         <img src="/images/Teste.png" class="img-thumbnail selectable" alt="..." onclick="activate(this)">
                         <img src="/images/Teste.png" class="img-thumbnail selectable" alt="..." onclick="activate(this)">
-                        <img src="/images/Teste.png" class="img-thumbnail selectable mb-3" alt="..." onclick="activate(this)">
+                        <img src="/images/Teste.png" class="img-thumbnail selectable mb-3" alt="..." onclick="activate(this)"> -->
+                        
+                        <!-- <div class="mt-3"></div> -->
+                        <img th:if="${produto.listFotos.size == 0}" src="/images/Teste.png" class="img-thumbnail selectable active-thumbnail mb-3">
+                        <img th:each="foto, stat : ${produto.listFotos}" th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}" th:classappend="${stat.first} ? 'active-thumbnail'" th:alt="${produto.prdNome}" onclick="activate(this)">
+                        <!-- <div class="mb-3"></div> -->
                     </div>
-                    <div class="col-8 d-flex align-items-center justify-content-center">
+                    <div class="col-8 d-flex align-items-center justify-content-center my-3">
                         <img src="/images/Teste.png" class="img-fluid mx-auto" alt="..." style="width: 40hw; height: 40vh;">
                     </div>
                     <div class="col-3 border-start pt-4">
                         <div class="row">
-                            <p class="h2 mb-3">Produto 1</p>
+                            <p class="h2 mb-3" th:text="${produto.prdNome}">Produto</p>
                         </div>
                         <div class="row mb-3">
-                            <span class="fs-6 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                            <span class="fs-4 fw-bolder">R$ 50,00</span>
+                            <!-- <span class="fs-6 text-decoration-line-through text-black-50">R$ 99,99</span><br> -->
+                            <span class="fs-4 fw-bolder" th:text="'R$ ' + ${#numbers.formatDecimal(produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 50,00</span>
                         </div>
                         <i class="bi bi-truck mb-1"></i><span> Calcule o frete:</span>
                         <div class="d-flex flex-row justify-content-center gap-3 mb-3 mt-1">
@@ -67,19 +72,19 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">Altura</th>
-                                        <td>8 cm</td>
+                                        <td th:text="${produto.prdDimPrdAl} + ' mm'">8 mm</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Largura</th>
-                                        <td>12 cm</td>
+                                        <td th:text="${produto.prdDimPrdLa} + ' mm'">12 mm</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Profundidade</th>
-                                        <td>16 cm</td>
+                                        <td th:text="${produto.prdDimPrdPr} + ' mm'">16 mm</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Peso</th>
-                                        <td>1,0 kg</td>
+                                        <td th:text="${produto.prdDimPrdPe} + ' kg'">1,0 kg</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -94,19 +99,19 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">Altura</th>
-                                        <td>10 cm</td>
+                                        <td th:text="${produto.prdDimEmbAl} + ' mm'">10 mm</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Largura</th>
-                                        <td>15 cm</td>
+                                        <td th:text="${produto.prdDimEmbLa} + ' mm'">15 mm</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Profundidade</th>
-                                        <td>20 cm</td>
+                                        <td th:text="${produto.prdDimEmbPr} + ' mm'">20 mm</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Peso</th>
-                                        <td>1,5 kg</td>
+                                        <td th:text="${produto.prdDimEmbPe} + ' kg'">1,5 kg</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -115,7 +120,7 @@
                     </div>
                 </div>
                 <div class="row py-4">
-                    <p>Produto assim e assado, que faz isso e aquilo.</p>
+                    <p th:text="${produto.prdDescricao}">Produto assim e assado, que faz isso e aquilo.</p>
                     <ul><span>Vantagens:</span>
                         <li class="ms-5">Vantagem 1</li>
                         <li class="ms-5">Vantagem 2</li>

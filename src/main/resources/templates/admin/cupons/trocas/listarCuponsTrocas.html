@@ -22,24 +22,18 @@
                     <tr>
                         <th>Cliente</th>
                         <th style="width: 250px;">Status</th>
+                        <th style="width: 150px;">Valor</th>
                         <th style="width: 150px;">Saldo</th>
                         <th style="width: 150px;">Validade</th>
-                        <th style="width: 100px;">Editar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Cliente</td>
-                        <td>Status</td>
-                        <td>Saldo</td>
-                        <td>Validade</td>
-                        <td class="py-0 my-0">
-                            <form action="" method="POST">
-                                <a style="text-decoration: none;" href="">
-                                    <i class="bi bi-trash fs-4" style="color: black;"></i>
-                                </a>
-                            </form>
-                        </td>
+                    <tr th:each="cupom : ${cupons}">
+                        <td th:text="${cupom.cliente.cliNome}">Cliente</td>
+                        <td th:text="${cupom.cptStatus}">Status</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.cptValor, 1, 'DEFAULT', 2, 'DEFAULT')}">Saldo</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">Saldo</td>
+                        <td th:text="${#dates.format(cupom.cptValidade, 'dd/MM/yyyy')}">Validade</td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -47,8 +41,8 @@
                         <th><input style="width: 100%" type="text" placeholder="Procurar cliente"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar status"></th>
                         <th></th>
-                        <th><input style="width: 100%" type="text" placeholder="Procurar validade"></th>
                         <th></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar validade"></th>
                     </tr>
                 </tfoot>
             </table>

@@ -6,26 +6,95 @@ insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', '1');
 
 -- Bandeiras
-insert into bandeiras (ban_nome)
-values ('Mastercard');
-insert into bandeiras (ban_nome)
-values ('Visa');
-insert into bandeiras (ban_nome)
-values ('Elo');
+insert into bandeiras (ban_nome, ban_ativo)
+values ('Mastercard', '1');
+insert into bandeiras (ban_nome, ban_ativo)
+values ('Visa', '1');
+insert into bandeiras (ban_nome, ban_ativo)
+values ('Elo', '1');
 
 -- Categorias
-insert into categorias (ctg_nome, ctg_descricao)
-values ('Impressoras 3D', '');
-insert into categorias (ctg_nome, ctg_descricao)
-values ('Filamentos ABS', '');
-insert into categorias (ctg_nome, ctg_descricao)
-values ('Filamentos PLA', '');
-insert into categorias (ctg_nome, ctg_descricao)
-values ('Filamentos PETG', '');
-insert into categorias (ctg_nome, ctg_descricao)
-values ('Resinas', '');
-insert into categorias (ctg_nome, ctg_descricao)
-values ('Partes', '');
+insert into categorias (ctg_nome, ctg_descricao, ctg_ativo)
+values ('Impressoras 3D', '', '1');
+insert into categorias (ctg_nome, ctg_descricao, ctg_ativo)
+values ('Filamentos ABS', '', '1');
+insert into categorias (ctg_nome, ctg_descricao, ctg_ativo)
+values ('Filamentos PLA', '', '1');
+insert into categorias (ctg_nome, ctg_descricao, ctg_ativo)
+values ('Filamentos PETG', '', '1');
+insert into categorias (ctg_nome, ctg_descricao, ctg_ativo)
+values ('Resinas', '', '1');
+insert into categorias (ctg_nome, ctg_descricao, ctg_ativo)
+values ('Partes', '', '1');
+
+-- Produtos
+insert into produtos (prd_nome, prd_descricao, prd_dim_prd_al, prd_dim_prd_la, prd_dim_prd_pr, prd_dim_prd_pe, prd_dim_emb_al, prd_dim_emb_la, prd_dim_emb_pr, prd_dim_emb_pe, prd_fabricante, prd_modelo, prd_quantidade, prd_preco, prd_ativo)
+values (
+'Impressora 3D Creality Ender-3', 
+'A Creality Ender-3 é uma impressora 3D com uma estrutura em alumínio anodizado, capaz de imprimir tanto por cartão SD quanto por cabo miniUSB',
+0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+'CREALITY',
+'Ender-3',
+0,
+1899.9, '1');
+insert into produtos (prd_nome, prd_descricao, prd_dim_prd_al, prd_dim_prd_la, prd_dim_prd_pr, prd_dim_prd_pe, prd_dim_emb_al, prd_dim_emb_la, prd_dim_emb_pr, prd_dim_emb_pe, prd_fabricante, prd_modelo, prd_quantidade, prd_preco, prd_ativo)
+values (
+'Impressora 3D Anycubic I3 Mega S', 
+'A Anycubic I3 Mega S é uma impressora 3D com uma estrutura em alumínio e muito fácil de utilizar, sendo capaz de imprimir tanto por cartão SD quanto por cabo USB-B. As camadas, entre 0,1 mm e 0,4 mm, fornecem uma ótima resolução para suas impressões.',
+0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+'ANYCUBIC',
+'I3 Mega S',
+0,
+2449.90, '1');
+insert into produtos (prd_nome, prd_descricao, prd_dim_prd_al, prd_dim_prd_la, prd_dim_prd_pr, prd_dim_prd_pe, prd_dim_emb_al, prd_dim_emb_la, prd_dim_emb_pr, prd_dim_emb_pe, prd_fabricante, prd_modelo, prd_quantidade, prd_preco, prd_ativo)
+values (
+'Impressora 3D Creality LD-002R', 
+'A Creality LD-002R é uma impressora 3D de Resina que possui uma tecnologia baseada em uma tela LCD Ultra HD 2K de alta resolução com luz UV para curar fotopolímeros camada por camada.',
+0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+'CREALITY',
+'LD-002R',
+0,
+2699.90, '1');
+insert into produtos (prd_nome, prd_descricao, prd_dim_prd_al, prd_dim_prd_la, prd_dim_prd_pr, prd_dim_prd_pe, prd_dim_emb_al, prd_dim_emb_la, prd_dim_emb_pr, prd_dim_emb_pe, prd_fabricante, prd_modelo, prd_quantidade, prd_preco, prd_ativo)
+values (
+'Impressora 3D Anycubic Photon S', 
+'A Impressora 3D Anycubic Photon S, uma impressora com tecnologia baseada em uma tela LCD Ultra HD 2K de alta resolução com luz UV-LED de comprimento de onda por volta dos 405mm, permitindo uma camada com uma resolução incrível.',
+0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+'ANYCUBIC',
+'Photon S',
+0,
+3999.90, '1');
+insert into produtos (prd_nome, prd_descricao, prd_dim_prd_al, prd_dim_prd_la, prd_dim_prd_pr, prd_dim_prd_pe, prd_dim_emb_al, prd_dim_emb_la, prd_dim_emb_pr, prd_dim_emb_pe, prd_fabricante, prd_modelo, prd_quantidade, prd_preco, prd_ativo)
+values (
+'Impressora 3D Creality Ender-3 Pro', 
+'A Ender-3 PRO conta com diversos upgrades em relação a sua antecessora. O que já fica bem claro é a nova mesa aquecida: com um sistema C-MAG, a mesa torna-se mais flexível, o que facilita e muito a extração das peças.',
+0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+'CREALITY',
+'Ender-3 Pro',
+0,
+2149.90, '1');
+insert into produtos (prd_nome, prd_descricao, prd_dim_prd_al, prd_dim_prd_la, prd_dim_prd_pr, prd_dim_prd_pe, prd_dim_emb_al, prd_dim_emb_la, prd_dim_emb_pr, prd_dim_emb_pe, prd_fabricante, prd_modelo, prd_quantidade, prd_preco, prd_ativo)
+values (
+'Impressora 3D Anycubic Chiron', 
+'A Anycubic Chiron é uma impressora 3D com uma estrutura em alumínio e muito fácil de utilizar, sendo capaz de imprimir tanto por cartão SD quanto por cabo USB-B.',
+0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+'ANYCUBIC',
+'Chiron',
+0,
+4999.90, '1');
+
+insert into categorias_produtos (cpr_ctg_id, cpr_prd_id)
+values (1, 1);
+insert into categorias_produtos (cpr_ctg_id, cpr_prd_id)
+values (1, 2);
+insert into categorias_produtos (cpr_ctg_id, cpr_prd_id)
+values (1, 3);
+insert into categorias_produtos (cpr_ctg_id, cpr_prd_id)
+values (1, 4);
+insert into categorias_produtos (cpr_ctg_id, cpr_prd_id)
+values (1, 5);
+insert into categorias_produtos (cpr_ctg_id, cpr_prd_id)
+values (1, 6);
 
 -- Clientes
 -- Usuario - Cliente 1

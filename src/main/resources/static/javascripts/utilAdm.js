@@ -26,8 +26,8 @@ function pageListener()
     dropKeeper("cupons", "cupons");
     dropKeeper("cuponspromocionais", "cupons_promocionais");
     dropKeeper("cuponstrocas", "cupons_trocas");
-    dropKeeper("pedidos", "pedidos");
-    dropKeeper("logistica", "logistica", "pedidos");
+    dropKeeper("pedidos", "pedidos", "logisticapedidos");
+    dropKeeper("logistica", "logistica");
     dropKeeper("clientes", "clientes");
     dropKeeper("vendas", "graficos");
 }

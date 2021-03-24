@@ -1,19 +1,19 @@
 package com.project.GPrint3D.service;
 
-import com.project.GPrint3D.model.PedidosModel;
-import com.project.GPrint3D.repository.PedidosRepository;
+import com.project.GPrint3D.model.PedidosTrocasModel;
+import com.project.GPrint3D.repository.PedidosTrocasRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedidosService 
+public class PedidosTrocasService 
 {
     @Autowired
-    private PedidosRepository pedidos;
+    private PedidosTrocasRepository pedidos;
 
-    public String[] cadastrar(PedidosModel pedido)
+    public String[] cadastrar(PedidosTrocasModel pedido)
     {
         String[] response = new String[2];
 
@@ -41,7 +41,7 @@ public class PedidosService
         return response;
     }
 
-    public String[] atualizar(PedidosModel pedido)
+    public String[] atualizar(PedidosTrocasModel pedido)
     {
         String[] response = new String[2];
 

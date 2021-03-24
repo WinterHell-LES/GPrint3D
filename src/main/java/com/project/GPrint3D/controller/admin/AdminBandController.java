@@ -57,11 +57,24 @@ public class AdminBandController
         return new ModelAndView("redirect:/admin/cadastrarBandeiras");
     }
 
-    @PostMapping("deleteBandeiras")
-    public ModelAndView deletarAluno(@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
+    @PostMapping("/ativaBandeiras")
+    public ModelAndView ativacaoBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
+    {
+        BandeirasModel band = bandeiras.findOneById(id);
+
+        String[] mensagem = bandeirasService.ativar(!band.getBanAtivo(), id); 
+
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+
+        return new ModelAndView("redirect:/admin/listarBandeiras");
+    }
+
+    // Controle de exclusão
+    @PostMapping("/deletaBandeiras")
+    public ModelAndView deletarBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
     {        
         String[] mensagem = bandeirasService.excluir(id);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/listarBandeiras");

@@ -1,19 +1,19 @@
 package com.project.GPrint3D.service;
 
-import com.project.GPrint3D.model.ProdutosModel;
-import com.project.GPrint3D.repository.ProdutosRepository;
+import com.project.GPrint3D.model.ProdutosJustificativasModel;
+import com.project.GPrint3D.repository.ProdutosJustificativasRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProdutosService 
+public class ProdutosJustificativasService 
 {
     @Autowired
-    private ProdutosRepository produtos;
+    private ProdutosJustificativasRepository produtosJustificativas;
 
-    public String[] cadastrar(ProdutosModel produto)
+    public String[] cadastrar(ProdutosJustificativasModel produtosJustificativa)
     {
         String[] response = new String[2];
 
@@ -22,26 +22,26 @@ public class ProdutosService
 
         try 
         {
-            produtos.save(produto);
+            produtosJustificativas.save(produtosJustificativa);
 
             response[0] = msg1;
-            response[1] = "Produto cadastrado com sucesso!";
+            response[1] = "Justificativa cadastrada com sucesso!";
         }
         catch (DataIntegrityViolationException e)
         {
             response[0] = msg2;
-            response[1] = "Produto já cadastrado";
+            response[1] = "Justificativa já cadastrada";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao cadastrar o produto";
+            response[1] = "Erro ao cadastrar a justificativa";
         }
 
         return response;
     }
 
-    public String[] atualizar(ProdutosModel produto)
+    public String[] atualizar(ProdutosJustificativasModel produtosJustificativa)
     {
         String[] response = new String[2];
 
@@ -50,38 +50,15 @@ public class ProdutosService
 
         try 
         {
-            produtos.save(produto);
+            produtosJustificativas.save(produtosJustificativa);
 
             response[0] = msg1;
-            response[1] = "Cadastro do produto alterado com sucesso!";
+            response[1] = "Cadastro de justificativa alterado com sucesso!";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao alterar o produto";
-        }
-        
-        return response;
-    }
-
-    public String[] ativar(Boolean ativa, Integer id)
-    {
-        String[] response = new String[2];
-
-        String msg1 = "ativaSuccess";
-        String msg2 = "ativaError";
-
-        try 
-        {
-            produtos.updadeAtiva(ativa, id);
-
-            response[0] = msg1;
-            response[1] = "Cadastro de produto alterado com sucesso!";
-        }
-        catch (Exception e)
-        {
-            response[0] = msg2;
-            response[1] = "Erro ao alterar a produto";
+            response[1] = "Erro ao alterar a justificativa";
         }
         
         return response;
@@ -96,15 +73,15 @@ public class ProdutosService
 
         try 
         {
-            produtos.deleteById(id);
+            produtosJustificativas.deleteById(id);
 
             response[0] = msg1;
-            response[1] = "Cadastro do produto deletado com sucesso!";
+            response[1] = "Cadastro de justificativa deletado com sucesso!";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao deletar o produto";
+            response[1] = "Erro ao deletar a justificativa";
         }
         
         return response;

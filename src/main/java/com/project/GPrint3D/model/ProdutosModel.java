@@ -66,6 +66,9 @@ public class ProdutosModel
     @Column(name = "prd_preco")
     private double prdPreco;
 
+    @Column(name = "prd_ativo")
+    private boolean prdAtivo;
+
     @OneToMany(mappedBy = "produto")
     private List<EntradasModel> listEntradas;
 
@@ -80,6 +83,9 @@ public class ProdutosModel
 
     @OneToMany(mappedBy = "produto")
     private List<CategoriasProdutosModel> listCategoriasProdutos;
+
+    @OneToMany(mappedBy = "produto")
+    private List<FotosModel> listFotos;
 
     public ProdutosModel() 
     {
@@ -98,9 +104,10 @@ public class ProdutosModel
         this.prdModelo = "";
         this.prdQuantidade = 0;
         this.prdPreco = 0.00;
+        this.prdAtivo = false;
     }
 
-    public ProdutosModel(Integer prdId, String prdNome, String prdDescricao, double prdDimPrdAl, double prdDimPrdLa, double prdDimPrdPr, double prdDimPrdPe, double prdDimEmbAl, double prdDimEmbLa, double prdDimEmbPr, double prdDimEmbPe, String prdFabricante, String prdModelo, Integer prdQuantidade, double prdPreco) 
+    public ProdutosModel(Integer prdId, String prdNome, String prdDescricao, double prdDimPrdAl, double prdDimPrdLa, double prdDimPrdPr, double prdDimPrdPe, double prdDimEmbAl, double prdDimEmbLa, double prdDimEmbPr, double prdDimEmbPe, String prdFabricante, String prdModelo, Integer prdQuantidade, double prdPreco, boolean prdAtivo) 
     {
         this.prdId = prdId;
         this.prdNome = prdNome;
@@ -117,6 +124,7 @@ public class ProdutosModel
         this.prdModelo = prdModelo;
         this.prdQuantidade = prdQuantidade;
         this.prdPreco = prdPreco;
+        this.prdAtivo = prdAtivo;
     }
     
     public Integer getPrdId() 
@@ -269,6 +277,21 @@ public class ProdutosModel
         this.prdPreco = prdPreco;
     }
 
+    public boolean isPrdAtivo() 
+    {
+        return this.prdAtivo;
+    }
+
+    public boolean getPrdAtivo() 
+    {
+        return this.prdAtivo;
+    }
+
+    public void setPrdAtivo(boolean prdAtivo) 
+    {
+        this.prdAtivo = prdAtivo;
+    }
+
     public List<EntradasModel> getListEntradas() 
     {
         return this.listEntradas;
@@ -317,6 +340,16 @@ public class ProdutosModel
     public void setListCategoriasProdutos(List<CategoriasProdutosModel> listCategoriasProdutos) 
     {
         this.listCategoriasProdutos = listCategoriasProdutos;
+    }
+
+    public List<FotosModel> getListFotos() 
+    {
+        return this.listFotos;
+    }
+
+    public void setListFotos(List<FotosModel> listFotos) 
+    {
+        this.listFotos = listFotos;
     }
     
     @Override

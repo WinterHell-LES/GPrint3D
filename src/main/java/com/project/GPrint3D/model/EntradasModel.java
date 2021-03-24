@@ -24,13 +24,17 @@ public class EntradasModel
     @Column(name = "ent_id", insertable = false, updatable = false)
     private Integer entId;
 
-    @NotEmpty(message = "Descrição é obrigatória")
-    @Column(name = "ent_descricao")
-    private String entDescricao;
-
     @NotNull(message = "Quantidade é obrigatória")
     @Column(name = "ent_quantidade")
     private Integer entQuantidade;
+
+    @NotEmpty(message = "Fornecedor é obrigatório")
+    @Column(name = "ent_fornecedor")
+    private String entFornecedor;
+
+    @NotNull(message = "Preço de custo é obrigatório")
+    @Column(name = "ent_custo")
+    private double entPrecoCusto;
 
     @NotNull(message = "Data é obrigatória")
     @Column(name = "ent_data")
@@ -51,18 +55,20 @@ public class EntradasModel
         java.util.Date dataAtual = new java.util.Date();
 
         this.entId = 0;
-        this.entDescricao = "";
         this.entQuantidade = 0;
+        this.entFornecedor = "";
+        this.entPrecoCusto = 0.0;
         this.entData = new Date(dataAtual.getTime());
     }
 
-    public EntradasModel(Integer entId, String entDescricao, Integer entQuantidade, Date entData) 
+    public EntradasModel(Integer entId, Integer entQuantidade, String entFornecedor, double entPrecoCusto, Date entData) 
     {
         super( );
 
         this.entId = entId;
-        this.entDescricao = entDescricao;
         this.entQuantidade = entQuantidade;
+        this.entFornecedor = entFornecedor;
+        this.entPrecoCusto = entPrecoCusto;
         this.entData = entData;
     }
 
@@ -76,16 +82,6 @@ public class EntradasModel
         this.entId = entId;
     }
 
-    public String getEntDescricao() 
-    {
-        return this.entDescricao;
-    }
-
-    public void setEntDescricao(String entDescricao) 
-    {
-        this.entDescricao = entDescricao;
-    }
-
     public Integer getEntQuantidade() 
     {
         return this.entQuantidade;
@@ -94,6 +90,26 @@ public class EntradasModel
     public void setEntQuantidade(Integer entQuantidade) 
     {
         this.entQuantidade = entQuantidade;
+    }
+
+    public String getEntFornecedor() 
+    {
+        return this.entFornecedor;
+    }
+
+    public void setEntFornecedor(String entFornecedor) 
+    {
+        this.entFornecedor = entFornecedor;
+    }
+
+    public double getEntPrecoCusto() 
+    {
+        return this.entPrecoCusto;
+    }
+
+    public void setEntPrecoCusto(double entPrecoCusto) 
+    {
+        this.entPrecoCusto = entPrecoCusto;
     }
 
     public Date getEntData() 

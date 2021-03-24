@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PEDIDOS_CUPONS")
+@Table(name = "PEDIDOS_COMPRAS_CUPONS")
 public class PedCuponsModel 
 {
     @Id
@@ -25,8 +25,8 @@ public class PedCuponsModel
     private CuponsPromocoesModel cupom;
 
     @ManyToOne
-    @JoinColumn(name = "pcp_ped_id", referencedColumnName = "ped_id")
-    private PedidosModel pedido;
+    @JoinColumn(name = "pcp_pdc_id", referencedColumnName = "pdc_id")
+    private PedidosComprasModel pedidoCompra;
 
     public PedCuponsModel() 
     {
@@ -62,14 +62,14 @@ public class PedCuponsModel
         this.cupom = cupom;
     }
 
-    public PedidosModel getPedido() 
+    public PedidosComprasModel getPedidoCompra() 
     {
-        return this.pedido;
+        return this.pedidoCompra;
     }
 
-    public void setPedido(PedidosModel pedido) 
+    public void setPedidoCompra(PedidosComprasModel pedidoCompra) 
     {
-        this.pedido = pedido;
+        this.pedidoCompra = pedidoCompra;
     }
 
     @Override

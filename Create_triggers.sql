@@ -12,9 +12,13 @@ DELIMITER $$
 DROP TRIGGER IF EXISTS tg_saida_produto; $$
 CREATE TRIGGER tg_saida_produto BEFORE INSERT ON saidas FOR EACH ROW
 BEGIN
-	IF prd_quantidade < prd_quantidade THEN
+	IF prd_quantidade < NEW.sai_quantidade THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'QUANTIDADE DE PRODUTOS INSUFICIENTE';
     ELSE
+		IF prd_quantidade = NEW.sai_quantidade THEN
+			UPDATE produtos SET prd_ativo = '0' WHERE prd_id = NEW.sai_prd_id;
+        END IF;
+        
 		UPDATE produtos SET prd_quantidade = prd_quantidade - prd_quantidade WHERE prd_id = NEW.sai_prd_id;
     END IF;
 END; $$
@@ -135,29 +139,36 @@ BEGIN
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_ins_pedidos_log; $$
-CREATE TRIGGER tg_ins_pedidos_log AFTER INSERT ON pedidos FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_ins_pedidos_compras_log; $$
+CREATE TRIGGER tg_ins_pedidos_compras_log AFTER INSERT ON pedidos_compras FOR EACH ROW
 BEGIN
-	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos', NEW.ped_id);
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos', NEW.pdc_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_ins_pedidos_cartoes_log; $$
-CREATE TRIGGER tg_ins_pedidos_cartoes_log AFTER INSERT ON pedidos_cartoes FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_ins_pedidos_trocas_log; $$
+CREATE TRIGGER tg_ins_pedidos_trocas_log AFTER INSERT ON pedidos_trocas FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos', NEW.pdt_id);
+END; $$
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_ins_pedidos_compras_cartoes_log; $$
+CREATE TRIGGER tg_ins_pedidos_compras_cartoes_log AFTER INSERT ON pedidos_compras_cartoes FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_cartoes', NEW.pct_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_ins_pedidos_cupons_promocoes_log; $$
-CREATE TRIGGER tg_ins_pedidos_cupons_promocoes_log AFTER INSERT ON pedidos_cupons_promocoes FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_ins_pedidos_compras_cupons_promocoes_log; $$
+CREATE TRIGGER tg_ins_pedidos_compras_cupons_promocoes_log AFTER INSERT ON pedidos_compras_cupons_promocoes FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_cupons_promocoes', NEW.pcp_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_ins_pedidos_produtos_log; $$
-CREATE TRIGGER tg_ins_pedidos_produtos_log AFTER INSERT ON pedidos_produtos FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_ins_pedidos_compras_produtos_log; $$
+CREATE TRIGGER tg_ins_pedidos_compras_produtos_log AFTER INSERT ON pedidos_compras_produtos FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_produtos', NEW.ppd_id);
 END; $$
@@ -312,29 +323,36 @@ BEGIN
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_upd_pedidos_log; $$
-CREATE TRIGGER tg_upd_pedidos_log AFTER UPDATE ON pedidos FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_upd_pedidos_compras_log; $$
+CREATE TRIGGER tg_upd_pedidos_compras_log AFTER UPDATE ON pedidos_compras FOR EACH ROW
 BEGIN
-	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'UPDATE', 'Linha atualizada', 'pedidos', NEW.ped_id);
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'UPDATE', 'Linha atualizada', 'pedidos', NEW.pdc_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_upd_pedidos_cartoes_log; $$
-CREATE TRIGGER tg_upd_pedidos_cartoes_log AFTER UPDATE ON pedidos_cartoes FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_upd_pedidos_trocas_log; $$
+CREATE TRIGGER tg_upd_pedidos_trocas_log AFTER UPDATE ON pedidos_trocas FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'UPDATE', 'Linha atualizada', 'pedidos', NEW.pdt_id);
+END; $$
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_upd_pedidos_compras_cartoes_log; $$
+CREATE TRIGGER tg_upd_pedidos_compras_cartoes_log AFTER UPDATE ON pedidos_compras_cartoes FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'UPDATE', 'Linha atualizada', 'pedidos_cartoes', NEW.pct_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_upd_pedidos_cupons_promocoes_log; $$
-CREATE TRIGGER tg_upd_pedidos_cupons_promocoes_log AFTER UPDATE ON pedidos_cupons_promocoes FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_upd_pedidos_compras_cupons_promocoes_log; $$
+CREATE TRIGGER tg_upd_pedidos_compras_cupons_promocoes_log AFTER UPDATE ON pedidos_compras_cupons_promocoes FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'UPDATE', 'Linha atualizada', 'pedidos_cupons_promocoes', NEW.pcp_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_upd_pedidos_produtos_log; $$
-CREATE TRIGGER tg_upd_pedidos_produtos_log AFTER UPDATE ON pedidos_produtos FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_upd_pedidos_compras_produtos_log; $$
+CREATE TRIGGER tg_upd_pedidos_compras_produtos_log AFTER UPDATE ON pedidos_compras_produtos FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'UPDATE', 'Linha atualizada', 'pedidos_produtos', NEW.ppd_id);
 END; $$
@@ -488,29 +506,36 @@ BEGIN
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_del_pedidos_log; $$
-CREATE TRIGGER tg_del_pedidos_log AFTER DELETE ON pedidos FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_del_pedidos_compras_log; $$
+CREATE TRIGGER tg_del_pedidos_compras_log AFTER DELETE ON pedidos_compras FOR EACH ROW
 BEGIN
-	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'DELETE', 'Linha excluida', 'pedidos', OLD.ped_id);
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'DELETE', 'Linha excluida', 'pedidos', OLD.pdc_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_del_pedidos_cartoes_log; $$
-CREATE TRIGGER tg_del_pedidos_cartoes_log AFTER DELETE ON pedidos_cartoes FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_del_pedidos_trocas_log; $$
+CREATE TRIGGER tg_del_pedidos_trocas_log AFTER DELETE ON pedidos_trocas FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'DELETE', 'Linha excluida', 'pedidos', OLD.pdt_id);
+END; $$
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_del_pedidos_compras_cartoes_log; $$
+CREATE TRIGGER tg_del_pedidos_compras_cartoes_log AFTER DELETE ON pedidos_compras_cartoes FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'DELETE', 'Linha excluida', 'pedidos_cartoes', OLD.pct_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_del_pedidos_cupons_promocoes_log; $$
-CREATE TRIGGER tg_del_pedidos_cupons_promocoes_log AFTER DELETE ON pedidos_cupons_promocoes FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_del_pedidos_compras_cupons_promocoes_log; $$
+CREATE TRIGGER tg_del_pedidos_compras_cupons_promocoes_log AFTER DELETE ON pedidos_compras_cupons_promocoes FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'DELETE', 'Linha excluida', 'pedidos_cupons_promocoes', OLD.pcp_id);
 END; $$
 
 DELIMITER $$
-DROP TRIGGER IF EXISTS tg_del_pedidos_produtos_log; $$
-CREATE TRIGGER tg_del_pedidos_produtos_log AFTER DELETE ON pedidos_produtos FOR EACH ROW
+DROP TRIGGER IF EXISTS tg_del_pedidos_compras_produtos_log; $$
+CREATE TRIGGER tg_del_pedidos_compras_produtos_log AFTER DELETE ON pedidos_compras_produtos FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'DELETE', 'Linha excluida', 'pedidos_produtos', OLD.ppd_id);
 END; $$

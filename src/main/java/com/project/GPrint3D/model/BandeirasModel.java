@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "BANDEIRAS")
@@ -25,19 +26,29 @@ public class BandeirasModel
     @Column(name = "ban_nome")
     private String banNome;
 
+    @NotNull(message = "teste")
+    @Column(name = "ban_ativo")
+    private boolean banAtivo;
+
     @OneToMany(mappedBy = "bandeira")
     private List<CartoesModel> listCartoes;
 
     public BandeirasModel() 
     {
+        super();
+
         this.banId = 0;
         this.banNome = "";
+        this.banAtivo = false;
     }
 
-    public BandeirasModel(Integer banId, String banNome) 
+    public BandeirasModel(Integer banId, String banNome, boolean banAtivo) 
     {
+        super( );
+        
         this.banId = banId;
         this.banNome = banNome;
+        this.banAtivo = banAtivo;
     }
 
     public Integer getBanId() 
@@ -68,6 +79,21 @@ public class BandeirasModel
     public void setListCartoes(List<CartoesModel> listCartoes) 
     {
         this.listCartoes = listCartoes;
+    }
+
+    public boolean isBanAtivo() 
+    {
+        return this.banAtivo;
+    }
+
+    public boolean getBanAtivo() 
+    {
+        return this.banAtivo;
+    }
+
+    public void setBanAtivo(boolean banAtivo) 
+    {
+        this.banAtivo = banAtivo;
     }
 
     @Override

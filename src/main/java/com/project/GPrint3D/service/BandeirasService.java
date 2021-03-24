@@ -64,6 +64,29 @@ public class BandeirasService
         return response;
     }
 
+    public String[] ativar(Boolean ativa, Integer id)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "ativaSuccess";
+        String msg2 = "ativaError";
+
+        try 
+        {
+            bandeiras.updadeAtiva(ativa, id);
+
+            response[0] = msg1;
+            response[1] = "Cadastro de bandeira alterado com sucesso!";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao alterar a bandeira";
+        }
+        
+        return response;
+    }
+
     public String[] excluir(Integer id)
     {
         String[] response = new String[2];

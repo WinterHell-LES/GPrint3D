@@ -23,22 +23,22 @@ public class CuponsPromocoesModel
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cpp_id", insertable = false, updatable = false)
-    private Integer cpnId;
+    private Integer cppId;
 
     @NotEmpty(message = "Nome é obrigatório")
     @Column(name = "cpp_nome")
-    private String cpnNome;
+    private String cppNome;
 
     @NotEmpty(message = "Código é obrigatório")
     @Column(name = "cpp_codigo")
-    private String cpnCodigo;
+    private String cppCodigo;
 
     @NotNull(message = "Desconto é obrigatório")
     @Column(name = "cpp_desconto")
-    private Integer cpnDesconto;
+    private Integer cppDesconto;
 
     @Column(name = "cpp_validade")
-    private Date cpnValidade;
+    private Date cppValidade;
 
     @ManyToOne
     @JoinColumn(name = "cpp_ctg_id", referencedColumnName = "ctg_id")
@@ -51,72 +51,72 @@ public class CuponsPromocoesModel
     {
         super();
 
-        this.cpnId = 0;
-        this.cpnNome = "";
-        this.cpnCodigo = "";
-        this.cpnDesconto = 0;
-        this.cpnValidade = null;
+        this.cppId = 0;
+        this.cppNome = "";
+        this.cppCodigo = "";
+        this.cppDesconto = 0;
+        this.cppValidade = null;
     }
 
-    public CuponsPromocoesModel(Integer cpnId, String cpnNome, String cpnCodigo, Integer cpnDesconto, Date cpnValidade) 
+    public CuponsPromocoesModel(Integer cppId, String cppNome, String cppCodigo, Integer cppDesconto, Date cppValidade) 
     {
         super( );
 
-        this.cpnId = cpnId;
-        this.cpnNome = cpnNome;
-        this.cpnCodigo = cpnCodigo;
-        this.cpnDesconto = cpnDesconto;
-        this.cpnValidade = cpnValidade;
+        this.cppId = cppId;
+        this.cppNome = cppNome;
+        this.cppCodigo = cppCodigo;
+        this.cppDesconto = cppDesconto;
+        this.cppValidade = cppValidade;
     }
 
-    public Integer getCpnId() 
+    public Integer getCppId() 
     {
-        return this.cpnId;
+        return this.cppId;
     }
 
-    public void setCpnId(Integer cpnId) 
+    public void setCppId(Integer cppId) 
     {
-        this.cpnId = cpnId;
+        this.cppId = cppId;
     }
 
-    public String getCpnNome() 
+    public String getCppNome() 
     {
-        return this.cpnNome;
+        return this.cppNome;
     }
 
-    public void setCpnNome(String cpnNome) 
+    public void setCppNome(String cppNome) 
     {
-        this.cpnNome = cpnNome;
+        this.cppNome = cppNome;
     }
 
-    public String getCpnCodigo() 
+    public String getCppCodigo() 
     {
-        return this.cpnCodigo;
+        return this.cppCodigo;
     }
 
-    public void setCpnCodigo(String cpnCodigo) 
+    public void setCppCodigo(String cppCodigo) 
     {
-        this.cpnCodigo = cpnCodigo;
+        this.cppCodigo = cppCodigo;
     }
 
-    public Integer getCpnDesconto() 
+    public Integer getCppDesconto() 
     {
-        return this.cpnDesconto;
+        return this.cppDesconto;
     }
 
-    public void setCpnDesconto(Integer cpnDesconto) 
+    public void setCppDesconto(Integer cppDesconto) 
     {
-        this.cpnDesconto = cpnDesconto;
+        this.cppDesconto = cppDesconto;
     }
 
-    public Date getCpnValidade() 
+    public Date getCppValidade() 
     {
-        return this.cpnValidade;
+        return this.cppValidade;
     }
 
-    public void setCpnValidade(Date cpnValidade) 
+    public void setCppValidade(Date cppValidade) 
     {
-        this.cpnValidade = cpnValidade;
+        this.cppValidade = cppValidade;
     }
 
     public CategoriasModel getCategoria() 
@@ -153,12 +153,12 @@ public class CuponsPromocoesModel
         }
         
         CuponsPromocoesModel cuponsModel = (CuponsPromocoesModel) o;
-        return Objects.equals(cpnId, cuponsModel.cpnId);
+        return Objects.equals(cppId, cuponsModel.cppId);
     }
 
     @Override
     public int hashCode() 
     {
-        return Objects.hashCode(cpnId);
+        return Objects.hashCode(cppId);
     }
 }

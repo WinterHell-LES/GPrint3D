@@ -57,20 +57,32 @@ public class AdminCategController
         return new ModelAndView("redirect:/admin/cadastrarCategorias");
     }
     
-    @RequestMapping("alterarCategorias")
-    public ModelAndView alterarCategorias()
+    @PostMapping("/alterarCategorias")
+    public ModelAndView alterarCategorias(@RequestParam(name = "id") Integer id, CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/admin/categorias/alterarCategorias");
 
+        mv.addObject("categoria", categorias.findOneById(id));
+
         return mv;
     }
-
-
-    @PostMapping("deleteCategorias")
-    public ModelAndView deletarAluno(@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
-    {        
-        String[] mensagem = categoriasService.excluir(id);
+    @PostMapping("/alterarCategoria")
+    public ModelAndView alterarCategoria(@Valid CategoriasModel categoria, RedirectAttributes attributes)
+    {
+        String[] mensagem = categoriasService.atualizar(categoria);
   
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+
+        return new ModelAndView("redirect:/admin/listarCategorias");
+    }
+
+    @PostMapping("/ativaCategorias")
+    public ModelAndView ativacaoBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
+    {
+        CategoriasModel ctg = categorias.findOneById(id);
+
+        String[] mensagem = categoriasService.ativar(!ctg.getCtgAtivo(), id);   
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/listarCategorias");

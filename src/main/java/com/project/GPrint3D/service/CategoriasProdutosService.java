@@ -1,19 +1,19 @@
 package com.project.GPrint3D.service;
 
-import com.project.GPrint3D.model.CategoriasModel;
-import com.project.GPrint3D.repository.CategoriasRepository;
+import com.project.GPrint3D.model.CategoriasProdutosModel;
+import com.project.GPrint3D.repository.CategoriasProdutosRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriasService 
+public class CategoriasProdutosService 
 {
     @Autowired
-    private CategoriasRepository categorias;
+    private CategoriasProdutosRepository categoriasProdutos;
 
-    public String[] cadastrar(CategoriasModel categoria)
+    public String[] cadastrar(CategoriasProdutosModel categoriaProduto)
     {
         String[] response = new String[2];
 
@@ -22,10 +22,10 @@ public class CategoriasService
 
         try 
         {
-            categorias.save(categoria);
+            categoriasProdutos.save(categoriaProduto);
 
             response[0] = msg1;
-            response[1] = "categoria cadastrada com sucesso!";
+            response[1] = "Categoria cadastrada com sucesso!";
         }
         catch (DataIntegrityViolationException e)
         {
@@ -35,13 +35,13 @@ public class CategoriasService
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao cadastrar o categoria";
+            response[1] = "Erro ao cadastrar a categoria";
         }
 
         return response;
     }
 
-    public String[] atualizar(CategoriasModel categoria)
+    public String[] atualizar(CategoriasProdutosModel categoriaProduto)
     {
         String[] response = new String[2];
 
@@ -50,30 +50,7 @@ public class CategoriasService
 
         try 
         {
-            categorias.save(categoria);
-
-            response[0] = msg1;
-            response[1] = "Cadastro de categoria alterado com sucesso!";
-        }
-        catch (Exception e)
-        {
-            response[0] = msg2;
-            response[1] = "Erro ao alterar a categoria";
-        }
-        
-        return response;
-    }
-
-    public String[] ativar(Boolean ativa, Integer id)
-    {
-        String[] response = new String[2];
-
-        String msg1 = "ativaSuccess";
-        String msg2 = "ativaError";
-
-        try 
-        {
-            categorias.updadeAtiva(ativa, id);
+            categoriasProdutos.save(categoriaProduto);
 
             response[0] = msg1;
             response[1] = "Cadastro de categoria alterado com sucesso!";
@@ -96,7 +73,7 @@ public class CategoriasService
 
         try 
         {
-            categorias.deleteById(id);
+            categoriasProdutos.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de categoria deletado com sucesso!";

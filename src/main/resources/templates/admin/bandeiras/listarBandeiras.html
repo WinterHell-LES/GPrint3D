@@ -30,13 +30,25 @@
                     <tr th:each="bandeira : ${bandeiras}">
                         <td th:text="${bandeira.banNome}">Nome</td>
                         <td th:text="${bandeira.listCartoes.size}">Cartões cadastrados</td>
-                        <td>true</td>
+                        <td th:text="${bandeira.banAtivo}">Ativo</td>
                         <td class="py-0 my-0">
-                            <form th:action="@{/admin/deleteBandeiras}" method="POST">
-                                <button type="submit" style="background-color: transparent; border-color: transparent;" name="id" th:value="${bandeira.banId}">
-                                    <i class="bi bi-trash fs-4" style="color: black;"></i>
-                                </button>
-                            </form>
+                            <div class="row">
+                                <div class="col-auto mr-auto px-0">
+                                    <form th:action="@{/admin/ativaBandeiras}" method="POST">
+                                        <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${bandeira.banId}">
+                                            <i class="bi bi-unlock fs-4" th:if="${bandeira.banAtivo == true}"></i>
+                                            <i class="bi bi-lock fs-4" th:if="${bandeira.banAtivo == false}"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-auto mr-auto px-0">
+                                    <form th:action="@{/admin/deletaBandeiras}" method="POST" th:if="${bandeira.listCartoes.size == 0}">
+                                        <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${bandeira.banId}">
+                                            <i class="bi bi-trash fs-4"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

@@ -14,7 +14,7 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Alteração de cupons</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                    <a href="/admin/listarCupons" class="btn btn-sm btn-outline-secondary">
+                    <a href="/admin/cupons/listarCuponsPromocionais" class="btn btn-sm btn-outline-secondary">
                         Voltar
                     </a>
                 </div>
@@ -25,15 +25,16 @@
                     <div class="row pb-3 pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Nome" id="nomeCupom" required/>
+                                <input type="text" class="form-control" placeholder="Nome" id="nomeCupom" th:field="${cupom.cppNome}" required/>
                                 <label for="nomeCupom">Nome</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <select name="categoria" class="custom-select form-select" id="categoria" required>
+                                <select name="categoria" class="custom-select form-select" id="categoria" th:field="${cupom.categoria.ctgId}" required>
                                     <option value="" selected>Categoria</option>
+                                    <option th:each="categoria : ${categorias}" th:value="${categoria.ctgId}" th:text="${categoria.ctgNome}"></option>
                                 </select>
                                 <label for="categoria">Categoria</label>
                             </div>
@@ -42,21 +43,14 @@
                     <div class="row pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Código" id="codigoCupom" style="text-transform:uppercase" required/>
-                                <label for="codigoCupom">Código</label>
-                            </div>
-                        </div>
-
-                        <div class="col-sm">
-                            <div class="form-floating">
-                                <input type="number" class="form-control" placeholder="Desconto" id="desconto" required/>
+                                <input type="number" class="form-control" placeholder="Desconto" id="desconto" th:field="${cupom.cppDesconto}" required/>
                                 <label for="desconto">Desconto</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="date" class="form-control" placeholder="Validade" id="validadeCupom" required/>
+                                <input type="date" class="form-control" placeholder="Validade" id="validadeCupom" th:field="${cupom.cppValidade}" required/>
                                 <label for="validadeCupom">Validade</label>
                             </div>
                         </div>

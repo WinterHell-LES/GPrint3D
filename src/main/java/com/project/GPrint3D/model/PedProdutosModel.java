@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "PEDIDOS_PRODUTOS")
+@Table(name = "PEDIDOS_COMPRAS_PRODUTOS")
 public class PedProdutosModel 
 {
     @Id
@@ -26,8 +26,8 @@ public class PedProdutosModel
     private Integer ppdQuantidade;
 
     @ManyToOne
-    @JoinColumn(name = "ppd_ped_id", referencedColumnName = "ped_id")
-    private PedidosModel pedido;
+    @JoinColumn(name = "ppd_pdc_id", referencedColumnName = "pdc_id")
+    private PedidosComprasModel pedidoCompra;
 
     @ManyToOne
     @JoinColumn(name = "ppd_prd_id", referencedColumnName = "prd_id")
@@ -67,14 +67,14 @@ public class PedProdutosModel
         this.ppdQuantidade = ppdQuantidade;
     }
 
-    public PedidosModel getPedido() 
+    public PedidosComprasModel getPedidoCompra() 
     {
-        return this.pedido;
+        return this.pedidoCompra;
     }
 
-    public void setPedido(PedidosModel pedido) 
+    public void setPedidoCompra(PedidosComprasModel pedidoCompra) 
     {
-        this.pedido = pedido;
+        this.pedidoCompra = pedidoCompra;
     }
 
     public ProdutosModel getProduto() 

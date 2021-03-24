@@ -35,240 +35,28 @@
                 </a>
             </div>
 
-            <div class="container my-5">
+            <div class="container my-5" th:each="categoria : ${categorias}" th:if="${categoria.getVerifCategoria()}">
                 <div class="border-bottom">
-                    <p class="h2">Categoria 1</p>
+                    <p class="h2" th:text="${categoria.ctgNome}">Categoria</p>
                 </div>
                 <div class="row my-4">
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
+                    <div class="col d-flex justify-content-center mb-4" th:each="produto : ${categoria.listCategoriasProdutos}">
+                        <div class="card shadow" style="width: 18rem;" th:if="${produto.produto.prdAtivo AND produto.produto.prdQuantidade > 0}">
+                            <img th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" class="card-img-top" alt="...">
+                            <img th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" alt="">
                             <div class="card-body">
-                                <h5 class="card-title">Produto 1</h5>
-                                <p class="card-text">Descrição do produto.</p>
+                                <h5 class="card-title" th:text="${produto.produto.prdNome}">Produto 1</h5>
+                                <p class="card-text content" th:text="${produto.produto.prdDescricao}">Descrição do produto.</p>
                             </div>
                             <ul class="list-group list-group-flush text-center">
                                 <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
+                                    <!-- <span class="fs-8">De: </span>
                                     <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
+                                    <span class="fs-5 fw-bolder">Por: </span> -->
+                                    <span class="fs-5 fw-bolder" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 50,00</span>
                                 </li>
                             </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 2</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 3
-                                </h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row my-4">
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 4</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 5</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 6</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container my-5">
-                <div class="border-bottom">
-                    <p class="h2">Categoria 2</p>
-                </div>
-                <div class="row my-4">
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 7</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 8</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 9</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row my-4">
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 10</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 11</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
-                        </div>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <div class="card shadow" style="width: 18rem;">
-                            <img th:src="@{/images/Teste.png}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Produto 12</h5>
-                                <p class="card-text">Descrição do produto.</p>
-                            </div>
-                            <ul class="list-group list-group-flush text-center">
-                                <li class="list-group-item">
-                                    <span class="fs-8">De: </span>
-                                    <span class="fs-8 text-decoration-line-through text-black-50">R$ 99,99</span><br>
-                                    <span class="fs-5 fw-bolder">Por: </span>
-                                    <span class="fs-5 fw-bolder">R$ 50,00</span>
-                                </li>
-                            </ul>
-                            <a href="/produto" class="btn btn-secondary stretched-link">Comprar</a>
+                            <a th:href="${'c/' + #strings.replace(categoria.ctgNome, ' ', '_') + '/p/' + #strings.replace(produto.produto.prdNome, ' ', '_')}" class="btn btn-secondary stretched-link">Comprar</a>
                         </div>
                     </div>
                 </div>

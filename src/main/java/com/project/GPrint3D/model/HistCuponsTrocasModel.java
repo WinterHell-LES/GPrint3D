@@ -19,7 +19,7 @@ public class HistCuponsTrocasModel
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hct_id")
+    @Column(name = "hct_id", insertable = false, updatable = false)
     private Integer hctId;
 
     @NotNull(message = "Data é obrigatória")

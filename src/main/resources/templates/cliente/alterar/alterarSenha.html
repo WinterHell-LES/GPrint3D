@@ -21,10 +21,10 @@
                         <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
 
                             <!--<input type="hidden" th:value="${checkOldPass.senha}" th:field="${checkOldPass.senha}">-->
-                            <input type="hidden" th:value="${usuario.usuId}" th:field="${usuario.usuId}">
-                            <input type="hidden" th:value="${usuario.usuEmail}" th:field="${usuario.usuEmail}">
-                            <input type="hidden" th:value="${usuario.usuRegra}" th:field="${usuario.usuRegra}">
-                            <input type="hidden" th:value="${usuario.usuAtivo}" th:field="${usuario.usuAtivo}">
+                            <input type="hidden" th:field="${usuario.usuId}">
+                            <input type="hidden" th:field="${usuario.usuEmail}">
+                            <input type="hidden" th:field="${usuario.usuRegra}">
+                            <input type="hidden" th:field="${usuario.usuAtivo}">
                             
                             <div class="container border shadow rounded-3 py-2">
                                 <div class="row py-3 pe-0">

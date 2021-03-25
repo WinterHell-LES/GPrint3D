@@ -45,8 +45,11 @@
                             <button type="button" class="btn border shadow-sm">Calcular</button>
                         </div>
                         <p class="fs-8 mb-1 mt-3">Quantidade em estoque: X itens.</p>
-                        <div class="row px-3 mb-2 mt-1">
-                            <a href="#" class="btn border shadow-sm">Adicionar ao carrinho</a>
+                        <div class="row px-3 mb-2 mt-1 text-center">
+                            <form th:action="@{/carrinho/incluirNoCarrinho}" method="POST" class="px-0">
+                                <input type="hidden" th:value="${#httpServletRequest.requestURI}" name="url">
+                                <button type="submit" name="id" th:value="${produto.prdId}" class="btn border shadow-sm" style="width: 100%">Adicionar ao carrinho</button>
+                            </form>
                         </div>
                         <div class="row px-3 my-2">
                             <a href="/carrinho/meuCarrinho" class="btn border shadow-sm">Comprar</a>

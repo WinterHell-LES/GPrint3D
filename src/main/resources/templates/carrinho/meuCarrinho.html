@@ -17,8 +17,12 @@
                         <p class="h2">Meu carrinho</p>
                     </div>
                     <div class="col-6 text-end">
-                        <a href="#"></a><button type="submit" class="btn border shadow-sm">Remover tudo</button></a>
-                        <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm">Comprar</button></a>
+                        <div class="row row-cols-lg-auto g-3 justify-content-end align-items-center">
+                            <form th:action="@{/carrinho/removerProdutos}" method="POST" class="px-0">
+                                <button type="submit" class="btn border shadow-sm">Remover tudo</button>
+                            </form>
+                            <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm">Comprar</button></a>
+                        </div>
                     </div>
                 </div>
 
@@ -52,36 +56,51 @@
                     </div>
 
                     <div id="listaProdutosAtivos">
-                        <div class="row my-2 pb-2 border-bottom">
-                            <div class="col-2">
-                                <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
+                        <div id="ocultar">
+                            <div class="d-flex flex-row justify-content-center pt-4" th:if="${produtosCarrinho.size == 0}">
+                                <p class="text-danger">Você não tem nenhum produto no seu carrinho, continue comprando e adcione um produto para aparecer aqui!</p>
                             </div>
-                            <div class="col-3 d-flex flex-column justify-content-center border-end">
-                                <h5>Produto 1</h5>
-                                <p>Descrição do produto.</p>
-                            </div>
-                            <div class="col-2 d-flex flex-column justify-content-center border-end">
-                                <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                    <div class="input-group">
-                                    <div class="input-group-text " id="btnGroupAddon" style="cursor: pointer;">-</div>
-                                    <input type="text" class="form-control px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" value="3" style="width: 50px; text-align: center;">
-                                    <div class="input-group-text" id="btnGroupAddon" style="cursor: pointer;">+</div>
+
+                            <div class="row my-2 pb-2 border-bottom" id="produto" th:each="produto : ${produtosCarrinho}">
+                                <div class="col-2">
+                                    <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
+                                </div>
+                                <div class="col-3 d-flex flex-column justify-content-center border-end">
+                                    <h5 th:text="${produto.produto.prdNome}">Produto 1</h5>
+                                </div>
+                                <div class="col-2 d-flex flex-column justify-content-center border-end">
+                                    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+                                        <div class="input-group">
+                                            <form th:action="@{/carrinho/diminuirProduto}" method="POST" class="px-0">
+                                                <button class="input-group-text rounded-start" name="id" th:value="${produto.produto.prdId}">-</button>
+                                            </form>
+                                            <input type="text" class="form-control px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" th:value="${produto.pcrQuantidade}" style="width: 50px; text-align: center;">
+                                            <form th:action="@{/carrinho/aumentarProduto}" method="POST" class="px-0">
+                                                <button class="input-group-text rounded-end" name="id" th:value="${produto.produto.prdId}">+</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
-                                <span>R$50,00</span>
-                            </div>
-                            <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
-                                <span>R$150,00</span>
-                            </div>
-                            <div class="col-1  d-flex flex-column justify-content-center text-center">
-                                <i class="bi bi-x-square fs-5" style="cursor: pointer;"></i>
+                                <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
+                                    <span th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$50,00</span>
+                                </div>
+                                <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
+                                    <span th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco * produto.pcrQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</span>
+                                    
+                                </div>
+                                <div class="col-1  d-flex flex-column justify-content-center text-center">
+                                    <form th:action="@{/carrinho/removerProduto}" method="POST" class="px-0">
+                                        <button class="bg-transparent border-0" name="id" th:value="${produto.produto.prdId}" style="cursor: pointer;">
+                                            <i class="bi bi-x-square fs-5"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Produtos Expirados
                 <div id="produtosExpirados">
                     <div class="row mt-2 pb-2 border-bottom" onclick="hideElement(this)" style="cursor: pointer;">
                         <div class="col">
@@ -124,6 +143,8 @@
                             </div>
                         </div>
                     </div>
+                    -->
+                    
                 </div>
 
                 <div class="row mt-2 pt-2">
@@ -171,8 +192,12 @@
                         </div>
                     </div>
                     <div class="col-6 d-flex flex-row justify-content-end align-items-start text-end gap-1">
-                        <a href="#"><button type="submit" class="btn border shadow-sm">Remover tudo</button></a>
-                        <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm">Comprar</button></a>
+                        <div class="row row-cols-lg-auto g-3 justify-content-end align-items-center">
+                            <form th:action="@{/carrinho/removerProdutos}" method="POST" class="px-0">
+                                <button type="submit" class="btn border shadow-sm">Remover tudo</button>
+                            </form>
+                            <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm">Comprar</button></a>
+                        </div>
                     </div>
                 </div>
             </div>

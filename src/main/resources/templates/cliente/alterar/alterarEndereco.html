@@ -20,8 +20,8 @@
 
                         <form class="form-group" th:action="@{/cliente/alterarEndereco/} + ${endereco.endId}" method="POST">
 
-                            <input type="hidden" th:value="${endereco.endId}" th:field="${endereco.endId}"></input>
-                            <input type="hidden" th:value="${endereco.cliente.cliId}" th:field="${endereco.cliente.cliId}"></input>
+                            <input type="hidden" th:field="${endereco.endId}"></input>
+                            <input type="hidden" th:field="${endereco.cliente.cliId}"></input>
 
                             <div class="container border shadow rounded-3 py-2">
                                 <div class="row py-3">

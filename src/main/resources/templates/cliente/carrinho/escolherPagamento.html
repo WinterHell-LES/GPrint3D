@@ -6,9 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
         <!--CSS-->
-        <th:block layout:fragment="css">
-            <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/pedidos.css}">
-        </th:block>
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/pedidos.css}">
 
         <title>GPrint3D - Cliente - Confirmar Pagamento</title>
     </head>
@@ -186,7 +184,7 @@
                                     <td>1234 1234 1234 1234</td>
                                     <td>José da Silva</td>
                                     <td>Visa</td>
-                                    <td><input type="text" class="form-control" placeholder="" value="R$132,00" id="valor" style="text-align: center;"></td>
+                                    <td><input type="text" class="form-control dinheiro p-0" placeholder="" value="R$132,00" id="valor" style="text-align: center;"></td>
                                     <td class="text-center"><i class="bi bi-x-square fs-5" style="cursor: pointer"></i></td>
                                 </tr>
                             </tbody>
@@ -215,5 +213,13 @@
                 </div>
             </div>
         </section>
+
+        <!-- Script-->
+        <th:block layout:fragment="javascripts">
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.maskMoney}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.maskMoney.min.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
+        </th:block>
     </body>
 </html>

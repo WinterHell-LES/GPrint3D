@@ -5,6 +5,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/pedidos.css}">
+
         <title>GPrint3D - Cliente - Confirmar Pedido</title>
     </head>
 
@@ -196,7 +199,7 @@
                                         <td>José da Silva</td>
                                         <td>Visa</td>
                                         <td class="text-center">R$132,00</td>
-                                        <td><input type="text" class="form-control cvv px-0" value="123" minlength="3" maxlength="3" id="cvv" style="text-align: center;"></td>
+                                        <td><input type="text" class="form-control cvv p-0" value="123" minlength="3" maxlength="3" id="cvv" style="text-align: center;"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -217,8 +220,8 @@
             </div>
         </section>
         
+        <!-- Script-->
         <th:block layout:fragment="javascripts">
-            <!-- Script-->
             <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>

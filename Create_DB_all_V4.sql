@@ -288,6 +288,7 @@ CREATE TABLE produtos_carrinhos (
 	pcr_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
     pcr_prd_id  		MEDIUMINT NOT NULL,
     pcr_car_id  		MEDIUMINT NOT NULL,
+    pcr_quantidade      MEDIUMINT NOT NULL,
     CONSTRAINT pk_pcr PRIMARY KEY ( pcr_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUTOS_CARRINHOS")
@@ -19,6 +20,10 @@ public class PrdCarrinhosModel
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_id", insertable = false, updatable = false)
     private Integer pcrId;
+
+    @NotNull(message = "Quantidade é obrigatória")
+    @Column(name = "pcr_quantidade")
+    private Integer pcrQuantidade;
 
     @ManyToOne
     @JoinColumn(name = "pcr_prd_id", referencedColumnName = "prd_id")
@@ -50,6 +55,16 @@ public class PrdCarrinhosModel
     public void setPcrId(Integer pcrId) 
     {
         this.pcrId = pcrId;
+    }
+
+    public Integer getPcrQuantidade() 
+    {
+        return this.pcrQuantidade;
+    }
+
+    public void setPcrQuantidade(Integer pcrQuantidade) 
+    {
+        this.pcrQuantidade = pcrQuantidade;
     }
 
     public ProdutosModel getProduto() 

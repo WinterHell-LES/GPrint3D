@@ -9,8 +9,10 @@ DROP TABLE IF EXISTS carrinhos;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE carrinhos (
     car_id          	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    car_cli_id  		MEDIUMINT NOT NULL,
-    CONSTRAINT pk_car PRIMARY KEY ( car_id )
+    car_cli_id  		MEDIUMINT,
+    car_cli_temp		VARCHAR(255),
+    CONSTRAINT pk_car PRIMARY KEY ( car_id ),
+    CONSTRAINT uk_car UNIQUE ( car_cli_temp )
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS bandeiras;
@@ -289,7 +291,10 @@ CREATE TABLE produtos_carrinhos (
     pcr_prd_id  		MEDIUMINT NOT NULL,
     pcr_car_id  		MEDIUMINT NOT NULL,
     pcr_quantidade      MEDIUMINT NOT NULL,
+    pcr_date			DATE NOT NULL,
+    pcr_ativo			BOOLEAN NOT NULL,
     CONSTRAINT pk_pcr PRIMARY KEY ( pcr_id )
+    /*CONSTRAINT uk_pcr UNIQUE KEY ( pcr_car_id, pcr_prd_id )*/
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS produtos_justificativas;

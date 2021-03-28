@@ -72,11 +72,11 @@ public class AltPassCliController
 
                 return new ModelAndView("redirect:/cliente/index");
             }else{
-                String msgError = "Senha nova diferente da confirmação de senha, favor digitar corretamente.";
+                //String msgError = "Senha nova diferente da confirmação de senha, favor digitar corretamente.";
                 System.out.println("Fracasso newConfirm != new!");
             }
         }else{
-            String msgError = "Senha antiga não confere, favor digitar corretamente.";
+            //String msgError = "Senha antiga não confere, favor digitar corretamente.";
             System.out.println("Fracasso oldTyped != realOld!");
         }
 

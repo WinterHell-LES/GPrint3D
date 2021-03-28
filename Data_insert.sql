@@ -96,6 +96,25 @@ values (1, 5);
 insert into categorias_produtos (cpr_ctg_id, cpr_prd_id)
 values (1, 6);
 
+-- Entradas
+insert into entradas (ent_quantidade, ent_fornecedor, ent_custo, ent_data, ent_usu_id, ent_prd_id)
+values (10, 'Creality', '1899.90', CURDATE(), 1, 1);
+
+insert into entradas (ent_quantidade, ent_fornecedor, ent_custo, ent_data, ent_usu_id, ent_prd_id)
+values (10, 'Anycubic', '2449.90', CURDATE(), 1, 2);
+
+insert into entradas (ent_quantidade, ent_fornecedor, ent_custo, ent_data, ent_usu_id, ent_prd_id)
+values (10, 'Creality', '2699.90', CURDATE(), 1, 3);
+
+insert into entradas (ent_quantidade, ent_fornecedor, ent_custo, ent_data, ent_usu_id, ent_prd_id)
+values (10, 'Anycubic', '4199.90', CURDATE(), 1, 4);
+
+insert into entradas (ent_quantidade, ent_fornecedor, ent_custo, ent_data, ent_usu_id, ent_prd_id)
+values (10, 'Creality', '2149.90', CURDATE(), 1, 5);
+
+insert into entradas (ent_quantidade, ent_fornecedor, ent_custo, ent_data, ent_usu_id, ent_prd_id)
+values (10, 'Anycubic', '4999.90', CURDATE(), 1, 6);
+
 -- Clientes
 -- Usuario - Cliente 1
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)

@@ -28,6 +28,9 @@ public class CarrinhosModel
     @OneToOne
     @JoinColumn(name = "car_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
+    
+    @Column(name = "car_cli_temp")
+    private String temporaryCliId;
 
     public CarrinhosModel() 
     {
@@ -71,6 +74,14 @@ public class CarrinhosModel
     public void setCliente(ClientesModel cliente) 
     {
         this.cliente = cliente;
+    }
+
+    public String getTemporaryCliId() {
+        return this.temporaryCliId;
+    }
+
+    public String setTemporaryCliId(String temporaryCliId) {
+        return this.temporaryCliId = temporaryCliId;
     }
 
     @Override

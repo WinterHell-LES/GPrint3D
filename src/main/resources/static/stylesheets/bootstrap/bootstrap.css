@@ -7461,9 +7461,19 @@ textarea.form-control-lg {
   border-top-right-radius: 0.25rem !important;
 }
 
+.rounded-top-0 {
+  border-top-left-radius: 0rem !important;
+  border-top-right-radius: 0rem !important;
+}
+
 .rounded-end {
   border-top-right-radius: 0.25rem !important;
   border-bottom-right-radius: 0.25rem !important;
+}
+
+.rounded-end-0 {
+  border-top-right-radius: 0rem !important;
+  border-bottom-right-radius: 0rem !important;
 }
 
 .rounded-bottom {
@@ -7471,9 +7481,19 @@ textarea.form-control-lg {
   border-bottom-left-radius: 0.25rem !important;
 }
 
+.rounded-bottom-0 {
+  border-bottom-right-radius: 0rem !important;
+  border-bottom-left-radius: 0rem !important;
+}
+
 .rounded-start {
   border-bottom-left-radius: 0.25rem !important;
   border-top-left-radius: 0.25rem !important;
+}
+
+.rounded-start-0 {
+  border-bottom-left-radius: 0rem !important;
+  border-top-left-radius: 0rem !important;
 }
 
 .visible {

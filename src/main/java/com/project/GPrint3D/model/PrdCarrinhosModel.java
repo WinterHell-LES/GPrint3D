@@ -1,5 +1,6 @@
 package com.project.GPrint3D.model;
 
+import java.sql.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ public class PrdCarrinhosModel
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "car_id", insertable = false, updatable = false)
+    @Column(name = "pcr_id", insertable = false, updatable = false)
     private Integer pcrId;
 
     @NotNull(message = "Quantidade é obrigatória")
@@ -32,6 +33,14 @@ public class PrdCarrinhosModel
     @ManyToOne
     @JoinColumn(name = "pcr_car_id", referencedColumnName = "car_id")
     private CarrinhosModel carrinho;
+
+    @NotNull(message = "Data é obrigatória")
+    @Column(name = "pcr_date")
+    private Date pcrDate;
+
+    @NotNull(message = "Estado é obrigatório")
+    @Column(name = "pcr_ativo")
+    private boolean pcrAtivo;
 
     public PrdCarrinhosModel() 
     {
@@ -85,6 +94,26 @@ public class PrdCarrinhosModel
     public void setCarrinho(CarrinhosModel carrinho) 
     {
         this.carrinho = carrinho;
+    }
+
+    public Date getPcrDate() {
+        return this.pcrDate;
+    }
+
+    public void setPcrDate(Date pcrDate) {
+        this.pcrDate = pcrDate;
+    }
+
+    public boolean isPcrAtivo() {
+        return this.pcrAtivo;
+    }
+
+    public boolean getPcrAtivo() {
+        return this.pcrAtivo;
+    }
+
+    public void setPcrAtivo(boolean pcrAtivo) {
+        this.pcrAtivo = pcrAtivo;
     }
 
     @Override

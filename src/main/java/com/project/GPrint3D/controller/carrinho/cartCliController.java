@@ -353,9 +353,7 @@ public class CartCliController
                 if (temCookieId(valorCookie))
                 {
                     //Recupera o carrinho do cookie e verifica no BD
-                    mesclarCarrinhos(localizarCarrinho(usuario, ""), localizarCarrinho(null, valorCookie));
-
-                    carrinho = localizarCarrinho(usuario, "");
+                    carrinho = mesclarCarrinhos(localizarCarrinho(usuario, ""), localizarCarrinho(null, valorCookie));
 
                     for (int i = 0; i < carrinho.getListProdutos().size(); i++)
                     {
@@ -460,14 +458,9 @@ public class CartCliController
         return carrinho;
     }
 
-    private void mesclarCarrinhos (CarrinhosModel carrinhoLogado, CarrinhosModel carrinhoCookie)
+    private CarrinhosModel mesclarCarrinhos (CarrinhosModel carrinhoLogado, CarrinhosModel carrinhoCookie)
     {
         System.out.println("Carrinho já mesclado nessa sessão? " + mesclagemCarrinho);
-
-        /*if (mesclagemCarrinho == 1)
-        {
-            return;
-        }*/
 
         for (PrdCarrinhosModel produto : carrinhoCookie.getListProdutos())
         {
@@ -475,19 +468,23 @@ public class CartCliController
             prdCarrinhosService.atualizar(produto);
         }
 
-        excluirProdutosDuplicados(carrinhoLogado.getListProdutos());
+        carrinhoLogado.setListProdutos(excluirProdutosDuplicados(carrinhoLogado.getListProdutos()));
 
-        mesclagemCarrinho = 1;
+        return carrinhoLogado;
     }
 
-    private void excluirProdutosDuplicados(List<PrdCarrinhosModel> carrinhoProdutos)
+    private List<PrdCarrinhosModel> excluirProdutosDuplicados(List<PrdCarrinhosModel> carrinhoProdutos)
     {
         List<Integer> idsUnico = new ArrayList<Integer>();
+        List<PrdCarrinhosModel> carrinhoProdutoAux = new ArrayList<PrdCarrinhosModel>();
+
+        carrinhoProdutoAux.addAll(carrinhoProdutos);
 
         for (PrdCarrinhosModel produto : carrinhoProdutos)
         {
             if (idsUnico.contains(produto.getProduto().getPrdId()))
             {
+                carrinhoProdutoAux.remove(produto);
                 prdCarrinhosService.excluir(produto.getPcrId());
             }
             else
@@ -495,5 +492,7 @@ public class CartCliController
                 idsUnico.add(produto.getProduto().getPrdId());
             }
         }
+
+        return carrinhoProdutoAux;
     }
 }

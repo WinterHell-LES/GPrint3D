@@ -1,0 +1,11 @@
+DELETE FROM `crud_gprint3d`.`produtos_carrinhos` WHERE (`pcr_car_id` = '16');
+DELETE FROM `crud_gprint3d`.`carrinhos` WHERE (`car_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`enderecos_cobrancas_padroes` WHERE (`ecp_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`enderecos_entregas_padroes` WHERE (`eep_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`enderecos` WHERE (`end_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`cartoes_padroes` WHERE (`ctp_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`cartoes` WHERE (`crt_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`documentos` WHERE (`doc_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`telefones` WHERE (`tel_cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`clientes` WHERE (`cli_id` = '22');
+DELETE FROM `crud_gprint3d`.`usuarios` WHERE (`usu_email` = 'cliente10@gprint3d.com');

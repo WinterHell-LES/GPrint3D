@@ -203,7 +203,7 @@
                                     <p class="fw-bold">FERRAM.</p>
                                 </div>
                                 <div class="row text-center align-content-start" style="height: 50%">
-                                    <button  type="button" class="p-1 border-0 bg-transparent" title="Trocar produto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button  type="button" class="p-1 border-0 bg-transparent" title="Trocar produto" data-bs-toggle="modal" data-bs-target="#trocarPedidoModal">
                                         <span class="icon-return-box"></span>
                                     </button>
                                 </div>
@@ -222,11 +222,11 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="trocarPedidoModal" tabindex="-1" aria-labelledby="trocarPedidoModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Troca de produto</h5>
+                            <h5 class="modal-title" id="trocarPedidoModalLabel">Troca de produto</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -249,7 +249,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn btn-outline-secondary shadow" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-secondary shadow">Solicitar troca</button>
+                            <button type="button" class="btn btn-secondary shadow" id="confirmarTroca">Solicitar troca</button>
                         </div>
                     </div>
                 </div>

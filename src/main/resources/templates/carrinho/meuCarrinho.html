@@ -19,9 +19,9 @@
                     <div class="col-6 text-end">
                         <div class="row row-cols-lg-auto g-3 justify-content-end align-items-center">
                             <form th:action="@{/carrinho/removerTodosProdutos}" method="POST" class="px-0">
-                                <button type="submit" class="btn border shadow-sm">Remover tudo</button>
+                                <button type="submit" class="btn border shadow-sm" id="remover">Remover tudo</button>
                             </form>
-                            <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm">Comprar</button></a>
+                            <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm" id="comprar">Comprar</button></a>
                         </div>
                     </div>
                 </div>

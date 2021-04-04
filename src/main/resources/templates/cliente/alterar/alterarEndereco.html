@@ -58,7 +58,7 @@
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm-3">
                                             <div class="form-floating">
-                                                <select name="tipoLogradouro" class="custom-select form-select" id="documento" th:checked="${endereco.endTipo}" th:field="${endereco.endTipo}">
+                                                <select name="tipoLogradouro" class="custom-select form-select" id="tipoLogradouro" th:checked="${endereco.endTipo}" th:field="${endereco.endTipo}">
                                                     <option value="" selected>Tipo de Logradouro</option>
                                                     <option value="Aeroporto">Aeroporto</option>
                                                     <option value="Alameda">Alameda</option>
@@ -202,12 +202,12 @@
                                 <div class="row pe-0 pb-3">
                                     <div class="col-sm">
                                         <div class="text-start">
-                                            <a class="btn border shadow-sm" onclick="window.history.back();">Voltar</a>
+                                            <a class="btn border shadow-sm" onclick="window.history.back();" id="voltar">Voltar</a>
                                         </div>
                                     </div>
                                     <div class="col-sm">
                                         <div class="text-end">
-                                            <button type="submit" class="btn border shadow-sm">Alterar</button>
+                                            <button type="submit" class="btn border shadow-sm" id="confirmar">Alterar</button>
                                         </div>
                                     </div>
                                 </div>

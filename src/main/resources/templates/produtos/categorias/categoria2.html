@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>GPrint3D - Home</title>
+        <title th:text="'GPrint3D - ' + ${tituloCategoria}">GPrint3D - Home</title>
     </head>
 
     <body>
@@ -18,13 +18,13 @@
                 <div class="row my-4" th:each="produto : ${produtos}" th:if="${produto.produto.prdAtivo AND produto.produto.prdQuantidade > 0}">
                     <div class="card-row shadow">
                         <!-- <img th:src="@{/images/Teste.png}" class="img-start" alt="..." style="max-height: 125px; height: auto;"> -->
-                        <img class="img-start" th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" alt="...">
-                        <img class="img-start" th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" alt="">
+                        <img class="img-start" th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" alt="..." style="max-height: 175px; max-width: 270px; height: auto;">
+                        <img class="img-start" th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" alt="" style="max-height: 175px; max-width: 270px; height: auto;">
                         <div class="card-body ms-4">
                             <p class="h5" th:text="${produto.produto.prdNome}">Produto</p>
                             <p class="" th:text="${produto.produto.prdDescricao}">Descrição do produto.</p>
                         </div>
-                        <div class="card-end text-center" style="min-width: 200px;">
+                        <div class="card-end text-center" style="max-width: 200px; min-width: 200px;">
                             <!-- <p class="fs-7 fs text-decoration-line-through text-black-50">R$ 99,99</p> -->
                             <p class="fs-5 fw-bolder" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">Preço</p>
                             <a th:href="${link + '/p/' + #strings.replace(produto.produto.prdNome, ' ', '_')}" class="btn btn-secondary mt-2 stretched-link" style="width: 100%;">Comprar</a>

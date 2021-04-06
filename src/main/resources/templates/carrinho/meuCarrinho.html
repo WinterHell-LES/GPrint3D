@@ -60,9 +60,14 @@
 
                     <div id="listaProdutosAtivos">
                         <div id="ocultar">
+                            <div class="d-flex flex-row justify-content-center pt-4" th:if="${produtosCarrinho.size == 0}">
+                                <p class="text-danger">Você não tem nenhum produto no seu carrinho, continue comprando e adcione um produto para aparecer aqui!</p>
+                            </div>
+
                             <div class="row my-2 pb-2 border-bottom" id="produto" th:each="produto : ${produtosCarrinho}">
                                 <div class="col-2">
-                                    <img th:src="@{/images/Teste.png}" class="img-fluid" alt="...">
+                                    <img th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" class="img-fluid" alt="...">
+                                    <img th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" class="img-fluid" alt="">
                                 </div>
                                 <div class="col-3 d-flex flex-column justify-content-center border-end">
                                     <h5 th:text="${produto.produto.prdNome}">Produto 1</h5>
@@ -73,7 +78,7 @@
                                             <form th:action="@{/carrinho/diminuirProduto}" method="POST" class="px-0">
                                                 <button class="input-group-text rounded-end-0 border-end" name="id" th:value="${produto.produto.prdId}">-</button>
                                             </form>
-                                            <input type="text" class="form-control border-start-0 border-end-0 px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" th:value="${produto.pcrQuantidade}" style="width: 50px; text-align: center; margin: 0px !important;">
+                                            <input type="text" class="form-control px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" th:value="${produto.pcrQuantidade}" style="width: 50px; text-align: center;" readonly/>
                                             <form th:action="@{/carrinho/aumentarProduto}" method="POST" class="px-0">
                                                 <button class="input-group-text rounded-start-0" name="id" th:value="${produto.produto.prdId}" style="margin-left: 1px !important">+</button>
                                             </form>
@@ -85,7 +90,6 @@
                                 </div>
                                 <div class="col-2 d-flex flex-column justify-content-center text-center border-end">
                                     <span th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco * produto.pcrQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</span>
-                                    
                                 </div>
                                 <div class="col-1  d-flex flex-column justify-content-center text-center">
                                     <form th:action="@{/carrinho/removerProduto}" method="POST" class="px-0">

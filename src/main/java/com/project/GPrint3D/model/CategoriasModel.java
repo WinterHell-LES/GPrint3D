@@ -124,6 +124,11 @@ public class CategoriasModel
 
     public boolean getVerifCategoria()
     {
+        if (!this.getCtgAtivo())
+        {
+            return false;
+        }
+        
         for (CategoriasProdutosModel aux : this.listCategoriasProdutos)
         {
             if (aux.getProduto().isPrdAtivo() && (aux.getProduto().getPrdQuantidade() > 0))

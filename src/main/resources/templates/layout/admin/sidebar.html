@@ -15,7 +15,7 @@
                                 <li class="my-3 me-2 border-top"></li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#bandeiras_cartao" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_bandeiras_cartao" data-bs-toggle="collapse" data-bs-target="#bandeiras_cartao" aria-expanded="false">
                                         Bandeiras de cartão
                                     </button>
                                     <div class="collapse" id="bandeiras_cartao">
@@ -27,7 +27,19 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#categorias" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_precificacoes" data-bs-toggle="collapse" data-bs-target="#precificacoes" aria-expanded="false">
+                                        Precificações
+                                    </button>
+                                    <div class="collapse" id="precificacoes">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/admin/cadastrarPrecificacoes" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarPrecificacoes')} ? 'active'">Cadastro de precificações</a></li>
+                                            <li><a class="nav-link" href="/admin/listarPrecificacoes" th:classappend="${#httpServletRequest.requestURI.contains('listarPrecificacoes')} ? 'active'">Listagem de precificações</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_categorias" data-bs-toggle="collapse" data-bs-target="#categorias" aria-expanded="false">
                                         Categorias
                                     </button>
                                     <div class="collapse" id="categorias">
@@ -39,7 +51,7 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#produtos" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_produtos" data-bs-toggle="collapse" data-bs-target="#produtos" aria-expanded="false">
                                         Produtos
                                     </button>
                                     <div class="collapse" id="produtos">
@@ -52,7 +64,7 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#entradas" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_entradas" data-bs-toggle="collapse" data-bs-target="#entradas" aria-expanded="false">
                                         Entradas
                                     </button>
                                     <div class="collapse" id="entradas">
@@ -64,13 +76,13 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#cupons" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons" data-bs-toggle="collapse" data-bs-target="#cupons" aria-expanded="false">
                                         Cupons
                                     </button>
                                     <div class="collapse" id="cupons">
                                         <ul class="list-unstyled ms-2">
                                             <li class="mb-1">
-                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#cupons_promocionais" aria-expanded="false">
+                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons_promocionais" data-bs-toggle="collapse" data-bs-target="#cupons_promocionais" aria-expanded="false">
                                                     Cupons promocionais
                                                 </button>
                                                 <div class="collapse" id="cupons_promocionais">
@@ -81,7 +93,7 @@
                                                 </div>
                                             </li>
                                             <li class="mb-1">
-                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#cupons_trocas" aria-expanded="false">
+                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons_trocas" data-bs-toggle="collapse" data-bs-target="#cupons_trocas" aria-expanded="false">
                                                     Cupons de troca
                                                 </button>
                                                 <div class="collapse" id="cupons_trocas">
@@ -95,31 +107,31 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#pedidos" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_pedidos" data-bs-toggle="collapse" data-bs-target="#pedidos" aria-expanded="false">
                                         Pedidos
                                     </button>
                                     <div class="collapse" id="pedidos">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/listarPedidos" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidos')} AND ${!#httpServletRequest.requestURI.contains('Trocas')} ? 'active'">Listagem de pedidos</a></li>
+                                            <li><a class="nav-link" href="/admin/listarPedidosCompras" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidosCompras')} AND ${!#httpServletRequest.requestURI.contains('Trocas')} ? 'active'">Listagem de pedidos de compras</a></li>
                                             <li><a class="nav-link" href="/admin/listarPedidosTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidosTrocas')} ? 'active'">Listagem de pedidos de troca</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#logistica" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_logistica" data-bs-toggle="collapse" data-bs-target="#logistica" aria-expanded="false">
                                         Logística
                                     </button>
                                     <div class="collapse" id="logistica">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaPedidos" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaPedidos')} ? 'active'">Logística de pedidos</a></li>
-                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaTrocas')} ? 'active'">Logística de trocas</a></li>
+                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaPedidos" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaPedidos')} ? 'active'">Logística de pedidos de compras</a></li>
+                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaTrocas')} ? 'active'">Logística de pedidos de troca</a></li>
                                         </ul>
                                     </div>
                                 </li>
                                 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#clientes" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_clientes" data-bs-toggle="collapse" data-bs-target="#clientes" aria-expanded="false">
                                         Clientes
                                     </button>
                                     <div class="collapse" id="clientes">
@@ -130,12 +142,24 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" data-bs-toggle="collapse" data-bs-target="#graficos" aria-expanded="false">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_graficos" data-bs-toggle="collapse" data-bs-target="#graficos" aria-expanded="false">
                                         Gráficos
                                     </button>
                                     <div class="collapse" id="graficos">
                                         <ul class="list-unstyled">
                                             <li><a class="nav-link" href="/admin/visualizarVendas" th:classappend="${#httpServletRequest.requestURI.contains('visualizarVendas')} ? 'active'">Gráfico de vendas</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_variaveis" data-bs-toggle="collapse" data-bs-target="#variaveis" aria-expanded="false">
+                                        Configurações
+                                    </button>
+                                    <div class="collapse" id="variaveis">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link disabled" href="/admin/visualizarVendas" th:classappend="${#httpServletRequest.requestURI.contains('visualizarVendas')} ? 'active'">Variáveis</a></li>
+                                            <li><a class="nav-link disabled" href="/admin/visualizarVendas" th:classappend="${#httpServletRequest.requestURI.contains('visualizarVendas')} ? 'active'">Imagens</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -146,7 +170,7 @@
                                     <a class="btn d-inline-flex align-items-center rounded collapsed" href="/admin/listarLogsTransacoes" th:classappend="${#httpServletRequest.requestURI.contains('listarLogsTransacoes')} ? 'active'">
                                         Logs de transações
                                     </a>
-                                </li>                                                               
+                                </li>                                                             
                             </ul>
                         </div>
                     </nav>

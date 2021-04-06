@@ -21,20 +21,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminClientesController 
 {
     @Autowired
-    private ClientesRepository clientes;
+    private ClientesRepository clientesRepository;
 
     @Autowired
-    private UsuariosRepository usuarios;
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
     private UsuariosService usuariosService;
 
     @RequestMapping("/listarClientes")
-    public ModelAndView listagemAlunos(ClientesModel cliente) 
+    public ModelAndView listarClientes(ClientesModel cliente) 
     {
         ModelAndView mv = new ModelAndView("admin/clientes/listarClientes");
 
-        mv.addObject("clientes", clientes.findAll());
+        mv.addObject("clientes", clientesRepository.findAll());
 
         return mv;
     }
@@ -42,7 +42,7 @@ public class AdminClientesController
     @PostMapping("/clientesAtiva")
     public ModelAndView ativacaoCliente(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
     {
-        UsuariosModel usu = usuarios.findOneById(id);
+        UsuariosModel usu = usuariosRepository.findOneById(id);
 
         String[] mensagem;
 
@@ -65,7 +65,7 @@ public class AdminClientesController
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesDados");
 
-        mv.addObject("cliente", clientes.findOneById(id));
+        mv.addObject("cliente", clientesRepository.findOneById(id));
 
         return mv;
     }
@@ -75,7 +75,7 @@ public class AdminClientesController
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesDocumentos");
 
-        mv.addObject("cliente", clientes.findOneById(id));
+        mv.addObject("cliente", clientesRepository.findOneById(id));
 
         return mv;
     }
@@ -85,7 +85,7 @@ public class AdminClientesController
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesTelefones");
 
-        mv.addObject("cliente", clientes.findOneById(id));
+        mv.addObject("cliente", clientesRepository.findOneById(id));
 
         return mv;
     }
@@ -95,7 +95,7 @@ public class AdminClientesController
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesEnderecos");
 
-        mv.addObject("cliente", clientes.findOneById(id));
+        mv.addObject("cliente", clientesRepository.findOneById(id));
 
         return mv;
     }
@@ -105,7 +105,7 @@ public class AdminClientesController
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/infoClienteCartoes");
 
-        mv.addObject("cliente", clientes.findOneById(id));
+        mv.addObject("cliente", clientesRepository.findOneById(id));
 
         return mv;
     }
@@ -115,7 +115,7 @@ public class AdminClientesController
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/infoClientesUsuario");
 
-        mv.addObject("cliente", clientes.findOneById(id));
+        mv.addObject("cliente", clientesRepository.findOneById(id));
 
         return mv;
     }

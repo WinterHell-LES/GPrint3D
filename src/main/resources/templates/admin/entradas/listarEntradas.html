@@ -22,7 +22,7 @@
                     <tr>
                         <th>Nome do produto</th>
                         <th>Fornecedor</th>
-                        <th style="width: 150px;">Preço de custo</th>
+                        <th style="width: 150px;">Valor da nota</th>
                         <th style="width: 100px;">Quantidade</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                     <tr th:each="entrada : ${entradas}">
                         <td th:text="${entrada.produto.prdNome}">Nome do produto</td>
                         <td th:text="${entrada.entFornecedor}">Fornecedor</td>
-                        <td th:text="'R$ ' + ${#numbers.formatDecimal(entrada.entPrecoCusto, 1, 'DEFAULT', 2, 'DEFAULT')}">Preço de custo</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(entrada.entPrecoCusto, 1, 'DEFAULT', 2, 'DEFAULT')}">Valor da nota</td>
                         <td th:text="${entrada.entQuantidade}">Quantidade</td>
                     </tr>
                 </tbody>
@@ -48,7 +48,7 @@
         <!-- Script -->
         <th:block layout:fragment="javascripts">
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.dataTables.js}"></script>
-            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.tableControl.admin.cliente.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.tableControl.v1.js}"></script>
         </th:block>
     </body>
 </html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/drag.and.drop.css}">
+
+        <title>GPrint3D - Admin - Produtos</title>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/dataTables/jquery.dataTables.css}">
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="'Cadastro de categorias - ' + ${produto.prdNome}">Cadastro de categorias</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/listarProdutos" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar uma categoria</button>
+            
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nome da categoria</th>
+                        <th style="width: 100px;">Editar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="categoria : ${categoriasProdutos}">
+                        <td th:text="${categoria.categoria.ctgNome}">Nome da categoria</td>
+                        <td class="py-0 my-0">
+                            <div class="row">
+                                <div class="col-auto mr-auto px-0">
+                                    <form th:action="@{/admin/deleteCategoria}" method="POST">
+                                        <input type="hidden" name="id" th:field="${produto.prdId}">
+                                        <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${categoria.cprId}">
+                                            <i class="bi bi-x fs-4"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar nome da categoria"></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Adicionar nova imagem</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/admin/addCategoria}" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="id" th:field="${produto.prdId}">
+                            <div class="modal-body">
+                                <div class="form-floating">
+                                    <select name="categoriaProduto" class="custom-select form-select" id="categoriaProduto" th:field="${categoriasModel.ctgId}" required>
+                                        <option value="" selected>Categoria</option>
+                                        <option th:each="categoria : ${categorias}" th:value="${categoria.ctgId}" th:text="${categoria.ctgNome}"></option>
+                                    </select>
+                                    <label for="categoriaProduto">Categoria</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Adicionar categoria</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Script -->
+        <th:block layout:fragment="javascripts">
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.dataTables.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.tableControl.v1.js}"></script>
+        </th:block>
+    </body>
+</html>

@@ -105,8 +105,8 @@ CREATE TABLE cupons_trocas (
     cpt_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
     cpt_status          VARCHAR(100) NOT NULL,
     cpt_validade        DATE NOT NULL,
-    cpt_valor       	FLOAT NOT NULL,
-    cpt_saldo       	FLOAT NOT NULL,
+    cpt_valor       	DECIMAL(8,2) NOT NULL,
+    cpt_saldo       	DECIMAL(8,2) NOT NULL,
     cpt_codigo			VARCHAR(20) NOT NULL,
     cpt_cli_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_cpt PRIMARY KEY ( cpt_id )
@@ -118,7 +118,7 @@ DROP TABLE IF EXISTS historicos_cupons_trocas;
 CREATE TABLE historicos_cupons_trocas (
     hct_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
     hct_data	        VARCHAR(100) NOT NULL,
-    hct_saldo       	FLOAT NOT NULL,
+    hct_saldo       	DECIMAL(8,2) NOT NULL,
     hct_cpt_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_hct PRIMARY KEY ( hct_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -184,7 +184,7 @@ CREATE TABLE entradas (
     ent_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
     ent_quantidade		MEDIUMINT NOT NULL,
     ent_fornecedor		VARCHAR(255) NOT NULL,
-    ent_custo			FLOAT NOT NULL,
+    ent_custo			DECIMAL(8,2) NOT NULL,
     ent_data			DATE NOT NULL,
     ent_usu_id			MEDIUMINT NOT NULL,
     ent_prd_id		  	MEDIUMINT NOT NULL,
@@ -267,19 +267,20 @@ CREATE TABLE produtos (
     prd_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
     prd_nome           	VARCHAR(255) NOT NULL,
     prd_descricao      	VARCHAR(255),
-    prd_dim_prd_al  	FLOAT, 
-    prd_dim_prd_la		FLOAT,
-    prd_dim_prd_pr		FLOAT,
-    prd_dim_prd_pe		FLOAT,
-    prd_dim_emb_al		FLOAT,
-    prd_dim_emb_la		FLOAT,
-    prd_dim_emb_pr		FLOAT,
-    prd_dim_emb_pe		FLOAT,
+    prd_dim_prd_al  	DECIMAL(6,2), 
+    prd_dim_prd_la		DECIMAL(6,2),
+    prd_dim_prd_pr		DECIMAL(6,2),
+    prd_dim_prd_pe		DECIMAL(6,2),
+    prd_dim_emb_al		DECIMAL(6,2),
+    prd_dim_emb_la		DECIMAL(6,2),
+    prd_dim_emb_pr		DECIMAL(6,2),
+    prd_dim_emb_pe		DECIMAL(6,2),
     prd_fabricante		VARCHAR(100),
     prd_modelo			VARCHAR(100),
     prd_quantidade     	MEDIUMINT DEFAULT 0,
-    prd_preco          	FLOAT NOT NULL,
+    prd_preco          	DECIMAL(8,2) DEFAULT 0.0,
     prd_ativo			BOOLEAN,
+    prd_prc_id			MEDIUMINT NOT NULL,
     CONSTRAINT pk_prd PRIMARY KEY ( prd_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -308,6 +309,17 @@ CREATE TABLE produtos_justificativas (
     pju_justificativa	VARCHAR(255) NOT NULL,
     pju_data			DATE,
     CONSTRAINT pk_pju PRIMARY KEY ( pju_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS precificacoes;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE precificacoes (
+	prc_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    prc_desp_var		DECIMAL(6,2) NOT NULL,
+    prc_desp_fix		DECIMAL(6,2) NOT NULL,
+    prc_marg_luc		DECIMAL(6,2) NOT NULL,
+    CONSTRAINT pk_prc PRIMARY KEY ( prc_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS saidas;
@@ -461,6 +473,10 @@ ALTER TABLE pedidos_compras_produtos
 ALTER TABLE pedidos_compras_produtos
     ADD CONSTRAINT fk_ppd_ped_2 FOREIGN KEY ( ppd_prd_id )
         REFERENCES produtos ( prd_id );
+        
+ALTER TABLE produtos
+    ADD CONSTRAINT fk_prd_prc FOREIGN KEY ( prd_prc_id )
+        REFERENCES precificacoes ( prc_id );
 
 ALTER TABLE produtos_carrinhos
     ADD CONSTRAINT fk_pcr_car_1 FOREIGN KEY ( pcr_car_id )

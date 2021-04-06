@@ -22,15 +22,15 @@ public class CarrinhosModel
     @Column(name = "car_id", insertable = false, updatable = false)
     private Integer carId;
 
-    @OneToMany(mappedBy = "carrinho")
-    private List<PrdCarrinhosModel> listProdutos;
-
     @OneToOne
     @JoinColumn(name = "car_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
     
     @Column(name = "car_cli_temp")
     private String temporaryCliId;
+
+    @OneToMany(mappedBy = "carrinho")
+    private List<PrdCarrinhosModel> listProdutos;
 
     public CarrinhosModel() 
     {

@@ -9,7 +9,7 @@
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/product.css}">
 
-        <title>GPrint3D - Home</title>
+        <title th:text="'GPrint3D - ' + ${produto.prdNome}">GPrint3D</title>
     </head>
 
     <body>
@@ -17,16 +17,8 @@
             <div class="container mb-5 border shadow">
                 <div class="row border-bottom">
                     <div class="col-1 d-grid gap-3 py-4">
-                        <!-- <img src="/images/Teste.png" id="img-zoom" class="img-thumbnail selectable active-thumbnail mt-3" alt="..." onclick="activate(this)">
-                        <img src="/images/Teste.png" class="img-thumbnail selectable" alt="..." onclick="activate(this)">
-                        <img src="/images/Teste.png" class="img-thumbnail selectable" alt="..." onclick="activate(this)">
-                        <img src="/images/Teste.png" class="img-thumbnail selectable" alt="..." onclick="activate(this)">
-                        <img src="/images/Teste.png" class="img-thumbnail selectable mb-3" alt="..." onclick="activate(this)"> -->
-                        
-                        <!-- <div class="mt-3"></div> -->
                         <img th:if="${produto.listFotos.size == 0}" src="/images/Teste.png" class="img-thumbnail selectable active-thumbnail mb-3">
-                        <img class="img-thumbnail selectable" id="img-zoom" th:each="foto, stat : ${produto.listFotos}" th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}" th:classappend="${stat.first} ? 'active-thumbnail'" th:alt="${produto.prdNome}" onclick="activate(this)">
-                        <!-- <div class="mb-3"></div> -->
+                        <img class="img-thumbnail selectable" th:each="foto, stat : ${produto.listFotos}" th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}" th:classappend="${stat.first} ? 'active-thumbnail'" th:alt="${produto.prdNome}" th:attr="id=${stat.first} ? 'img-zoom'" onclick="activate(this)">
                     </div>
                     <div class="col-8 d-flex align-items-center justify-content-center my-3">
                         <img id="imageZoom" src="/images/Teste.png" class="img-fluid mx-auto" alt="..." style="width: 40hw; height: 40vh;">
@@ -41,10 +33,18 @@
                         </div>
                         <i class="bi bi-truck mb-1"></i><span> Calcule o frete:</span>
                         <div class="d-flex flex-row justify-content-center gap-3 mb-3 mt-1">
-                            <input type="text" class="form-control px-1 cep" id="CEP" minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px; text-align: center;">
-                            <button type="button" class="btn border shadow-sm">Calcular</button>
+                            <input type="text" class="form-control px-1 cep" id="cep" name="cep" minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px; text-align: center;">
+                            <button type="button" class="btn border shadow-sm" onclick="calcularFrete()">Calcular</button>
                         </div>
-                        <p class="fs-8 mb-1 mt-3">Quantidade em estoque: X itens.</p>
+
+                        <div id="loadFrete" class="w-100 text-center py-3 d-none">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <div id="dispFrete" class="border-top border-bottom p-2 d-none">
+                        </div>
+                        <p class="fs-8 mb-1 mt-3" th:text="'Quantidade em estoque: ' + ${produto.prdQuantidade} + ' itens'">Quantidade em estoque: X itens.</p>
                         <div class="row px-3 mb-2 mt-1 text-center">
                             <form th:action="@{/carrinho/incluirNoCarrinho}" method="POST" class="px-0">
                                 <input type="hidden" th:value="${#httpServletRequest.requestURI}" name="url">
@@ -142,6 +142,15 @@
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/product.js}"></script>
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var id = /*[[${produto.prdId}]]*/ 'id';
+                /*]]>*/
+            </script>
+
+            <script type="text/javascript" th:src="@{/javascripts/correios.js}"></script>
+
             <!--<script>imageZoom("img-zoom", "myresult");</script>-->
         </th:block>
     </body>

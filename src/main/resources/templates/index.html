@@ -12,10 +12,6 @@
     <body>
         <section layout:fragment="conteudo">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                </ol>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="https://uploads.filipeflop.com/2020/12/slider-banner-desktop-min-4.jpg" class="d-block w-100" alt="...">
@@ -25,14 +21,14 @@
                     </div>
                 </div>
                 
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                <button class="carousel-control-prev bg-transparent border-0" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Anterior</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next bg-transparent border-0" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Próximo</span>
-                </a>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
 
             <div class="container my-5" th:each="categoria : ${categorias}" th:if="${categoria.getVerifCategoria()}">

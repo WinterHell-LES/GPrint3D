@@ -1,30 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">	
+<html lang="pt-br"
+    layout:decorate="~{layout/default/layout}">	
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-        <!-- CSS -->
-        <link rel="stylesheet" th:href="@{/stylesheets/login.css}">
         
         <title>Login</title>
+
+        <!-- <link rel="stylesheet" th:href="@{/stylesheets/login.css}"> -->
     </head>
 
-    <body class="text-center">
-        <form class="form-signin" th:action=@{/login} method="POST">
-            <div class="shadow-lg p-3 mb-5 bg-white rounded">
-                <div class="alert alert-danger" role="alert" th:if="${#bools.isTrue(param.error)}">
-                    Usuário e/ou senha inválido(s)
-                </div>
-                <p class="h1 mb-4">Login</p>
-                <label for="inputUsuario" class="sr-only">Usuário</label>
-                <input type="text" id="inputUsuario" class="form-control" name="username" placeholder="Usuário" required autofocus>
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-center p-6">
+                <form class="form-signin text-center" th:action=@{/login} method="POST">
+                    <div class="shadow-lg p-3 mb-5 bg-white rounded" style="min-width: 400px;">
+                        <div class="alert alert-danger" role="alert" th:if="${#bools.isTrue(param.error)}">
+                            Usuário e/ou senha inválido(s)
+                        </div>
+                        <p class="h1 mb-4">Login</p>
 
-                <label for="inputPassword" class="sr-only">Senha</label>
-                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Senha" required>
+                        <div class="form-floating my-3">
+                            <input type="text" id="inputUsuario" class="form-control" name="username" placeholder="E-mail" required autofocus/>
+                            <label for="inputUsuario">E-mail</label>
+                        </div>
 
-                <button class="btn btn-lg btn-dark btn-block" type="submit">Entrar</button>
+                        <div class="form-floating my-3">
+                            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Senha" required/>
+                            <label for="inputPassword">Senha</label>
+                        </div>
+
+                        <button class="btn btn-lg btn-dark btn-block my-3" type="submit">Entrar</button>
+
+                        <div class="text-center border-top my-2 pt-3"><a class="col pt-1" href="/cadastro/cadastroDadosPessoais">Não tem conta? Clique aqui e crie uma!</a></div>
+                    </div>
+                </form>
             </div>
-        </form>
+        </section>
     </body>
 </html>

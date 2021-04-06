@@ -416,6 +416,8 @@ public class CartCliController
 
     private CarrinhosModel localizarCarrinho(UsuariosModel usuario, String valorCookie)
     {
+        carrinhoRepository.flush();
+
         CarrinhosModel carrinho = new CarrinhosModel();
 
         if (usuario != null)

@@ -5,12 +5,7 @@ $(document).ready(function()
         paging:   true,
         ordering: true,
         info:     true,
-
-        columnDefs: [
-        { 
-            targets: [2, 3, 4, 5],
-            orderable: false
-        }],
+        stateSave:true,
 
         language: 
         {

@@ -8,7 +8,7 @@
 
         <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/drag.and.drop.css}">
 
-        <title>GPrint3D - Admin - Produtos</title>
+        <title>GPrint3D - Admin - Entradas</title>
     </head>
 
     <body>
@@ -50,8 +50,8 @@
                         </div>
                         <div class="col pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Preço de custo" id="precoCusto" th:field="*{entPrecoCusto}" required/>
-                                <label for="precoCusto">Preço de custo</label>
+                                <input type="text" class="form-control" placeholder="Valor da nota" id="precoCusto" th:field="*{entPrecoCusto}" required/>
+                                <label for="precoCusto">Valor da nota</label>
                             </div>
                         </div>
                     </div>
@@ -68,10 +68,5 @@
                 </div>
             </form>
         </section>
-
-        <!-- Script -->
-        <th:block layout:fragment="javascripts">
-            <script type="text/javascript" th:src="@{/javascripts/drag.and.drop.js}"></script>
-        </th:block>
     </body>
 </html>

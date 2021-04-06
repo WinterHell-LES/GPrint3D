@@ -5,7 +5,6 @@ import java.security.Principal;
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.EntradasModel;
-import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
 import com.project.GPrint3D.repository.EntradasRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
@@ -24,13 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminEntrController 
 {
     @Autowired
-    private CategoriasRepository categorias;
+    private CategoriasRepository categoriasRepository;
 
     @Autowired
-    private EntradasRepository entradas;
+    private EntradasRepository entradasRepository;
 
     @Autowired
-    private UsuariosRepository usuarios;
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
     private EntradasService entradasService;
@@ -40,7 +39,7 @@ public class AdminEntrController
     {
         ModelAndView mv = new ModelAndView("/admin/entradas/listarEntradas");
 
-        mv.addObject("entradas", entradas.findAll());
+        mv.addObject("entradas", entradasRepository.findAll());
 
         return mv;
     }
@@ -50,7 +49,7 @@ public class AdminEntrController
     {
         ModelAndView mv = new ModelAndView("/admin/entradas/cadastrarEntradas");
 
-        mv.addObject("categorias", categorias.findAll());
+        mv.addObject("categorias", categoriasRepository.findAll());
 
         return mv;
     }
@@ -62,7 +61,7 @@ public class AdminEntrController
             return cadastrarEntradas(entrada);
         }
 
-        entrada.setUsuario(usuarios.findByEmail(principal.getName()));
+        entrada.setUsuario(usuariosRepository.findByEmail(principal.getName()));
 
         String[] mensagem = entradasService.cadastrar(entrada);
   

@@ -22,7 +22,7 @@ public class CarrinhosService
 
         try 
         {
-            carrinhos.save(carrinho);
+            carrinhos.saveAndFlush(carrinho);
 
             response[0] = msg1;
             response[1] = "Carrinho cadastrado com sucesso!";
@@ -50,7 +50,7 @@ public class CarrinhosService
 
         try 
         {
-            carrinhos.save(carrinho);
+            carrinhos.saveAndFlush(carrinho);
 
             response[0] = msg1;
             response[1] = "Cadastro de carrinho alterado com sucesso!";
@@ -74,7 +74,7 @@ public class CarrinhosService
         try 
         {
             carrinhos.deleteById(id);
-
+            
             response[0] = msg1;
             response[1] = "Cadastro de carrinho deletado com sucesso!";
         }

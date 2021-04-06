@@ -22,10 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminCuponsProController 
 {
     @Autowired
-    private CategoriasRepository categorias;
+    private CategoriasRepository categoriasRepository;
 
     @Autowired
-    private CuponsPromocoesRepository cuponsPromocoes;
+    private CuponsPromocoesRepository cuponsPromocoesRepository;
 
     @Autowired
     private CuponsPromocoesService cuponsPromocoesService;
@@ -35,7 +35,7 @@ public class AdminCuponsProController
     {
         ModelAndView mv = new ModelAndView("/admin/cupons/promocionais/listarCuponsPromocionais");
 
-        mv.addObject("cupons", cuponsPromocoes.findAll());
+        mv.addObject("cupons", cuponsPromocoesRepository.findAll());
 
         return mv;
     }
@@ -45,7 +45,7 @@ public class AdminCuponsProController
     {
         ModelAndView mv = new ModelAndView("/admin/cupons/promocionais/cadastrarCuponsPromocionais");
 
-        mv.addObject("categorias", categorias.findAll());
+        mv.addObject("categorias", categoriasRepository.findAll());
 
         return mv;
     }
@@ -73,8 +73,8 @@ public class AdminCuponsProController
     {
         ModelAndView mv = new ModelAndView("/admin/cupons/promocionais/alterarCuponsPromocionais");
 
-        mv.addObject("cupom", cuponsPromocoes.findOneById(id));
-        mv.addObject("categorias", categorias.findAll());
+        mv.addObject("cupom", cuponsPromocoesRepository.findOneById(id));
+        mv.addObject("categorias", categoriasRepository.findAll());
 
         return mv;
     }

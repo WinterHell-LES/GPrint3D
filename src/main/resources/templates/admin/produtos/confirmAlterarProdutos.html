@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/drag.and.drop.css}">
+
+        <title>GPrint3D - Admin - Produtos</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Confirmar alteração de preço</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/listarProdutos" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+
+            <div class="h4 my-4" th:text="${produto.prdNome}"></div>
+
+            <form th:action="@{/admin/alterarProdutoConfirm}" method="POST">
+                <input type="hidden" name="prdId" th:field="${produto.prdId}">
+                <input type="hidden" name="prdNome" th:field="${produto.prdNome}">
+                <input type="hidden" name="prdDescricao" th:field="${produto.prdDescricao}">
+                <input type="hidden" name="prdDimPrdAl" th:field="${produto.prdDimPrdAl}">
+                <input type="hidden" name="prdDimPrdLa" th:field="${produto.prdDimPrdLa}">
+                <input type="hidden" name="prdDimPrdPr" th:field="${produto.prdDimPrdPr}">
+                <input type="hidden" name="prdDimPrdPe" th:field="${produto.prdDimPrdPe}">
+                <input type="hidden" name="prdDimEmbAl" th:field="${produto.prdDimEmbAl}">
+                <input type="hidden" name="prdDimEmbLa" th:field="${produto.prdDimEmbLa}">
+                <input type="hidden" name="prdDimEmbPr" th:field="${produto.prdDimEmbPr}">
+                <input type="hidden" name="prdDimEmbPe" th:field="${produto.prdDimEmbPe}">
+                <input type="hidden" name="prdFabricante" th:field="${produto.prdFabricante}">
+                <input type="hidden" name="prdModelo" th:field="${produto.prdModelo}">
+                <input type="hidden" name="prdQuantidade" th:field="${produto.prdQuantidade}">
+                <input type="hidden" name="prdPreco" th:field="${produto.prdPreco}">
+                <input type="hidden" name="prdAtivo" th:field="${produto.prdAtivo}">
+                <input type="hidden" name="precificacao" th:field="${produto.precificacao}">
+
+                <div class="row pb-3 pe-0">
+                    <div class="row pb-3 pe-0">
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <input type="password" class="form-control" placeholder="Senha" id="password" name="password" required/>
+                                <label for="password">Senha do administrador</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pe-0 pb-3">
+                    <div class="row pe-0">
+                        <div class="col-sm pe-0">
+                            <div class="text-end">
+                                <button type="submit" class="btn border shadow-sm">Confirmar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

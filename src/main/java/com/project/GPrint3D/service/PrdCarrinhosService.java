@@ -22,7 +22,7 @@ public class PrdCarrinhosService
 
         try 
         {
-            prdCarrinhos.save(prdCarrinho);
+            prdCarrinhos.saveAndFlush(prdCarrinho);
 
             response[0] = msg1;
             response[1] = "Produto do carrinho cadastrado com sucesso!";
@@ -50,7 +50,7 @@ public class PrdCarrinhosService
 
         try 
         {
-            prdCarrinhos.save(prdCarrinho);
+            prdCarrinhos.saveAndFlush(prdCarrinho);
 
             response[0] = msg1;
             response[1] = "Cadastro do produto do carrinho alterado com sucesso!";

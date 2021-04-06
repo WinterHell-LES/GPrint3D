@@ -3,12 +3,17 @@ package com.project.GPrint3D.model;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -69,6 +74,10 @@ public class ProdutosModel
     @Column(name = "prd_ativo")
     private boolean prdAtivo;
 
+    @ManyToOne
+    @JoinColumn(name = "prd_prc_id", referencedColumnName = "prc_id")
+    private PrecificacoesModel precificacao;
+
     @OneToMany(mappedBy = "produto")
     private List<EntradasModel> listEntradas;
 
@@ -84,7 +93,7 @@ public class ProdutosModel
     @OneToMany(mappedBy = "produto")
     private List<CategoriasProdutosModel> listCategoriasProdutos;
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "produto", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<FotosModel> listFotos;
 
     public ProdutosModel() 
@@ -290,6 +299,16 @@ public class ProdutosModel
     public void setPrdAtivo(boolean prdAtivo) 
     {
         this.prdAtivo = prdAtivo;
+    }
+
+    public PrecificacoesModel getPrecificacao() 
+    {
+        return this.precificacao;
+    }
+
+    public void setPrecificacao(PrecificacoesModel precificacao) 
+    {
+        this.precificacao = precificacao;
     }
 
     public List<EntradasModel> getListEntradas() 

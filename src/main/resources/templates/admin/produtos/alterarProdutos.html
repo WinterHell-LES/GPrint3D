@@ -42,29 +42,29 @@
                     <div class="row pb-3 pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Altura do produto" id="alturaProduto" th:field="${produto.prdDimPrdAl}" required/>
-                                <label for="alturaProduto">Altura</label>
+                                <input type="text" class="form-control" placeholder="Altura do produto (mm)" id="alturaProduto" th:field="${produto.prdDimPrdAl}" required/>
+                                <label for="alturaProduto">Altura (mm)</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Largura do produto" id="larguraProduto" th:field="${produto.prdDimPrdLa}" required/>
-                                <label for="larguraProduto">Largura</label>
+                                <input type="text" class="form-control" placeholder="Largura do produto (mm)" id="larguraProduto" th:field="${produto.prdDimPrdLa}" required/>
+                                <label for="larguraProduto">Largura (mm)</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Profundidade do produto" id="profundidadeProduto" th:field="${produto.prdDimPrdPr}" required/>
-                                <label for="profundidadeProduto">Profundidade</label>
+                                <input type="text" class="form-control" placeholder="Profundidade do produto (mm)" id="profundidadeProduto" th:field="${produto.prdDimPrdPr}" required/>
+                                <label for="profundidadeProduto">Profundidade (mm)</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Peso do produto" id="pesoProduto" th:field="${produto.prdDimPrdPe}" required/>
-                                <label for="pesoProduto">Peso</label>
+                                <input type="text" class="form-control" placeholder="Peso do produto (mm)" id="pesoProduto" th:field="${produto.prdDimPrdPe}" required/>
+                                <label for="pesoProduto">Peso (Kg)</label>
                             </div>
                         </div>
                     </div>
@@ -75,29 +75,29 @@
                     <div class="row pb-3 pe-0">
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Altura da embalagem" id="alturaEmbalagem" th:field="${produto.prdDimEmbAl}" required/>
-                                <label for="alturaEmbalagem">Altura</label>
+                                <input type="text" class="form-control" placeholder="Altura da embalagem (mm)" id="alturaEmbalagem" th:field="${produto.prdDimEmbAl}" required/>
+                                <label for="alturaEmbalagem">Altura (mm)</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Largura da embalagem" id="larguraEmbalagem" th:field="${produto.prdDimEmbLa}" required/>
-                                <label for="larguraEmbalagem">Largura</label>
+                                <input type="text" class="form-control" placeholder="Largura da embalagem (mm)" id="larguraEmbalagem" th:field="${produto.prdDimEmbLa}" required/>
+                                <label for="larguraEmbalagem">Largura (mm)</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Profundidade da embalagem" id="profundidadeEmbalagem" th:field="${produto.prdDimEmbPr}" required/>
-                                <label for="profundidadeEmbalagem">Profundidade</label>
+                                <input type="text" class="form-control" placeholder="Profundidade da embalagem (mm)" id="profundidadeEmbalagem" th:field="${produto.prdDimEmbPr}" required/>
+                                <label for="profundidadeEmbalagem">Profundidade (mm)</label>
                             </div>
                         </div>
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Peso da embalagem" id="pesoEmbalagem" th:field="${produto.prdDimEmbPe}" required/>
-                                <label for="pesoEmbalagem">Peso</label>
+                                <input type="text" class="form-control" placeholder="Peso da embalagem (Kg)" id="pesoEmbalagem" th:field="${produto.prdDimEmbPe}" required/>
+                                <label for="pesoEmbalagem">Peso (Kg)</label>
                             </div>
                         </div>
                     </div>
@@ -111,16 +111,6 @@
                         </div>
                     </div>
                     <div class="row pe-0">
-                        <div class="col-sm pe-0">
-                            <div class="form-floating" th:each="listCategorias, stat : ${produto.listCategoriasProdutos}">
-                                <select name="bandeiraCartao" class="custom-select form-select" id="bandeiraCartao" th:field="${produto.listCategoriasProdutos[__${stat.index}__].categoria.ctgId}" required>
-                                    <option value="" selected>Categoria</option>
-                                    <option th:each="categoria : ${categorias}" th:value="${categoria.ctgId}" th:text="${categoria.ctgNome}"></option>
-                                </select>
-                                <label for="bandeiraCartao">Categoria</label>
-                            </div>
-                        </div>
-
                         <div class="col-sm pe-0">
                             <div class="form-floating">
                                 <input type="text" class="form-control" placeholder="Modelo" id="modelo" th:field="${produto.prdModelo}" required/>
@@ -137,8 +127,18 @@
 
                         <div class="col-sm pe-0">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Preço do produto" id="precoProduto" th:field="${produto.prdPreco}" required/>
-                                <label for="precoProduto">Preço</label>
+                                <input type="text" class="form-control" placeholder="Preço do produto (R$)" id="precoProduto" th:field="${produto.prdPreco}" required/>
+                                <label for="precoProduto">Preço (R$)</label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm pe-0">
+                            <div class="form-floating">
+                                <select name="precificacaoSelec" class="custom-select form-select" id="precificacaoSelec" th:field="${produto.precificacao}" required>
+                                    <option value="" selected>Precificações</option>
+                                    <option th:each="precificacao : ${precificacoes}" th:value="${precificacao.prcId}" th:text="${precificacao.getNome()}"></option>
+                                </select>
+                                <label for="precificacaoSelec">Precificações</label>
                             </div>
                         </div>
                     </div>

@@ -1,14 +1,17 @@
 $(document).ready(function() 
 {
-    var table = $('table.display').DataTable(
+    var numCollumn = $('#example thead th').last().index();
+
+    var table = $('#example').DataTable(
     {
         paging:   true,
         ordering: true,
         info:     true,
+        stateSave:true,
 
         columnDefs: [
         { 
-            targets: [1, 2, 3, 4, 5],
+            targets: numCollumn,
             orderable: false
         }],
 

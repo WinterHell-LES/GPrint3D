@@ -12,14 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminCuponsTrcController 
 {
     @Autowired
-    private CuponsTrocasRepository cuponsTrocas;
+    private CuponsTrocasRepository cuponsTrocasRepository;
 
     @RequestMapping("cupons/listarCuponsTrocas")
     public ModelAndView listarCuponsTrocas()
     {
         ModelAndView mv = new ModelAndView("/admin/cupons/trocas/listarCuponsTrocas");
 
-        mv.addObject("cupons", cuponsTrocas.findAll());
+        mv.addObject("cupons", cuponsTrocasRepository.findAll());
 
         return mv;
     }

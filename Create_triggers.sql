@@ -12,6 +12,8 @@ DELIMITER $$
 DROP TRIGGER IF EXISTS tg_saida_produto; $$
 CREATE TRIGGER tg_saida_produto BEFORE INSERT ON saidas FOR EACH ROW
 BEGIN
+	DECLARE prd_qnt		DECIMAL(6,2);
+    
 	IF prd_quantidade < NEW.sai_quantidade THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'QUANTIDADE DE PRODUTOS INSUFICIENTE';
     ELSE
@@ -21,8 +23,28 @@ BEGIN
         
 		UPDATE produtos SET prd_quantidade = prd_quantidade - prd_quantidade WHERE prd_id = NEW.sai_prd_id;
     END IF;
+    
+    SELECT prd_quantidade INTO prd_qnt FROM produtos WHERE prd_id = NEW.sai_prd_id;
+    
+    IF prd_qnt <= 0 THEN
+		UPDATE produtos SET prd_ativo = '0' WHERE prd_id = NEW.sai_prd_id;
+    END IF;
 END; $$
 
+-- Controle de precificações
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_produto_precificacao; $$
+CREATE TRIGGER tg_produto_precificacao AFTER INSERT ON entradas FOR EACH ROW
+BEGIN
+	DECLARE id_prc, desp_var, desp_fix, marg_luc	DECIMAL(6,2);
+	
+    SELECT prd_prc_id INTO id_prc FROM produtos WHERE prd_id = NEW.ent_prd_id;
+	SELECT prc_desp_var INTO desp_var FROM precificacoes WHERE prc_id = id_prc; 
+    SELECT prc_desp_fix INTO desp_fix FROM precificacoes WHERE prc_id = id_prc;
+    SELECT prc_marg_luc INTO marg_luc FROM precificacoes WHERE prc_id = id_prc;
+	
+	UPDATE produtos SET prd_preco = (NEW.ent_custo / NEW.ent_quantidade) / ((100 - desp_var - desp_fix - marg_luc) / 100) WHERE prd_id = NEW.ent_prd_id;
+END; $$
 
 -- Controle de logs
 -- INSERT

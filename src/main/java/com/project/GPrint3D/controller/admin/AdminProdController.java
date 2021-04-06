@@ -5,14 +5,20 @@ import java.sql.Date;
 
 import javax.validation.Valid;
 
+import com.project.GPrint3D.configuration.SecurityConfig;
 import com.project.GPrint3D.model.CategoriasModel;
 import com.project.GPrint3D.model.CategoriasProdutosModel;
+import com.project.GPrint3D.model.EntradasModel;
 import com.project.GPrint3D.model.FotosModel;
 import com.project.GPrint3D.model.ProdutosJustificativasModel;
 import com.project.GPrint3D.model.ProdutosModel;
+import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
+import com.project.GPrint3D.repository.EntradasRepository;
+import com.project.GPrint3D.repository.PrecificacoesRepository;
 import com.project.GPrint3D.repository.ProdutosJustificativasRepository;
 import com.project.GPrint3D.repository.ProdutosRepository;
+import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.CategoriasProdutosService;
 import com.project.GPrint3D.service.FotosService;
 import com.project.GPrint3D.service.ProdutosJustificativasService;
@@ -36,13 +42,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminProdController 
 {
     @Autowired
-    private ProdutosRepository produtos;
+    private ProdutosRepository produtosRepository;
 
     @Autowired
-    private CategoriasRepository categorias;
+    private CategoriasRepository categoriasRepository;
+
+    @Autowired
+    private PrecificacoesRepository precificacoesRepository;
+
+    @Autowired
+    private EntradasRepository entradasRepository;
+
+    @Autowired
+    private UsuariosRepository usuariosRepository;
     
     @Autowired
-    private ProdutosJustificativasRepository produtosJustificativas;
+    private ProdutosJustificativasRepository produtosJustificativasRepository;
 
     @Autowired
     private ProdutosService produtosService;
@@ -56,12 +71,15 @@ public class AdminProdController
     @Autowired
     private FotosService fotosService;
 
+    @Autowired
+    private SecurityConfig securityConfig;
+
     @RequestMapping("listarProdutos")
     public ModelAndView listagemProdutos(ProdutosModel produto)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/listarProdutos");
 
-        mv.addObject("produtos", produtos.findAll());
+        mv.addObject("produtos", produtosRepository.findAll());
 
         return mv;
     }
@@ -71,7 +89,8 @@ public class AdminProdController
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarProdutos");
 
-        mv.addObject("categorias", categorias.findAll());
+        mv.addObject("precificacoes", precificacoesRepository.findAll());
+        mv.addObject("categorias", categoriasRepository.findAll());
 
         return mv;
     }
@@ -85,8 +104,8 @@ public class AdminProdController
 
         produtosService.cadastrar(produto);
 
-        ProdutosModel prod = produtos.findOneByNome(produto.getPrdNome());
-        CategoriasModel ctg = categorias.findOneById(ctgId);
+        ProdutosModel prod = produtosRepository.findOneByNome(produto.getPrdNome());
+        CategoriasModel ctg = categoriasRepository.findOneById(ctgId);
         
         CategoriasProdutosModel ctgPrd = new CategoriasProdutosModel();
 
@@ -115,14 +134,49 @@ public class AdminProdController
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/alterarProdutos");
 
-        mv.addObject("produto", produtos.findOneById(id));
-        mv.addObject("categorias", categorias.findAll());
+        mv.addObject("produto", produtosRepository.findOneById(id));
+        mv.addObject("categorias", categoriasRepository.findAll());
+        mv.addObject("precificacoes", precificacoesRepository.findAll());
 
         return mv;
     }
     @PostMapping("/alterarProduto")
     public ModelAndView alterarProduto(@Valid ProdutosModel produto, RedirectAttributes attributes)
     {
+        EntradasModel ent = entradasRepository.findByProduto(produto.getPrdId());
+
+        if (produto.getPrdPreco() < ((ent.getEntPrecoCusto() / ent.getEntQuantidade()) * (1 - (produto.getPrecificacao().getPrcMargLuc() / 100))))
+        {
+            return alterarProdutoML(produto);
+        }
+
+        String[] mensagem = produtosService.atualizar(produto);
+  
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+
+        return new ModelAndView("redirect:/admin/listarProdutos");
+    }
+    public ModelAndView alterarProdutoML(ProdutosModel produto)
+    {
+        ModelAndView mv = new ModelAndView("/admin/produtos/confirmAlterarProdutos");
+
+        mv.addObject("produto", produto);
+
+        return mv;
+    }
+    @PostMapping("/alterarProdutoConfirm")
+    public ModelAndView alterarProdutoConfirm(@RequestParam(name = "password") String senha, @Valid ProdutosModel produto, RedirectAttributes attributes)
+    {
+        UsuariosModel usu = usuariosRepository.findByEmail("admin@gprint3d.com");
+
+        if (!securityConfig.passwordEncoder().matches(senha, usu.getUsuSenha()))
+        {
+            System.out.println(senha);
+            System.out.println(usu.getUsuSenha());
+            System.out.println(securityConfig.passwordEncoder().encode(senha));
+            return alterarProdutoML(produto);
+        }
+
         String[] mensagem = produtosService.atualizar(produto);
   
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
@@ -135,7 +189,7 @@ public class AdminProdController
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/justificarProdutos");
 
-        ProdutosModel prd = produtos.findOneById(id);
+        ProdutosModel prd = produtosRepository.findOneById(id);
         String titulo = "";
         String botao = "";
 
@@ -159,7 +213,7 @@ public class AdminProdController
     @PostMapping("/ativaProdutos")
     public ModelAndView ativaProdutos(@RequestParam(name = "id") Integer id, @Valid ProdutosJustificativasModel produtosJustificativa, RedirectAttributes attributes)
     {
-        ProdutosModel prd = produtos.findOneById(id);
+        ProdutosModel prd = produtosRepository.findOneById(id);
         
         produtosJustificativa.setPjuProduto(prd.getPrdNome());
 
@@ -195,7 +249,7 @@ public class AdminProdController
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/justificativasProdutos");
 
-        mv.addObject("justificativas", produtosJustificativas.findAll());
+        mv.addObject("justificativas", produtosJustificativasRepository.findAll());
 
         return mv;
     }
@@ -205,7 +259,7 @@ public class AdminProdController
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarFotos");
 
-        ProdutosModel prd = produtos.findOneById(id);
+        ProdutosModel prd = produtosRepository.findOneById(id);
 
         mv.addObject("produto", prd);
         mv.addObject("fotos", prd.getListFotos());
@@ -213,17 +267,22 @@ public class AdminProdController
         return mv;
     }
     @PostMapping("addFotos")
-    public ModelAndView addFotos(@RequestParam("foto") MultipartFile multipartFile, @Valid ProdutosModel produto, BindingResult result, RedirectAttributes attributes) throws IOException
+    public ModelAndView addFotos(@RequestParam("foto") MultipartFile[] multipartFile, @Valid ProdutosModel produto, BindingResult result, RedirectAttributes attributes) throws IOException
     {
-        String fotoNome = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        String[] mensagem = new String[2];
 
-        FotosModel foto = new FotosModel();
-        foto.setFtoNome(fotoNome);
-        foto.setFtoContent(multipartFile.getBytes());
-        foto.setFtoData(new Date(new java.util.Date().getTime()));
-        foto.setProduto(produto);
+        for (MultipartFile aux : multipartFile)
+        {
+            String fotoNome = StringUtils.cleanPath(aux.getOriginalFilename());
 
-        String[] mensagem = fotosService.cadastrar(foto);
+            FotosModel foto = new FotosModel();
+            foto.setFtoNome(fotoNome);
+            foto.setFtoContent(aux.getBytes());
+            foto.setFtoData(new Date(new java.util.Date().getTime()));
+            foto.setProduto(produto);
+
+            mensagem = fotosService.cadastrar(foto);
+        }
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -237,5 +296,41 @@ public class AdminProdController
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastroFotos/" + produto.getPrdId());
+    }
+
+    @GetMapping("cadastroCategorias/{id}")
+    public ModelAndView cadastroCategorias(@PathVariable(value = "id") Integer id, CategoriasProdutosModel categoriaProduto)
+    {
+        ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarCategorias");
+
+        ProdutosModel prd = produtosRepository.findOneById(id);
+
+        mv.addObject("produto", prd);
+        mv.addObject("categoriasProdutos", prd.getListCategoriasProdutos());
+        mv.addObject("categorias", categoriasRepository.findAll());
+
+        return mv;
+    }
+    @PostMapping("addCategoria")
+    public ModelAndView addCategoria(@Valid CategoriasModel categoria, @Valid ProdutosModel produto, BindingResult result, RedirectAttributes attributes) throws IOException
+    {
+        CategoriasProdutosModel cpr = new CategoriasProdutosModel();
+        cpr.setCategoria(categoria);
+        cpr.setProduto(produto);
+
+        String[] mensagem = categoriasProdutosService.cadastrar(cpr);
+
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+
+        return new ModelAndView("redirect:/admin/cadastroCategorias/" + produto.getPrdId());
+    }
+    @PostMapping("deleteCategoria")
+    public ModelAndView deleteCategoria(@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto, RedirectAttributes attributes)
+    {
+        String[] mensagem = categoriasProdutosService.excluir(id);
+  
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+
+        return new ModelAndView("redirect:/admin/cadastroCategorias/" + produto.getPrdId());
     }
 }

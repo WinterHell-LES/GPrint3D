@@ -47,13 +47,15 @@ public class PrdCarrinhosModel
         super();
 
         this.pcrId = 0;
+        this.pcrQuantidade = 0;
     }
 
-    public PrdCarrinhosModel(Integer pcrId) 
+    public PrdCarrinhosModel(Integer pcrId, Integer pcrQuantidade) 
     {
         super( );
 
         this.pcrId = pcrId;
+        this.pcrQuantidade = pcrQuantidade;
     }
 
     public Integer getPcrId() 

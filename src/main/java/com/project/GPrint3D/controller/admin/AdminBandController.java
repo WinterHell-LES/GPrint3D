@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminBandController 
 {
     @Autowired
-    private BandeirasRepository bandeiras;
+    private BandeirasRepository bandeirasRepository;
 
     @Autowired
     private BandeirasService bandeirasService;
@@ -30,7 +30,7 @@ public class AdminBandController
     {
         ModelAndView mv = new ModelAndView("/admin/bandeiras/listarBandeiras");
 
-        mv.addObject("bandeiras", bandeiras.findAll());
+        mv.addObject("bandeiras", bandeirasRepository.findAll());
 
         return mv;
     }
@@ -60,7 +60,7 @@ public class AdminBandController
     @PostMapping("/ativaBandeiras")
     public ModelAndView ativacaoBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
     {
-        BandeirasModel band = bandeiras.findOneById(id);
+        BandeirasModel band = bandeirasRepository.findOneById(id);
 
         String[] mensagem = bandeirasService.ativar(!band.getBanAtivo(), id); 
 

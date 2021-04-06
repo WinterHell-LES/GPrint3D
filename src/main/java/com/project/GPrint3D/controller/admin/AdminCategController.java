@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminCategController 
 {
     @Autowired
-    private CategoriasRepository categorias;
+    private CategoriasRepository categoriasRepository;
 
     @Autowired 
     private CategoriasService categoriasService;
@@ -30,7 +30,7 @@ public class AdminCategController
     {
         ModelAndView mv = new ModelAndView("/admin/categorias/listarCategorias");
 
-        mv.addObject("categorias", categorias.findAll());
+        mv.addObject("categorias", categoriasRepository.findAll());
 
         return mv;
     }
@@ -62,7 +62,7 @@ public class AdminCategController
     {
         ModelAndView mv = new ModelAndView("/admin/categorias/alterarCategorias");
 
-        mv.addObject("categoria", categorias.findOneById(id));
+        mv.addObject("categoria", categoriasRepository.findOneById(id));
 
         return mv;
     }
@@ -79,7 +79,7 @@ public class AdminCategController
     @PostMapping("/ativaCategorias")
     public ModelAndView ativacaoBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
     {
-        CategoriasModel ctg = categorias.findOneById(id);
+        CategoriasModel ctg = categoriasRepository.findOneById(id);
 
         String[] mensagem = categoriasService.ativar(!ctg.getCtgAtivo(), id);   
 

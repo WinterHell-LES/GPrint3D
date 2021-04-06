@@ -84,13 +84,12 @@ function imageZoom(imgID, resultID)
 function activate(element)
 {
   var img = document.getElementById("img-zoom");
+  var zoom = document.getElementById("imageZoom");
+  zoom.src = element.src;
 
   img.removeAttribute("id");
   img.classList.remove("active-thumbnail");
 
   element.setAttribute("id", "img-zoom");
   element.classList.add("active-thumbnail");
-
-  var zoom = document.getElementById("imageZoom");
-  zoom.src = img.src;
 }

@@ -33,7 +33,7 @@
                         </div>
                         <i class="bi bi-truck mb-1"></i><span> Calcule o frete:</span>
                         <div class="d-flex flex-row justify-content-center gap-3 mb-3 mt-1">
-                            <input type="text" class="form-control px-1 cep" id="cep" name="cep" minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px; text-align: center;">
+                            <input type="text" class="form-control text-center px-1 cep" id="cep" name="cep" minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px;">
                             <button type="button" class="btn border shadow-sm" onclick="calcularFrete()">Calcular</button>
                         </div>
 
@@ -48,7 +48,7 @@
                         <div class="row px-3 mb-2 mt-1 text-center">
                             <form th:action="@{/carrinho/incluirNoCarrinho}" method="POST" class="px-0">
                                 <input type="hidden" th:value="${#httpServletRequest.requestURI}" name="url">
-                                <button type="submit" name="id" th:value="${produto.prdId}" class="btn border shadow-sm" style="width: 100%">Adicionar ao carrinho</button>
+                                <button type="submit" name="id" th:value="${produto.prdId}" class="btn border shadow-sm w-100">Adicionar ao carrinho</button>
                             </form>
                         </div>
                         <div class="row px-3 my-2">

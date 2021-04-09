@@ -4,7 +4,7 @@
             <div class="row my-3">
                 <div class="col">
                     <div class="text-end">
-                        <a th:href="'/cliente/cadastrarCartao/' + ${cliente.cliId}" class="text-reset"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
+                        <a th:href="'/cliente/cadastrarCartao/' + ${cliente.cliId}" class="text-reset" id="novoCartao"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
                     </div>
                 </div>
             </div>
@@ -30,10 +30,12 @@
                                     <a th:href="'/cliente/alterarCartao/' + ${cartao.crtId}" style="color: black;"><i class="bi bi-pencil-square" style="cursor: pointer;"></i></a>
                                 </form>
                             </div>
-                            <div class="row pt-2" th:if="${#httpServletRequest.requestURI.contains('carrinho')}">
-                                <div class="col d-flex flex-column text-center">
-                                    <a href="#" class="btn border shadow-sm">Selecionar</a>
-                                </div>
+                        </div>
+                        <div class="row pt-2" th:if="${#httpServletRequest.requestURI.contains('carrinho')}">
+                            <div class="col d-flex flex-column text-center">
+                                <form th:action="@{/cliente/carrinho/inlcuiCartao}" method="POST">
+                                    <button class="btn border shadow-sm w-100" name="id" th:value="${cartao.crtId}">Incluir</button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -73,12 +73,15 @@
                                     <h5 th:text="${produto.produto.prdNome}">Produto 1</h5>
                                 </div>
                                 <div class="col-2 d-flex flex-column justify-content-center border-end">
-                                    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="input-group">
+                                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                        <div class="input-group justify-content-center">
                                             <form th:action="@{/carrinho/diminuirProduto}" method="POST" class="px-0">
                                                 <button class="input-group-text rounded-end-0 border-end" name="id" th:value="${produto.produto.prdId}">-</button>
                                             </form>
-                                            <input type="text" class="form-control px-2" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" th:value="${produto.pcrQuantidade}" style="width: 50px; text-align: center;" readonly/>
+                                            <form th:action="@{/carrinho/atualizarProduto}" method="POST" class="px-0 m-0 w-30">
+                                                <input type="hidden" class="hidden" name="id" th:value="${produto.produto.prdId}"/>
+                                                <input type="text" class="form-control text-center border-start-0 border-end-0 px-2" placeholder="Qtd" name="qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" th:value="${produto.pcrQuantidade}" onfocusout="submit(this)"/>
+                                            </form>
                                             <form th:action="@{/carrinho/aumentarProduto}" method="POST" class="px-0">
                                                 <button class="input-group-text rounded-start-0" name="id" th:value="${produto.produto.prdId}" style="margin-left: 1px !important">+</button>
                                             </form>
@@ -127,7 +130,7 @@
                                 <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="input-group">
                                     <div class="input-group-text " id="btnGroupAddon" style="cursor: none;">-</div>
-                                    <input type="text" class="form-control px-2 disabled" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" value="2" style="width: 50px; text-align: center;">
+                                    <input type="text" class="form-control px-2 w-50 text-center disabled" placeholder="Qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" value="2">
                                     <div class="input-group-text" id="btnGroupAddon" style="cursor: none;">+</div>
                                     </div>
                                 </div>
@@ -146,20 +149,19 @@
                             </div>
                         </div>
                     </div>
-                    -->
-                    
-                </div>
+                </div>-->
 
                 <div class="row mt-2 pt-2">
                     <div class="col-2 d-flex flex-column justify-content-center text-end pe-2">
                         <span>Insira seu CEP:</span>
                     </div>
                     <div class="col-1 px-0">
-                        <input type="text" class="form-control px-1 cep" id="CEP" placeholder="00000-000"  minlength="9" maxlength="9" style="width: 100px; text-align: center;">
+                        <input type="text" class="form-control text-center px-1 w-100 cep" name="cep" id="cep" placeholder="00000-000"  minlength="9" maxlength="9">
                     </div>
                     <div class="col-1">
-                        <button type="submit" class="btn border shadow-sm">Calcular</button>
+                        <button type="submit" class="btn border shadow-sm" onclick="calcularFrete()">Calcular</button>
                     </div>
+
                     <div class="col-2 d-flex flex-column justify-content-center">
                         <a href="http://www.buscacep.correios.com.br/sistemas/buscacep/">Não sei meu cep</a>
                     </div>
@@ -174,15 +176,15 @@
                 </div>
 
                 <div class="row mt-3">
-                    <div class="col-6 border shadow p-3">
-                        <div class="row">
-                            <p class="">Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00</p>
+                    <div class="col-6">
+                        <div id="loadFrete" class="w-100 row border shadow text-center py-3 d-none">
+                            <div class="col text-center">
+                                <div class="text-center spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <p>Correios - SEDEX - Receba em até 07 dia(s) útil(eis). - R$18,00</label>
-                        </div>
-                        <div class="row">
-                            <p>Correios - SEDEX 10 - Receba em até 01 dia(s) útil(eis). - R$25,00</p>
+                        <div id="dispFrete" class="w-100 row border shadow text-center py-3 d-none">
                         </div>
                     </div>
 
@@ -203,6 +205,8 @@
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.min.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/carrinho.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/correios.js}"></script>
         </th:block>
     </body>
 </html>

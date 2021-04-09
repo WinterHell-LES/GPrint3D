@@ -3,14 +3,18 @@ package com.project.GPrint3D.util;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.ProdutosModel;
 
 import org.w3c.dom.Document;
@@ -143,6 +147,64 @@ public class CorreiosUtil
             catch (Exception e) 
             {
                 System.out.println(e);
+            }
+        }
+
+        listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Valor"))));
+
+        return listHash;
+    }
+    
+    public List<HashMap<String, String>> getValorPrazoLista(String cep, List<PrdCarrinhosModel> listaProdutos)
+    {
+        List<HashMap<String, String>> listHash = new ArrayList<>();
+
+        for (PrdCarrinhosModel produtoCarrinho : listaProdutos)
+        {
+            List<HashMap<String, String>> listHashTemp = new ArrayList<>();
+
+            listHashTemp = getValorPrazo(cep, produtoCarrinho.getProduto());
+
+            for (int i = 0; i < listHashTemp.size(); i++)
+            {
+                HashMap<String, String> hashTemp = new HashMap<>();
+
+                hashTemp.put("Nome", listHashTemp.get(i).get("Nome"));
+
+                
+                BigDecimal valorBD = new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(new BigDecimal(produtoCarrinho.getPcrQuantidade())).setScale(2, RoundingMode.HALF_EVEN);
+                String valorS = valorBD.toString().replace(".", ",");
+
+                hashTemp.put("Valor", valorS);
+                hashTemp.put("PrazoEntrega", listHashTemp.get(i).get("PrazoEntrega"));
+
+                if (listHash.size() < listHashTemp.size())
+                {
+                    listHash.add(hashTemp);
+                }else
+                {
+                    HashMap<String, String> hashMergeTemp = new HashMap<>();
+
+                    valorBD = new BigDecimal(listHash.get(i).get("Valor").replace(",", ".")).add(new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(new BigDecimal(produtoCarrinho.getPcrQuantidade()))).setScale(2, RoundingMode.HALF_EVEN);
+                    valorS = valorBD.toString().replace(".", ",");
+
+                    Integer prazoMaior = 0;
+
+                    if (Integer.parseInt(listHashTemp.get(i).get("PrazoEntrega")) >= Integer.parseInt(listHash.get(i).get("PrazoEntrega")))
+                    {
+                        prazoMaior = Integer.parseInt(listHashTemp.get(i).get("PrazoEntrega"));
+                    }
+                    else
+                    {
+                        prazoMaior = Integer.parseInt(listHash.get(i).get("PrazoEntrega"));
+                    }
+
+                    hashMergeTemp.put("Nome", listHash.get(i).get("Nome"));
+                    hashMergeTemp.put("Valor", valorS);
+                    hashMergeTemp.put("PrazoEntrega", prazoMaior.toString());
+
+                    listHash.set(i, hashMergeTemp);
+                }
             }
         }
 

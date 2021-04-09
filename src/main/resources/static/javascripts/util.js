@@ -1,6 +1,5 @@
 function hideElement(selfElement)
 {
-    //let selfElement = document.getElementsByClassName("pedidos")[0];
     let siblingSonElement = selfElement.nextElementSibling.firstElementChild;
     let iconReference = findCaret(selfElement, "up");
 

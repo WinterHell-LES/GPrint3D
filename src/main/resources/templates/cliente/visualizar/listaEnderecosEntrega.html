@@ -4,7 +4,7 @@
             <div class="row my-3">
                 <div class="col">
                     <div class="text-end">
-                        <a th:href="'/cliente/cadastrarEndereco/' + ${cliente.cliId} + '/0'" class="text-reset"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
+                        <a th:href="'/cliente/cadastrarEndereco/' + ${cliente.cliId} + '/0'" class="text-reset" id="novoEnderecoEntrega"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,9 @@
                         
                         <div class="row pt-2" th:if="${#httpServletRequest.requestURI.contains('carrinho')}">
                             <div class="col d-flex flex-column text-center">
-                                <a href="#" class="btn border shadow-sm">Selecionar</a>
+                                <form th:action="@{/cliente/carrinho/alterarEndereco}" method="POST">
+                                    <button class="btn border shadow-sm" name="id" th:value="${endereco.endId}" style="width: 100%;">Selecionar</button>
+                                </form>
                             </div>
                         </div>
                     </div>

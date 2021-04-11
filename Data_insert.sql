@@ -1,9 +1,12 @@
 use crud_gprint3d;
 
---- Admin
--- Usuarios
+-- Admin
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', '1');
+
+-- Variáveis
+insert into sis_variaveis (var_id, var_cep, var_categoria, var_temptroca, var_rank_1, var_rank_2, var_rank_3, var_rank_4)
+values (1, '08745-290', 2, 7, 300, 400, 500, 600);
 
 -- Bandeiras
 insert into bandeiras (ban_nome, ban_ativo)
@@ -531,8 +534,8 @@ insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('cliente1@gprint3d.com', '$2a$10$G6feYQ9OLuVyvic3WUJ/3ebR1jAJOuj2Qaob9elCNIGjMcoi5x8Jq', 'ROLE_CLI', '1');
 
 -- Cliente
-insert into clientes (cli_ranking, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
-values ('0', 'Sérgio Levi', 'Masculino', '1945-09-23', '2');
+insert into clientes (cli_ranking, cli_pontos, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
+values (0, 0, 'Sérgio Levi', 'Masculino', '1945-09-23', '2');
 
 -- Documento
 insert into documentos (doc_tipo, doc_numero, doc_cli_id)
@@ -561,6 +564,26 @@ values ('Sérgio Levi Yuri Melo', '1234 5688 8885 5221', '07/20', '333', '1', '1
 insert into cartoes_padroes (ctp_crt_id, ctp_cli_id)
 values ('1', '1');
 
+-- Pedidos
+insert into pedidos_compras(pdc_numero, pdc_data, pdc_statuspedido, pdc_statuslogistica, pdc_cli_id, pdc_end_id)
+values ('10101010', CURDATE(), 0, 0, 1, 1);
+
+insert into pedidos_compras(pdc_numero, pdc_data, pdc_statuspedido, pdc_statuslogistica, pdc_cli_id, pdc_end_id)
+values ('10101011', CURDATE(), 0, 0, 1, 1);
+
+insert into pedidos_compras_produtos(ppd_quantidade, ppd_pdc_id, ppd_prd_id)
+values (1, 1, 1),
+	   (2, 1, 2),
+	   (3, 1, 3),
+	   (4, 1, 4),
+	   (5, 1, 5),
+	   (6, 1, 6);
+
+insert into pedidos_compras_produtos(ppd_quantidade, ppd_pdc_id, ppd_prd_id)
+values (1, 2, 10),
+	   (2, 2, 11),
+	   (3, 2, 12),
+	   (4, 2, 13);
 
 
 -- Usuario - Cliente 2
@@ -568,8 +591,8 @@ insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('cliente2@gprint3d.com', '$2a$10$G6feYQ9OLuVyvic3WUJ/3ebR1jAJOuj2Qaob9elCNIGjMcoi5x8Jq', 'ROLE_CLI', '1');
 
 -- Cliente
-insert into clientes (cli_ranking, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
-values ('0', 'Cauã Luiz Lima', 'Masculino', '1954-09-21', '3');
+insert into clientes (cli_ranking, cli_pontos, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
+values (0, 0, 'Cauã Luiz Lima', 'Masculino', '1954-09-21', '3');
 
 -- Documento
 insert into documentos (doc_tipo, doc_numero, doc_cli_id)
@@ -604,8 +627,8 @@ insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('cliente3@gprint3d.com', '$2a$10$G6feYQ9OLuVyvic3WUJ/3ebR1jAJOuj2Qaob9elCNIGjMcoi5x8Jq', 'ROLE_CLI', '1');
 
 -- Cliente
-insert into clientes (cli_ranking, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
-values ('0', 'Renato Nicolas Lorenzo Araújo', 'Masculino', '1945-03-20', '4');
+insert into clientes (cli_ranking, cli_pontos, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
+values (0, 0, 'Renato Nicolas Lorenzo Araújo', 'Masculino', '1945-03-20', '4');
 
 -- Documento
 insert into documentos (doc_tipo, doc_numero, doc_cli_id)
@@ -641,8 +664,8 @@ insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('cliente4@gprint3d.com', '$2a$10$G6feYQ9OLuVyvic3WUJ/3ebR1jAJOuj2Qaob9elCNIGjMcoi5x8Jq', 'ROLE_CLI', '1');
 
 -- Cliente
-insert into clientes (cli_ranking, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
-values ('0', 'Theo Heitor Henrique da Paz', 'Masculino', '1975-06-14', '5');
+insert into clientes (cli_ranking, cli_pontos, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
+values (0, 0, 'Theo Heitor Henrique da Paz', 'Masculino', '1975-06-14', '5');
 
 -- Documento
 insert into documentos (doc_tipo, doc_numero, doc_cli_id)
@@ -678,8 +701,8 @@ insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('cliente5@gprint3d.com', '$2a$10$G6feYQ9OLuVyvic3WUJ/3ebR1jAJOuj2Qaob9elCNIGjMcoi5x8Jq', 'ROLE_CLI', '1');
 
 -- Cliente
-insert into clientes (cli_ranking, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
-values ('0', 'Calebe Mateus Daniel Barbosa', 'Feminino', '1955-03-10', '6');
+insert into clientes (cli_ranking, cli_pontos, cli_nome, cli_sexo, cli_dtnasc, cli_usu_id)
+values (0, 0, 'Calebe Mateus Daniel Barbosa', 'Feminino', '1955-03-10', '6');
 
 -- Documento
 insert into documentos (doc_tipo, doc_numero, doc_cli_id)

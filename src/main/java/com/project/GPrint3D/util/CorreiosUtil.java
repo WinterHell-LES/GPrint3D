@@ -35,7 +35,7 @@ public class CorreiosUtil
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-            int responseCode = con.getResponseCode();
+            //int responseCode = con.getResponseCode();
             //System.out.println("Response code: " + responseCode);
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
@@ -73,18 +73,17 @@ public class CorreiosUtil
         return resp;
     }
 
-    public List<HashMap<String, String>> getValorPrazo(String cep, ProdutosModel produto)
+    public List<HashMap<String, String>> getValorPrazo(String cepRemetente, String cepDestinatario, ProdutosModel produto)
     {
         // Código  Serviço
         // 04014   SEDEX à vista
         // 04510   PAC à vista
-        // 04782   SEDEX 12 ( à vista)
+        // 04782   SEDEX 12 (à vista)
         // 04790   SEDEX 10 (à vista)
         // 04804   SEDEX Hoje à vista
 
         List<HashMap<String, String>> listHash = new ArrayList<>();
-        
-        String cepRemetente = "08745290";
+
         String[] formEnvioNome = {"SEDEX", "PAC", "SEDEX 12", "SEDEX 10", "SEDEX Hoje"};
         String[] formEnvioCod = {"04014", "04510", "04782", "04790", "04804"};
 
@@ -96,7 +95,7 @@ public class CorreiosUtil
                                 "?nCdEmpresa=" +
                                 "&sDsSenha=" +
                                 "&sCepOrigem=" + cepRemetente +
-                                "&sCepDestino=" + cep +
+                                "&sCepDestino=" + cepDestinatario +
                                 "&nVlPeso=" + (produto.getPrdDimEmbPe() / 10) +
                                 "&nCdFormato=1" +
                                 "&nVlComprimento=" + (produto.getPrdDimEmbPr() / 10) +
@@ -113,7 +112,7 @@ public class CorreiosUtil
                 URL obj = new URL(url);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                int responseCode = con.getResponseCode();
+                //int responseCode = con.getResponseCode();
                 //System.out.println("Response code: " + responseCode);
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
@@ -138,8 +137,15 @@ public class CorreiosUtil
                     Element err = (Element) errNodes.item(0);
 
                     resp.put("Nome", formEnvioNome[i]);
+                    resp.put("Codigo", err.getElementsByTagName("Codigo").item(0).getTextContent());
                     resp.put("Valor", err.getElementsByTagName("Valor").item(0).getTextContent());
                     resp.put("PrazoEntrega", err.getElementsByTagName("PrazoEntrega").item(0).getTextContent());
+                    resp.put("ValorSemAdicionais", err.getElementsByTagName("ValorSemAdicionais").item(0).getTextContent());
+                    resp.put("ValorMaoPropria", err.getElementsByTagName("ValorMaoPropria").item(0).getTextContent());
+                    resp.put("ValorAvisoRecebimento", err.getElementsByTagName("ValorAvisoRecebimento").item(0).getTextContent());
+                    resp.put("ValorValorDeclarado", err.getElementsByTagName("ValorValorDeclarado").item(0).getTextContent());
+                    resp.put("EntregaDomiciliar", err.getElementsByTagName("EntregaDomiciliar").item(0).getTextContent());
+                    resp.put("EntregaSabado", err.getElementsByTagName("EntregaSabado").item(0).getTextContent());
 
                     listHash.add(resp);
                 }
@@ -155,7 +161,7 @@ public class CorreiosUtil
         return listHash;
     }
     
-    public List<HashMap<String, String>> getValorPrazoLista(String cep, List<PrdCarrinhosModel> listaProdutos)
+    public List<HashMap<String, String>> getValorPrazoLista(String cepRemetente, String cep, List<PrdCarrinhosModel> listaProdutos)
     {
         List<HashMap<String, String>> listHash = new ArrayList<>();
 
@@ -163,7 +169,7 @@ public class CorreiosUtil
         {
             List<HashMap<String, String>> listHashTemp = new ArrayList<>();
 
-            listHashTemp = getValorPrazo(cep, produtoCarrinho.getProduto());
+            listHashTemp = getValorPrazo(cepRemetente, cep, produtoCarrinho.getProduto());
 
             for (int i = 0; i < listHashTemp.size(); i++)
             {

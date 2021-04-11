@@ -1,3 +1,5 @@
+use crud_gprint3d;
+
 -- TRIGGERS
 
 -- Controle de estoque
@@ -44,6 +46,14 @@ BEGIN
     SELECT prc_marg_luc INTO marg_luc FROM precificacoes WHERE prc_id = id_prc;
 	
 	UPDATE produtos SET prd_preco = (NEW.ent_custo / NEW.ent_quantidade) / ((100 - desp_var - desp_fix - marg_luc) / 100) WHERE prd_id = NEW.ent_prd_id;
+END; $$
+
+-- Controle de trocas
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_troca_produto; $$
+CREATE TRIGGER tg_troca_produto AFTER INSERT ON pedidos_trocas FOR EACH ROW
+BEGIN
+	UPDATE pedidos_compras_produtos SET ppd_status = 1 WHERE ppd_id = NEW.pdt_ppd_id;
 END; $$
 
 -- Controle de logs

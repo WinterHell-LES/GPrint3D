@@ -27,11 +27,9 @@ async function validarCEP()
 
 async function buscarFrete()
 {
-    var cep = document.getElementById("cep").value.replace("-", "");
-    
-    var local = checkUrl()
+    var cep = document.getElementById("cep").value.replace("-", ""); 
 
-    switch (local)
+    switch (checkUrl())
     {
         case "produto":
             link = "http://localhost:8080/calcularFrete/" + id + "/" + cep;
@@ -89,15 +87,22 @@ function calcularFrete()
                 buscarFrete().then(json => 
                 {
                     listarFretes(json);
-                    //console.log(json);
-
-                    load.classList.add("d-none");
-                    disp.classList.remove("d-none");
                 }).catch(json =>
                 {
+                    erroFrete("Error 500 - Erro ao calcular o frete");
+                }).then(json =>
+                {
                     load.classList.add("d-none");
+                    disp.classList.remove("d-none");
                 });
             }
+            else
+            {
+                erroFrete("CEP inválido");
+            }
+        }).catch(response =>
+        {
+            erroFrete("Error 500 - Erro ao validar o CEP");
         });
     }
 }
@@ -108,7 +113,7 @@ function listarFretes(json)
     var codigoHTML = "";
     var contador = 0;
 
-    codigoHTML += "<div class=\"container\">";
+    codigoHTML += "<div>";
 
     json.forEach(aux =>
     {
@@ -117,13 +122,23 @@ function listarFretes(json)
             switch (checkUrl())
             {
                 case "produto":
-                case "carrinhoDeslogado":
+                    codigoHTML += "<div class=\"row\">";
+                    codigoHTML += "<div class=\"col\"><small>" + aux.Nome + "</small></div>";
+                    codigoHTML += "<div class=\"col-sm\"><small>R$ " + aux.Valor + "</small></div>";
+                    codigoHTML += "<div class=\"col-sm\"><small>" + aux.PrazoEntrega + " dia(s)</small></div>";
+                    codigoHTML += "</div>";
+                    break;
+
+                    case "carrinhoDeslogado":
                     codigoHTML +=   "<div class=\"row my-1\">" +
                                         "<div class=\"col-lg\">" + 
                                             aux.Nome + 
                                         "</div>" +
                                         "<div class=\"col-sm\">" +
                                             "R$ " + aux.Valor.replace(/\B(?=(\d{3})+(?!\d))/g, ".") +
+                                        "</div>" +
+                                        "<div class=\"col-sm\">" +
+                                            aux.PrazoEntrega + " dia(s)" +
                                         "</div>" +
                                     "</div>";
                     break;
@@ -138,6 +153,9 @@ function listarFretes(json)
                                             "<div class=\"col-sm\">" +
                                                 "R$ " + aux.Valor.replace(/\B(?=(\d{3})+(?!\d))/g, ".") +
                                             "</div>" +
+                                            "<div class=\"col-sm\">" +
+                                                aux.PrazoEntrega + " dia(s)" +
+                                            "</div>" +
                                         "</label>" +
                                     "</div>";
                     break;
@@ -150,14 +168,29 @@ function listarFretes(json)
         }
     });
 
+    codigoHTML += "</div>";
+
+    lista.innerHTML = "";
+
     if (codigoHTML == "")
     {
-        codigoHTML += "<div>Erro ao calcular o frete</div>"
+        erroFrete("Nenhum valor encontrado")
     }
+    else
+    {
+        lista.innerHTML = codigoHTML;
+    }
+}
 
-    codigoHTML += "</div>";
+function erroFrete (erro = "")
+{
+    var load = document.getElementById("loadFrete");
+    var disp = document.getElementById("dispFrete");
     
-    lista.innerHTML = codigoHTML;
+    disp.innerHTML = "<div>Erro ao calcular o frete</div><div>" + erro + "</div>";
+
+    load.classList.add("d-none");
+    disp.classList.remove("d-none");
 }
 
 function checkUrl()

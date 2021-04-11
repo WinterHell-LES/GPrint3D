@@ -3,15 +3,10 @@ package com.project.GPrint3D.controller.produtos;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.plaf.synth.SynthSplitPaneUI;
-import javax.validation.Valid;
-
 import com.project.GPrint3D.model.ProdutosModel;
-import com.project.GPrint3D.repository.CarrinhosRepository;
-import com.project.GPrint3D.repository.ClientesRepository;
+import com.project.GPrint3D.model.VariaveisModel;
 import com.project.GPrint3D.repository.ProdutosRepository;
-import com.project.GPrint3D.repository.UsuariosRepository;
-import com.project.GPrint3D.service.CarrinhosService;
+import com.project.GPrint3D.repository.VariaveisRepository;
 import com.project.GPrint3D.util.CorreiosUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +21,9 @@ public class ProdutoController
 {
     @Autowired
     private ProdutosRepository produtos;
+
+    @Autowired
+    private VariaveisRepository variaveisRepository;
 
     @GetMapping("/c/{categoria}/p/{produto}")
     public ModelAndView listagemProduto(@PathVariable(value = "categoria") String categoria, @PathVariable(value = "produto") String produto)
@@ -84,13 +82,14 @@ public class ProdutoController
     
     @GetMapping("/calcularFrete/{id}/{cep}")
     @ResponseBody
-    public List<HashMap<String, String>> calcularFrete(@PathVariable(value = "id") Integer id, @PathVariable(value = "cep") String cep)
+    public List<HashMap<String, String>> calcularFrete(@PathVariable(value = "id") Integer id, @PathVariable(value = "cep") String cepDestinatario)
     {
         ProdutosModel produto = produtos.findOneById(id);
+        String variavel = variaveisRepository.findOneById(1).getVarCep();
 
         CorreiosUtil calculo = new CorreiosUtil();
 
-        List<HashMap<String, String>> response = calculo.getValorPrazo(cep, produto);
+        List<HashMap<String, String>> response = calculo.getValorPrazo(variavel.replaceAll("-", ""), cepDestinatario, produto);
 
         return response;
     }

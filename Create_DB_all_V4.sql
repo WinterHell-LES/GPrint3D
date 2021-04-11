@@ -77,7 +77,8 @@ DROP TABLE IF EXISTS clientes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE clientes (
     cli_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    cli_ranking			VARCHAR(20) NOT NULL DEFAULT '0',
+    cli_ranking			MEDIUMINT DEFAULT 0,
+    cli_pontos			MEDIUMINT DEFAULT 0,
     cli_nome	       	VARCHAR(255) NOT NULL,
     cli_sexo			VARCHAR(20) NOT NULL,
     cli_dtnasc			DATE NOT NULL,
@@ -210,8 +211,8 @@ CREATE TABLE pedidos_compras (
     pdc_id            	MEDIUMINT NOT NULL AUTO_INCREMENT,
     pdc_numero			VARCHAR(100) NOT NULL,
     pdc_data			DATE NOT NULL,
-    pdc_statuspedido	VARCHAR(50),
-    pdc_statuslogistica	VARCHAR(50),
+    pdc_statuspedido	MEDIUMINT NOT NULL DEFAULT 0,
+    pdc_statuslogistica	MEDIUMINT NOT NULL DEFAULT 0,
     pdc_cli_id   		MEDIUMINT NOT NULL,
     pdc_end_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_pdc PRIMARY KEY ( pdc_id )
@@ -222,10 +223,14 @@ DROP TABLE IF EXISTS pedidos_trocas;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE pedidos_trocas (
     pdt_id            	MEDIUMINT NOT NULL AUTO_INCREMENT,
+    pdt_numero			VARCHAR(100) NOT NULL,
+    pdt_quantidade		MEDIUMINT NOT NULL,
     pdt_data			DATE NOT NULL,
-    pdt_statuspedido	VARCHAR(50),
-    pdt_statuslogistica	VARCHAR(50),
-    pdt_pdc_id  		MEDIUMINT NOT NULL,
+    pdt_statuspedido	MEDIUMINT NOT NULL DEFAULT 0,
+    pdt_statuslogistica	MEDIUMINT NOT NULL DEFAULT 0,
+    pdt_ppd_id  		MEDIUMINT NOT NULL,
+    pdt_pdc_id			MEDIUMINT NOT NULL,
+    pdt_cli_id			MEDIUMINT NOT NULL,
     CONSTRAINT pk_pdt PRIMARY KEY ( pdt_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -235,7 +240,7 @@ DROP TABLE IF EXISTS pedidos_compras_cartoes;
 CREATE TABLE pedidos_compras_cartoes (
 	pct_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
     pct_crt_id  		MEDIUMINT NOT NULL,
-    pct_ped_id  		MEDIUMINT NOT NULL,
+    pct_pdc_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_pct PRIMARY KEY ( pct_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -245,7 +250,7 @@ DROP TABLE IF EXISTS pedidos_compras_cupons_promocoes;
 CREATE TABLE pedidos_compras_cupons_promocoes (
 	pcp_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
     pcp_cpp_id   		MEDIUMINT NOT NULL,
-    pcp_ped_id  		MEDIUMINT NOT NULL,
+    pcp_pdc_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_pcp PRIMARY KEY ( pcp_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -255,7 +260,8 @@ DROP TABLE IF EXISTS pedidos_compras_produtos;
 CREATE TABLE pedidos_compras_produtos (
 	ppd_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
     ppd_quantidade		MEDIUMINT NOT NULL,
-    ppd_ped_id   		MEDIUMINT NOT NULL,
+    ppd_status			MEDIUMINT NOT NULL DEFAULT 0,
+    ppd_pdc_id   		MEDIUMINT NOT NULL,
     ppd_prd_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_ppd PRIMARY KEY ( ppd_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -278,6 +284,7 @@ CREATE TABLE produtos (
     prd_fabricante		VARCHAR(100),
     prd_modelo			VARCHAR(100),
     prd_quantidade     	MEDIUMINT DEFAULT 0,
+    prd_reservado		MEDIUMINT DEFAULT 0,
     prd_preco          	DECIMAL(8,2) DEFAULT 0.0,
     prd_ativo			BOOLEAN,
     prd_prc_id			MEDIUMINT NOT NULL,
@@ -373,6 +380,21 @@ CREATE TABLE log_transacoes (
     CONSTRAINT pk_log PRIMARY KEY ( log_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+DROP TABLE IF EXISTS sis_variaveis;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE sis_variaveis (
+    var_id     			MEDIUMINT NOT NULL AUTO_INCREMENT,
+    var_cep  			VARCHAR(20) NOT NULL,
+    var_categoria		MEDIUMINT NOT NULL DEFAULT 2,
+    var_temptroca		MEDIUMINT NOT NULL,
+    var_rank_1			MEDIUMINT NOT NULL,
+    var_rank_2			MEDIUMINT NOT NULL,
+    var_rank_3			MEDIUMINT NOT NULL,
+    var_rank_4			MEDIUMINT NOT NULL,
+    CONSTRAINT pk_var PRIMARY KEY ( var_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- FOREIGN KEYS
 ALTER TABLE carrinhos
     ADD CONSTRAINT fk_car_cli FOREIGN KEY ( car_cli_id )
@@ -455,6 +477,14 @@ ALTER TABLE pedidos_compras
         REFERENCES enderecos ( end_id );
 
 ALTER TABLE pedidos_trocas
+    ADD CONSTRAINT fk_pdt_ppd FOREIGN KEY ( pdt_ppd_id )
+        REFERENCES pedidos_compras_produtos ( ppd_id );
+        
+ALTER TABLE pedidos_trocas
+    ADD CONSTRAINT fk_pdt_cli FOREIGN KEY ( pdt_cli_id )
+        REFERENCES clientes ( cli_id );
+
+ALTER TABLE pedidos_trocas
     ADD CONSTRAINT fk_pdt_pdc FOREIGN KEY ( pdt_pdc_id )
         REFERENCES pedidos_compras ( pdc_id );
 
@@ -463,15 +493,15 @@ ALTER TABLE pedidos_compras_cupons_promocoes
         REFERENCES cupons_promocoes ( cpp_id );
 
 ALTER TABLE pedidos_compras_cupons_promocoes
-    ADD CONSTRAINT fk_pcp_ped FOREIGN KEY ( pcp_ped_id )
+    ADD CONSTRAINT fk_pcp_pdc FOREIGN KEY ( pcp_pdc_id )
         REFERENCES pedidos_compras ( pdc_id );
 
 ALTER TABLE pedidos_compras_produtos
-    ADD CONSTRAINT fk_ppd_ped_1 FOREIGN KEY ( ppd_ped_id )
+    ADD CONSTRAINT fk_ppd_pdc_1 FOREIGN KEY ( ppd_pdc_id )
         REFERENCES pedidos_compras ( pdc_id );
 
 ALTER TABLE pedidos_compras_produtos
-    ADD CONSTRAINT fk_ppd_ped_2 FOREIGN KEY ( ppd_prd_id )
+    ADD CONSTRAINT fk_ppd_prd_2 FOREIGN KEY ( ppd_prd_id )
         REFERENCES produtos ( prd_id );
         
 ALTER TABLE produtos
@@ -491,7 +521,7 @@ ALTER TABLE pedidos_compras_cartoes
         REFERENCES cartoes ( crt_id );
 
 ALTER TABLE pedidos_compras_cartoes
-    ADD CONSTRAINT fk_pct_crt_2 FOREIGN KEY ( pct_ped_id )
+    ADD CONSTRAINT fk_pct_crt_2 FOREIGN KEY ( pct_pdc_id )
         REFERENCES pedidos_compras ( pdc_id );
         
 ALTER TABLE telefones

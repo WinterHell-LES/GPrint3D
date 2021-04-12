@@ -584,6 +584,10 @@ values (1, 2, 10),
 	   (2, 2, 11),
 	   (3, 2, 12),
 	   (4, 2, 13);
+       
+insert into pedidos_compras_cartoes (pct_valor, pct_crt_id, pct_pdc_id)
+values (72447.90, 1, 1),
+	   (1279.00, 1, 2);
 
 
 -- Usuario - Cliente 2

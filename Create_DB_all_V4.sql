@@ -239,6 +239,7 @@ DROP TABLE IF EXISTS pedidos_compras_cartoes;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE pedidos_compras_cartoes (
 	pct_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
+    pct_valor			DECIMAL(8,2) NOT NULL,
     pct_crt_id  		MEDIUMINT NOT NULL,
     pct_pdc_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_pct PRIMARY KEY ( pct_id )

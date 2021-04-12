@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PEDIDOS_COMPRAS_CARTOES")
@@ -19,6 +20,10 @@ public class PedCartoesModel
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pct_id", insertable = false, updatable = false)
     private Integer pctId;
+
+    @NotNull(message = "Valor é obrigatório")
+    @Column(name = "pct_valor")
+    private double pctValor;
 
     @ManyToOne
     @JoinColumn(name = "pct_crt_id", referencedColumnName = "crt_id")
@@ -33,13 +38,15 @@ public class PedCartoesModel
         super();
 
         this.pctId = 0;
+        this.pctValor = 0.0;
     }
 
-    public PedCartoesModel(Integer pctId) 
+    public PedCartoesModel(Integer pctId, double pctValor) 
     {
         super( );
 
         this.pctId = pctId;
+        this.pctValor = pctValor;
     }
 
     public Integer getPctId() 
@@ -50,6 +57,16 @@ public class PedCartoesModel
     public void setPctId(Integer pctId) 
     {
         this.pctId = pctId;
+    }
+
+    public double getPctValor() 
+    {
+        return this.pctValor;
+    }
+
+    public void setPctValor(double pctValor) 
+    {
+        this.pctValor = pctValor;
     }
 
     public CartoesModel getCartao() 

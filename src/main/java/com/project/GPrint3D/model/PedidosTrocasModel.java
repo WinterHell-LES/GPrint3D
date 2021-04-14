@@ -63,6 +63,9 @@ public class PedidosTrocasModel
     @ManyToOne
     @JoinColumn(name = "pdt_cli_id", referencedColumnName = "cli_id")
     private ClientesModel cliente;
+    
+    @OneToOne(mappedBy = "pedidoTroca")
+    private PedTroFretesModel frete;
 
     public PedidosTrocasModel() 
     {

@@ -71,7 +71,7 @@ function calcularFrete()
     {
         disp.classList.add("d-none");
     }
-
+    
     var cep = document.getElementById("cep").value.replace("-", "");
 
     if (!cep)
@@ -145,8 +145,8 @@ function listarFretes(json)
 
                 case "carrinhoLogado":
                     codigoHTML +=   "<div class=\"form-check\">" +
-                                        "<input class=\"form-check-input\" type=\"radio\" name=\"frete[" + contador + "]\" id=" + aux.Nome.replace(" ", "") + " value=" + aux.Valor.replace(",", ".") + ">" +
-                                        "<label class=\"form-check-label row\" for=" + aux.Nome.replace(" ", "") + ">" +
+                                        "<input class=\"form-check-input\" type=\"radio\" name=\"frete\" id=" + aux.Nome.replace(" ","_") + " value=" + JSON.stringify({'empresa':'correios', 'modalidade': aux.Nome.replace(" ","_"), 'prazo': aux.PrazoEntrega, 'valor': aux.Valor.replace(",", ".")}) + ">" +
+                                        "<label class=\"form-check-label row\" for=" + aux.Nome.replace(" ","_") + ">" +
                                             "<div class=\"col-lg\">" +
                                                 aux.Nome +
                                             "</div>" +
@@ -187,10 +187,12 @@ function erroFrete (erro = "")
     var load = document.getElementById("loadFrete");
     var disp = document.getElementById("dispFrete");
     
-    disp.innerHTML = "<div>Erro ao calcular o frete</div><div>" + erro + "</div>";
+    disp.innerHTML = "<div>Erro ao calcular o frete,</div><div>" + erro + "</div>";
 
     load.classList.add("d-none");
     disp.classList.remove("d-none");
+    disp.classList.add("text-center");
+    disp.classList.add("text-danger");
 }
 
 function checkUrl()

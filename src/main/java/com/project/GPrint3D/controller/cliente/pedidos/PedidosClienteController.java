@@ -13,9 +13,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class PedidosClienteController 
 {
     @RequestMapping("/meusPedidos")
-    public ModelAndView meusPedidos(HttpServletRequest auth, Principal principal)
+    public ModelAndView meusPedidos()
     {
         ModelAndView mv = new ModelAndView("/cliente/Pedidos/meusPedidos");
+
+        return mv;
+    }
+
+    @RequestMapping("/meusPedidos/detalhesPedido")
+    public ModelAndView detalhesPedidos()
+    {
+        ModelAndView mv = new ModelAndView("/cliente/pedidos/detalhesPedido");
 
         return mv;
     }

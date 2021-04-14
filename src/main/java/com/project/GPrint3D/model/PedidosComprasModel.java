@@ -63,6 +63,9 @@ public class PedidosComprasModel
     @OneToMany(mappedBy = "pedidoCompra")
     private List<PedidosTrocasModel> listPedTrocas;
 
+    @OneToOne(mappedBy = "pedidoCompra")
+    private PedComFretesModel frete;
+
     public PedidosComprasModel() 
     {
         super();
@@ -230,6 +233,14 @@ public class PedidosComprasModel
 
         return status;
     } 
+
+    public PedComFretesModel getFrete() {
+        return this.frete;
+    }
+
+    public void setFrete(PedComFretesModel frete) {
+        this.frete = frete;
+    }
 
     @Override
     public boolean equals(Object o) 

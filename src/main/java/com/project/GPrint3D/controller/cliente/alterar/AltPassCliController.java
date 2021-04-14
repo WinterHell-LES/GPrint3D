@@ -65,19 +65,20 @@ public class AltPassCliController
         {
             if (confirmNewPass.equals(newUserPass))
             {
-                System.out.println("Sucesso!");
                 String[] msgDeErro = usuariosService.atualizarPass(Usuario);
 
                 attributes.addFlashAttribute(msgDeErro[0], msgDeErro[1]);
 
                 return new ModelAndView("redirect:/cliente/index");
-            }else{
-                //String msgError = "Senha nova diferente da confirmação de senha, favor digitar corretamente.";
-                System.out.println("Fracasso newConfirm != new!");
             }
-        }else{
+            else
+            {
+                //String msgError = "Senha nova diferente da confirmação de senha, favor digitar corretamente.";
+            }
+        }
+        else
+        {
             //String msgError = "Senha antiga não confere, favor digitar corretamente.";
-            System.out.println("Fracasso oldTyped != realOld!");
         }
 
         return alteracaoSenha(auth, principal);

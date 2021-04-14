@@ -63,7 +63,7 @@
                         <p class="h5">Valor total do pedido</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic">R$ 162,00</span>
+                        <span class="fst-italic text-danger" th:text="'R$ ' + ${#numbers.formatDecimal(totalCarrinho + frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 162,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -87,8 +87,8 @@
                                     <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco * produto.pcrQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" class="border-0">Frete:</th>
-                                    <td colspan="3" class="border-0 text-center">R$ 12,00</td>
+                                    <th scope="row" colspan="3" class="border-0">Frete:</th>
+                                    <td class="border-0 text-center" th:text="'R$ ' + ${#numbers.formatDecimal(frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 12,00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -102,7 +102,7 @@
                         <p class="h5">Cupons</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic">-R$ 30,00</span>
+                        <span class="fst-italic text-success">R$ 0,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -133,7 +133,7 @@
                                 <div class="row fst-italic">
                                     <div class="col">
                                         <i class="bi bi-x-circle d-inline text-danger" style="cursor: pointer;"></i>
-                                        <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$ 30,00</span><span>.</span>
+                                        <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$ 0,00</span><span>.</span>
                                     </div>
                                 </div>
                             </div>
@@ -163,6 +163,9 @@
                     <div class="col pt-3 pb-2">
                         <p class="h5">Pagamento</p>
                     </div>
+                    <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
+                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(totalCartoes, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 162,00</span>
+                    </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-up"></i>
                     </div>
@@ -180,30 +183,35 @@
                                     <th scope="col" class="col-2 text-center">Valor</th>
                                     <th scope="col" class="col-2 text-center">Remover</th>
                                 </tr>
-                                <tr th:each="cartao : ${listaCartoesPagamento}" th:if="!${#lists.isEmpty(listaCartoesPagamento)}">
-                                    <td th:text="${cartao.crtNumero}">1234 1234 1234 1234</td>
-                                    <td th:text="${cartao.crtNome}">José da Silva</td>
-                                    <td th:text="${cartao.bandeira.banNome}">Visa</td>
-                                    <td><input type="text" class="form-control dinheiro text-center p-0" placeholder="R$ 0,00" th:id="valor + ${cartaoStat.index + 1}" data-thousands="." data-decimal="," data-prefix="R$ " onfocusout="pagamentoTotal()"></td>
+                                <tr th:each="pedCartao : ${listaPedCartoes}" th:if="!${#lists.isEmpty(listaPedCartoes)}">
+                                    <td th:text="${pedCartao.cartao.crtNumero}">1234 1234 1234 1234</td>
+                                    <td th:text="${pedCartao.cartao.crtNome}">José da Silva</td>
+                                    <td th:text="${pedCartao.cartao.bandeira.banNome}">Visa</td>
+                                    <td>
+                                        <form th:action="@{/cliente/carrinho/atualizarCartao}" method="POST" class="px-0 m-0">
+                                            <input type="hidden" class="hidden" name="index" th:value="${pedCartaoStat.index}"/>
+                                            <input type="text" class="form-control dinheiro text-center p-0" placeholder="R$ 0,00" name="valor" th:value="'R$ ' + ${#numbers.formatDecimal(pedCartao.pctValor, 1, 'DEFAULT', 2, 'DEFAULT')}" data-thousands="." data-decimal="," data-prefix="R$ " onfocusout="submit(this)">
+                                        </form>
+                                    </td>
                                     <td class="text-center">
                                         <form th:action="@{/cliente/carrinho/removeCartao}" method="POST" class="px-0">
-                                            <button class="bg-transparent border-0" name="index" th:value="${cartaoStat.index}" style="cursor: pointer">
+                                            <button class="bg-transparent border-0" name="index" th:value="${pedCartaoStat.index}" style="cursor: pointer">
                                                 <i class="bi bi-x-square fs-5"></i>
                                             </button>
                                         </form>
                                     </td>
                                 </tr>
-                                <tr th:if="${#lists.isEmpty(listaCartoesPagamento)}">
+                                <tr th:if="${#lists.isEmpty(listaPedCartoes)}">
                                     <td class="text-danger text-center" colspan="12">Você ainda não adicionou nenhum cartão para pagamento do carrinho, escolha um cartão para aparecer aqui.</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row">
+                        <div class="row" th:if="${!(((totalCarrinho + frete.pcfValor) - totalCartoes) &lt; 0.01)}">
                             <div class="col-8 text-end fw-bold">
-                                <p>Total:</p>
+                                <p>Pendente:</p>
                             </div>
                             <div class="col-2 text-center">
-                                <p id="pagamentoTotal">R$ 0,00</p>
+                                <p class="text-danger" th:text="'R$ ' + ${#numbers.formatDecimal((totalCarrinho + frete.pcfValor) - totalCartoes, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</p>
                             </div>
                             <div class="col-3"></div>
                         </div>
@@ -214,10 +222,12 @@
             <div class="container my-4">
                 <div class="row pb-2">
                     <div class="col-7 text-start">
-                        <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm" id="voltar">Voltar</button></a>
+                        <a href="/cliente/carrinho/escolherEndereco"><div type="submit" class="btn border shadow-sm" id="voltar">Voltar</div></a>
                     </div>
                     <div class="col text-end">
-                        <a href="/cliente/carrinho/confirmarPedido"><button type="submit" class="btn border shadow-sm" id="confirmar">Confirmar</button></a>
+                        <form th:action="@{/cliente/carrinho/confirmarPagamento}" method="POST" class="px-0">
+                            <button type="submit" class="btn border shadow-sm" id="confirmar">Confirmar</button>
+                        </form>
                     </div>
                 </div>
             </div>

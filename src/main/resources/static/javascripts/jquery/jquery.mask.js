@@ -11,6 +11,7 @@ $(function($)
     $('.cartao').mask('0000 0000 0000 0000');
     $('.validade').mask('00/00');
     $('.cvv').mask('000');
+    $('.numero').mask('0#');
 
     $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
         console.log('Mask is done!:', cep);

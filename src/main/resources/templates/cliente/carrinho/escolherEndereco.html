@@ -56,75 +56,79 @@
             </div>
 
             <div class="container mb-4">
-                <div class="row">
-                    <div class="col d-flex flex-column justify-content-end border-bottom">
-                        <p class="h5">Endereço de entrega</p>
+            
+                <form class="form-group" th:action="@{/cliente/carrinho/confirmarEndereco}" method="POST">
+                    <div class="row">
+                        <div class="col d-flex flex-column justify-content-end border-bottom">
+                            <p class="h5">Endereço de entrega</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-6">
-                        <table class="table mb-3">
-                            <tbody>
-                                <tr>
-                                    <th scope="row" class="col-3">Descrição:</th>
-                                    <td th:text="${endereco.endDescricao}">Casa</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Endereço:</th>
-                                    <td th:text="${#strings.isEmpty(endereco.endComplemento)} ? ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero} : ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero + ' - ' + endereco.endComplemento}">Rua João das Neves, 123 - Complemento</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Cidade / UF:</th>
-                                    <td th:text="${endereco.endCidade + ' / ' + endereco.endEstado}">Mogi das Cruzes / SP</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">CEP:</th>
-                                    <td th:text="${endereco.endCep}">12345-123</td>
-                                    <input type="hidden" class="visually-hidden cep" name="cep" id="cep" th:value="${endereco.endCep}">
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-6">
-                        <div id="loadFrete"class="row border shadow p-3 m-3 d-none">
-                            <div class="col text-center">
-                                <div class="text-center spinner-border" role="status">
-                                    <span class="visually-hidden">Loading...</span>
+                    <div class="row">
+                        <div class="col-6">
+                            <table class="table mb-3">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="col-3">Descrição:</th>
+                                        <td th:text="${endereco.endDescricao}">Casa</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Endereço:</th>
+                                        <td th:text="${#strings.isEmpty(endereco.endComplemento)} ? ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero} : ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero + ' - ' + endereco.endComplemento}">Rua João das Neves, 123 - Complemento</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Cidade / UF:</th>
+                                        <td th:text="${endereco.endCidade + ' / ' + endereco.endEstado}">Mogi das Cruzes / SP</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">CEP:</th>
+                                        <td th:text="${endereco.endCep}">12345-123</td>
+                                        <input type="hidden" class="visually-hidden cep" name="cep" id="cep" th:value="${endereco.endCep}">
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-6">
+                            <div id="loadFrete"class="row border shadow p-3 m-3 d-none">
+                                <div class="col text-center">
+                                    <div class="text-center spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
                                 </div>
+                                <!--<div class="form-check pb-2">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00
+                                    </label>
+                                </div>
+                                <div class="form-check pb-2">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Correios - SEDEX - Receba em até 07 dia(s) útil(eis). - R$18,00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                    Correios - SEDEX 10 - Receba em até 01 dia(s) útil(eis). - R$25,00
+                                    </label>
+                                </div>-->
                             </div>
-                            <!--<div class="form-check pb-2">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                <label class="form-check-label" for="flexRadioDefault1">
-                                    Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00
-                                </label>
+                            <div id="dispFrete" class="border shadow p-3 m-3 d-none">
                             </div>
-                            <div class="form-check pb-2">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" >
-                                <label class="form-check-label" for="flexRadioDefault2">
-                                    Correios - SEDEX - Receba em até 07 dia(s) útil(eis). - R$18,00
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                <label class="form-check-label" for="flexRadioDefault3">
-                                Correios - SEDEX 10 - Receba em até 01 dia(s) útil(eis). - R$25,00
-                                </label>
-                            </div>-->
-                        </div>
-                        <div id="dispFrete" class="border shadow p-3 m-3 d-none">
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-6 text-start pb-2">
-                        <a href="/carrinho/meuCarrinho" style="text-decoration: none;"><button type="submit" class="btn border shadow-sm d-inline" id="voltar">Voltar</button></a>
+                    <div class="row">
+                        <div class="col-6 text-start pb-2">
+                            <a href="/carrinho/meuCarrinho" style="text-decoration: none;"><div type="submit" class="btn border shadow-sm d-inline" id="voltar">Voltar</div></a>
+                        </div>
+                        
+                        <div class="col-6 text-end pb-2">
+                            <button type="submit" class="btn border shadow-sm d-inline" id="confirmar">Confirmar</button>
+                        </div>
                     </div>
-                    <div class="col-6 text-end pb-2">
-                        <a href="/cliente/carrinho/escolherPagamento"  style="text-decoration: none;"><button type="submit" class="btn border shadow-sm d-inline" id="confirmar">Confirmar</button></a>
-                    </div>
-                </div>
+                </form>
             </div>
 
             <div class="container border shadow my-4">
@@ -149,6 +153,7 @@
             <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/carrinho.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/correios.js}"></script>
+
             <script type="text/javascript" th:inline="javascript">
                 window.addEventListener('load', function ()
                 {

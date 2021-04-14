@@ -1,5 +1,6 @@
 package com.project.GPrint3D.util;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project.GPrint3D.model.CarrinhosModel;
+import com.project.GPrint3D.model.PedCartoesModel;
+import com.project.GPrint3D.model.PedProdutosModel;
+import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.CarrinhosRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.CarrinhosService;
+import com.project.GPrint3D.service.PedProdutosService;
 import com.project.GPrint3D.service.PrdCarrinhosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +32,9 @@ public class CarrinhoUtil
 
     @Autowired
     private PrdCarrinhosService prdCarrinhosService;
+
+    @Autowired
+    private PedProdutosService pedProdutosService;
 
     @Autowired
     private UsuariosRepository usuarios;
@@ -174,7 +182,7 @@ public class CarrinhoUtil
         carrinhoService.cadastrar(carrinho);
     }
 
-    public CarrinhosModel carrinhoAtivo (Principal principal, String valorCookie, String JSESSIONID, HttpServletResponse response)
+    public CarrinhosModel carrinhoAtivo(Principal principal, String valorCookie, String JSESSIONID, HttpServletResponse response)
     {
         /**
          * Busca o carrinho ativo pelo usuario logado e em caso negativo busca pelo cookie do cliente
@@ -230,7 +238,7 @@ public class CarrinhoUtil
         return date;
     }
 
-    public double valorTotalCarrinho (CarrinhosModel carrinho)
+    public double valorTotalCarrinho(CarrinhosModel carrinho)
     {
         Double total = 0D;
 
@@ -244,7 +252,9 @@ public class CarrinhoUtil
         //Tenta atualizar o produto na listagem, se conseguir finalizar o método.
         for(int i = 0; i < carrinhoProdutos.size(); i++)
         {
-            total += carrinhoProdutos.get(i).getPcrQuantidade() * carrinhoProdutos.get(i).getProduto().getPrdPreco();
+            BigDecimal calculoBD = new BigDecimal(carrinhoProdutos.get(i).getPcrQuantidade()).multiply(new BigDecimal(carrinhoProdutos.get(i).getProduto().getPrdPreco()));
+            BigDecimal totalBD = new BigDecimal(total).add(calculoBD);
+            total =  totalBD.doubleValue();
         }
 
         return total;
@@ -296,7 +306,7 @@ public class CarrinhoUtil
         return carrinho;
     }
 
-    public CarrinhosModel mesclarCarrinhos (CarrinhosModel carrinhoLogado, CarrinhosModel carrinhoCookie)
+    public CarrinhosModel mesclarCarrinhos(CarrinhosModel carrinhoLogado, CarrinhosModel carrinhoCookie)
     {
         for (PrdCarrinhosModel produto : carrinhoCookie.getListProdutos())
         {
@@ -330,5 +340,46 @@ public class CarrinhoUtil
         }
 
         return carrinhoProdutoAux;
+    }
+
+    public double valorTotalCartoes(List<PedCartoesModel> listaPedCartoes)
+    {
+        Double total = 0D;
+
+        if (listaPedCartoes.size() == 0 || listaPedCartoes == null)
+        {
+            return total;
+        }
+
+        for (PedCartoesModel pedCartoes : listaPedCartoes)
+        {
+            BigDecimal totalBD = new BigDecimal(total).add(new BigDecimal(pedCartoes.getPctValor()));
+            total = totalBD.doubleValue();
+        }
+
+        return total;
+    }
+
+    public boolean converterProdutosCarrinhoParaPedidos(CarrinhosModel carrinho, PedidosComprasModel pedidoCompra)
+    {
+        List<PrdCarrinhosModel> listaProdutosCarrinho = carrinho.getListProdutos();
+
+        if (listaProdutosCarrinho == null || pedidoCompra == null)
+        {
+            return false;
+        }
+        
+        for (PrdCarrinhosModel carProduto : listaProdutosCarrinho)
+        {
+            PedProdutosModel pedProduto = new PedProdutosModel();
+
+            pedProduto.setProduto(carProduto.getProduto());
+            pedProduto.setPpdQuantidade(carProduto.getPcrQuantidade());
+            pedProduto.setPedidoCompra(pedidoCompra);
+
+            pedProdutosService.cadastrar(pedProduto);
+        }
+
+        return true;
     }
 }

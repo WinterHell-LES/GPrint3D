@@ -80,7 +80,7 @@
                                             </form>
                                             <form th:action="@{/carrinho/atualizarProduto}" method="POST" class="px-0 m-0 w-30">
                                                 <input type="hidden" class="hidden" name="id" th:value="${produto.produto.prdId}"/>
-                                                <input type="text" class="form-control text-center border-start-0 border-end-0 px-2" placeholder="Qtd" name="qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" th:value="${produto.pcrQuantidade}" onfocusout="submit(this)"/>
+                                                <input type="text" class="form-control text-center border-start-0 border-end-0 px-2 numero" placeholder="Qtd" name="qtd" aria-label="Qtd" aria-describedby="btnGroupAddon" th:value="${produto.pcrQuantidade}" onfocusout="submit(this)"/>
                                             </form>
                                             <form th:action="@{/carrinho/aumentarProduto}" method="POST" class="px-0">
                                                 <button class="input-group-text rounded-start-0" name="id" th:value="${produto.produto.prdId}" style="margin-left: 1px !important">+</button>

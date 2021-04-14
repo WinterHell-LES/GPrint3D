@@ -177,8 +177,7 @@ public class CorreiosUtil
 
                 hashTemp.put("Nome", listHashTemp.get(i).get("Nome"));
 
-                
-                BigDecimal valorBD = new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(new BigDecimal(produtoCarrinho.getPcrQuantidade())).setScale(2, RoundingMode.HALF_EVEN);
+                BigDecimal valorBD = new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(BigDecimal.valueOf(produtoCarrinho.getPcrQuantidade())).setScale(2, RoundingMode.HALF_EVEN);
                 String valorS = valorBD.toString().replace(".", ",");
 
                 hashTemp.put("Valor", valorS);
@@ -191,7 +190,7 @@ public class CorreiosUtil
                 {
                     HashMap<String, String> hashMergeTemp = new HashMap<>();
 
-                    valorBD = new BigDecimal(listHash.get(i).get("Valor").replace(",", ".")).add(new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(new BigDecimal(produtoCarrinho.getPcrQuantidade()))).setScale(2, RoundingMode.HALF_EVEN);
+                    valorBD = new BigDecimal(listHash.get(i).get("Valor").replace(",", ".")).add(new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(BigDecimal.valueOf(produtoCarrinho.getPcrQuantidade()))).setScale(2, RoundingMode.HALF_EVEN);
                     valorS = valorBD.toString().replace(".", ",");
 
                     Integer prazoMaior = 0;

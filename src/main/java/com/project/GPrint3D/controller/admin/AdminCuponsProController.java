@@ -6,7 +6,7 @@ import com.project.GPrint3D.model.CuponsPromocoesModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
 import com.project.GPrint3D.repository.CuponsPromocoesRepository;
 import com.project.GPrint3D.service.CuponsPromocoesService;
-import com.project.GPrint3D.util.CuponsUtil;
+import com.project.GPrint3D.util.GeradorCodigoUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +57,7 @@ public class AdminCuponsProController
             return cadastrarCuponsPromocionais(cuponsPromocao);
         }
 
-        CuponsUtil codigo = new CuponsUtil();
+        GeradorCodigoUtil codigo = new GeradorCodigoUtil();
 
         cuponsPromocao.setCppCodigo(codigo.getGerarCodigoPromocional());
 

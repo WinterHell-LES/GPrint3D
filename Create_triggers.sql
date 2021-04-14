@@ -185,6 +185,20 @@ BEGIN
 END; $$
 
 DELIMITER $$
+DROP TRIGGER IF EXISTS tg_ins_pedidos_compras_fretes_log; $$
+CREATE TRIGGER tg_ins_pedidos_compras_fretes_log AFTER INSERT ON pedidos_compras_fretes FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_fretes', NEW.pcf_id);
+END; $$
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_ins_pedidos_trocas_fretes_log; $$
+CREATE TRIGGER tg_ins_pedidos_trocas_fretes_log AFTER INSERT ON pedidos_trocas_fretes FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_fretes', NEW.ptf_id);
+END; $$
+
+DELIMITER $$
 DROP TRIGGER IF EXISTS tg_ins_pedidos_compras_cartoes_log; $$
 CREATE TRIGGER tg_ins_pedidos_compras_cartoes_log AFTER INSERT ON pedidos_compras_cartoes FOR EACH ROW
 BEGIN
@@ -369,6 +383,20 @@ BEGIN
 END; $$
 
 DELIMITER $$
+DROP TRIGGER IF EXISTS tg_upd_pedidos_compras_fretes_log; $$
+CREATE TRIGGER tg_upd_pedidos_compras_fretes_log AFTER UPDATE ON pedidos_compras_fretes FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_fretes', NEW.pcf_id);
+END; $$
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_upd_pedidos_trocas_fretes_log; $$
+CREATE TRIGGER tg_upd_pedidos_trocas_fretes_log AFTER UPDATE ON pedidos_trocas_fretes FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_fretes', NEW.ptf_id);
+END; $$
+
+DELIMITER $$
 DROP TRIGGER IF EXISTS tg_upd_pedidos_compras_cartoes_log; $$
 CREATE TRIGGER tg_upd_pedidos_compras_cartoes_log AFTER UPDATE ON pedidos_compras_cartoes FOR EACH ROW
 BEGIN
@@ -549,6 +577,20 @@ DROP TRIGGER IF EXISTS tg_del_pedidos_trocas_log; $$
 CREATE TRIGGER tg_del_pedidos_trocas_log AFTER DELETE ON pedidos_trocas FOR EACH ROW
 BEGIN
 	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'DELETE', 'Linha excluida', 'pedidos', OLD.pdt_id);
+END; $$
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_del_pedidos_compras_fretes_log; $$
+CREATE TRIGGER tg_del_pedidos_compras_fretes_log AFTER DELETE ON pedidos_compras_fretes FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_fretes', OLD.pcf_id);
+END; $$
+
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_del_pedidos_trocas_fretes_log; $$
+CREATE TRIGGER tg_del_pedidos_trocas_fretes_log AFTER DELETE ON pedidos_trocas_fretes FOR EACH ROW
+BEGIN
+	INSERT INTO log_transacoes (log_data, log_acao, log_descricao, log_tabela, log_dado) VALUES (CURDATE(), 'INSERT', 'Nova linha criada', 'pedidos_fretes', OLD.ptf_id);
 END; $$
 
 DELIMITER $$

@@ -117,7 +117,7 @@ public class CadClienteController
 
         //Atribui os valores padrões
         usuario.setUsuRegra("ROLE_CLI");
-        cliente.setCliRanking("0");
+        cliente.setCliRanking(0);
 
         //Atribui as informações do html às variaveis
         clientesMod = cliente;

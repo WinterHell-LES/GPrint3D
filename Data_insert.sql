@@ -1,6 +1,6 @@
 use crud_gprint3d;
 
--- Admin
+-- Admin senha admin
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', '1');
 
@@ -528,7 +528,7 @@ values 	(10, 'Creality', '9499.50', CURDATE(), 1, 1), -- Impressoras
         (10, 'Creality 3D', '499.50', CURDATE(), 1, 53),
         (10, 'Creality 3D', '499.50', CURDATE(), 1, 54);
 
--- Clientes
+-- Clientes senha cliente cvv 123
 -- Usuario - Cliente 1
 insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('cliente1@gprint3d.com', '$2a$10$G6feYQ9OLuVyvic3WUJ/3ebR1jAJOuj2Qaob9elCNIGjMcoi5x8Jq', 'ROLE_CLI', '1');
@@ -547,9 +547,9 @@ values ('1', '0', 'Casa', 'Rua', 'General Osório', '683', '79904-596', null, 'P
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
 values ('0', '1', 'Mãe', 'Rua', 'General Osório', '683', '79904-596', null, 'Ponta Porãs', 'MS', 'Brasil', null, '1');
 
-insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
-values ('1', '1');
 insert into enderecos_entregas_padroes (eep_end_id, eep_cli_id)
+values ('1', '1');
+insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
 values ('2', '1');
 
 -- Telefones
@@ -558,7 +558,7 @@ values ('Comercial', '(67)', '3697-5899', '1');
 
 -- Cartao
 insert into cartoes(crt_nome, crt_numero, crt_validade, crt_cvv, crt_ban_id, crt_cli_id)
-values ('Sérgio Levi Yuri Melo', '1234 5688 8885 5221', '07/20', '333', '1', '1');
+values ('Sérgio Levi Yuri Melo', '1234 5688 8885 5221', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '1', '1');
 
 -- Cartao Padrao
 insert into cartoes_padroes (ctp_crt_id, ctp_cli_id)
@@ -608,9 +608,9 @@ values ('1', '0', 'Casa', 'Rua', 'Manoel Miguel Alves Filho', '905', '81940-500'
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
 values ('0', '1', 'Mãe', 'Rua', 'Manoel Miguel Alves Filho', '905', '81940-500', null, 'Curitiba', 'PR', 'Brasil', null, '2');
 
-insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
-values ('3', '2');
 insert into enderecos_entregas_padroes (eep_end_id, eep_cli_id)
+values ('3', '2');
+insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
 values ('4', '2');
 
 -- Telefones
@@ -619,7 +619,7 @@ values ('Celular', '(41)', '98721-1324', '2');
 
 -- Cartao
 insert into cartoes (crt_nome, crt_numero, crt_validade, crt_cvv, crt_ban_id, crt_cli_id)
-values ('Cauã Luiz Lima', '1234 5688 8885 5221', '07/20', '333', '1', '2');
+values ('Cauã Luiz Lima', '1234 5688 8885 5221', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '1', '2');
 
 -- Cartao Padrao
 insert into cartoes_padroes (ctp_crt_id, ctp_cli_id)
@@ -644,9 +644,9 @@ values ('1', '0', 'Casa', 'Rua', 'Treze', '906', '78053-733', null, 'Cuiabá', '
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
 values ('0', '1', 'Mãe', 'Rua', 'Treze', '906', '78053-733', null, 'Cuiabá', 'MG', 'Brasil', null, '3');
 
-insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
-values ('5', '3');
 insert into enderecos_entregas_padroes (eep_end_id, eep_cli_id)
+values ('5', '3');
+insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
 values ('6', '3');
 
 -- Telefones
@@ -655,7 +655,7 @@ values ('Comercial', '(65)', '36706873', '3');
 
 -- Cartao
 insert into cartoes (crt_nome, crt_numero, crt_validade, crt_cvv, crt_ban_id, crt_cli_id)
-values ('Renato Nicolas Lorenzo Araújo', '1234 5688 8885 5221', '07/20', '333', '1', '3');
+values ('Renato Nicolas Lorenzo Araújo', '1234 5688 8885 5221', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '1', '3');
 
 -- Cartao Padrao
 insert into cartoes_padroes (ctp_crt_id, ctp_cli_id)
@@ -681,9 +681,9 @@ values ('1', '0', 'Casa', 'Rua', 'Guaçuí', '810', '29177-280', null, 'Serra', 
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
 values ('0', '1', 'Mãe', 'Rua', 'Guaçuí', '810', '29177-280', null, 'Serra', 'ES', 'Brasil', null, '4');
 
-insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
-values ('7', '4');
 insert into enderecos_entregas_padroes (eep_end_id, eep_cli_id)
+values ('7', '4');
+insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
 values ('8', '4');
 
 -- Telefones
@@ -692,7 +692,7 @@ values ('Celular', '(27)', '99594-3161', '4');
 
 -- Cartao
 insert into cartoes (crt_nome, crt_numero, crt_validade, crt_cvv, crt_ban_id, crt_cli_id)
-values ('Theo Heitor Henrique da Paz', '1234 5688 8885 5221', '07/20', '333', '1', '4');
+values ('Theo Heitor Henrique da Paz', '1234 5688 8885 5221', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '1', '4');
 
 -- Cartao Padrao
 insert into cartoes_padroes (ctp_crt_id, ctp_cli_id)
@@ -718,9 +718,9 @@ values ('1', '0', 'Casa', 'Rua', 'Antônio Lucas de Carvalho', '884', '58419373'
 insert into enderecos (end_entrega, end_cobranca, end_descricao, end_tipolog, end_logradouro, end_numero, end_cep, end_complemento, end_cidade, end_estado, end_pais, end_observacao, end_cli_id)
 values ('0', '1', 'Mãe', 'Rua', 'Antônio Lucas de Carvalho', '884', '58419373', null, 'Campina Grande', 'PB', 'Brasil', null, '5');
 
-insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
-values ('9', '5');
 insert into enderecos_entregas_padroes (eep_end_id, eep_cli_id)
+values ('9', '5');
+insert into enderecos_cobrancas_padroes (ecp_end_id, ecp_cli_id)
 values ('10', '5');
 
 -- Telefones
@@ -729,7 +729,7 @@ values ('Celular', '(83)', '98330-0010', '5');
 
 -- Cartao
 insert into cartoes (crt_nome, crt_numero, crt_validade, crt_cvv, crt_ban_id, crt_cli_id)
-values ('Calebe Mateus Daniel Barbosa', '1234 5688 8885 5221', '07/20', '333', '1', '5');
+values ('Calebe Mateus Daniel Barbosa', '1234 5688 8885 5221', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '1', '5');
 
 -- Cartao Padrao
 insert into cartoes_padroes (ctp_crt_id, ctp_cli_id)

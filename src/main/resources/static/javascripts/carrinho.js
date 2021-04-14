@@ -2,7 +2,7 @@
 //    pagamentoTotal();
 //  })
 
-function pagamentoTotal()
+/*function pagamentoTotal()
 {
     var cartoes = document.getElementsByClassName("dinheiro");
     var pagamentoTotal = document.getElementById("pagamentoTotal");
@@ -45,16 +45,15 @@ function findFormParent(selfElem)
     }
 
     return form;
-}
+}*/
 
 function submit(selfElem)
 {
     var form = findFormParent(selfElem);
-    console.log(form);
-    //form.submit();
+    form.submit();
 }
 
-function createPost(path, params, method='POST') {
+/*function createPost(path, params, method='POST') {
 
     // The rest of this code assumes you are not using a library.
     // It can be made less verbose if you use one.
@@ -90,7 +89,7 @@ function getCSRF()
     param[csrfElem.name] = csrfElem.value;
 
     return param;
-}
+}*/
 
 function alert(url)
 {   
@@ -121,3 +120,10 @@ function editarBotaoNovo(tipo)
 
     novoBotao.outerHTML = novoBotao.outerHTML.replace("<a", "<div").replace("<\/a>", "<\/div>");
 }
+
+/*function updateThis(selfElement)
+{
+    selfElement.setAttribute("value", selfElement.value.replace("R$", "").replace(".", "").trim().replace(",", "."));
+
+    pagamentoTotal();
+}*/

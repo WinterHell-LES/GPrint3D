@@ -236,6 +236,34 @@ CREATE TABLE pedidos_trocas (
     CONSTRAINT pk_pdt PRIMARY KEY ( pdt_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+DROP TABLE IF EXISTS pedidos_compras_fretes;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE pedidos_compras_fretes (
+	pcf_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
+    pcf_empresa			VARCHAR(255) NOT NULL,
+    pcf_modalidade		VARCHAR(50) NOT NULL,
+    pcf_prazo			VARCHAR(10) NOT NULL,
+    pcf_valor			DECIMAL(8,2) DEFAULT 0.0 NOT NULL,
+    pcf_pdc_id			MEDIUMINT NOT NULL,
+    CONSTRAINT pk_pcf PRIMARY KEY ( pcf_id ),
+    CONSTRAINT uk_pcf UNIQUE ( pcf_pdc_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS pedidos_trocas_fretes;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE pedidos_trocas_fretes (
+	ptf_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
+    ptf_empresa			VARCHAR(255) NOT NULL,
+    ptf_modalidade		VARCHAR(50) NOT NULL,
+    ptf_prazo			VARCHAR(10) NOT NULL,
+    ptf_valor			DECIMAL(8,2) DEFAULT 0.0 NOT NULL,
+    ptf_pdt_id			MEDIUMINT NOT NULL,
+    CONSTRAINT pk_ptf PRIMARY KEY ( ptf_id ),
+    CONSTRAINT uk_ptf UNIQUE ( ptf_pdt_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 DROP TABLE IF EXISTS pedidos_compras_cartoes;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -491,6 +519,14 @@ ALTER TABLE pedidos_trocas
     ADD CONSTRAINT fk_pdt_pdc FOREIGN KEY ( pdt_pdc_id )
         REFERENCES pedidos_compras ( pdc_id );
 
+ALTER TABLE pedidos_compras_fretes
+    ADD CONSTRAINT fk_pcf_pdc FOREIGN KEY ( pcf_pdc_id )
+        REFERENCES pedidos_compras ( pdc_id );
+
+ALTER TABLE pedidos_trocas_fretes
+    ADD CONSTRAINT fk_ptf_pdt FOREIGN KEY ( ptf_pdt_id )
+        REFERENCES pedidos_compras ( pdt_id );
+
 ALTER TABLE pedidos_compras_cupons_promocoes
     ADD CONSTRAINT fk_pcp_cpp FOREIGN KEY ( pcp_cpp_id )
         REFERENCES cupons_promocoes ( cpp_id );
@@ -506,14 +542,15 @@ ALTER TABLE pedidos_compras_produtos
 ALTER TABLE pedidos_compras_produtos
     ADD CONSTRAINT fk_ppd_prd_2 FOREIGN KEY ( ppd_prd_id )
         REFERENCES produtos ( prd_id );
-        
+
 ALTER TABLE produtos
     ADD CONSTRAINT fk_prd_prc FOREIGN KEY ( prd_prc_id )
         REFERENCES precificacoes ( prc_id );
 
 ALTER TABLE produtos_carrinhos
     ADD CONSTRAINT fk_pcr_car_1 FOREIGN KEY ( pcr_car_id )
-        REFERENCES carrinhos ( car_id );
+        REFERENCES carrinhos ( car_id )
+        ON DELETE CASCADE;
 
 ALTER TABLE produtos_carrinhos
     ADD CONSTRAINT fk_pcr_car_2 FOREIGN KEY ( pcr_prd_id )

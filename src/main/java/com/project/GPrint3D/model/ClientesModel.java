@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "CLIENTES")
@@ -24,9 +25,13 @@ public class ClientesModel
 	@Column(name = "cli_id", insertable = false, updatable = false)
 	private Integer cliId;
 
-	@NotEmpty(message = "Raking é obrigatório")
+	@NotNull(message = "Raking é obrigatório")
     @Column(name = "cli_ranking")
-	private String cliRanking;
+	private Integer cliRanking;
+
+	@NotNull(message = "Ponto é obrigatório")
+    @Column(name = "cli_pontos")
+	private Integer cliPontos;
 
 	@NotEmpty(message = "Nome é obrigatório")
     @Column(name = "cli_nome")
@@ -67,23 +72,31 @@ public class ClientesModel
 	@OneToMany(mappedBy = "cliente")
     private List<CuponsTrocasModel> listCuponsTrocas;
 
+	@OneToMany(mappedBy = "cliente")
+    private List<PedidosComprasModel> listPedidosCompras;
+
+	@OneToMany(mappedBy = "cliente")
+    private List<PedidosTrocasModel> listPedidosTrocas;
+
 	public ClientesModel() 
 	{
 		super();
 
 		this.cliId = 0;
-		this.cliRanking = "";
+		this.cliRanking = 0;
+		this.cliPontos = 0;
 		this.cliNome = "";
 		this.cliSexo = "";
 		this.cliDtNasc = null;
 	}
 
-	public ClientesModel(Integer cliId, String cliRanking, String cliNome, String cliSexo, Date cliDtNasc) 
+	public ClientesModel(Integer cliId, Integer cliRanking, Integer cliPontos, String cliNome, String cliSexo, Date cliDtNasc) 
 	{
 		super( );
 
 		this.cliId = cliId;
 		this.cliRanking = cliRanking;
+		this.cliPontos = cliPontos;
 		this.cliNome = cliNome;
 		this.cliSexo = cliSexo;
 		this.cliDtNasc = cliDtNasc;
@@ -99,14 +112,24 @@ public class ClientesModel
 		this.cliId = cliId;
 	}
 
-	public String getCliRanking() 
+	public Integer getCliRanking() 
 	{
 		return this.cliRanking;
 	}
 
-	public void setCliRanking(String cliRanking) 
+	public void setCliRanking(Integer cliRanking) 
 	{
 		this.cliRanking = cliRanking;
+	}
+
+	public Integer getCliPontos() 
+	{
+		return this.cliPontos;
+	}
+
+	public void setCliPontos(Integer cliPontos) 
+	{
+		this.cliPontos = cliPontos;
 	}
 
 	public String getCliNome() 
@@ -227,6 +250,26 @@ public class ClientesModel
 	public void setListCuponsTrocas(List<CuponsTrocasModel> listCuponsTrocas) 
 	{
 		this.listCuponsTrocas = listCuponsTrocas;
+	}
+
+	public List<PedidosComprasModel> getListPedidosCompras() 
+	{
+		return this.listPedidosCompras;
+	}
+
+	public void setListPedidosCompras(List<PedidosComprasModel> listPedidosCompras) 
+	{
+		this.listPedidosCompras = listPedidosCompras;
+	}
+
+	public List<PedidosTrocasModel> getListPedidosTrocas() 
+	{
+		return this.listPedidosTrocas;
+	}
+
+	public void setListPedidosTrocas(List<PedidosTrocasModel> listPedidosTrocas) 
+	{
+		this.listPedidosTrocas = listPedidosTrocas;
 	}
 
 	@Override

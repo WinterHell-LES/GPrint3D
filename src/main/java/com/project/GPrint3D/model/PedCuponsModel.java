@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PEDIDOS_COMPRAS_CUPONS")
+@Table(name = "PEDIDOS_COMPRAS_CUPONS_PROMOCOES")
 public class PedCuponsModel 
 {
     @Id

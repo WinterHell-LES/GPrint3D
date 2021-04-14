@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS cupons_trocas;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE cupons_trocas (
     cpt_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    cpt_status          VARCHAR(100) NOT NULL,
+    cpt_status          BOOLEAN,
     cpt_validade        DATE NOT NULL,
     cpt_valor       	DECIMAL(8,2) NOT NULL,
     cpt_saldo       	DECIMAL(8,2) NOT NULL,
@@ -226,8 +226,10 @@ CREATE TABLE pedidos_trocas (
     pdt_numero			VARCHAR(100) NOT NULL,
     pdt_quantidade		MEDIUMINT NOT NULL,
     pdt_data			DATE NOT NULL,
+    pdt_escolha			SMALLINT NOT NULL DEFAULT 0,
     pdt_statuspedido	MEDIUMINT NOT NULL DEFAULT 0,
     pdt_statuslogistica	MEDIUMINT NOT NULL DEFAULT 0,
+    pdt_descricao		VARCHAR(255),
     pdt_ppd_id  		MEDIUMINT NOT NULL,
     pdt_pdc_id			MEDIUMINT NOT NULL,
     pdt_cli_id			MEDIUMINT NOT NULL,

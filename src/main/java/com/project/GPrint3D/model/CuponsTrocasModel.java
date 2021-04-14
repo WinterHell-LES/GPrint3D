@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -25,9 +24,9 @@ public class CuponsTrocasModel
     @Column(name = "cpt_id", insertable = false, updatable = false)
     private Integer cptId;
     
-    @NotEmpty(message = "Status é obrigatório")
+    @NotNull(message = "Status é obrigatório")
     @Column(name = "cpt_status")
-    private String cptStatus;
+    private boolean cptStatus;
 
     @NotNull(message = "Validade é obrigatória")
     @Column(name = "cpt_validade")
@@ -58,14 +57,14 @@ public class CuponsTrocasModel
         java.util.Date dataAtual = new java.util.Date();
 
         this.cptId = 0;
-        this.cptStatus = "";
+        this.cptStatus = true;
         this.cptValidade = new Date(dataAtual.getTime());
         this.cptValor = 0.0;
         this.cptSaldo = 0.0;
         this.cptCodigo = "";
     }
 
-    public CuponsTrocasModel(Integer cptId, String cptStatus, Date cptValidade, double cptValor, double cptSaldo, String cptCodigo) 
+    public CuponsTrocasModel(Integer cptId, boolean cptStatus, Date cptValidade, double cptValor, double cptSaldo, String cptCodigo) 
     {
         super( );
 
@@ -87,12 +86,12 @@ public class CuponsTrocasModel
         this.cptId = cptId;
     }
 
-    public String getCptStatus() 
+    public boolean getCptStatus() 
     {
         return this.cptStatus;
     }
 
-    public void setCptStatus(String cptStatus) 
+    public void setCptStatus(boolean cptStatus) 
     {
         this.cptStatus = cptStatus;
     }

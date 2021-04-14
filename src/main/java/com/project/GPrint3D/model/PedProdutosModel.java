@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +26,10 @@ public class PedProdutosModel
     @Column(name = "ppd_quantidade")
     private Integer ppdQuantidade;
 
+    @NotNull(message = "Status é obrigatório")
+    @Column(name = "ppd_status")
+    private Integer ppdStatus;
+
     @ManyToOne
     @JoinColumn(name = "ppd_pdc_id", referencedColumnName = "pdc_id")
     private PedidosComprasModel pedidoCompra;
@@ -33,18 +38,25 @@ public class PedProdutosModel
     @JoinColumn(name = "ppd_prd_id", referencedColumnName = "prd_id")
     private ProdutosModel produto;
 
+    @OneToOne(mappedBy = "pedProduto")
+    private PedidosTrocasModel pedidosTroca;
+
     public PedProdutosModel() 
     {
         super();
 
         this.ppdId = 0;
+        this.ppdQuantidade = 0;
+        this.ppdStatus = 0;
     }
 
-    public PedProdutosModel(Integer ppdId) 
+    public PedProdutosModel(Integer ppdId, Integer ppdQuantidade, Integer ppdStatus) 
     {
         super( );
 
         this.ppdId = ppdId;
+        this.ppdQuantidade = ppdQuantidade;
+        this.ppdStatus = ppdStatus;
     }
 
     public Integer getPpdId() 
@@ -67,6 +79,16 @@ public class PedProdutosModel
         this.ppdQuantidade = ppdQuantidade;
     }
 
+    public Integer getPpdStatus() 
+    {
+        return this.ppdStatus;
+    }
+
+    public void setPpdStatus(Integer ppdStatus) 
+    {
+        this.ppdStatus = ppdStatus;
+    }
+
     public PedidosComprasModel getPedidoCompra() 
     {
         return this.pedidoCompra;
@@ -85,6 +107,16 @@ public class PedProdutosModel
     public void setProduto(ProdutosModel produto) 
     {
         this.produto = produto;
+    }
+
+    public PedidosTrocasModel getPedidosTroca() 
+    {
+        return this.pedidosTroca;
+    }
+
+    public void setPedidosTroca(PedidosTrocasModel pedidosTroca) 
+    {
+        this.pedidosTroca = pedidosTroca;
     }
 
     @Override

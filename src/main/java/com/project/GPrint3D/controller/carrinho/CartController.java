@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.ProdutosModel;
+import com.project.GPrint3D.model.VariaveisModel;
 import com.project.GPrint3D.repository.ProdutosRepository;
 import com.project.GPrint3D.repository.VariaveisRepository;
 
@@ -230,14 +231,22 @@ public class CartController extends CarrinhoUtil
     public List<HashMap<String, String>> calcularFreteLista(@PathVariable(value = "cep") String cep, @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
     {
         CarrinhosModel carrinho = new CarrinhosModel();
-        String variavel = variaveisRepository.findOneById(1).getVarCep();
+        VariaveisModel variaveis = variaveisRepository.findOneById(1);
+        String variavelCEP = variaveis.getVarCep();
 
         carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
 
         CorreiosUtil calculo = new CorreiosUtil();
 
-        List<HashMap<String, String>> responseFrete = calculo.getValorPrazoLista(variavel.replaceAll("-", ""), cep, carrinho.getListProdutos());
+        try
+        {
+            List<HashMap<String, String>> responseFrete = calculo.getValorPrazoLista(variavelCEP.replaceAll("-", ""), cep, carrinho.getListProdutos(), variaveis);
+            return responseFrete;
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
 
-        return responseFrete;
     }
 }

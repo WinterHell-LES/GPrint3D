@@ -139,9 +139,9 @@ function listarFretes(json)
             {
                 case "produto":
                     codigoHTML += "<div class=\"row\">";
-                    codigoHTML += "<div class=\"col\"><small>" + aux.Nome + "</small></div>";
-                    codigoHTML += "<div class=\"col-sm\"><small>R$ " + aux.Valor + "</small></div>";
-                    codigoHTML += "<div class=\"col-sm\"><small>" + aux.PrazoEntrega + " dia(s)</small></div>";
+                    codigoHTML += "<div class=\"col-5 pe-0\"><small>" + aux.Nome + "</small></div>";
+                    codigoHTML += "<div class=\"col-sm-4 px-0\"><small>R$ " + aux.Valor + "</small></div>";
+                    codigoHTML += "<div class=\"col-sm-3 text-center ps-0\"><small>" + aux.PrazoEntrega + " dia(s)</small></div>";
                     codigoHTML += "</div>";
                     break;
 

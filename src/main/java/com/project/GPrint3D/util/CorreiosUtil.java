@@ -16,6 +16,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.ProdutosModel;
+import com.project.GPrint3D.model.VariaveisModel;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -73,7 +74,7 @@ public class CorreiosUtil
         return resp;
     }
 
-    public List<HashMap<String, String>> getValorPrazo(String cepRemetente, String cepDestinatario, ProdutosModel produto)
+    public List<HashMap<String, String>> getValorPrazo(String cepRemetente, String cepDestinatario, ProdutosModel produto, VariaveisModel variaveis)
     {
         // Código  Serviço
         // 04014   SEDEX à vista
@@ -81,6 +82,15 @@ public class CorreiosUtil
         // 04782   SEDEX 12 (à vista)
         // 04790   SEDEX 10 (à vista)
         // 04804   SEDEX Hoje à vista
+
+        try
+        {
+            produto = enquadrarCorreios(produto, variaveis);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
 
         List<HashMap<String, String>> listHash = new ArrayList<>();
 
@@ -96,7 +106,7 @@ public class CorreiosUtil
                                 "&sDsSenha=" +
                                 "&sCepOrigem=" + cepRemetente +
                                 "&sCepDestino=" + cepDestinatario +
-                                "&nVlPeso=" + Math.ceil(produto.getPrdDimEmbPe()) +
+                                "&nVlPeso=" + produto.getPrdDimEmbPe() +
                                 "&nCdFormato=1" +
                                 "&nVlComprimento=" + Math.ceil((produto.getPrdDimEmbPr() / 10)) +
                                 "&nVlAltura=" + Math.ceil((produto.getPrdDimEmbAl() / 10)) +
@@ -157,32 +167,31 @@ public class CorreiosUtil
         }
 
         listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Valor"))));
+        listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Nome"))));
 
         return listHash;
     }
     
-    public List<HashMap<String, String>> getValorPrazoLista(String cepRemetente, String cep, List<PrdCarrinhosModel> listaProdutos)
+    public List<HashMap<String, String>> getValorPrazoLista(String cepRemetente, String cep, List<PrdCarrinhosModel> listaProdutos, VariaveisModel variaveis) throws Exception
     {
-        List<HashMap<String, String>> listHash = new ArrayList<>();
-
         if (listaProdutos.size() == 0)
         {
-            List<HashMap<String, String>> listHashTemp = new ArrayList<>();
-
-            HashMap<String, String> hashTemp = new HashMap<>();
-
-            hashTemp.put("Error 505", "Produto não encontrado");
-
-            listHashTemp.add(hashTemp);
-
-            return listHashTemp;
+            throw new Exception("Nenhum produto encontrado");
         }
+
+        List<HashMap<String, String>> listHash = new ArrayList<>();
+
 
         for (PrdCarrinhosModel produtoCarrinho : listaProdutos)
         {
             List<HashMap<String, String>> listHashTemp = new ArrayList<>();
 
-            listHashTemp = getValorPrazo(cepRemetente, cep, produtoCarrinho.getProduto());
+            listHashTemp = getValorPrazo(cepRemetente, cep, produtoCarrinho.getProduto(), variaveis);
+
+            if (listHashTemp == null)
+            {
+                continue;
+            }
 
             for (int i = 0; i < listHashTemp.size(); i++)
             {
@@ -227,5 +236,51 @@ public class CorreiosUtil
         }
 
         return listHash;
+    }
+
+    public ProdutosModel enquadrarCorreios(ProdutosModel produto, VariaveisModel variaveis) throws Exception
+    {
+        Double pesoMin = variaveis.getVarCorPeMin();
+        Double pesoMax = variaveis.getVarCorPeMax();
+        Double profundidadeMin = variaveis.getVarCorPrMin();
+        Double profundidadeMax = variaveis.getVarCorPrMax();
+        Double larguraMin = variaveis.getVarCorLaMin();
+        Double larguraMax = variaveis.getVarCorLaMax();
+        Double alturaMin = variaveis.getVarCorAlMin();
+        Double alturaMax = variaveis.getVarCorAlMax();
+        Double somaMin = variaveis.getVarCorSomDimMin(); // Garantindo que cada dimensão seja seu mínimo, não há necessidade de verificar a somaMin
+        Double somaMax = variaveis.getVarCorSomDimMax();
+
+        Double pesoPrd = Math.ceil(produto.getPrdDimEmbPe());
+        Double profundidadePrd = Math.ceil(produto.getPrdDimEmbPr());
+        Double larguraPrd =  Math.ceil(produto.getPrdDimEmbLa());
+        Double alturaPrd =  Math.ceil(produto.getPrdDimEmbAl());
+
+        if (pesoPrd < pesoMin)
+        {
+            produto.setPrdDimEmbPe(pesoMin);
+        }
+
+        if (profundidadePrd < profundidadeMin)
+        {
+            produto.setPrdDimEmbPr(profundidadeMin);
+        }
+
+        if (larguraPrd < larguraMin)
+        {
+            produto.setPrdDimEmbLa(larguraMin);
+        }
+
+        if (alturaPrd < alturaMin)
+        {
+            produto.setPrdDimEmbAl(alturaMin);
+        }
+
+        if (pesoPrd > pesoMax || profundidadePrd > profundidadeMax || larguraPrd > larguraMax || alturaPrd > alturaMax || (profundidadePrd + larguraPrd + alturaPrd) > somaMax)
+        {
+            throw new Exception("Peso maior que o permitido");
+        }
+
+        return produto;
     }
 }

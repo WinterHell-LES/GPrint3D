@@ -53,11 +53,13 @@ public class ProdutoController
     public List<HashMap<String, String>> calcularFrete(@PathVariable(value = "id") Integer id, @PathVariable(value = "cep") String cepDestinatario)
     {
         ProdutosModel produto = produtos.findOneById(id);
-        String variavel = variaveisRepository.findOneById(1).getVarCep();
+        VariaveisModel variaveis = variaveisRepository.findOneById(1);
+        
+        String variavelCEP = variaveis.getVarCep();
 
         CorreiosUtil calculo = new CorreiosUtil();
 
-        List<HashMap<String, String>> response = calculo.getValorPrazo(variavel.replaceAll("-", ""), cepDestinatario, produto);
+        List<HashMap<String, String>> response = calculo.getValorPrazo(variavelCEP.replaceAll("-", ""), cepDestinatario, produto, variaveis);
 
         return response;
     }

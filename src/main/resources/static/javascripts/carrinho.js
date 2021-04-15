@@ -91,34 +91,50 @@ function getCSRF()
     return param;
 }*/
 
-function alert(url)
+function alert(url = "", selfElem = Object)
 {   
     var confirmacao = confirm("Isto fará você reinicar o processo de compra, você realmente deseja ser redirecionado para outra página?")
     
-    if (confirmacao == true)
+    if (confirmacao == true && url != null)
     {
         location.replace(url + "#");
     }
+    else if (confirmacao == true && selfElem != null)
+    {
+        submit(selfElem);
+    }
 }
     
-function editarBotaoNovo(tipo)
+function editarBotoes(tipo)
 {
     if (tipo == "endereco")
     {
         var novoBotao = document.getElementById("novoEnderecoEntrega");
+        var editarBotao = document.getElementById("editarEnderecoEntrega");
+        var excluirBotao = document.getElementById("excluirEnderecoEntrega");
     }
     
     if (tipo == "cartao")
     {
         var novoBotao = document.getElementById("novoCartao");
+        var editarBotao = document.getElementById("editarCartao");
+        var excluirBotao = document.getElementById("excluirCartao");
     }
 
-    var url = novoBotao.getAttribute("href").toString();
+    var urlNovo = novoBotao.getAttribute("href").toString();
+    var urlEditar = editarBotao.getAttribute("href").toString();
 
-    novoBotao.setAttribute("onclick", "alert(\"" + url + "\")");
+    novoBotao.setAttribute("onclick", "alert(\"" + urlNovo + "\")");
     novoBotao.setAttribute("class", "text-decoration-underline");
+    novoBotao.outerHTML = novoBotao.outerHTML.replace("<a", "<span").replace("<\/a>", "<\/span>");
 
-    novoBotao.outerHTML = novoBotao.outerHTML.replace("<a", "<div").replace("<\/a>", "<\/div>");
+    editarBotao.setAttribute("onclick", "alert(\"" + urlEditar + "\")");
+    editarBotao.setAttribute("class", "text-decoration-underline");
+    editarBotao.outerHTML = editarBotao.outerHTML.replace("<a", "<span").replace("<\/a>", "<\/span>");
+
+    excluirBotao.setAttribute("onclick", "alert(this)");
+    excluirBotao.setAttribute("class", "text-decoration-underline");
+    excluirBotao.outerHTML = excluirBotao.outerHTML.replace("<button", "<span").replace("<\/button>", "<\/span>");
 }
 
 /*function updateThis(selfElement)

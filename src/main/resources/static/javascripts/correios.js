@@ -62,6 +62,22 @@ async function buscarFrete()
 
 function calcularFrete()
 {
+    var cep = "";
+    
+    if (getCookie("cliCEP") != null)
+    {
+        cep = getCookie("cliCEP");
+    }
+    else if(document.getElementById("cep").value != "")
+    {
+        cep = document.getElementById("cep").value.replace("-", "");
+        setCookie("cliCEP", cep, 30)
+    }
+    else
+    {
+        return;
+    }
+
     var load = document.getElementById("loadFrete");
     var disp = document.getElementById("dispFrete");
 
@@ -71,8 +87,6 @@ function calcularFrete()
     {
         disp.classList.add("d-none");
     }
-    
-    var cep = document.getElementById("cep").value.replace("-", "");
 
     if (!cep)
     {
@@ -92,8 +106,11 @@ function calcularFrete()
                     erroFrete("Error 500 - Erro ao calcular o frete");
                 }).then(json =>
                 {
-                    load.classList.add("d-none");
-                    disp.classList.remove("d-none");
+                    {
+                        console.log(json);
+                        load.classList.add("d-none");
+                        disp.classList.remove("d-none");
+                    }
                 });
             }
             else
@@ -212,3 +229,38 @@ function checkUrl()
         return "carrinhoLogado";
     }
 }
+
+function setCookie(cookieNome, cookieValor, expiraDias)
+{
+    var dia = new Date();
+    
+    dia.setTime(dia.getTime() + (expiraDias * 24 * 60 * 60 * 1000));
+
+    var expires = "expires="+ dia.toUTCString();
+
+    document.cookie = cookieNome + "=" + cookieValor + ";" + expiraDias + ";path=/";
+}
+
+function getCookie(cookieNome)
+{
+    var nome = cookieNome + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var partesCookie = decodedCookie.split(';');
+
+    for(var i = 0; i <partesCookie.length; i++)
+    {
+      var char = partesCookie[i];
+      
+      while (char.charAt(0) == ' ')
+      {
+        char = char.substring(1);
+      }
+
+      if (char.indexOf(nome) == 0)
+      {
+        return char.substring(nome.length, char.length);
+      }
+    }
+
+    return null;
+  }

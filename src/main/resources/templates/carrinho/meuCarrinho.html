@@ -156,7 +156,8 @@
                         <span>Insira seu CEP:</span>
                     </div>
                     <div class="col-1 px-0">
-                        <input type="text" class="form-control text-center px-1 w-100 cep" name="cep" id="cep" placeholder="00000-000"  minlength="9" maxlength="9">
+                        <input type="text" class="form-control text-center px-1 w-100 cep" name="cep" id="cep" placeholder="00000-000"  minlength="9" maxlength="9" th:if="${clienteCEP == null}">
+                        <input type="text" class="form-control text-center px-1 w-100 cep" name="cep" id="cep" placeholder="00000-000"  minlength="9" maxlength="9" th:if="${clienteCEP != null}" th:value="${clienteCEP}">
                     </div>
                     <div class="col-1">
                         <button type="submit" class="btn border shadow-sm" onclick="calcularFrete()">Calcular</button>
@@ -207,6 +208,13 @@
             <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/carrinho.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/correios.js}"></script>
+
+            <script type="text/javascript" th:inline="javascript">
+                window.addEventListener('load', function ()
+                {
+                    calcularFrete();
+                });
+            </script>
         </th:block>
     </body>
 </html>

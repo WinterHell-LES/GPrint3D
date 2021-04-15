@@ -40,7 +40,7 @@ public class CartController extends CarrinhoUtil
 
     //Tela de alteração de dados do cartão do cliente
     @RequestMapping("/meuCarrinho")
-    public ModelAndView meuCarrinho( @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
+    public ModelAndView meuCarrinho(@CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, @CookieValue(value = "cliCEP", defaultValue = "") String clienteCEP, HttpServletResponse response, Principal principal)
     {
         ModelAndView mv = new ModelAndView("/carrinho/meuCarrinho");
         
@@ -51,6 +51,7 @@ public class CartController extends CarrinhoUtil
 
         mv.addObject("totalCarrinho", valorTotalCarrinho(carrinho));
         mv.addObject("produtosCarrinho", carrinho.getListProdutos());
+        mv.addObject("clienteCEP", clienteCEP);
 
         return mv;
     }

@@ -11,6 +11,7 @@ import com.project.GPrint3D.util.CorreiosUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,48 +27,15 @@ public class ProdutoController
     private VariaveisRepository variaveisRepository;
 
     @GetMapping("/c/{categoria}/p/{produto}")
-    public ModelAndView listagemProduto(@PathVariable(value = "categoria") String categoria, @PathVariable(value = "produto") String produto)
+    public ModelAndView listagemProduto(@PathVariable(value = "categoria") String categoria, @PathVariable(value = "produto") String produto, @CookieValue(value = "cliCEP", defaultValue = "") String clienteCEP)
     {
         ModelAndView mv = new ModelAndView("/produtos/detalhesProduto");
 
         mv.addObject("produto", produtos.findOneByNome(produto.replaceAll("_", " ")));
+        mv.addObject("clienteCEP", clienteCEP);
 
         return mv;
     }
-
-    //Inclui o produto no carrinho do cliente
-    /*@PostMapping("/c/{categoria}/p/{produto}")
-    public ModelAndView adicionarAoCarrinho(@PathVariable(value = "categoria") String categoria, @PathVariable(value = "produto") String produtoS, @Valid ProdutosModel produto, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
-    {
-        if (result.hasErrors())
-        {
-            return new ModelAndView("redirect://c/{categoria}/p/{produto}");
-        }
-
-        UsuariosModel usuario = usuarios.findByEmail(principal.getName());
-        ClientesModel cliente = clientes.findByUsuarioId(usuario.getUsuId());
-        CarrinhosModel carrinho = carrinhos.findByClienteId(cliente.getCliId());
-
-        if (carrinho == null)
-        {
-            carrinho.setCliente(cliente);
-            carrinhosService.atualizar(carrinho);
-            carrinho = carrinhos.findByClienteId(cliente.getCliId());
-        }
-
-        
-
-        if (crtPadrao == true)
-        {
-            cartaoPadrao.setCartao(cartao);
-            
-            cartoesPadroesService.atualizar(cartaoPadrao);
-        }
-        
-        cartoesService.atualizar(cartao);
-
-        return new ModelAndView("redirect:/cliente/meusCartoes");
-    }*/
 
     @GetMapping("/validarCEP/{cep}")
     @ResponseBody

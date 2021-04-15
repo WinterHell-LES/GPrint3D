@@ -165,6 +165,19 @@ public class CorreiosUtil
     {
         List<HashMap<String, String>> listHash = new ArrayList<>();
 
+        if (listaProdutos.size() == 0)
+        {
+            List<HashMap<String, String>> listHashTemp = new ArrayList<>();
+
+            HashMap<String, String> hashTemp = new HashMap<>();
+
+            hashTemp.put("Error 505", "Produto não encontrado");
+
+            listHashTemp.add(hashTemp);
+
+            return listHashTemp;
+        }
+
         for (PrdCarrinhosModel produtoCarrinho : listaProdutos)
         {
             List<HashMap<String, String>> listHashTemp = new ArrayList<>();

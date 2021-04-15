@@ -107,7 +107,6 @@ function calcularFrete()
                 }).then(json =>
                 {
                     {
-                        console.log(json);
                         load.classList.add("d-none");
                         disp.classList.remove("d-none");
                     }
@@ -232,13 +231,9 @@ function checkUrl()
 
 function setCookie(cookieNome, cookieValor, expiraDias)
 {
-    var dia = new Date();
-    
-    dia.setTime(dia.getTime() + (expiraDias * 24 * 60 * 60 * 1000));
+    var maxAge = "max-age=" + (expiraDias * 24 * 60 * 60);
 
-    var expires = "expires="+ dia.toUTCString();
-
-    document.cookie = cookieNome + "=" + cookieValor + ";" + expiraDias + ";path=/";
+    document.cookie = cookieNome + "=" + cookieValor + ";" + maxAge + ";path=/;Secure" ;
 }
 
 function getCookie(cookieNome)

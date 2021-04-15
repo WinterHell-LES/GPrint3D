@@ -38,7 +38,7 @@ public class PedTroFretesModel
     private double ptfValor;
 
     @OneToOne
-    @JoinColumn(name = "ptf_pdc_id", referencedColumnName = "pdt_id")
+    @JoinColumn(name = "ptf_pdt_id", referencedColumnName = "pdt_id")
     private PedidosTrocasModel pedidoTroca;
 
     public PedTroFretesModel() 

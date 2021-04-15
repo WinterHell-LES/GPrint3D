@@ -11,13 +11,13 @@
     <body>
         <!-- Conteudo da página -->
        <section layout:fragment="conteudo">
-            <div class="my-5">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Alterar senha</h1>
+            </div>
+
+            <div class="my-4">
                 <div class="row">
                     <div class="col-sm">
-                        <div class="row">
-                            <p class="h2">Alteração de senha</p>
-                        </div>
-
                         <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
 
                             <!--<input type="hidden" th:value="${checkOldPass.senha}" th:field="${checkOldPass.senha}">-->

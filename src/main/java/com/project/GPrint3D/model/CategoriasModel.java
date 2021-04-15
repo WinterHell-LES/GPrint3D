@@ -140,6 +140,11 @@ public class CategoriasModel
         return false;
     }
 
+    public String getStrCtgAtivo()
+    {
+        return this.ctgAtivo ? "Ativo" : "Inativo";
+    }
+
     @Override
     public boolean equals(Object o) 
     {

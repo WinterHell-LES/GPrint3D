@@ -28,6 +28,10 @@ public class CuponsTrocasModel
     @Column(name = "cpt_status")
     private boolean cptStatus;
 
+    @NotNull(message = "Data é obrigatória")
+    @Column(name = "cpt_data")
+    private Date cptData;
+
     @NotNull(message = "Validade é obrigatória")
     @Column(name = "cpt_validade")
     private Date cptValidade;
@@ -58,18 +62,20 @@ public class CuponsTrocasModel
 
         this.cptId = 0;
         this.cptStatus = true;
+        this.cptData = new Date(dataAtual.getTime());
         this.cptValidade = new Date(dataAtual.getTime());
         this.cptValor = 0.0;
         this.cptSaldo = 0.0;
         this.cptCodigo = "";
     }
 
-    public CuponsTrocasModel(Integer cptId, boolean cptStatus, Date cptValidade, double cptValor, double cptSaldo, String cptCodigo) 
+    public CuponsTrocasModel(Integer cptId, boolean cptStatus, Date cptData, Date cptValidade, double cptValor, double cptSaldo, String cptCodigo) 
     {
         super( );
 
         this.cptId = cptId;
         this.cptStatus = cptStatus;
+        this.cptData = cptData;
         this.cptValidade = cptValidade;
         this.cptValor = cptValor;
         this.cptSaldo = cptSaldo;
@@ -94,6 +100,21 @@ public class CuponsTrocasModel
     public void setCptStatus(boolean cptStatus) 
     {
         this.cptStatus = cptStatus;
+    }
+
+    public boolean isCptStatus() 
+    {
+        return this.cptStatus;
+    }
+
+    public Date getCptData() 
+    {
+        return this.cptData;
+    }
+
+    public void setCptData(Date cptData) 
+    {
+        this.cptData = cptData;
     }
 
     public Date getCptValidade() 
@@ -154,6 +175,11 @@ public class CuponsTrocasModel
     public void setListHistCuponsTrocas(List<HistCuponsTrocasModel> listHistCuponsTrocas) 
     {
         this.listHistCuponsTrocas = listHistCuponsTrocas;
+    }
+
+    public String getStrCptStatus()
+    {
+        return this.cptStatus ? "Ativo" : "Inativo";
     }
 
     @Override

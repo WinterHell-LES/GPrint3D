@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Admin - Pedidos</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="'Pedido - ' + ${pedido.pdcNumero}">Numero do pedido</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/pedido/listarPedidosCompras" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/dados'">Dados gerais</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/produtos'">Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/cliente'">Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/enderecos'">Endereços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/cartoes'">Cartão</a>
+                </li>
+            </ul>
+
+            <div class="text-center mt-5" th:if="${pedido.listPedCartoes.size == 0}">
+                <h1 class="h4">Nenhum cartão selecionado</h1>
+            </div>
+
+            <table class="table my-3" th:each="pedCartao, stat : ${pedido.listPedCartoes}">
+                <thead>
+                    <tr>
+                        <th scope="col" style="width: 250px;" th:text="'Cartão de pagamento ' + ${stat.count}">Cartão de pagamento</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Nome</th>
+                        <td th:text="${pedCartao.cartao.crtNome}">Nome</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bandeira</th>
+                        <td th:text="${pedCartao.cartao.bandeira.banNome}">Bandeira</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tipo</th>
+                        <td th:text="${pedCartao.cartao.crtNumero}">Tipo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Validade</th>
+                        <td th:text="${pedCartao.cartao.crtValidade}">Validade</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Valor cobrado</th>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedCartao.pctValor, 1, 'DEFAULT', 2, 'DEFAULT')}">Valor cobrado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </body>
+</html>

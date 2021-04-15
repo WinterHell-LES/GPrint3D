@@ -34,7 +34,7 @@
                         <td th:text="${cliente.usuario.usuEmail}">E-mail</td>
                         <td th:each="documento : ${cliente.listDocumento}" th:text="${documento.docTipo} + ': ' + ${documento.docNumero}">Documento</td>
                         <td th:text="${cliente.cliRanking}">Ranking</td>
-                        <td th:text="${cliente.usuario.usuAtivo}">Ativo</td>
+                        <td th:text="${cliente.usuario.getStrUsuAtivo()}">Ativo</td>
                         <td class="py-0 my-0">
                             <form th:action="@{/admin/clientesAtiva}" method="POST">
                                 <a style="text-decoration: none;" th:href="'/admin/cliente/' + ${cliente.cliId} + '/dados'">

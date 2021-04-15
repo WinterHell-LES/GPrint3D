@@ -20,29 +20,32 @@
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
+                        <th>Código</th>
                         <th>Cliente</th>
-                        <th style="width: 250px;">Status</th>
                         <th style="width: 150px;">Valor</th>
                         <th style="width: 150px;">Saldo</th>
                         <th style="width: 150px;">Validade</th>
+                        <th style="width: 125px;">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="cupom : ${cupons}">
+                        <td th:text="${cupom.cptCodigo}">Código</td>
                         <td th:text="${cupom.cliente.cliNome}">Cliente</td>
-                        <td th:text="${cupom.cptStatus}">Status</td>
-                        <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.cptValor, 1, 'DEFAULT', 2, 'DEFAULT')}">Saldo</td>
-                        <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">Saldo</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(cupom.cptValor, 1, 'DEFAULT', 2, 'DEFAULT')}">Saldo</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(cupom.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">Saldo</td>
                         <td th:text="${#dates.format(cupom.cptValidade, 'dd/MM/yyyy')}">Validade</td>
+                        <td th:text="${cupom.getStrCptStatus()}">Status</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar cliente"></th>
-                        <th><input style="width: 100%" type="text" placeholder="Procurar status"></th>
                         <th></th>
                         <th></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar validade"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar status"></th>
                     </tr>
                 </tfoot>
             </table>

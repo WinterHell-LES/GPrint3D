@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -29,6 +30,10 @@ public class HistCuponsTrocasModel
     @NotNull(message = "Saldo é obrigatório")
     @Column(name = "hct_saldo")
     private double hctSaldo;
+
+    @OneToOne
+    @JoinColumn(name = "hct_pdc_id", referencedColumnName = "pdc_id")
+    private PedidosComprasModel pedido;
 
     @ManyToOne
     @JoinColumn(name = "hct_cpt_id", referencedColumnName = "cpt_id")
@@ -80,6 +85,16 @@ public class HistCuponsTrocasModel
     public void setHctSaldo(double hctSaldo) 
     {
         this.hctSaldo = hctSaldo;
+    }
+
+    public PedidosComprasModel getPedido() 
+    {
+        return this.pedido;
+    }
+
+    public void setPedido(PedidosComprasModel pedido) 
+    {
+        this.pedido = pedido;
     }
 
     public CuponsTrocasModel getCupomTroca() 

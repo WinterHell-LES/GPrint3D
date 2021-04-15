@@ -3,56 +3,62 @@
         <div th:fragment="sidebar">
             <div class="container-fluid">
                 <div class="row">
-                    <nav id="sidebarMenu" class="col-sm-2 d-sm-block bg-light sidebar collapse">
+                    <nav id="sidebarMenu" class="col-sm-2 d-sm-block bg-light sidebar collapse overflow-auto">
                         <div class="position-sticky pt-3">
-                            <ul class="nav flex-column">
+                            <ul class="nav flex-column mx-2">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/index" th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
+                                    <a class="btn d-inline-flex align-items-center rounded collapsed" href="/cliente/index" th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
                                         Início
                                     </a>
                                 </li>
-                                
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Dados Pessoais</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/meuCadastro" th:classappend="${#httpServletRequest.requestURI.contains('meuCadastro')} ? 'active'">
-                                        Meu cadastro
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/meusEnderecos" th:classappend="${#httpServletRequest.requestURI.contains('meusEnderecos')} ? 'active'">
-                                        Meus endereços
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/meusCartoes" th:classappend="${#httpServletRequest.requestURI.contains('meusCartoes')} ? 'active'">
-                                        Meus cartões
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/alterarSenha" th:classappend="${#httpServletRequest.requestURI.contains('alterarSenha')} ? 'active'">
-                                        Alterar senha
-                                    </a>
-                                </li>
 
-                                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                                    <span>Pedidos</span>
-                                </h6>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/meusPedidos" th:classappend="${#httpServletRequest.requestURI.contains('meusPedidos')} ? 'active'">
-                                        Meus pedidos
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/meusCupons" th:classappend="${#httpServletRequest.requestURI.contains('meusCupons')} ? 'active'">
-                                        Meus cupons
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/meuRanking" th:classappend="${#httpServletRequest.requestURI.contains('meuRanking')} ? 'active'">
+                                <li class="my-3 me-2 border-top"></li>
+
+                                <li class="nav-item mb-1">
+                                    <a class="btn d-inline-flex align-items-center rounded" href="/cliente/meuRanking" th:classappend="${#httpServletRequest.requestURI.contains('meuRanking')} ? 'active'">
                                         Meu ranking
                                     </a>
+                                </li>  
+
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_pedidos" data-bs-toggle="collapse" data-bs-target="#pedidos" aria-expanded="false">
+                                        Pedidos
+                                    </button>
+                                    <div class="collapse" id="pedidos">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/cliente/meusPedidos/meusPedidosCompras" th:classappend="${#httpServletRequest.requestURI.contains('meusPedidosCompras')} ? 'active'">Meus pedidos de compra</a></li>
+                                        </ul>
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/cliente/meusPedidos/meusPedidosTrocas" th:classappend="${#httpServletRequest.requestURI.contains('meusPedidosTrocas')} ? 'active'">Meus pedidos de troca</a></li>
+                                        </ul>
+                                    </div>
+                                </li> 
+                                
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons" data-bs-toggle="collapse" data-bs-target="#cupons" aria-expanded="false">
+                                        Cupons
+                                    </button>
+                                    <div class="collapse" id="cupons">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/cliente/meusCupons" th:classappend="${#httpServletRequest.requestURI.contains('meusCupons')} ? 'active'">Meus cupons de troca</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="my-3 me-2 border-top"></li>
+                                
+                                <li class="mb-1">
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_dados_pessoais" data-bs-toggle="collapse" data-bs-target="#dados_pessoais" aria-expanded="false">
+                                        Dados pessoais
+                                    </button>
+                                    <div class="collapse" id="dados_pessoais">
+                                        <ul class="list-unstyled">
+                                            <li><a class="nav-link" href="/cliente/meuCadastro" th:classappend="${#httpServletRequest.requestURI.contains('meuCadastro')} ? 'active'">Meu cadastro</a></li>
+                                            <li><a class="nav-link" href="/cliente/meusEnderecos" th:classappend="${#httpServletRequest.requestURI.contains('meusEnderecos')} ? 'active'">Meus endereços</a></li>
+                                            <li><a class="nav-link" href="/cliente/meusCartoes" th:classappend="${#httpServletRequest.requestURI.contains('meusCartoes')} ? 'active'">Meus cartões</a></li>
+                                            <li><a class="nav-link" href="/cliente/alterarSenha" th:classappend="${#httpServletRequest.requestURI.contains('alterarSenha')} ? 'active'">Alterar senha</a></li>
+                                        </ul>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

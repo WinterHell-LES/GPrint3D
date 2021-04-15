@@ -377,6 +377,6 @@ public class CartCliController extends CarrinhoUtil
 
         carrinhosService.excluir(carrinhoMod.getCarId());
 
-        return new ModelAndView("redirect:/cliente/meusPedidos");
+        return new ModelAndView("redirect:/cliente/meusPedidos/meusPedidosCompras");
     }
 }

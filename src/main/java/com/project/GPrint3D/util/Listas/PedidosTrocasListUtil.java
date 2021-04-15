@@ -8,6 +8,8 @@ public class PedidosTrocasListUtil
     private HashMap<Integer, String> listTrocaPedidosTroca = new HashMap<>();
     private HashMap<Integer, String> listTrocaPedidosCupom = new HashMap<>();
     private HashMap<Integer, String> listTrocaPedidosReemb = new HashMap<>();
+    private HashMap<Integer, String> listTrocaPedidosRecus = new HashMap<>();
+    private HashMap<Integer, String> listTrocaLogistica = new HashMap<>();
     private HashMap<Integer, String> listTrocaLogisticaTroca = new HashMap<>();
     private HashMap<Integer, String> listTrocaLogisticaRecus = new HashMap<>();
     private HashMap<Integer, String> listEscolha = new HashMap<>();
@@ -27,7 +29,7 @@ public class PedidosTrocasListUtil
         listTrocaPedidosIni.put(4, "Pedido recusado");
 
         listTrocaPedidosTroca.put(0, "Pedido aprovado");
-        listTrocaPedidosTroca.put(1, "Nota Fiscal disponível");
+        listTrocaPedidosTroca.put(1, "Nota fiscal disponível");
         listTrocaPedidosTroca.put(2, "Em transporte");
         listTrocaPedidosTroca.put(3, "Pedido entregue");
 
@@ -38,6 +40,13 @@ public class PedidosTrocasListUtil
         listTrocaPedidosReemb.put(0, "Pedido aprovado");
         listTrocaPedidosReemb.put(1, "Processando valor de reembolso");
         listTrocaPedidosReemb.put(2, "Valor de reembolso creditado");
+
+        listTrocaPedidosRecus.put(0, "Pedido recusado");
+        listTrocaPedidosRecus.put(1, "Nota fiscal disponível");
+        listTrocaPedidosRecus.put(2, "Em transporte");
+        listTrocaPedidosRecus.put(3, "Pedido entregue");
+
+        listTrocaLogistica.put(0, "Não aplicável");
 
         listTrocaLogisticaTroca.put(0, "Aguardando nota fiscal");
         listTrocaLogisticaTroca.put(1, "Separando pedido");
@@ -73,9 +82,24 @@ public class PedidosTrocasListUtil
         return this.listTrocaPedidosReemb;
     }
 
+    public HashMap<Integer,String> getListTrocaPedidosRecus() 
+    {
+        return this.listTrocaPedidosRecus;
+    }
+
+    public HashMap<Integer,String> getListTrocaLogistica() 
+    {
+        return this.listTrocaLogistica;
+    }
+
     public HashMap<Integer,String> getListTrocaLogisticaTroca() 
     {
         return this.listTrocaLogisticaTroca;
+    }
+
+    public HashMap<Integer,String> getListTrocaLogisticaRecus() 
+    {
+        return this.listTrocaLogisticaRecus;
     }
 
     public HashMap<Integer,String> getListEscolha() 
@@ -95,6 +119,27 @@ public class PedidosTrocasListUtil
                 return this.listTrocaPedidosCupom;
             case 3:
                 return this.listTrocaPedidosReemb;
+            case 4:
+                return this.listTrocaPedidosRecus;
+            default:
+                return new HashMap<>();
+        }
+    }
+
+    public HashMap<Integer,String> getListTrocaLog(int escolha)
+    {
+        switch (escolha)
+        {
+            case 0:
+                return this.listTrocaLogistica;
+            case 1:
+                return this.listTrocaLogisticaTroca;
+            case 2:
+                return this.listTrocaLogistica;
+            case 3:
+                return this.listTrocaLogistica;
+            case 4:
+                return this.listTrocaLogisticaRecus;
             default:
                 return new HashMap<>();
         }

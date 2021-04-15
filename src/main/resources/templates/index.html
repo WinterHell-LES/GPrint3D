@@ -32,11 +32,12 @@
             </div>
 
             <div class="container my-5" th:each="categoria : ${categorias}" th:if="${categoria.getVerifCategoria()}">
-                <div class="border-bottom">
-                    <p class="h2" th:text="${categoria.ctgNome}">Categoria</p>
+                <div class="border-bottom row">
+                    <div class="col"><p class="h2" th:text="${categoria.ctgNome}">Categoria</p></div>
+                    <div class="col d-flex align-items-center flex-row-reverse"><a th:href="${'/c/' + #strings.replace(categoria.ctgNome, ' ', '_')}" class="btn btn-secondary">Veja mais +</a></div>
                 </div>
                 <div class="row my-4">
-                    <div class="col d-flex justify-content-center mb-4" th:each="produto : ${categoria.listCategoriasProdutos}" th:if="${produto.produto.prdAtivo AND produto.produto.prdQuantidade > 0}">
+                    <div class="col d-flex justify-content-center mb-4" th:each="produto, stat : ${categoria.listCategoriasProdutos}" th:if="${produto.produto.prdAtivo AND produto.produto.prdQuantidade > 0 AND stat.count < 7}">
                         <div class="card shadow" style="width: 18rem;">
                             <img th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" class="card-img-top" alt="...">
                             <img th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" alt="">

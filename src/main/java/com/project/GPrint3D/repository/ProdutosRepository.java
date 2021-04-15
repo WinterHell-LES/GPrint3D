@@ -1,5 +1,7 @@
 package com.project.GPrint3D.repository;
 
+import java.util.List;
+
 import com.project.GPrint3D.model.ProdutosModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +18,10 @@ public interface ProdutosRepository extends JpaRepository<ProdutosModel, Integer
     // Procura por id do produto
     @Query(value = "SELECT * FROM produtos WHERE prd_id = ?", nativeQuery = true)
     public ProdutosModel findOneById(Integer id);
+
+    // Procura por nome parecido do produto
+    @Query(value = "SELECT * FROM produtos WHERE prd_nome LIKE %?%", nativeQuery = true)
+    public List<ProdutosModel> findAllLike(String pesquisa);
 
     // Atualiza a ativação para o produto referente
     @Modifying

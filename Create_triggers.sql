@@ -56,6 +56,7 @@ BEGIN
 	UPDATE pedidos_compras_produtos SET ppd_status = 1 WHERE ppd_id = NEW.pdt_ppd_id;
 END; $$
 
+
 -- Controle de logs
 -- INSERT
 DELIMITER $$

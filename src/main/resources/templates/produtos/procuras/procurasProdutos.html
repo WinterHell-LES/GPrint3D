@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/default/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Pesquisa</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="container mb-5">
+                <div class="row border-bottom">
+                    <div class="col"><p class="h2" th:text="'Resultados da pesquisa: ' + ${tituloPesquisa}">Resultados da pesquisa</p></div>
+                    <div class="col d-flex align-items-end flex-row-reverse"><p class="h5 align-middle" th:text="'Resultados encontrados: ' + ${produtos.size}">Resultados encontrados</p></div>
+                </div>
+                <div class="row my-4" th:each="produto : ${produtos}" th:if="${produto.prdAtivo AND produto.prdQuantidade > 0}">
+                    <div class="card-row shadow">
+                        <!-- <img th:src="@{/images/Teste.png}" class="img-start" alt="..." style="max-height: 125px; height: auto;"> -->
+                        <img class="img-start" th:if="${produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.listFotos[0].generateBase64Image()}}" alt="..." style="max-height: 175px; max-width: 270px; height: auto;">
+                        <img class="img-start" th:unless="${produto.listFotos.size}" th:src="@{/images/Teste.png}" alt="" style="max-height: 175px; max-width: 270px; height: auto;">
+                        <div class="card-body ms-4">
+                            <p class="h5" th:text="${produto.prdNome}">Produto</p>
+                            <p class="" th:text="${produto.prdDescricao}">Descrição do produto.</p>
+                        </div>
+                        <div class="card-end text-center" style="max-width: 200px; min-width: 200px;">
+                            <!-- <p class="fs-7 fs text-decoration-line-through text-black-50">R$ 99,99</p> -->
+                            <p class="fs-5 fw-bolder" th:text="'R$ ' + ${#numbers.formatDecimal(produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">Preço</p>
+                            <a th:href="${link + '/p/' + #strings.replace(produto.prdNome, ' ', '_')}" class="btn btn-secondary mt-2 stretched-link" style="width: 100%;">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Script-->
+        <th:block layout:fragment="javascripts">
+            <script type="text/javascript" th:src="@{/javascripts/pesquisa.js}"></script>
+        </th:block>
+    </body>
+</html>

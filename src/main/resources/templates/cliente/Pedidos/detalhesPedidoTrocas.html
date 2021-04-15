@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/cliente/layout}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!--CSS-->
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/pedidos.css}">
+
+        <title>GPrint3D - Cliente - Detalhes Pedido</title>
+    </head>
+
+    <body>
+        <!-- Conteudo da página -->
+       <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Detalhes do pedido</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/cliente/meusPedidos/meusPedidosTrocas" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+
+            <div class="container my-5 border shadow">
+                <div class="pedido-header row">
+                    <div class="col-sm pedido">
+                        <div class="row ps-2 ">
+                            <div class="col pt-3 pb-2">
+                                <p class="h5" th:text="${pedido.pdtNumero}">Pedido</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pedido-body row border-top">
+                    <div class="dados-compras col border my-4 mx-5" th:if="${pedido.pdtEscolha} == 1 OR ${pedido.pdtEscolha} == 4">
+                        <div class="row">
+                            <div class="col pt-2 bg-light endereços">
+                                <div class="row text-center border-bottom">
+                                    <p class="h6">Endereço</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-4 endereços">
+                                <div class="row">
+                                    <p class="h6 my-1">Descrição do Imóvel</p>
+                                </div>
+                                <div class="row">
+                                    <span class="h7 my-1">Rua João das Neves, 123 - Complemento</span>
+                                </div>
+                                <div class="row">
+                                    <span class="h7 my-1">Mogi das Cruzes / SP</span>
+                                </div>
+                                <div class="row">
+                                    <span class="h7 my-1">12345-123</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="logistica mb-4" th:classappend="${pedido.pdtEscolha} == 1 OR ${pedido.pdtEscolha} == 4 ? 'border-top' : ''">
+                        <div class="row pt-3 mb-3">
+                            <div class="col"></div>
+
+                            <div class="align-bottom" th:classappend="'col-' + ${allStatus.size - 1} * 2">
+                                <input type="range" class="form-range" min="0" th:max="${allStatus.size - 1}" step="1" th:value="${pedido.pdtStatusPedido}" id="fluxoCompra" disabled>
+                            </div>
+
+                            <div class="col"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col"></div>
+
+                            <div class="col-2 text-center" th:each="status : ${allStatus}">
+                                <span class="fs-7" th:text="${status.value}">Pedido recebido</span>
+                            </div>
+
+                            <div class="col"></div>
+                        </div>
+                    </div>
+
+                    <div class="produto mb-4 border-top">
+                        <div class="row ms-3">
+                            <div class="col">
+                                <div class="d-flex flex-row gap-4 pt-3">
+                                    <img th:if="${pedido.pedProduto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${pedido.pedProduto.produto.listFotos[0].generateBase64Image()}}" class="img-fluid" alt="..." style="max-width: 125px; height: auto;">
+                                    <img th:unless="${pedido.pedProduto.produto.listFotos.size}" th:src="@{/images/Teste.png}" class="img-fluid" alt="">
+
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <p class="h6" th:text="${pedido.pedProduto.produto.prdNome}">Produto</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xs-3 col-sm-2 col-md-1 border-start">
+                                <div class="row text-center align-content-end h-50">
+                                    <p class="fw-bold">QTD</p>
+                                </div>
+                                <div class="row text-center h-50">
+                                    <p th:text="${pedido.pdtQuantidade}">3</p>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-3 col-sm-2 col-md-1 border-start">
+                                <div class="row text-center align-content-end h-50" >
+                                    <p class="fw-bold">VALOR</p>
+                                </div>
+                                <div class="row text-center h-50">
+                                    <p th:text="'R$ ' + ${#numbers.formatDecimal(pedido.pedProduto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 50,00</p>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-3 col-sm-2 col-md-1 border-start">
+                                <div class="row text-center align-content-end h-50">
+                                    <p class="fw-bold">TOTAL</p>
+                                </div>
+                                <div class="row text-center h-50">
+                                    <p th:text="'R$ ' + ${#numbers.formatDecimal(pedido.pedProduto.produto.prdPreco * pedido.pdtQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">R$132,00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Scripts-->
+        <th:block layout:fragment="javascripts">
+            <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/modal/modalControlCliPedidos.js}"></script>
+        </th:block>
+    </body>
+</html>

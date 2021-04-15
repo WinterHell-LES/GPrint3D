@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Admin - Pedidos</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2" th:text="'Pedido de compra - ' + ${pedido.pdcNumero}">Numero do pedido</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/pedido/listarPedidosCompras" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link"th:href="'/admin/pedido/infoCompras/' + ${pedido.pdcId} + '/dados'">Dados gerais</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="'/admin/pedido/infoCompras/' + ${pedido.pdcId} + '/produtos'">Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'/admin/pedido/infoCompras/' + ${pedido.pdcId} + '/cliente'">Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'/admin/pedido/infoCompras/' + ${pedido.pdcId} + '/enderecos'">Endereços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="'/admin/pedido/infoCompras/' + ${pedido.pdcId} + '/cartoes'">Cartão</a>
+                </li>
+            </ul>
+
+            <table class="table my-3">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Preço total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="pedProduto : ${pedido.listPedProdutos}">
+                        <td th:text="${pedProduto.produto.prdNome}">Nome</td>
+                        <td th:text="${pedProduto.ppdQuantidade}">Quantidade</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedProduto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">Valor</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedProduto.produto.prdPreco * pedProduto.ppdQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">Valor total</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </body>
+</html>

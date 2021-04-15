@@ -153,6 +153,11 @@ public class UsuariosModel
         this.listSaidas = listSaidas;
     }
 
+    public String getStrUsuAtivo()
+    {
+        return this.usuAtivo ? "Ativo" : "Inativo";
+    }
+
     @Override
     public boolean equals(Object o) 
     {

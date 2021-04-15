@@ -5,8 +5,8 @@ insert into usuarios (usu_email, usu_senha, usu_regra, usu_ativo)
 values ('admin@gprint3d.com', '$2a$10$TMfY1IunLWQy/wfKgltNZ.jyaJObeOdAfBK2VPicJzVh10P0nnDQO', 'ROLE_ADM', '1');
 
 -- Variáveis
-insert into sis_variaveis (var_id, var_cep, var_categoria, var_temptroca, var_rank_1, var_rank_2, var_rank_3, var_rank_4)
-values (1, '08745-290', 2, 7, 300, 400, 500, 600);
+insert into sis_variaveis (var_id, var_cep, var_categoria, var_temptroca, var_validcupom, var_rank_1, var_rank_2, var_rank_3, var_rank_4)
+values (1, '08745-290', 2, 7, 100, 300, 400, 500, 600);
 
 -- Bandeiras
 insert into bandeiras (ban_nome, ban_ativo)

@@ -25,7 +25,7 @@
                         <th style="width: 120px;">Preço</th>
                         <th style="width: 100px;">Quantidade</th>
                         <th style="width: 200px;">Precificação (DV/DF/ML)</th>
-                        <th style="width: 60px;">Ativo</th>
+                        <th style="width: 60px;">Status</th>
                         <th style="width: 180px;">Editar</th>
                     </tr>
                 </thead>
@@ -38,7 +38,7 @@
                         <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">Preço</td>
                         <td th:text="${produto.prdQuantidade}">Quantidade</td>
                         <td th:text="${produto.precificacao.getNome()}">Precificação</td>
-                        <td th:text="${produto.prdAtivo}">Ativo</td>
+                        <td th:text="${produto.getStrPrdAtivo()}">Status</td>
                         <td class="py-0 my-0">
                             <div class="row">
                                 <div class="col-auto mr-auto px-0">

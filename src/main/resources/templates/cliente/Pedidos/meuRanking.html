@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br"
     layout:decorate="~{layout/cliente/layout}">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,18 +13,10 @@
     </head>
 
     <body>
-        <!-- Conteudo da página -->
-       <section layout:fragment="conteudo">
-            <div class="mt-5">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="row border-bottom mb-4">
-                            <p class="h2">Meu ranking</p>
-                        </div>
-                    </div>
-                </div>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Meu ranking</h1>
             </div>
-                
             
             <div class="row d-flex justify-content-center my-4">
                 <div class="card shadow col-md-8">
@@ -32,7 +25,7 @@
                             <div class="col-sm-3">
                                 <div class="row">
                                     <div class="col-sm d-flex justify-content-center">
-                                        <div class="progress-circle p10 m-2">
+                                        <div class="progress-circle m-2" th:classappend="'p' + ${ponto}">
                                             <span><i class="bi bi-person-circle"></i></span>
                                             <div class="left-half-clipper">
                                                 <div class="first50-bar"></div>
@@ -44,21 +37,19 @@
 
                                 <div class="row">
                                     <div class="col-sm text-center">
-                                        <span class="border rounded secondary p-1">30/300</span>
+                                        <span class="border rounded secondary p-1" th:text="${cliente.cliPontos} + '/' + ${pontosRank}">30/300</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm d-flex flex-column justify-content-start align-self-center">
-                                <h5 class="card-title">Parabéns, você está no nível X!</h5>
-                                <p class="card-text">Acumule mais 300-30 pontos para subir para o nível X+1.</p>
+                                <h5 class="card-title" th:text="'Parabéns, você está no nível ' + ${cliente.cliRanking} + '!'">Parabéns, você está no nível X!</h5>
+                                <p class="card-text" th:text="'Acumule mais  ' + ${pontosRank - cliente.cliPontos} + ' pontos para subir para o nível ' + ${cliente.cliRanking + 1}" th:if="${cliente.cliRanking < 4}">Acumule mais 300-30 pontos para subir para o nível X+1.</p>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
-
             
             <div class="py-4">
                 <!--Carousel Wrapper-->
@@ -80,7 +71,8 @@
                                             <div class="card mb-2">
                                                 <div class="card-header text-center fw-bold" style="background-color: #b87333;">
                                                     <span class="fs-5">Nível 1 - Bronze</span>
-                                                    <i class="bi bi-unlock fw-bold fs-5"></i>
+                                                    <i class="bi bi-lock fw-bold fs-5" th:if="${cliente.cliRanking < 1}"></i>
+                                                    <i class="bi bi-unlock fw-bold fs-5" th:if="${cliente.cliRanking >= 1}"></i>
                                                 </div>
                                                 <div class="card-body">
                                                     <h4 class="card-title">Benefícios Bronze</h4>
@@ -97,7 +89,8 @@
                                             <div class="card mb-2">
                                                 <div class="card-header text-center fw-bold" style="background-color: #c0c0c0;">
                                                     <span class="fs-5">Nível 2 - Prata</span>
-                                                    <i class="bi bi-lock fw-bold fs-5"></i>
+                                                    <i class="bi bi-lock fw-bold fs-5" th:if="${cliente.cliRanking < 2}"></i>
+                                                    <i class="bi bi-unlock fw-bold fs-5" th:if="${cliente.cliRanking >= 2}"></i>
                                                 </div>
                                                 <div class="card-body">
                                                     <h4 class="card-title">Benefícios Prata</h4>
@@ -119,7 +112,8 @@
                                             <div class="card mb-2">
                                                 <div class="card-header text-center fw-bold" style="background-color: #FFD700;">
                                                     <span class="fs-5">Nível 3 - Ouro</span>
-                                                    <i class="bi bi-lock fw-bold fs-5"></i>
+                                                    <i class="bi bi-lock fw-bold fs-5" th:if="${cliente.cliRanking < 3}"></i>
+                                                    <i class="bi bi-unlock fw-bold fs-5" th:if="${cliente.cliRanking >= 3}"></i>
                                                 </div>
                                                 <div class="card-body">
                                                     <h4 class="card-title">Benefícios Ouro</h4>
@@ -136,7 +130,8 @@
                                             <div class="card mb-2">
                                                 <div class="card-header text-center fw-bold" style="background-color: #B9F2FF;">
                                                     <span class="fs-5">Nível 4 - Diamante</span>
-                                                    <i class="bi bi-lock fw-bold fs-5"></i>
+                                                    <i class="bi bi-lock fw-bold fs-5" th:if="${cliente.cliRanking < 4}"></i>
+                                                    <i class="bi bi-unlock fw-bold fs-5" th:if="${cliente.cliRanking >= 4}"></i>
                                                 </div>
                                                 <div class="card-body">
                                                     <h4 class="card-title">Benefícios Diamante</h4>
@@ -150,9 +145,7 @@
                                     </div>
                                 </div>
                                 <!--/.Second slide-->
-                            
                             </div>
-
                         </div>
 
                         <div class="col-sm-1 d-flex flex-column align-self-center">
@@ -161,14 +154,12 @@
                         <!--/.Slides-->
                     </div>
                     
-
                     <!--Controls and Indicators-->
                     <ol class="carousel-indicators" style="position: relative;">
                         <li type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Page 1" style="background-color: gray;"></li>
                         <li type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Page 2" style="background-color: gray;"></li>
                     </ol>
                     <!--/.Controls and Indicators-->
-                
                 </div>
                 <!--/.Carousel Wrapper-->
             </div>

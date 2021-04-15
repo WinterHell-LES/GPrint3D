@@ -105,6 +105,7 @@ DROP TABLE IF EXISTS cupons_trocas;
 CREATE TABLE cupons_trocas (
     cpt_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
     cpt_status          BOOLEAN,
+    cpt_data			DATE NOT NULL,
     cpt_validade        DATE NOT NULL,
     cpt_valor       	DECIMAL(8,2) NOT NULL,
     cpt_saldo       	DECIMAL(8,2) NOT NULL,
@@ -120,6 +121,7 @@ CREATE TABLE historicos_cupons_trocas (
     hct_id             	MEDIUMINT NOT NULL AUTO_INCREMENT,
     hct_data	        VARCHAR(100) NOT NULL,
     hct_saldo       	DECIMAL(8,2) NOT NULL,
+    hct_pdc_id			MEDIUMINT NOT NULL,
     hct_cpt_id  		MEDIUMINT NOT NULL,
     CONSTRAINT pk_hct PRIMARY KEY ( hct_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -419,6 +421,7 @@ CREATE TABLE sis_variaveis (
     var_cep  			VARCHAR(20) NOT NULL,
     var_categoria		MEDIUMINT NOT NULL DEFAULT 2,
     var_temptroca		MEDIUMINT NOT NULL,
+    var_validcupom		MEDIUMINT NOT NULL,
     var_rank_1			MEDIUMINT NOT NULL,
     var_rank_2			MEDIUMINT NOT NULL,
     var_rank_3			MEDIUMINT NOT NULL,
@@ -462,6 +465,10 @@ ALTER TABLE cupons_promocoes
 ALTER TABLE cupons_trocas
     ADD CONSTRAINT fk_cpt_cli FOREIGN KEY ( cpt_cli_id )
         REFERENCES clientes ( cli_id );
+
+ALTER TABLE historicos_cupons_trocas
+    ADD CONSTRAINT fk_hct_pdc FOREIGN KEY ( hct_pdc_id )
+        REFERENCES pedidos_compras ( pdc_id );
         
 ALTER TABLE historicos_cupons_trocas
     ADD CONSTRAINT fk_hct_cpt FOREIGN KEY ( hct_cpt_id )
@@ -525,7 +532,7 @@ ALTER TABLE pedidos_compras_fretes
 
 ALTER TABLE pedidos_trocas_fretes
     ADD CONSTRAINT fk_ptf_pdt FOREIGN KEY ( ptf_pdt_id )
-        REFERENCES pedidos_compras ( pdt_id );
+        REFERENCES pedidos_trocas ( pdt_id );
 
 ALTER TABLE pedidos_compras_cupons_promocoes
     ADD CONSTRAINT fk_pcp_cpp FOREIGN KEY ( pcp_cpp_id )

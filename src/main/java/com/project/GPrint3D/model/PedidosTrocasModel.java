@@ -240,7 +240,25 @@ public class PedidosTrocasModel
     {
         PedidosTrocasListUtil utilTrocas = new PedidosTrocasListUtil();
 
-        HashMap<Integer, String> listTroca = utilTrocas.getListTrocaLogisticaTroca();
+        HashMap<Integer, String> listTroca = new HashMap<>();
+
+        switch (this.pdtEscolha)
+        {
+            case 0:
+                listTroca = utilTrocas.getListTrocaLogistica();
+            break;
+            case 1:
+                listTroca = utilTrocas.getListTrocaLogisticaTroca();
+            break;
+            case 2:
+                listTroca = utilTrocas.getListTrocaLogistica();
+            break;
+            case 3:
+                listTroca = utilTrocas.getListTrocaLogistica();
+            break;
+            default:
+                System.out.println("Erro na escolha da troca");
+        }
         
         String status = listTroca.get(this.pdtStatusLogistica);
 

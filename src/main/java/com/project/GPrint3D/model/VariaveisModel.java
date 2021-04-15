@@ -32,6 +32,10 @@ public class VariaveisModel
     @Column(name = "var_temptroca")
     private Integer varTempTroca;
 
+    @NotNull(message = "Validade do cupom é obrigatória")
+    @Column(name = "var_validcupom")
+    private Integer varValidCupom;
+
     @NotNull(message = "Rank 1 é obrigatório")
     @Column(name = "var_rank_1")
     private Integer varRank1;
@@ -54,18 +58,20 @@ public class VariaveisModel
         this.varCep = "";
         this.varCategoria = 0;
         this.varTempTroca = 0;
+        this.varValidCupom = 0;
         this.varRank1 = 0;
         this.varRank2 = 0;
         this.varRank3 = 0;
         this.varRank4 = 0;
     }
 
-    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4) 
+    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varValidCupom, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4) 
     {
         this.varId = varId;
         this.varCep = varCep;
         this.varCategoria = varCategoria;
         this.varTempTroca = varTempTroca;
+        this.varValidCupom = varValidCupom;
         this.varRank1 = varRank1;
         this.varRank2 = varRank2;
         this.varRank3 = varRank3;
@@ -115,6 +121,16 @@ public class VariaveisModel
     public Integer getVarRank1() 
     {
         return this.varRank1;
+    }
+
+    public Integer getVarValidCupom() 
+    {
+        return this.varValidCupom;
+    }
+
+    public void setVarValidCupom(Integer varValidCupom) 
+    {
+        this.varValidCupom = varValidCupom;
     }
 
     public void setVarRank1(Integer varRank1) 

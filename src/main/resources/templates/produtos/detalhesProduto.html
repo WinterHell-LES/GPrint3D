@@ -43,8 +43,9 @@
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <div id="dispFrete" class="border-top border-bottom p-2 d-none">
-                        </div>
+
+                        <div id="dispFrete" class="border-top border-bottom p-2 d-none"></div>
+                        
                         <p class="fs-8 mb-1 mt-3" th:text="'Quantidade em estoque: ' + ${produto.prdQuantidade} + ' itens'">Quantidade em estoque: X itens.</p>
                         <div class="row px-3 mb-2 mt-1 text-center">
                             <form th:action="@{/carrinho/incluirNoCarrinho}" method="POST" class="px-0">

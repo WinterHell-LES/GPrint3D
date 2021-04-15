@@ -11,14 +11,12 @@
     <body>
         <!-- Conteudo da página -->
         <section layout:fragment="conteudo">
-            <div class="container my-5">
-                <div class="border-bottom">
-                    <p class="h2">Cartões</p>
-                </div>
-
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Cartões</h1>
+            </div>
+            <div class="container my-4">
                 <!-- Listagem dos Cartões -->
                 <div th:insert="~{cliente/visualizar/listaCartoes :: listaCartoes}"></div>
-
             </div>
         </section>
     </body>

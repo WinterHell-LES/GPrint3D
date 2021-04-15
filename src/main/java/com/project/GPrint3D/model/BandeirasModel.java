@@ -96,6 +96,11 @@ public class BandeirasModel
         this.banAtivo = banAtivo;
     }
 
+    public String getStrBanAtivo()
+    {
+        return this.banAtivo ? "Ativo" : "Inativo";
+    }
+
     @Override
     public boolean equals(Object o) 
     {

@@ -370,6 +370,11 @@ public class ProdutosModel
     {
         this.listFotos = listFotos;
     }
+
+    public String getStrPrdAtivo()
+    {
+        return this.prdAtivo ? "Ativo" : "Inativo";
+    }
     
     @Override
     public boolean equals(Object o) 

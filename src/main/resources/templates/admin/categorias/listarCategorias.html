@@ -22,7 +22,7 @@
                     <tr>
                         <th>Nome</th>
                         <th style="width: 170px;">Produtos cadastrados</th>
-                        <th style="width: 60px;">Ativo</th>
+                        <th style="width: 60px;">Status</th>
                         <th style="width: 100px;">Editar</th>
                     </tr>
                 </thead>
@@ -30,7 +30,7 @@
                     <tr th:each="categoria : ${categorias}">
                         <td th:text="${categoria.ctgNome}">Nome</td>
                         <td th:text="${categoria.listCategoriasProdutos.size}">Produtos cadastrados</td>
-                        <td th:text="${categoria.ctgAtivo}">Ativo</td>
+                        <td th:text="${categoria.getStrCtgAtivo()}">Status</td>
                         <td class="py-0 my-0">
                             <div class="row">
                                 <div class="col-auto mr-auto px-0">

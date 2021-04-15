@@ -64,6 +64,75 @@ public class PedidosTrocasService
         return response;
     }
 
+    public String[] atualizarEscolha(Integer escolha, Integer id)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        try 
+        {
+            pedidos.updateEscolha(escolha, id);
+
+            response[0] = msg1;
+            response[1] = "Cadastro de escolha alterada com sucesso!";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao alterar a escolha";
+        }
+        
+        return response;
+    }
+
+    public String[] atualizarPedido(Integer status, Integer id)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        try 
+        {
+            pedidos.updateStatusPedido(status, id);
+
+            response[0] = msg1;
+            response[1] = "Cadastro de pedido alterado com sucesso!";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao alterar o pedido";
+        }
+        
+        return response;
+    }
+
+    public String[] atualizarLogistica(Integer status, Integer id)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        try 
+        {
+            pedidos.updateStatusLogistica(status, id);
+
+            response[0] = msg1;
+            response[1] = "Cadastro de pedido alterado com sucesso!";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao alterar o pedido";
+        }
+        
+        return response;
+    }
+
     public String[] excluir(Integer id)
     {
         String[] response = new String[2];

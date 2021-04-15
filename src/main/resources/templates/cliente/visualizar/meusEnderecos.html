@@ -11,24 +11,22 @@
     <body>
         <!-- Conteudo da página -->
         <section layout:fragment="conteudo">
-            <div class="container my-5">
-                <div class="border-bottom">
-                    <p class="h2">Endereço de entrega</p>
-                </div>
-
-                <!-- Listagem dos endereços de entrega -->
-                <div th:insert="~{cliente/visualizar/listaEnderecosEntrega :: listaEnderecoEntrega}"></div>
-
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Endereço de entrega</h1>
             </div>
 
-            <div class="container my-5">
-                <div class="border-bottom">
-                    <p class="h2">Endereço de cobrança</p>
-                </div>
+            <div class="container my-4">
+                <!-- Listagem dos endereços de entrega -->
+                <div th:insert="~{cliente/visualizar/listaEnderecosEntrega :: listaEnderecoEntrega}"></div>
+            </div>
 
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Endereço de cobrança</h1>
+            </div>
+
+            <div class="container my-4">
                 <!-- Listagem dos endereços de cobrança -->
                 <div th:insert="~{cliente/visualizar/listaEnderecosCobranca :: listaEnderecoCobranca}"></div>
-                
             </div>
         </section>
     </body>

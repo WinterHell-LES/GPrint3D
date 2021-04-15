@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Admin - Pedidos</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Alteração do status do pedido</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="/admin/pedido/listarPedidosCompras" class="btn btn-sm btn-outline-secondary">
+                        Voltar
+                    </a>
+                </div>
+            </div>
+
+            <div class="logistica mb-4">
+                <div class="row pt-3 mb-3">
+                    <div class="col"></div>
+
+                    <div class="align-bottom" th:classappend="'col-' + ${allStatus.size - 1} * 2">
+                        <input type="range" class="form-range" min="0" th:max="${allStatus.size - 1}" step="1" th:value="${pedido.pdcStatusPedido}" id="fluxoCompra" disabled>
+                    </div>
+
+                    <div class="col"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col" th:if="${allStatus.size} < 6"></div>
+
+                    <div class="col-2 text-center" th:each="status : ${allStatus}">
+                        <span class="fs-7" th:text="${status.value}">Pedido recebido</span>
+                    </div>
+                    
+                    <div class="col" th:if="${allStatus.size} < 6"></div>
+                </div>
+            </div>
+
+            <form th:action="@{/admin/pedido/alterarPedidoCompra}" method="POST">
+                <input type="hidden" th:field="${pedido.pdcId}">
+                <input type="hidden" id="pdcStatusPedido" name="pdcStatusPedido" th:value="${pedido.pdcStatusPedido} + 1">
+
+                <div class="row pe-0 pb-3">
+                    <div class="row pe-0">
+                        <div class="col-sm pe-0">
+                            <div class="text-end">
+                                <button type="submit" class="btn border shadow-sm">Próximo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

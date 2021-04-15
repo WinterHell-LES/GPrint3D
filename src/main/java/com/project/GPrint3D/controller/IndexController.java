@@ -5,27 +5,51 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 
 import com.project.GPrint3D.model.CategoriasModel;
+import com.project.GPrint3D.model.ProdutosModel;
+import com.project.GPrint3D.model.VariaveisModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
+import com.project.GPrint3D.repository.ProdutosRepository;
+import com.project.GPrint3D.repository.VariaveisRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class IndexController 
 {
     @Autowired
-    private CategoriasRepository categorias;
+    private CategoriasRepository categoriasRepository;
+
+    @Autowired
+    private ProdutosRepository produtosRepository;
+    
+    @Autowired
+    private VariaveisRepository variaveisRepository;
 
     @RequestMapping({"/", "/index"})
-    public ModelAndView index(@AuthenticationPrincipal User user, HttpServletRequest auth, Principal principal, CategoriasModel categoria)
+    public ModelAndView index(CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/index");
 
-        mv.addObject("categorias", categorias.findAll());
+        VariaveisModel variavel = variaveisRepository.findOneById(1);
+
+        mv.addObject("categorias", categoriasRepository.findAllRand(variavel.getVarCategoria()));
+        
+        return mv;
+    }
+
+    @GetMapping("/pesquisa")
+    public ModelAndView pesquisa(@RequestParam(name = "search") String pesquisa, ProdutosModel produto)
+    {
+        ModelAndView mv = new ModelAndView("/produtos/procuras/procurasProdutos");
+
+        mv.addObject("tituloPesquisa", pesquisa);
+        mv.addObject("produtos", produtosRepository.findAllLike(pesquisa));
         
         return mv;
     }

@@ -84,6 +84,14 @@ public class VariaveisModel
     @Column(name = "var_cor_somdimmin")
     private double varCorSomDimMin;
 
+    @NotNull(message = "Peso máximo é obrigatório")
+    @Column(name = "var_cor_pemax")
+    private double varCorPeMax;
+
+    @NotNull(message = "Peso mínima é obrigatório")
+    @Column(name = "var_cor_pemin")
+    private double varCorPeMin;
+
     public VariaveisModel() 
     {
         this.varId = 0;
@@ -103,9 +111,11 @@ public class VariaveisModel
         this.varCorPrMin = 0.0;
         this.varCorSomDimMax = 0.0;
         this.varCorSomDimMin = 0.0;
+        this.varCorPeMax = 0.0;
+        this.varCorPeMin = 0.0;
     }
 
-    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varValidCupom, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4, double varCorAlMax, double varCorAlMin, double varCorLaMax, double varCorLaMin, double varCorPrMax, double varCorPrMin, double varCorSomDimMax, double varCorSomDimMin) 
+    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varValidCupom, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4, double varCorAlMax, double varCorAlMin, double varCorLaMax, double varCorLaMin, double varCorPrMax, double varCorPrMin, double varCorSomDimMax, double varCorSomDimMin, double varCorPeMax, double varCorPeMin) 
     {
         this.varId = varId;
         this.varCep = varCep;
@@ -124,6 +134,8 @@ public class VariaveisModel
         this.varCorPrMin = varCorPrMin;
         this.varCorSomDimMax = varCorSomDimMax;
         this.varCorSomDimMin = varCorSomDimMin;
+        this.varCorPeMax = varCorPeMax;
+        this.varCorPeMin = varCorPeMin;
     }
     
     public Integer getVarId() 
@@ -294,6 +306,26 @@ public class VariaveisModel
     public void setVarCorSomDimMin(double varCorSomDimMin) 
     {
         this.varCorSomDimMin = varCorSomDimMin;
+    }
+
+    public double getVarCorPeMax() 
+    {
+        return this.varCorPeMax;
+    }
+
+    public void setVarCorPeMax(double varCorPeMax) 
+    {
+        this.varCorPeMax = varCorPeMax;
+    }
+
+    public double getVarCorPeMin() 
+    {
+        return this.varCorPeMin;
+    }
+
+    public void setVarCorPeMin(double varCorPeMin) 
+    {
+        this.varCorPeMin = varCorPeMin;
     }
 
     @Override

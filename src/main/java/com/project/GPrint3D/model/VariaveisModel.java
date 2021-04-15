@@ -52,6 +52,38 @@ public class VariaveisModel
     @Column(name = "var_rank_4")
     private Integer varRank4;
 
+    @NotNull(message = "Altura máxima é obrigatória")
+    @Column(name = "var_cor_almax")
+    private double varCorAlMax;
+
+    @NotNull(message = "Altura mínima é obrigatória")
+    @Column(name = "var_cor_almin")
+    private double varCorAlMin;
+
+    @NotNull(message = "Largura máxima é obrigatória")
+    @Column(name = "var_cor_lamax")
+    private double varCorLaMax;
+
+    @NotNull(message = "Largura mínima é obrigatória")
+    @Column(name = "var_cor_lamin")
+    private double varCorLaMin;
+
+    @NotNull(message = "Profundidade máxima é obrigatória")
+    @Column(name = "var_cor_prmax")
+    private double varCorPrMax;
+
+    @NotNull(message = "Profundidade mínima é obrigatória")
+    @Column(name = "var_cor_prmin")
+    private double varCorPrMin;
+
+    @NotNull(message = "Soma máxima do dimensional é obrigatória")
+    @Column(name = "var_cor_somdimmax")
+    private double varCorSomDimMax;
+
+    @NotNull(message = "Soma mínima do dimensional é obrigatória")
+    @Column(name = "var_cor_somdimmin")
+    private double varCorSomDimMin;
+
     public VariaveisModel() 
     {
         this.varId = 0;
@@ -63,9 +95,17 @@ public class VariaveisModel
         this.varRank2 = 0;
         this.varRank3 = 0;
         this.varRank4 = 0;
+        this.varCorAlMax = 0.0;
+        this.varCorAlMin = 0.0;
+        this.varCorLaMax = 0.0;
+        this.varCorLaMin = 0.0;
+        this.varCorPrMax = 0.0;
+        this.varCorPrMin = 0.0;
+        this.varCorSomDimMax = 0.0;
+        this.varCorSomDimMin = 0.0;
     }
 
-    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varValidCupom, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4) 
+    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varValidCupom, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4, double varCorAlMax, double varCorAlMin, double varCorLaMax, double varCorLaMin, double varCorPrMax, double varCorPrMin, double varCorSomDimMax, double varCorSomDimMin) 
     {
         this.varId = varId;
         this.varCep = varCep;
@@ -76,8 +116,16 @@ public class VariaveisModel
         this.varRank2 = varRank2;
         this.varRank3 = varRank3;
         this.varRank4 = varRank4;
+        this.varCorAlMax = varCorAlMax;
+        this.varCorAlMin = varCorAlMin;
+        this.varCorLaMax = varCorLaMax;
+        this.varCorLaMin = varCorLaMin;
+        this.varCorPrMax = varCorPrMax;
+        this.varCorPrMin = varCorPrMin;
+        this.varCorSomDimMax = varCorSomDimMax;
+        this.varCorSomDimMin = varCorSomDimMin;
     }
-
+    
     public Integer getVarId() 
     {
         return this.varId;
@@ -166,6 +214,86 @@ public class VariaveisModel
     public void setVarRank4(Integer varRank4) 
     {
         this.varRank4 = varRank4;
+    }
+
+    public double getVarCorAlMax() 
+    {
+        return this.varCorAlMax;
+    }
+
+    public void setVarCorAlMax(double varCorAlMax) 
+    {
+        this.varCorAlMax = varCorAlMax;
+    }
+
+    public double getVarCorAlMin() 
+    {
+        return this.varCorAlMin;
+    }
+
+    public void setVarCorAlMin(double varCorAlMin) 
+    {
+        this.varCorAlMin = varCorAlMin;
+    }
+
+    public double getVarCorLaMax() 
+    {
+        return this.varCorLaMax;
+    }
+
+    public void setVarCorLaMax(double varCorLaMax) 
+    {
+        this.varCorLaMax = varCorLaMax;
+    }
+
+    public double getVarCorLaMin() 
+    {
+        return this.varCorLaMin;
+    }
+
+    public void setVarCorLaMin(double varCorLaMin) 
+    {
+        this.varCorLaMin = varCorLaMin;
+    }
+
+    public double getVarCorPrMax() 
+    {
+        return this.varCorPrMax;
+    }
+
+    public void setVarCorPrMax(double varCorPrMax) 
+    {
+        this.varCorPrMax = varCorPrMax;
+    }
+
+    public double getVarCorPrMin() 
+    {
+        return this.varCorPrMin;
+    }
+
+    public void setVarCorPrMin(double varCorPrMin) 
+    {
+        this.varCorPrMin = varCorPrMin;
+    }
+
+    public double getVarCorSomDimMax() 
+    {
+        return this.varCorSomDimMax;
+    }
+
+    public void setVarCorSomDimMax(double varCorSomDimMax) 
+    {
+        this.varCorSomDimMax = varCorSomDimMax;
+    }
+
+    public double getVarCorSomDimMin() 
+    {
+        return this.varCorSomDimMin;
+    }
+
+    public void setVarCorSomDimMin(double varCorSomDimMin) 
+    {
+        this.varCorSomDimMin = varCorSomDimMin;
     }
 
     @Override

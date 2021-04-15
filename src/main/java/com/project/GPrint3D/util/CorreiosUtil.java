@@ -96,11 +96,11 @@ public class CorreiosUtil
                                 "&sDsSenha=" +
                                 "&sCepOrigem=" + cepRemetente +
                                 "&sCepDestino=" + cepDestinatario +
-                                "&nVlPeso=" + (produto.getPrdDimEmbPe() / 10) +
+                                "&nVlPeso=" + Math.ceil(produto.getPrdDimEmbPe()) +
                                 "&nCdFormato=1" +
-                                "&nVlComprimento=" + (produto.getPrdDimEmbPr() / 10) +
-                                "&nVlAltura=" + (produto.getPrdDimEmbAl() / 10) +
-                                "&nVlLargura=" + (produto.getPrdDimEmbLa() / 10) +
+                                "&nVlComprimento=" + Math.ceil((produto.getPrdDimEmbPr() / 10)) +
+                                "&nVlAltura=" + Math.ceil((produto.getPrdDimEmbAl() / 10)) +
+                                "&nVlLargura=" + Math.ceil((produto.getPrdDimEmbLa() / 10)) +
                                 "&sCdMaoPropria=N" +
                                 "&nVlValorDeclarado=0" +
                                 "&sCdAvisoRecebimento=N" +

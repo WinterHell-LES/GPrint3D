@@ -426,6 +426,14 @@ CREATE TABLE sis_variaveis (
     var_rank_2			MEDIUMINT NOT NULL,
     var_rank_3			MEDIUMINT NOT NULL,
     var_rank_4			MEDIUMINT NOT NULL,
+    var_cor_almax		DECIMAL(6,2) NOT NULL,
+    var_cor_almin		DECIMAL(6,2) NOT NULL,
+    var_cor_lamax		DECIMAL(6,2) NOT NULL,
+    var_cor_lamin		DECIMAL(6,2) NOT NULL,
+    var_cor_prmax		DECIMAL(6,2) NOT NULL,
+    var_cor_prmin		DECIMAL(6,2) NOT NULL,
+    var_cor_somdimmax	DECIMAL(6,2) NOT NULL,
+    var_cor_somdimmin	DECIMAL(6,2) NOT NULL,
     CONSTRAINT pk_var PRIMARY KEY ( var_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

@@ -252,8 +252,8 @@ public class CarrinhoUtil
         //Tenta atualizar o produto na listagem, se conseguir finalizar o método.
         for(int i = 0; i < carrinhoProdutos.size(); i++)
         {
-            BigDecimal calculoBD = new BigDecimal(carrinhoProdutos.get(i).getPcrQuantidade()).multiply(new BigDecimal(carrinhoProdutos.get(i).getProduto().getPrdPreco()));
-            BigDecimal totalBD = new BigDecimal(total).add(calculoBD);
+            BigDecimal calculoBD = BigDecimal.valueOf(carrinhoProdutos.get(i).getPcrQuantidade()).multiply(BigDecimal.valueOf(carrinhoProdutos.get(i).getProduto().getPrdPreco()));
+            BigDecimal totalBD = BigDecimal.valueOf(total).add(calculoBD);
             total =  totalBD.doubleValue();
         }
 
@@ -353,7 +353,7 @@ public class CarrinhoUtil
 
         for (PedCartoesModel pedCartoes : listaPedCartoes)
         {
-            BigDecimal totalBD = new BigDecimal(total).add(new BigDecimal(pedCartoes.getPctValor()));
+            BigDecimal totalBD = BigDecimal.valueOf(total).add(BigDecimal.valueOf(pedCartoes.getPctValor()));
             total = totalBD.doubleValue();
         }
 

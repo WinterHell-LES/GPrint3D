@@ -166,7 +166,7 @@ public class CorreiosUtil
             }
         }
 
-        listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Valor"))));
+        //listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Valor"))));
         listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Nome"))));
 
         return listHash;

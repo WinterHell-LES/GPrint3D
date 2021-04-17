@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.validation.Valid;
 
@@ -48,6 +47,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/cliente/carrinho")
 public class CartCliController extends CarrinhoUtil
 {
+    private Integer repeticaoTelaPagamento = 0;
     private UsuariosModel usuarioMod = new UsuariosModel();
     private ClientesModel clienteMod = new ClientesModel();
     private CarrinhosModel carrinhoMod = new CarrinhosModel();
@@ -126,8 +126,15 @@ public class CartCliController extends CarrinhoUtil
 
     //Grava os dados do endereço do cliente
     @PostMapping("/confirmarEndereco")
-    public ModelAndView confirmarEndereco(@RequestParam (name = "frete") String freteParam, @Valid EnderecosModel endereco)
+    public ModelAndView confirmarEndereco(@RequestParam (name = "frete", defaultValue = "") String freteParam, @Valid EnderecosModel endereco)
     {
+        if (freteParam.equals(""))
+        {
+            String response = "Frete não selecionado, por favor selecione o frete.";
+
+            return new ModelAndView("redirect:/cliente/carrinho/escolherEndereco");
+        }
+        
         freteParam = freteParam.substring(1, freteParam.length()-1);
         String[] keyValuePairs = freteParam.split(",");
         Map<String,String> freteMap = new HashMap<String,String>();               
@@ -150,24 +157,21 @@ public class CartCliController extends CarrinhoUtil
     @RequestMapping("/escolherPagamento")
     public ModelAndView escolherPagamento(Principal principal)
     {
-        if (freteMod.getPcfValor() == 0)
-        {
-            String response = "Frete não selecionado, por favor selecione o frete.";
-            return new ModelAndView("redirect:/cliente/carrinho/escolherEndereco");
-        }
         ModelAndView mv = new ModelAndView("/cliente/carrinho/escolherPagamento");
 
         usuarioMod = usuarios.findByEmail(principal.getName());
         clienteMod = clientes.findByUsuarioId(usuarioMod.getUsuId());
         carrinhoMod = carrinhos.findByClienteId(clienteMod.getCliId());
 
-        if (listaPedCartoes.size() == 0)
+        if (listaPedCartoes.size() == 0 && repeticaoTelaPagamento == 0)
         {
             PedCartoesModel pedCartao = new PedCartoesModel();
 
             pedCartao.setCartao(cartoesPadroes.findByClienteId(clienteMod.getCliId()).getCartao());
 
             listaPedCartoes.add(pedCartao);
+
+            repeticaoTelaPagamento = 1;
         }
 
         mv.addObject("cliente", clienteMod);
@@ -184,7 +188,6 @@ public class CartCliController extends CarrinhoUtil
     @PostMapping("/aplicaCupomTroca")
     public ModelAndView aplicarCupomTroca()
     {
-        
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
@@ -214,6 +217,7 @@ public class CartCliController extends CarrinhoUtil
             if (cartaoPed.getCartao().getCrtId() == cartaoIncluir.getCrtId())
             {
                 String response = "Cartão já incluso, inclua outro cartão.";
+
                 return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
             }
         }
@@ -298,7 +302,8 @@ public class CartCliController extends CarrinhoUtil
 
         if (valorPendenteBD.doubleValue() != 0)
         {
-            String response = "Você precisa pagar todo o valor pendente.";
+            String response = "Você precisa pagar todo o valor pendente. Valor pendente de: R$ " + valorPendenteBD.toString().replace(".", ",");
+
             return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
         }
 

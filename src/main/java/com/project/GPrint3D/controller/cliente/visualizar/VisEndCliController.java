@@ -32,7 +32,7 @@ public class VisEndCliController
 
     //Tela dos enderços do clientes
     @RequestMapping("/meusEnderecos")
-    public ModelAndView meusEnderecos(HttpServletRequest auth, Principal principal)
+    public ModelAndView meusEnderecos(Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/visualizar/meusEnderecos");
         
@@ -45,12 +45,18 @@ public class VisEndCliController
     }
 
     //Deletar endereço do cliente
-    @PostMapping("/deletarEndereco")
-    public ModelAndView deletarEndereco(@RequestParam(name = "id") Integer id) 
+    @PostMapping("/excluirEndereco")
+    public ModelAndView excluirEndereco(@RequestParam(name = "id") Integer id) 
     {
         enderecosService.excluir(id);
 
         return new ModelAndView("redirect:/cliente/meusEnderecos");
+    }
+
+    @PostMapping("/editarEndereco")
+    public ModelAndView editarEndereco(@RequestParam(name = "id") Integer id)
+    {
+        return new ModelAndView("redirect:/cliente/alterarEndereco/" + id);
     }
 
 }

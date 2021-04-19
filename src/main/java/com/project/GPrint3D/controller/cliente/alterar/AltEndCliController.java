@@ -50,7 +50,7 @@ public class AltEndCliController
 
     //Tela de alteração de dados do endereço do cliente
     @RequestMapping("/alterarEndereco/{id}")
-    public ModelAndView alterarEndereco(@PathVariable("id") Integer id, HttpServletRequest auth, Principal principal)
+    public ModelAndView alterarEndereco(@PathVariable("id") Integer id, Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarEndereco");
 
@@ -73,7 +73,7 @@ public class AltEndCliController
 
     //Alterar os dados do endereço do cliente
     @PostMapping("/alterarEndereco/{id}")
-    public ModelAndView alteraEndereco(@PathVariable("id") Integer id, @RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
+    public ModelAndView alteraEndereco(@PathVariable("id") Integer id, @RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, Principal principal)
     {
         EndCobrancasPadroesModel endCobrancaPadrao = endCobrancasPadroes.findByClienteId(endereco.getCliente().getCliId());
         EndEntregasPadroesModel endEntregaPadrao = endEntregasPadroes.findByClienteId(endereco.getCliente().getCliId());

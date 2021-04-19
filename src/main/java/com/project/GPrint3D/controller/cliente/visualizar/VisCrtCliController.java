@@ -33,7 +33,7 @@ public class VisCrtCliController
 
     //Tela de cartões do cliente
     @RequestMapping("/meusCartoes")
-    public ModelAndView meusCartoes(HttpServletRequest auth, Principal principal)
+    public ModelAndView meusCartoes(Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/visualizar/meusCartoes");
         
@@ -46,11 +46,17 @@ public class VisCrtCliController
     }
 
     //Deletar cartão do cliente
-    @PostMapping("/deletarCartao")
-    public ModelAndView deletarCartao(@RequestParam(name = "id") Integer id) 
+    @PostMapping("/excluirCartao")
+    public ModelAndView excluirCartao(@RequestParam(name = "id") Integer id) 
     {
         cartoesService.excluir(id);
 
         return new ModelAndView("redirect:/cliente/meusCartoes");
+    }
+
+    @PostMapping("/editarCartao")
+    public ModelAndView editarCartao(@RequestParam(name = "id") Integer id)
+    {
+        return new ModelAndView("redirect:/cliente/alterarCartao/" + id);
     }
 }

@@ -41,7 +41,7 @@ public class AltCrtCliController
 
     //Tela de alteração de dados do cartão do cliente
     @RequestMapping("/alterarCartao/{id}")
-    public ModelAndView alterarCartao(@PathVariable("id") Integer id, HttpServletRequest auth, Principal principal)
+    public ModelAndView alterarCartao(@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarCartao");
 
@@ -60,7 +60,7 @@ public class AltCrtCliController
 
     //Alterar os dados do cartão do cliente
     @PostMapping("/alterarCartao/{id}")
-    public ModelAndView alteraCartao(@PathVariable("id") Integer id, @RequestParam(name = "crtPadrao", defaultValue = "false") Boolean crtPadrao, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
+    public ModelAndView alteraCartao(@PathVariable("id") Integer id, @RequestParam(name = "crtPadrao", defaultValue = "false") Boolean crtPadrao, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
     {
         CartoesPadroesModel cartaoPadrao = cartoesPadroes.findByClienteId(cartao.getCliente().getCliId());
 

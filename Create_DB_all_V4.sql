@@ -96,7 +96,8 @@ CREATE TABLE cupons_promocoes (
     cpp_desconto       	MEDIUMINT NOT NULL,
     cpp_validade       	DATE NOT NULL,
     cpp_ctg_id  		MEDIUMINT NOT NULL,
-    CONSTRAINT pk_cpp PRIMARY KEY ( cpp_id )
+    CONSTRAINT pk_cpp PRIMARY KEY ( cpp_id ),
+    CONSTRAINT uk_cpp UNIQUE KEY ( cpp_codigo )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS cupons_trocas;
@@ -111,7 +112,8 @@ CREATE TABLE cupons_trocas (
     cpt_saldo       	DECIMAL(8,2) NOT NULL,
     cpt_codigo			VARCHAR(20) NOT NULL,
     cpt_cli_id  		MEDIUMINT NOT NULL,
-    CONSTRAINT pk_cpt PRIMARY KEY ( cpt_id )
+    CONSTRAINT pk_cpt PRIMARY KEY ( cpt_id ),
+    CONSTRAINT uk_cpt UNIQUE KEY ( cpt_codigo )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS historicos_cupons_trocas;
@@ -217,7 +219,8 @@ CREATE TABLE pedidos_compras (
     pdc_statuslogistica	MEDIUMINT NOT NULL DEFAULT 0,
     pdc_cli_id   		MEDIUMINT NOT NULL,
     pdc_end_id  		MEDIUMINT NOT NULL,
-    CONSTRAINT pk_pdc PRIMARY KEY ( pdc_id )
+    CONSTRAINT pk_pdc PRIMARY KEY ( pdc_id ),
+    CONSTRAINT uk_pdc UNIQUE KEY ( pdc_numero )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS pedidos_trocas;
@@ -235,7 +238,8 @@ CREATE TABLE pedidos_trocas (
     pdt_ppd_id  		MEDIUMINT NOT NULL,
     pdt_pdc_id			MEDIUMINT NOT NULL,
     pdt_cli_id			MEDIUMINT NOT NULL,
-    CONSTRAINT pk_pdt PRIMARY KEY ( pdt_id )
+    CONSTRAINT pk_pdt PRIMARY KEY ( pdt_id ),
+    CONSTRAINT uk_pdt UNIQUE KEY ( pdt_numero )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 DROP TABLE IF EXISTS pedidos_compras_fretes;

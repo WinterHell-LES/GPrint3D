@@ -106,11 +106,11 @@ public class CorreiosUtil
                                 "&sDsSenha=" +
                                 "&sCepOrigem=" + cepRemetente +
                                 "&sCepDestino=" + cepDestinatario +
-                                "&nVlPeso=" + produto.getPrdDimEmbPe() +
+                                "&nVlPeso=" + (int) produto.getPrdDimEmbPe() +
                                 "&nCdFormato=1" +
-                                "&nVlComprimento=" + Math.ceil((produto.getPrdDimEmbPr() / 10)) +
-                                "&nVlAltura=" + Math.ceil((produto.getPrdDimEmbAl() / 10)) +
-                                "&nVlLargura=" + Math.ceil((produto.getPrdDimEmbLa() / 10)) +
+                                "&nVlComprimento=" + (int) Math.ceil((produto.getPrdDimEmbPr() / 10)) +
+                                "&nVlAltura=" + (int) Math.ceil((produto.getPrdDimEmbAl() / 10)) +
+                                "&nVlLargura=" + (int) Math.ceil((produto.getPrdDimEmbLa() / 10)) +
                                 "&sCdMaoPropria=N" +
                                 "&nVlValorDeclarado=0" +
                                 "&sCdAvisoRecebimento=N" +
@@ -181,56 +181,47 @@ public class CorreiosUtil
 
         List<HashMap<String, String>> listHash = new ArrayList<>();
 
-
         for (PrdCarrinhosModel produtoCarrinho : listaProdutos)
         {
-            List<HashMap<String, String>> listHashTemp = new ArrayList<>();
-
-            listHashTemp = getValorPrazo(cepRemetente, cep, produtoCarrinho.getProduto(), variaveis);
+            List<HashMap<String, String>> listHashTemp = getValorPrazo(cepRemetente, cep, produtoCarrinho.getProduto(), variaveis);
+            int cont = 0;
 
             if (listHashTemp == null)
             {
                 continue;
             }
 
-            for (int i = 0; i < listHashTemp.size(); i++)
+            for (HashMap<String, String> aux : listHashTemp)
             {
                 HashMap<String, String> hashTemp = new HashMap<>();
 
-                hashTemp.put("Nome", listHashTemp.get(i).get("Nome"));
+                hashTemp.put("Nome", aux.get("Nome"));
 
-                BigDecimal valorBD = new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(BigDecimal.valueOf(produtoCarrinho.getPcrQuantidade())).setScale(2, RoundingMode.HALF_EVEN);
-                String valorS = valorBD.toString().replace(".", ",");
+                BigDecimal valorBD = new BigDecimal(aux.get("Valor").replace(".", "").replace(",", ".")).multiply(BigDecimal.valueOf(produtoCarrinho.getPcrQuantidade())).setScale(2, RoundingMode.HALF_EVEN);
 
-                hashTemp.put("Valor", valorS);
-                hashTemp.put("PrazoEntrega", listHashTemp.get(i).get("PrazoEntrega"));
+                hashTemp.put("Valor", valorBD.toString().replace(".", ","));
+                hashTemp.put("PrazoEntrega", aux.get("PrazoEntrega"));
 
-                if (listHash.size() < listHashTemp.size())
+                if (listHash.size() < 5)
                 {
                     listHash.add(hashTemp);
-                }else
+                }
+                else
                 {
-                    HashMap<String, String> hashMergeTemp = new HashMap<>();
+                    HashMap<String, String> hashMergeTemp = listHash.get(cont);
 
-                    valorBD = new BigDecimal(listHash.get(i).get("Valor").replace(",", ".")).add(new BigDecimal(listHashTemp.get(i).get("Valor").replace(",", ".")).multiply(BigDecimal.valueOf(produtoCarrinho.getPcrQuantidade()))).setScale(2, RoundingMode.HALF_EVEN);
-                    valorS = valorBD.toString().replace(".", ",");
+                    valorBD = new BigDecimal(hashMergeTemp.get("Valor").replace(",", ".")).add(valorBD).setScale(2, RoundingMode.HALF_EVEN);
 
-                    Integer prazoMaior = 0;
+                    hashTemp.put("Valor", valorBD.toString().replace(".", ","));
 
-                    if (Integer.parseInt(listHashTemp.get(i).get("PrazoEntrega")) >= Integer.parseInt(listHash.get(i).get("PrazoEntrega")))
+                    if (Integer.parseInt(aux.get("PrazoEntrega")) > Integer.parseInt(hashMergeTemp.get("PrazoEntrega")))
                     {
-                        prazoMaior = Integer.parseInt(listHashTemp.get(i).get("PrazoEntrega"));
-                    }
-                    else
-                    {
-                        prazoMaior = Integer.parseInt(listHash.get(i).get("PrazoEntrega"));
+                        hashTemp.put("PrazoEntrega", aux.get("PrazoEntrega"));
                     }
 
-                    hashMergeTemp.put("Nome", listHash.get(i).get("Nome"));
-                    hashMergeTemp.put("Valor", valorS);
-                    hashMergeTemp.put("PrazoEntrega", prazoMaior.toString());
+                    listHash.set(cont, hashTemp);
 
-                    listHash.set(i, hashMergeTemp);
+                    cont++;                  
                 }
             }
         }

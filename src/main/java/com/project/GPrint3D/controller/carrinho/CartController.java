@@ -241,6 +241,7 @@ public class CartController extends CarrinhoUtil
         try
         {
             List<HashMap<String, String>> responseFrete = calculo.getValorPrazoLista(variavelCEP.replaceAll("-", ""), cep, carrinho.getListProdutos(), variaveis);
+
             return responseFrete;
         }
         catch (Exception e)

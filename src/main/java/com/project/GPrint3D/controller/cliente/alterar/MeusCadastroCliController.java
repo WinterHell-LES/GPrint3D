@@ -49,7 +49,7 @@ public class MeusCadastroCliController
 
     //Alterar senha do usuario
     @RequestMapping("/meuCadastro")
-    public ModelAndView meuCadastro(HttpServletRequest auth, Principal principal)
+    public ModelAndView meuCadastro(Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/meuCadastro");
 
@@ -66,7 +66,7 @@ public class MeusCadastroCliController
     }
 
     @PostMapping("/meuCadastro")
-    public ModelAndView atualizarCadastro(@Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
+    public ModelAndView atualizarCadastro(@Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes, Principal principal)
     {
         if (result.hasErrors())
         {

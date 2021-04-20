@@ -35,7 +35,7 @@ public class AltPassCliController
 
     //Tela de alteração de senha do usuario
     @RequestMapping("/alterarSenha")
-    public ModelAndView alteracaoSenha(HttpServletRequest auth, Principal principal)
+    public ModelAndView alteracaoSenha(Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarSenha");
 
@@ -50,12 +50,12 @@ public class AltPassCliController
 
     //Alterar a senha do cliente
     @PostMapping("/alterarSenha")
-    public ModelAndView alterarSenha(@RequestParam(name = "oldPassword") String oldPass, @RequestParam(name = "confirmNewPassword") String confirmNewPass, @Valid UsuariosModel Usuario, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
+    public ModelAndView alterarSenha(@RequestParam(name = "oldPassword") String oldPass, @RequestParam(name = "confirmNewPassword") String confirmNewPass, @Valid UsuariosModel Usuario, BindingResult result, RedirectAttributes attributes, Principal principal)
     {
 
         if (result.hasErrors())
         {
-            return alteracaoSenha(auth, principal);
+            return alteracaoSenha(principal);
         }
 
         String oldUserPass = oldUser.getUsuSenha();
@@ -81,6 +81,6 @@ public class AltPassCliController
             //String msgError = "Senha antiga não confere, favor digitar corretamente.";
         }
 
-        return alteracaoSenha(auth, principal);
+        return alteracaoSenha(principal);
     }
 }

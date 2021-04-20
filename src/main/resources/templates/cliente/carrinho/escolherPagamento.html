@@ -75,7 +75,7 @@
                         <table class="table mt-2">
                             <tbody>
                                 <tr>
-                                    <th scope="col" class="col-2">Produto</th>
+                                    <th scope="col" class="col-6">Produto</th>
                                     <th scope="col" class="col-2 text-center">Qtd</th>
                                     <th scope="col" class="col-2 text-center">Preço un</th>
                                     <th scope="col" class="col-2 text-center">Sub-total</th>
@@ -87,7 +87,7 @@
                                     <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco * produto.pcrQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" colspan="3" class="border-0">Frete:</th>
+                                    <th scope="row" colspan="3" class="border-0 text-end">Frete:</th>
                                     <td class="border-0 text-center" th:text="'R$ ' + ${#numbers.formatDecimal(frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 12,00</td>
                                 </tr>
                             </tbody>
@@ -250,7 +250,7 @@
             <script type="text/javascript" th:inline="javascript">
                 window.addEventListener('load', function ()
                 {
-                    editarBotoes("cartao");
+                    modificarBotoes("cartao");
                 });
 
                 $(function() {

@@ -93,7 +93,7 @@ function getCSRF()
 
 function alert(url = "", selfElem = Object)
 {   
-    var confirmacao = confirm("Isto fará você reinicar o processo de compra, você realmente deseja ser redirecionado para outra página?")
+    var confirmacao = confirm("Isto fará você reinicar o processo de compra, você realmente deseja ser redirecionado para outra página?");
     
     if (confirmacao == true && url != null)
     {
@@ -101,40 +101,42 @@ function alert(url = "", selfElem = Object)
     }
     else if (confirmacao == true && selfElem != null)
     {
-        submit(selfElem);
+        selfElem.setAttribute("type", "submit");
     }
 }
     
-function editarBotoes(tipo)
+function modificarBotoes(tipo)
 {
     if (tipo == "endereco")
     {
         var novoBotao = document.getElementById("novoEnderecoEntrega");
-        var editarBotao = document.getElementById("editarEnderecoEntrega");
-        var excluirBotao = document.getElementById("excluirEnderecoEntrega");
+        var editarExcluirBotoes = document.getElementsByName("id");
     }
     
     if (tipo == "cartao")
     {
         var novoBotao = document.getElementById("novoCartao");
-        var editarBotao = document.getElementById("editarCartao");
-        var excluirBotao = document.getElementById("excluirCartao");
+        var editarExcluirBotoes = document.getElementsByName("id");
     }
 
     var urlNovo = novoBotao.getAttribute("href").toString();
-    var urlEditar = editarBotao.getAttribute("href").toString();
 
     novoBotao.setAttribute("onclick", "alert(\"" + urlNovo + "\")");
     novoBotao.setAttribute("class", "text-decoration-underline");
     novoBotao.outerHTML = novoBotao.outerHTML.replace("<a", "<span").replace("<\/a>", "<\/span>");
 
-    editarBotao.setAttribute("onclick", "alert(\"" + urlEditar + "\")");
-    editarBotao.setAttribute("class", "text-decoration-underline");
-    editarBotao.outerHTML = editarBotao.outerHTML.replace("<a", "<span").replace("<\/a>", "<\/span>");
-
-    excluirBotao.setAttribute("onclick", "alert(this)");
-    excluirBotao.setAttribute("class", "text-decoration-underline");
-    excluirBotao.outerHTML = excluirBotao.outerHTML.replace("<button", "<span").replace("<\/button>", "<\/span>");
+    for (let i = 0; i < editarExcluirBotoes.length; i++)
+    {
+        var id = editarExcluirBotoes[i].getAttribute("id");
+        if (id != null)
+        {
+            if (id.includes("excluir") || id.includes("alterar"))
+            {
+                editarExcluirBotoes[i].setAttribute("onclick", "alert(null, this)");
+                editarExcluirBotoes[i].setAttribute("type", "button");
+            }
+        }
+    }
 }
 
 /*function updateThis(selfElement)

@@ -59,11 +59,17 @@
 
                     </div>
                 </div>
-                <div class="row border-bottom py-4">
-                    <div class="row mb-3">
+
+                <div class="row border-bottom p-4">
+                    <div class="row mx-0"><p class="h4">Descrição do produto</p></div>
+                    <div class="row mx-0"><p class="mx-0" th:text="${produto.prdDescricao}">Produto assim e assado, que faz isso e aquilo.</p></div>
+                </div>
+                
+                <div class="row p-4">
+                    <div class="row mb-3 mx-0">
                         <p class="h4">Características do produto</p>
                     </div>
-                    <div class="row">
+                    <div class="row m-0">
                         <div class="col"></div>
                         <div class="col-4">
                             <table class="table table-bordered table-light table-striped">
@@ -122,7 +128,8 @@
                         <div class="col"></div>
                     </div>
                 </div>
-                <div class="row py-4">
+
+                <!-- <div class="row p-4">
                     <p th:text="${produto.prdDescricao}">Produto assim e assado, que faz isso e aquilo.</p>
                     <ul><span>Vantagens:</span>
                         <li class="ms-5">Vantagem 1</li>
@@ -135,7 +142,7 @@
                         <li class="ms-5">Desvantagens 1</li>
                         <li class="ms-5">Desvantagens 2</li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </section>
 

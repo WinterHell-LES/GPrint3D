@@ -6,8 +6,11 @@ import java.sql.Date;
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CuponsTrocasModel;
+import com.project.GPrint3D.model.PedProdutosModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.model.PedidosTrocasModel;
+import com.project.GPrint3D.model.ProdutosModel;
+import com.project.GPrint3D.model.SaidasModel;
 import com.project.GPrint3D.model.VariaveisModel;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
 import com.project.GPrint3D.repository.PedidosTrocasRepository;
@@ -15,6 +18,7 @@ import com.project.GPrint3D.repository.VariaveisRepository;
 import com.project.GPrint3D.service.CuponsTrocasService;
 import com.project.GPrint3D.service.PedidosComprasService;
 import com.project.GPrint3D.service.PedidosTrocasService;
+import com.project.GPrint3D.service.SaidasService;
 import com.project.GPrint3D.util.GeradorCodigoUtil;
 import com.project.GPrint3D.util.Listas.PedidosComprasListUtil;
 import com.project.GPrint3D.util.Listas.PedidosTrocasListUtil;
@@ -50,6 +54,9 @@ public class AdminPedidosController
 
     @Autowired
     private CuponsTrocasService cuponsTrocasService;
+
+    @Autowired
+    private SaidasService saidasService;
 
     // Controle de compras
     @RequestMapping("listarPedidosCompras")
@@ -119,7 +126,8 @@ public class AdminPedidosController
         PedidosComprasListUtil pedidos = new PedidosComprasListUtil();
 
         mv.addObject("pedido", pedidosComprasRepository.findOneById(id));
-        mv.addObject("allStatus", pedidos.getListCompraPedidos());
+        mv.addObject("allStatus", pedidos.getListCompraPedidosCli());
+        mv.addObject("btStatus", pedidos.getBtListCompraPedidos());
 
         return mv;
     }
@@ -127,6 +135,23 @@ public class AdminPedidosController
     public ModelAndView alterarPedidoCompra(@Valid PedidosComprasModel pedido, RedirectAttributes attributes)
     {
         String[] mensagem = pedidosComprasService.atualizarPedido(pedido.getPdcStatusPedido(), pedido.getPdcId());
+
+        if (pedido.getPdcStatusPedido() == 1)
+        {
+            SaidasModel saida = new SaidasModel();
+
+            pedido = pedidosComprasRepository.findOneById(pedido.getPdcId());
+
+            saida.setPedidoCompra(pedido);
+
+            for (PedProdutosModel aux : pedido.getListPedProdutos()) 
+            {
+                saida.setProduto(aux.getProduto());
+                saida.setSaiQuantidade(aux.getPpdQuantidade());
+
+                saidasService.cadastrar(saida);
+            }
+        }
   
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -205,6 +230,7 @@ public class AdminPedidosController
 
         mv.addObject("pedido", pedTrocas);
         mv.addObject("allStatus", pedidos.getListTrocaEscolha(pedTrocas.getPdtEscolha()));
+        mv.addObject("btStatus", pedidos.getBtListTrocaEscolha(pedTrocas.getPdtEscolha()));
 
         return mv;
     }

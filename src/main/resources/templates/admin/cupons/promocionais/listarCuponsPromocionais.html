@@ -17,6 +17,8 @@
                 <h1 class="h2">Cupons promocionais</h1>
             </div>
 
+            <div th:include="~{admin/alerts :: alertDelete}"></div>
+
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -40,14 +42,14 @@
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/cupons/alterarCuponsPromocionais}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${cupom.cppId}">
-                                            <i class="bi bi-pencil-square fs-4" style="color: black;"></i>
+                                            <i class="bi bi-pencil-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar"></i>
                                         </button>
                                     </form>
                                 </div>
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/cupons/deletaCuponsPromocionais}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${cupom.cppId}">
-                                            <i class="bi bi-trash fs-4" style="color: black;"></i>
+                                            <i class="bi bi-trash fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Deletar"></i>
                                         </button>
                                     </form>
                                 </div>

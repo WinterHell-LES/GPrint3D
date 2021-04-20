@@ -17,6 +17,8 @@
                 <h1 class="h2">Variáveis</h1>
             </div>
 
+            <div th:include="~{admin/alerts :: alertUpdate}"></div>
+
             <form th:action="@{/admin/alterarVariaveis}" method="POST">
                 <input type="hidden" name="id" th:field="${variaveis.varId}" />
 

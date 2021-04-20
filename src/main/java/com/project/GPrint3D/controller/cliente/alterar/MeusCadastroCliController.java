@@ -10,7 +10,6 @@ import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.DocumentosModel;
 import com.project.GPrint3D.model.TelefonesModel;
 import com.project.GPrint3D.model.UsuariosModel;
-import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.DocumentosRepository;
 import com.project.GPrint3D.repository.TelefonesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
@@ -31,16 +30,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MeusCadastroCliController
 {
     @Autowired
-    private ClientesRepository clientes;
+    private DocumentosRepository documentosRepository;
 
     @Autowired
-    private DocumentosRepository documentos;
+    private TelefonesRepository telefonesRepository;
 
     @Autowired
-    private TelefonesRepository telefones;
-
-    @Autowired
-    private UsuariosRepository usuarios;
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
     private ClientesService clientesService;
@@ -57,13 +53,12 @@ public class MeusCadastroCliController
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/meuCadastro");
 
-        UsuariosModel usu = usuarios.findByEmail(principal.getName());
-        ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
-        TelefonesModel tel = telefones.findByClienteId(cli.getCliId());
-        DocumentosModel doc = documentos.findByClienteId(cli.getCliId());
+        UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
+        TelefonesModel tel = telefonesRepository.findByClienteId(usu.getCliente().getCliId());
+        DocumentosModel doc = documentosRepository.findByClienteId(usu.getCliente().getCliId());
         
         mv.addObject("usuario", usu);
-        mv.addObject("cliente", cli);
+        mv.addObject("cliente", usu.getCliente());
         mv.addObject("telefone", tel);
         mv.addObject("documento", doc);
 
@@ -82,7 +77,6 @@ public class MeusCadastroCliController
         telefonesService.atualizar(telefone);
         documentosService.atualizar(documento);
 
-        
         /*String[] mensagem = clientesService.atualizarSituacao(matricula);
   
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);*/

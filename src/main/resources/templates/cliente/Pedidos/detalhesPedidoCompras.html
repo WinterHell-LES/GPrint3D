@@ -129,12 +129,12 @@
                         </div>
                     </div>
 
-                    <div class="logistica mb-4 border-top">
+                    <div class="logistica mb-4 border-top" th:if="${pedido.pdcStatusPedido} <= ${allStatusCli.size}">
                         <div class="row pt-3 mb-3">
                             <div class="col"></div>
 
-                            <div class="align-bottom" th:classappend="'col-' + ${allStatus.size - 1} * 2">
-                                <input type="range" class="form-range" min="0" th:max="${allStatus.size - 1}" step="1" th:value="${pedido.pdcStatusPedido}" id="fluxoCompra" disabled>
+                            <div class="align-bottom" th:classappend="'col-' + ${allStatusCli.size - 1} * 2">
+                                <input type="range" class="form-range" min="0" th:max="${allStatusCli.size - 1}" step="1" th:value="${pedido.pdcStatusPedido}" id="fluxoCompra" disabled>
                             </div>
 
                             <div class="col"></div>
@@ -143,8 +143,30 @@
                         <div class="row">
                             <div class="col"></div>
 
-                            <div class="col-2 text-center" th:each="status : ${allStatus}">
+                            <div class="col-2 text-center" th:each="status : ${allStatusCli}">
                                 <span class="fs-7" th:text="${status.value}">Pedido recebido</span>
+                            </div>
+                            
+                            <div class="col"></div>
+                        </div>
+                    </div>
+
+                    <div class="logistica mb-4 border-top" th:if="${pedido.pdcStatusPedido} > ${allStatusCli.size}">
+                        <div class="row pt-3 mb-3">
+                            <div class="col"></div>
+
+                            <div class="col align-bottom">
+                                <input type="range" class="form-range" min="0" max="2" step="1" th:value="1" id="fluxoCompra" disabled>
+                            </div>
+
+                            <div class="col"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col"></div>
+
+                            <div class="col-2 text-center">
+                                <span class="fs-7" th:text="${allStatus.get(pedido.pdcStatusPedido)}">Pagamento recusado</span>
                             </div>
                             
                             <div class="col"></div>
@@ -200,8 +222,11 @@
                                         <span class="icon-return-box"></span>
                                     </button>
                                 </div>
-                                <div class="row text-center align-content-start h-50" th:if="${pedido.pdcStatusPedido} != 4">
+                                <div class="row text-center align-content-start h-50" th:if="${pedido.pdcStatusPedido} != 4 AND ${pedido.pdcStatusPedido} < 10">
                                     <span>Aguardando recebimento</span>
+                                </div>
+                                <div class="row text-center align-content-start h-50" th:if="${pedido.pdcStatusPedido} > 4">
+                                    <span>Pedido recusado</span>
                                 </div>
                                 <div class="row text-center align-content-start h-50" th:if="${pedProduto.ppdStatus} > 0">
                                     <span th:if="${pedProduto.pedidosTroca.pdtEscolha} > 0" th:text="${pedProduto.pedidosTroca.getStrEscolha()}"></span>
@@ -260,7 +285,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn btn-outline-secondary shadow" data-bs-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn btn-outline-secondary shadow" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-secondary shadow" id="confirmarTroca">Solicitar troca</button>
                             </div>
                         </form>

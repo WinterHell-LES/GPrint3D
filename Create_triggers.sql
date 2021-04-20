@@ -16,20 +16,16 @@ CREATE TRIGGER tg_saida_produto BEFORE INSERT ON saidas FOR EACH ROW
 BEGIN
 	DECLARE prd_qnt		DECIMAL(6,2);
     
-	IF prd_quantidade < NEW.sai_quantidade THEN
+    SELECT prd_quantidade INTO prd_qnt FROM produtos WHERE prd_id = NEW.sai_prd_id;
+    
+	IF prd_qnt < NEW.sai_quantidade THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'QUANTIDADE DE PRODUTOS INSUFICIENTE';
     ELSE
-		IF prd_quantidade = NEW.sai_quantidade THEN
+		IF prd_qnt = NEW.sai_quantidade THEN
 			UPDATE produtos SET prd_ativo = '0' WHERE prd_id = NEW.sai_prd_id;
         END IF;
         
-		UPDATE produtos SET prd_quantidade = prd_quantidade - prd_quantidade WHERE prd_id = NEW.sai_prd_id;
-    END IF;
-    
-    SELECT prd_quantidade INTO prd_qnt FROM produtos WHERE prd_id = NEW.sai_prd_id;
-    
-    IF prd_qnt <= 0 THEN
-		UPDATE produtos SET prd_ativo = '0' WHERE prd_id = NEW.sai_prd_id;
+		UPDATE produtos SET prd_quantidade = prd_quantidade - NEW.sai_quantidade WHERE prd_id = NEW.sai_prd_id;
     END IF;
 END; $$
 

@@ -15,26 +15,16 @@
                 <h1 class="h2">Cadastro de bandeiras</h1>
             </div>
 
+            <div th:include="~{admin/alerts :: alertCreate}"></div>
+
             <form th:action="@{/admin/cadastrarBandeiras}" th:object="${bandeirasModel}" method="POST">
-                <div class="row pb-3 pe-0">
-                    <div class="row pe-0">
-                        <div class="col-sm pe-0">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Nome da bandeira" id="nomeBandeira" th:field="*{banNome}" required/>
-                                <label for="nomeBandeira">Nome</label>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="Nome da bandeira" id="nomeBandeira" th:field="*{banNome}" required/>
+                    <label for="nomeBandeira">Nome</label>
                 </div>
 
-                <div class="row pe-0 pb-3">
-                    <div class="row pe-0">
-                        <div class="col-sm pe-0">
-                            <div class="text-end">
-                                <button type="submit" class="btn border shadow-sm">Cadastrar</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-end">
+                    <button type="submit" class="btn border shadow-sm">Cadastrar</button>
                 </div>
             </form>
         </section>

@@ -80,7 +80,7 @@
                                     <th scope="col" class="col-2 text-center">Preço un</th>
                                     <th scope="col" class="col-2 text-center">Sub-total</th>
                                 </tr>
-                                <tr th:each="produto : ${produtosCarrinho}">
+                                <tr th:each="produto : ${carrinho.listProdutos}">
                                     <td th:text="${produto.produto.prdNome}">Produto 1</td>
                                     <td class="text-center" th:text="${produto.pcrQuantidade}">3</td>
                                     <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$50,00</td>
@@ -117,11 +117,17 @@
                                     <p>Possui algum cupom?</p>
                                 </div>
                                 <div class="row">
+                                    <input type="hidden" th:field="${carrinho.carId}">
+                                    <div id="loadCupom" class="col-8 text-center d-none">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
                                     <div class="col-8">
-                                        <input type="text" class="form-control" placeholder="" id="cupom">
+                                        <input type="text" class="form-control" placeholder="" id="cupomCodigo">
                                     </div>
                                     <div class="col-2 text-end pb-2">
-                                        <a href="#"><button type="submit" class="btn border shadow-sm">Aplicar</button></a>
+                                        <button type="submit" class="btn border shadow-sm" onclick="validarCupom()">Aplicar</button>
                                     </div>
                                 </div>
                             </div>
@@ -240,6 +246,7 @@
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.maskMoney.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.maskMoney.min.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/carrinho.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/cupons.js}"></script>
             <script type="text/javascript" th:inline="javascript">
                 window.addEventListener('load', function ()
                 {

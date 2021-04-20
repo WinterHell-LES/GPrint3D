@@ -21,60 +21,55 @@
                 </div>
             </div>
 
-            <div class="mb-4">
-                <div class="row pt-3 mb-3">
-                    <div class="col"></div>
-
-                    <div class="align-bottom" th:classappend="'col-' + ${allStatus.size - 1} * 2">
-                        <input type="range" class="form-range" min="0" th:max="${allStatus.size - 1}" step="1" th:value="${pedido.pdtStatusPedido}" id="fluxoCompra" disabled>
-                    </div>
-
-                    <div class="col"></div>
-                </div>
-
-                <div class="row">
-                    <div class="col" th:if="${allStatus.size} < 6"></div>
-
-                    <div class="col-2 text-center" th:each="status : ${allStatus}">
-                        <span class="fs-7" th:text="${status.value}">Pedido recebido</span>
-                    </div>
-                    
-                    <div class="col" th:if="${allStatus.size} < 6"></div>
-                </div>
-            </div>          
-
-            <div class="row text-end">
+            <div class="row">
                 <div class="col"></div>
-                <div class="col" th:if="${pedido.pdtEscolha} == 0 AND ${pedido.pdtStatusPedido} == 2">
+                <div class="col-lg-9">
+                    <div class="mb-2"><h1 class="h4">Status atual do pedido de troca</h1></div>
+                    <div class="mb-4 border rounded-3 w-auto">
+                        <div class="row pt-3 mb-3">
+                            <div class="col"></div>
+        
+                            <div class="align-bottom" th:classappend="'col-' + ${allStatus.size - 1} * 2">
+                                <input type="range" class="form-range" min="0" th:max="${allStatus.size - 1}" step="1" th:value="${pedido.pdtStatusPedido}" id="fluxoCompra" disabled>
+                            </div>
+        
+                            <div class="col"></div>
+                        </div>
+        
+                        <div class="row">
+                            <div class="col" th:if="${allStatus.size} < 6"></div>
+        
+                            <div class="col-2 text-center" th:each="status : ${allStatus}">
+                                <span class="fs-7" th:text="${status.value}">Pedido recebido</span>
+                            </div>
+                            
+                            <div class="col" th:if="${allStatus.size} < 6"></div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="col"></div>
+            </div>
+
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-auto" th:if="${pedido.pdtEscolha} == 0 AND ${pedido.pdtStatusPedido} == 2">
                     <form th:action="@{/admin/pedido/alterarPedidoTroca}" method="POST">
                         <input type="hidden" th:field="${pedido.pdtId}">
-                        <input type="hidden" id="pdtStatusPedido" name="pdtStatusPedido" th:value="4">
+                        <input type="hidden" id="pdtStatusPedido" name="pdtStatusPedido" th:value="10">
         
-                        <div class="row pe-0 pb-3">
-                            <div class="row pe-0">
-                                <div class="col-sm pe-0">
-                                    <div class="text-end">
-                                        <button type="submit" class="btn border shadow-sm">Recusar troca</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn border shadow-sm">Recusar troca</button>
                         </div>
                     </form>
                 </div>
     
-                <div class="col-sm-1">
+                <div class="col-auto">
                     <form th:action="@{/admin/pedido/alterarPedidoTroca}" method="POST">
                         <input type="hidden" th:field="${pedido.pdtId}">
                         <input type="hidden" id="pdtStatusPedido" name="pdtStatusPedido" th:value="${pedido.pdtStatusPedido} + 1">
         
-                        <div class="row pe-0 pb-3">
-                            <div class="row pe-0">
-                                <div class="col-sm pe-0">
-                                    <div class="text-end">
-                                        <button type="submit" class="btn border shadow-sm">Próximo</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn border shadow-sm" th:text="${btStatus.get(pedido.pdtStatusPedido)}">Próximo</button>
                         </div>
                     </form>
                 </div>

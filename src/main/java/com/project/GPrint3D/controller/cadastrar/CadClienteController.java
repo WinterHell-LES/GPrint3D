@@ -76,19 +76,19 @@ public class CadClienteController
     private UsuariosService usuariosService;
 
     @Autowired
-    private BandeirasRepository bandeiras;
+    private BandeirasRepository bandeirasRepository;
 
     @Autowired
-    private CartoesRepository cartoes;
+    private CartoesRepository cartoesRepository;
 
     @Autowired
-    private ClientesRepository clientes;
+    private ClientesRepository clientesRepository;
 
     @Autowired
-    private EnderecosRepository enderecos;
+    private EnderecosRepository enderecosRepository;
 
     @Autowired
-    private UsuariosRepository usuarios;
+    private UsuariosRepository usuariosRepository;
     
     // Controle de cadastro de dados pessoais
     @RequestMapping("/cadastroDadosPessoais")
@@ -161,7 +161,7 @@ public class CadClienteController
     {
         ModelAndView mv = new ModelAndView("/cadastro/cadCartao");
         
-        mv.addObject("bandeiras", bandeiras.findAll());
+        mv.addObject("bandeiras", bandeirasRepository.findAll());
 
         return mv;
     }
@@ -178,14 +178,14 @@ public class CadClienteController
         usuariosService.cadastrar(usuariosMod);
 
         //Busca o novo usuário pelo emaill
-        UsuariosModel usu = usuarios.findByEmail(usuariosMod.getUsuEmail());
+        UsuariosModel usu = usuariosRepository.findByEmail(usuariosMod.getUsuEmail());
 
         //Define e cadastra o novo cliente com o usuário já registrado
         clientesMod.setUsuario(usu);
         clientesService.cadastrar(clientesMod);
 
         //Busca o novo cliente cadastrado
-        ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
+        ClientesModel cli = clientesRepository.findByUsuarioId(usu.getUsuId());
 
         //Define o novo cliente nos dados vinculados
         telefonesMod.setCliente(cli);
@@ -200,7 +200,7 @@ public class CadClienteController
         cartoesService.cadastrar(cartao);
 
         //Busca o novo endereço cadastrado
-        EnderecosModel end = enderecos.findByClienteId(cli.getCliId());
+        EnderecosModel end = enderecosRepository.findByClienteId(cli.getCliId());
 
         //Verifica se o endereço é de cobrança
         if (end.isEndCobranca())
@@ -221,7 +221,7 @@ public class CadClienteController
         }
 
         //Busca o novo cartão cadastrado
-        CartoesModel crt = cartoes.findByClienteId(cli.getCliId());
+        CartoesModel crt = cartoesRepository.findByClienteId(cli.getCliId());
 
         //Configura e cadastra o novo cartão padrão com o cliente e o cartão cadastrados
         cartaoPadraoMod.setCartao(crt);

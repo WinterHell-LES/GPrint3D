@@ -4,9 +4,7 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.UsuariosModel;
-import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.EnderecosService;
 
@@ -21,11 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/cliente")
 public class VisEndCliController 
 {
-    @Autowired
-    private ClientesRepository clientes;
 
     @Autowired
-    private UsuariosRepository usuarios;
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
     private EnderecosService enderecosService;
@@ -36,10 +32,9 @@ public class VisEndCliController
     {
         ModelAndView mv = new ModelAndView("/cliente/visualizar/meusEnderecos");
         
-        UsuariosModel usu = usuarios.findByEmail(principal.getName());
-        ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
+        UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
 
-        mv.addObject("cliente", cli);
+        mv.addObject("cliente", usu.getCliente());
 
         return mv;
     }

@@ -4,10 +4,8 @@ import java.security.Principal;
 
 import javax.validation.Valid;
 
-import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.PedidosTrocasModel;
 import com.project.GPrint3D.model.UsuariosModel;
-import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
 import com.project.GPrint3D.repository.PedidosTrocasRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
@@ -33,9 +31,6 @@ public class PedidosClienteController
     private UsuariosRepository usuariosRepository;
 
     @Autowired
-    private ClientesRepository clientesRepository;
-
-    @Autowired
     private PedidosComprasRepository pedidosComprasRepository;
 
     @Autowired
@@ -51,9 +46,8 @@ public class PedidosClienteController
         ModelAndView mv = new ModelAndView("/cliente/Pedidos/meusPedidosCompras");
 
         UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
-        ClientesModel cli = clientesRepository.findByUsuarioId(usu.getUsuId());
 
-        mv.addObject("pedidos", pedidosComprasRepository.findAllByCliente(cli.getCliId()));
+        mv.addObject("pedidos", pedidosComprasRepository.findAllByCliente(usu.getCliente().getCliId()));
 
         return mv;
     }
@@ -66,6 +60,7 @@ public class PedidosClienteController
         PedidosComprasListUtil listUtil = new PedidosComprasListUtil();
 
         mv.addObject("pedido", pedidosComprasRepository.findOneById(id));
+        mv.addObject("allStatusCli", listUtil.getListCompraPedidosCli());
         mv.addObject("allStatus", listUtil.getListCompraPedidos());
 
         return mv;
@@ -90,9 +85,8 @@ public class PedidosClienteController
         ModelAndView mv = new ModelAndView("/cliente/Pedidos/meusPedidosTrocas");
 
         UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
-        ClientesModel cli = clientesRepository.findByUsuarioId(usu.getUsuId());
 
-        mv.addObject("pedidos", pedidosTrocasRepository.findAllByCliente(cli.getCliId()));
+        mv.addObject("pedidos", pedidosTrocasRepository.findAllByCliente(usu.getCliente().getCliId()));
 
         return mv;
     }

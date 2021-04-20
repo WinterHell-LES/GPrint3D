@@ -31,13 +31,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AltEndCliController 
 {
     @Autowired
-    private EnderecosRepository enderecos;
+    private EnderecosRepository enderecosRepository;
 
     @Autowired
-    private EndCobrancasPadroesRepository endCobrancasPadroes;
+    private EndCobrancasPadroesRepository endCobrancasPadroesRepository;
 
     @Autowired
-    private EndEntregasPadroesRepository endEntregasPadroes;
+    private EndEntregasPadroesRepository endEntregasPadroesRepository;
 
     @Autowired
     private EnderecosService enderecosService;
@@ -54,7 +54,7 @@ public class AltEndCliController
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarEndereco");
 
-        EnderecosModel endereco = enderecos.findOneById(id);
+        EnderecosModel endereco = enderecosRepository.findOneById(id);
 
         if (endereco.getEndId() == endereco.getCliente().getEndCobrancaPadrao().getEndereco().getEndId())
         {
@@ -75,8 +75,8 @@ public class AltEndCliController
     @PostMapping("/alterarEndereco/{id}")
     public ModelAndView alteraEndereco(@PathVariable("id") Integer id, @RequestParam(name = "endPadrao", defaultValue = "false") boolean endPadrao, @Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
     {
-        EndCobrancasPadroesModel endCobrancaPadrao = endCobrancasPadroes.findByClienteId(endereco.getCliente().getCliId());
-        EndEntregasPadroesModel endEntregaPadrao = endEntregasPadroes.findByClienteId(endereco.getCliente().getCliId());
+        EndCobrancasPadroesModel endCobrancaPadrao = endCobrancasPadroesRepository.findByClienteId(endereco.getCliente().getCliId());
+        EndEntregasPadroesModel endEntregaPadrao = endEntregasPadroesRepository.findByClienteId(endereco.getCliente().getCliId());
 
         if (result.hasErrors())
         {

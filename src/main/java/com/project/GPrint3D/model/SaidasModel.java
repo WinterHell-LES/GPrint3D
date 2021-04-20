@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -24,10 +23,6 @@ public class SaidasModel
     @Column(name = "sai_id", insertable = false, updatable = false)
     private Integer saiId;
 
-    @NotEmpty(message = "Descrição é obrigatória")
-    @Column(name = "sai_descricao")
-    private String saiDescricao;
-
     @NotNull(message = "Quantidade é obrigatória")
     @Column(name = "sai_quantidade")
     private Integer saiQuantidade;
@@ -37,8 +32,8 @@ public class SaidasModel
     private Date saiData;
 
     @ManyToOne
-    @JoinColumn(name = "sai_usu_id", referencedColumnName = "usu_id")
-    private UsuariosModel usuario;
+    @JoinColumn(name = "sai_pdc_id", referencedColumnName = "pdc_id")
+    private PedidosComprasModel pedidoCompra;
 
     @OneToOne
     @JoinColumn(name = "sai_prd_id", referencedColumnName = "prd_id")
@@ -51,17 +46,15 @@ public class SaidasModel
         java.util.Date dataAtual = new java.util.Date();
 
         this.saiId = 0;
-        this.saiDescricao = "";
         this.saiQuantidade = 0;
         this.saiData = new Date(dataAtual.getTime());
     }
 
-    public SaidasModel(Integer saiId, String saiDescricao, Integer saiQuantidade, Date saiData) 
+    public SaidasModel(Integer saiId, Integer saiQuantidade, Date saiData) 
     {
         super( );
 
         this.saiId = saiId;
-        this.saiDescricao = saiDescricao;
         this.saiQuantidade = saiQuantidade;
         this.saiData = saiData;
     }
@@ -74,16 +67,6 @@ public class SaidasModel
     public void setSaiId(Integer saiId) 
     {
         this.saiId = saiId;
-    }
-
-    public String getSaiDescricao() 
-    {
-        return this.saiDescricao;
-    }
-
-    public void setSaiDescricao(String saiDescricao) 
-    {
-        this.saiDescricao = saiDescricao;
     }
 
     public Integer getSaiQuantidade() 
@@ -106,14 +89,14 @@ public class SaidasModel
         this.saiData = saiData;
     }
 
-    public UsuariosModel getUsuario() 
+    public PedidosComprasModel getPedidoCompra() 
     {
-        return this.usuario;
+        return this.pedidoCompra;
     }
 
-    public void setUsuario(UsuariosModel usuario) 
+    public void setPedidoCompra(PedidosComprasModel pedidoCompra) 
     {
-        this.usuario = usuario;
+        this.pedidoCompra = pedidoCompra;
     }
 
     public ProdutosModel getProduto() 

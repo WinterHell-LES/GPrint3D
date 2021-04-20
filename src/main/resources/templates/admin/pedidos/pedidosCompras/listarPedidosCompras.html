@@ -17,6 +17,8 @@
                 <h1 class="h2">Pedidos de compras</h1>
             </div>
 
+            <div th:include="~{admin/alerts :: alertUpdate}"></div>
+
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -37,13 +39,13 @@
                             <div class="row">
                                 <div class="col-auto px-0 d-flex align-items-center me-1">
                                     <a style="text-decoration: none;" th:href="'/admin/pedido/infoCompras/' + ${pedido.pdcId} + '/dados'">
-                                        <i class="bi bi-info-square fs-4" style="color: black;"></i>
+                                        <i class="bi bi-info-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Informações"></i>
                                     </a>
                                 </div>
                                 <div class="col-auto px-0" th:if="${pedido.pdcStatusPedido} < 2">
                                     <form th:action="@{/admin/pedido/alterarPedidosCompras}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${pedido.pdcId}">
-                                            <i class="bi bi-pencil-square fs-4" style="color: black;"></i>
+                                            <i class="bi bi-pencil-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar"></i>
                                         </button>
                                     </form>
                                 </div>

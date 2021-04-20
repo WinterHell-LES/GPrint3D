@@ -367,10 +367,9 @@ DROP TABLE IF EXISTS saidas;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE saidas (
     sai_id           	MEDIUMINT NOT NULL AUTO_INCREMENT,
-    sai_descricao		VARCHAR(255) NOT NULL,
     sai_quantidade		MEDIUMINT NOT NULL,
     sai_data			DATE NOT NULL,
-    sai_usu_id			MEDIUMINT NOT NULL,
+    sai_pdc_id			MEDIUMINT NOT NULL,
     sai_prd_id		  	MEDIUMINT NOT NULL,
     CONSTRAINT pk_sai PRIMARY KEY ( sai_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -584,6 +583,10 @@ ALTER TABLE pedidos_compras_cartoes
 ALTER TABLE telefones
     ADD CONSTRAINT fk_tel_cli FOREIGN KEY ( tel_cli_id )
         REFERENCES clientes ( cli_id );
+        
+ALTER TABLE saidas
+    ADD CONSTRAINT fk_sai_pdc FOREIGN KEY ( sai_pdc_id )
+        REFERENCES pedidos_compras ( pdc_id );
 
 ALTER TABLE saidas
     ADD CONSTRAINT fk_sai_prd FOREIGN KEY ( sai_prd_id )

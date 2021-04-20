@@ -8,12 +8,10 @@ import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CartoesModel;
 import com.project.GPrint3D.model.CartoesPadroesModel;
-import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.BandeirasRepository;
 import com.project.GPrint3D.repository.CartoesPadroesRepository;
 import com.project.GPrint3D.repository.CartoesRepository;
-import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.CartoesPadroesService;
 import com.project.GPrint3D.service.CartoesService;
@@ -33,19 +31,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CadCrtCliController 
 {
     @Autowired
-    private ClientesRepository clientes;
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
-    private UsuariosRepository usuarios;
+    private CartoesRepository cartoesRepository;
 
     @Autowired
-    private CartoesRepository cartoes;
-
-    @Autowired
-    private BandeirasRepository bandeiras;
+    private BandeirasRepository bandeirasRepository;
     
     @Autowired
-    private CartoesPadroesRepository cartoesPadroes;
+    private CartoesPadroesRepository cartoesPadroesRepository;
     
     @Autowired
     private CartoesPadroesService cartoesPadroesService;
@@ -60,7 +55,7 @@ public class CadCrtCliController
         ModelAndView mv = new ModelAndView("/cliente/cadastrar/cadastrarCartao");
         
         mv.addObject("cliente", String.valueOf(id));
-        mv.addObject("bandeiras", bandeiras.findAll());
+        mv.addObject("bandeiras", bandeirasRepository.findAll());
 
         return mv;
     }
@@ -74,25 +69,25 @@ public class CadCrtCliController
             return new ModelAndView("redirect:/cliente/cadastrarCartao/" + id);
         }
 
-        UsuariosModel usu = usuarios.findByEmail(principal.getName());
-        ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
+        UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
         
-        cartao.setCliente(cli);
+        cartao.setCliente(usu.getCliente());
 
         cartoesService.cadastrar(cartao);
         
         if (crtPadrao == true)
         {
-            CartoesPadroesModel cartaoPadrao = cartoesPadroes.findByClienteId(cli.getCliId());
+            CartoesPadroesModel cartaoPadrao = cartoesPadroesRepository.findByClienteId(usu.getCliente().getCliId());
 
-            cartaoPadrao.setCartao(cartoes.findByCrtNumero(cartao.getCrtNumero(), cli.getCliId()));
+            cartaoPadrao.setCartao(cartoesRepository.findByCrtNumero(cartao.getCrtNumero(), usu.getCliente().getCliId()));
 
             if (cartaoPadrao.getCtpId() != null)
             {
                 cartoesPadroesService.atualizar(cartaoPadrao);
 
                 //System.out.println("Cartão padrão atualizado com sucesso!!");
-            }else // Pode excluir, não pode ocorrer essa ação.
+            }
+            else // Pode excluir, não pode ocorrer essa ação.
             {
                 cartoesPadroesService.cadastrar(cartaoPadrao);
                 

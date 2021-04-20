@@ -1,7 +1,7 @@
 <html>
     <body>
         <div th:fragment="header">
-            <header class="navbar navbar-light fixed-top bg-secondary flex-sm-nowrap p-0 shadow">
+            <header class="navbar navbar-light fixed-top bg-secondary bg-gradient flex-sm-nowrap p-0 shadow">
                 <a class="navbar-brand col-sm-2 me-0 px-3" href="/index">
                     <span class="text-dark fw-bolder">G</span>
                     <span class="text-white fw-bolder">Print</span>
@@ -13,11 +13,15 @@
                 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end pe-3">
                     <div class="btn-group">
-                        <a class="btn btn-secondary" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
-                            <i class="bi bi-cart3 fs-5"></i>
+                        <a class="nav-link text-light" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
+                            <i class="bi bi-cart3 fs-5"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Carrinho"></i>
                         </a>
-                        <a href="/index" class="btn btn-secondary" style="color: white; text-decoration: none;"><i class="bi bi-house fs-5"></i></a>
-                        <a href="/logout" class="btn btn-secondary" style="color: white; text-decoration: none;"><i class="bi bi-box-arrow-right fs-5"></i></a>
+                        <a href="/index" class="nav-link text-light" style="color: white; text-decoration: none;">
+                            <i class="bi bi-house fs-5"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Home"></i>
+                        </a>
+                        <a href="/logout" class="nav-link text-light" style="color: white; text-decoration: none;">
+                            <i class="bi bi-box-arrow-right fs-5"  data-bs-toggle="tooltip" data-bs-placement="bottom" title="Sair"></i>
+                        </a>
                     </div>
                 </div>
             </header>

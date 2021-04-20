@@ -28,10 +28,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AltCrtCliController 
 {
     @Autowired
-    private CartoesRepository cartoes;
+    private CartoesRepository cartoesRepository;
     
     @Autowired
-    private CartoesPadroesRepository cartoesPadroes;
+    private CartoesPadroesRepository cartoesPadroesRepository;
     
     @Autowired
     private CartoesService cartoesService;
@@ -45,8 +45,8 @@ public class AltCrtCliController
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarCartao");
 
-        CartoesModel cartao = cartoes.findOneById(id);
-        CartoesPadroesModel cartaoPadrao = cartoesPadroes.findByCartaoId(cartao.getCrtId());
+        CartoesModel cartao = cartoesRepository.findOneById(id);
+        CartoesPadroesModel cartaoPadrao = cartoesPadroesRepository.findByCartaoId(cartao.getCrtId());
 
         mv.addObject("cartao", cartao);
 
@@ -62,7 +62,7 @@ public class AltCrtCliController
     @PostMapping("/alterarCartao/{id}")
     public ModelAndView alteraCartao(@PathVariable("id") Integer id, @RequestParam(name = "crtPadrao", defaultValue = "false") Boolean crtPadrao, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes, HttpServletRequest auth, Principal principal)
     {
-        CartoesPadroesModel cartaoPadrao = cartoesPadroes.findByClienteId(cartao.getCliente().getCliId());
+        CartoesPadroesModel cartaoPadrao = cartoesPadroesRepository.findByClienteId(cartao.getCliente().getCliId());
 
         if (result.hasErrors())
         {

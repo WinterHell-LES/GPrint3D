@@ -63,6 +63,9 @@ public class PedidosComprasModel
     @OneToMany(mappedBy = "pedidoCompra")
     private List<PedidosTrocasModel> listPedTrocas;
 
+    @OneToMany(mappedBy = "pedidoCompra")
+    private List<SaidasModel> listSaidas;
+
     @OneToOne(mappedBy = "pedidoCompra")
     private PedComFretesModel frete;
 
@@ -190,6 +193,16 @@ public class PedidosComprasModel
         this.listPedCartoes = listPedCartoes;
     }
 
+    public List<SaidasModel> getListSaidas() 
+    {
+        return this.listSaidas;
+    }
+
+    public void setListSaidas(List<SaidasModel> listSaidas) 
+    {
+        this.listSaidas = listSaidas;
+    }
+
     public List<PedidosTrocasModel> getListPedTrocas() 
     {
         return this.listPedTrocas;
@@ -234,11 +247,13 @@ public class PedidosComprasModel
         return status;
     } 
 
-    public PedComFretesModel getFrete() {
+    public PedComFretesModel getFrete() 
+    {
         return this.frete;
     }
 
-    public void setFrete(PedComFretesModel frete) {
+    public void setFrete(PedComFretesModel frete) 
+    {
         this.frete = frete;
     }
 

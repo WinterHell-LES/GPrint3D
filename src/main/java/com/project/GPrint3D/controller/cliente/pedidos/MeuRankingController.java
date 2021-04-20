@@ -2,10 +2,8 @@ package com.project.GPrint3D.controller.cliente.pedidos;
 
 import java.security.Principal;
 
-import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.model.VariaveisModel;
-import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.repository.VariaveisRepository;
 
@@ -22,9 +20,6 @@ public class MeuRankingController
     private UsuariosRepository usuariosRepository;
 
     @Autowired
-    private ClientesRepository clientesRepository;
-
-    @Autowired
     private VariaveisRepository variaveisRepository;
 
     @RequestMapping("/meuRanking")
@@ -33,15 +28,14 @@ public class MeuRankingController
         ModelAndView mv = new ModelAndView("/cliente/Pedidos/meuRanking");
 
         UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
-        ClientesModel cli = clientesRepository.findByUsuarioId(usu.getUsuId());
 
         VariaveisModel var = variaveisRepository.findOneById(1);
 
-        int pontosRank = verificaRank(cli.getCliRanking(), var);
+        int pontosRank = verificaRank(usu.getCliente().getCliRanking(), var);
         
-        mv.addObject("cliente", cli);
+        mv.addObject("cliente", usu.getCliente());
         mv.addObject("variaveis", var); 
-        mv.addObject("ponto", (int) Math.ceil(cli.getCliPontos() / (pontosRank / 100)));
+        mv.addObject("ponto", (int) Math.ceil(usu.getCliente().getCliPontos() / (pontosRank / 100)));
         mv.addObject("pontosRank", pontosRank);       
 
         return mv;

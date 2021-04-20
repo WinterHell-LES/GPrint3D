@@ -20,28 +20,19 @@
                 </div>
             </div>
 
+            <div th:include="~{admin/alerts :: alertUpdate}"></div>
+
             <form th:action="@{/admin/alterarCategoria}" th:object="${categoriasModel}" method="POST">
                 <input type="hidden" name="id" th:field="${categoria.ctgId}">
                 <input type="hidden" name="ativo" th:field="${categoria.ctgAtivo}">
-                <div class="row pb-3 pe-0">
-                    <div class="row pe-0">
-                        <div class="col-sm pe-0">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Nome da categoria" id="nomeCategoria" th:field="${categoria.ctgNome}" required/>
-                                <label for="nomeCategoria">Nome</label>
-                            </div>
-                        </div>
-                    </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" placeholder="Nome da categoria" id="nomeCategoria" th:field="${categoria.ctgNome}" required/>
+                    <label for="nomeCategoria">Nome</label>
                 </div>
 
-                <div class="row pe-0 pb-3">
-                    <div class="row pe-0">
-                        <div class="col-sm pe-0">
-                            <div class="text-end">
-                                <button type="submit" class="btn border shadow-sm">Alterar</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-end">
+                    <button type="submit" class="btn border shadow-sm">Alterar</button>
                 </div>
             </form>
         </section>

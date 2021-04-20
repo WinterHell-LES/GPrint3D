@@ -5,11 +5,11 @@ import com.project.GPrint3D.util.GeradorCodigoUtil;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.validation.Valid;
 
@@ -17,17 +17,23 @@ import com.project.GPrint3D.configuration.SecurityConfig;
 
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.CartoesModel;
+import com.project.GPrint3D.model.CategoriasModel;
+import com.project.GPrint3D.model.CategoriasProdutosModel;
 import com.project.GPrint3D.model.ClientesModel;
+import com.project.GPrint3D.model.CuponsPromocoesModel;
 import com.project.GPrint3D.model.EnderecosModel;
 import com.project.GPrint3D.model.PedCartoesModel;
 import com.project.GPrint3D.model.PedComFretesModel;
+import com.project.GPrint3D.model.PedCuponsModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
+import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.UsuariosModel;
 
 import com.project.GPrint3D.repository.CarrinhosRepository;
 import com.project.GPrint3D.repository.CartoesPadroesRepository;
 import com.project.GPrint3D.repository.CartoesRepository;
-import com.project.GPrint3D.repository.ClientesRepository;
+import com.project.GPrint3D.repository.CuponsPromocoesRepository;
+import com.project.GPrint3D.repository.CuponsTrocasRepository;
 import com.project.GPrint3D.repository.EndEntregasPadroesRepository;
 import com.project.GPrint3D.repository.EnderecosRepository;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
@@ -39,9 +45,12 @@ import com.project.GPrint3D.service.PedidosComprasService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -57,25 +66,22 @@ public class CartCliController extends CarrinhoUtil
     private HashMap<Integer, String> cartaoValidador = new HashMap<Integer, String>();
 
     @Autowired
-    private UsuariosRepository usuarios;
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
-    private ClientesRepository clientes;
+    private EnderecosRepository enderecosRepository;
 
     @Autowired
-    private EnderecosRepository enderecos;
+    private EndEntregasPadroesRepository enderecosEntregaPadroesRepository;
 
     @Autowired
-    private EndEntregasPadroesRepository enderecosEntregaPadroes;
+    private CartoesPadroesRepository cartoesPadroesRepository;
 
     @Autowired
-    private CartoesPadroesRepository cartoesPadroes;
-
-    @Autowired
-    private CartoesRepository cartoes;
+    private CartoesRepository cartoesRepository;
     
     @Autowired
-    private CarrinhosRepository carrinhos;
+    private CarrinhosRepository carrinhosRepository;
 
     @Autowired
     private PedidosComprasRepository pedidosComprasRepository;
@@ -101,12 +107,12 @@ public class CartCliController extends CarrinhoUtil
     {
         ModelAndView mv = new ModelAndView("/cliente/carrinho/escolherEndereco");
         
-        usuarioMod = usuarios.findByEmail(principal.getName());
-        clienteMod = clientes.findByUsuarioId(usuarioMod.getUsuId());
+        usuarioMod = usuariosRepository.findByEmail(principal.getName());
+        clienteMod = usuarioMod.getCliente();
 
         if (enderecoMod.getEndId() == 0)
         {
-            enderecoMod = enderecosEntregaPadroes.findByClienteId(clienteMod.getCliId()).getEndereco();
+            enderecoMod = enderecosEntregaPadroesRepository.findByClienteId(clienteMod.getCliId()).getEndereco();
         }
 
         mv.addObject("cliente", clienteMod);
@@ -119,14 +125,14 @@ public class CartCliController extends CarrinhoUtil
     @PostMapping("/alterarEndereco")
     public ModelAndView alterarEnderecoEntrega(@RequestParam(name = "id") Integer enderecoId)
     {
-        enderecoMod = enderecos.findOneById(enderecoId);
+        enderecoMod = enderecosRepository.findOneById(enderecoId);
 
         return new ModelAndView("redirect:/cliente/carrinho/escolherEndereco");
     }
 
     //Grava os dados do endereço do cliente
     @PostMapping("/confirmarEndereco")
-    public ModelAndView confirmarEndereco(@RequestParam (name = "frete") String freteParam, @Valid EnderecosModel endereco)
+    public ModelAndView confirmarEndereco(@RequestParam(name = "frete") String freteParam, @Valid EnderecosModel endereco)
     {
         freteParam = freteParam.substring(1, freteParam.length()-1);
         String[] keyValuePairs = freteParam.split(",");
@@ -157,22 +163,22 @@ public class CartCliController extends CarrinhoUtil
         }
         ModelAndView mv = new ModelAndView("/cliente/carrinho/escolherPagamento");
 
-        usuarioMod = usuarios.findByEmail(principal.getName());
-        clienteMod = clientes.findByUsuarioId(usuarioMod.getUsuId());
-        carrinhoMod = carrinhos.findByClienteId(clienteMod.getCliId());
+        usuarioMod = usuariosRepository.findByEmail(principal.getName());
+        clienteMod = usuarioMod.getCliente();
+        carrinhoMod = carrinhosRepository.findByClienteId(clienteMod.getCliId());
 
         if (listaPedCartoes.size() == 0)
         {
             PedCartoesModel pedCartao = new PedCartoesModel();
 
-            pedCartao.setCartao(cartoesPadroes.findByClienteId(clienteMod.getCliId()).getCartao());
+            pedCartao.setCartao(cartoesPadroesRepository.findByClienteId(clienteMod.getCliId()).getCartao());
 
             listaPedCartoes.add(pedCartao);
         }
 
         mv.addObject("cliente", clienteMod);
         mv.addObject("totalCarrinho", valorTotalCarrinho(carrinhoMod));
-        mv.addObject("produtosCarrinho", carrinhoMod.getListProdutos());
+        mv.addObject("carrinho", carrinhoMod);
         mv.addObject("frete", freteMod);
         mv.addObject("listaPedCartoes", listaPedCartoes);
         mv.addObject("totalCartoes", valorTotalCartoes(listaPedCartoes));
@@ -184,7 +190,6 @@ public class CartCliController extends CarrinhoUtil
     @PostMapping("/aplicaCupomTroca")
     public ModelAndView aplicarCupomTroca()
     {
-        
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
@@ -206,7 +211,7 @@ public class CartCliController extends CarrinhoUtil
     @PostMapping("/inlcuiCartao")
     public ModelAndView incluirCartao(@RequestParam(name = "id") Integer cartaoId)
     {
-        CartoesModel cartaoIncluir = cartoes.findOneById(cartaoId);
+        CartoesModel cartaoIncluir = cartoesRepository.findOneById(cartaoId);
         PedCartoesModel pedCartaoInlcuir = new PedCartoesModel();
 
         for (PedCartoesModel cartaoPed : listaPedCartoes)

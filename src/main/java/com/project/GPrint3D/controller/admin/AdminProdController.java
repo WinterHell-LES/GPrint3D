@@ -299,7 +299,7 @@ public class AdminProdController
     }
 
     @GetMapping("cadastroCategorias/{id}")
-    public ModelAndView cadastroCategorias(@PathVariable(value = "id") Integer id, CategoriasProdutosModel categoriaProduto)
+    public ModelAndView cadastroCategorias(@PathVariable(value = "id") Integer id, CategoriasProdutosModel categoriaProduto, CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarCategorias");
 

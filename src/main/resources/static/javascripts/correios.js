@@ -161,7 +161,7 @@ function listarFretes(json)
 
                 case "carrinhoLogado":
                     codigoHTML +=   "<div class=\"form-check\">" +
-                                        "<input class=\"form-check-input\" type=\"radio\" name=\"frete\" id=" + aux.Nome.replace(" ","_") + " value=" + JSON.stringify({'empresa':'correios', 'modalidade': aux.Nome.replace(" ","_"), 'prazo': aux.PrazoEntrega, 'valor': aux.Valor.replace(",", ".")}) + ">" +
+                                        "<input class=\"form-check-input\" type=\"radio\" name=\"frete\" id=" + aux.Nome.replace(" ","_") + " value=" + JSON.stringify({'empresa':'correios', 'modalidade': aux.Nome.replace(" ","_"), 'prazo': aux.PrazoEntrega, 'valor': aux.Valor.replace(",", ".")}) + " required>" +
                                         "<label class=\"form-check-label row\" for=" + aux.Nome.replace(" ","_") + ">" +
                                             "<div class=\"col-lg\">" +
                                                 aux.Nome +

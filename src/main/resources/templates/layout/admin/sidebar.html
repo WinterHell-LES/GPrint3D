@@ -64,13 +64,32 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_entradas" data-bs-toggle="collapse" data-bs-target="#entradas" aria-expanded="false">
-                                        Entradas
+                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_estoque" data-bs-toggle="collapse" data-bs-target="#estoque" aria-expanded="false">
+                                        Estoque
                                     </button>
-                                    <div class="collapse" id="entradas">
-                                        <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/cadastrarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarEntradas')} ? 'active'">Cadastro de entradas</a></li>
-                                            <li><a class="nav-link" href="/admin/listarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('listarEntradas')} ? 'active'">Listagem de entradas</a></li>
+                                    <div class="collapse" id="estoque">
+                                        <ul class="list-unstyled ms-2">
+                                            <li class="mb-1">
+                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_entradas" data-bs-toggle="collapse" data-bs-target="#entradas" aria-expanded="false">
+                                                    Entradas
+                                                </button>
+                                                <div class="collapse" id="entradas">
+                                                    <ul class="list-unstyled">
+                                                        <li><a class="nav-link" href="/admin/cadastrarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarEntradas')} ? 'active'">Cadastro de entradas</a></li>
+                                                        <li><a class="nav-link" href="/admin/listarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('listarEntradas')} ? 'active'">Listagem de entradas</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_saidas" data-bs-toggle="collapse" data-bs-target="#saidas" aria-expanded="false">
+                                                    Saídas
+                                                </button>
+                                                <div class="collapse" id="saidas">
+                                                    <ul class="list-unstyled">
+                                                        <li><a class="nav-link" href="/admin/listarSaidas" th:classappend="${#httpServletRequest.requestURI.contains('listarSaidas')} ? 'active'">Listagem de saídas</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>

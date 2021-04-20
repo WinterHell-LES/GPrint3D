@@ -76,12 +76,26 @@ public class CarrinhosModel
         this.cliente = cliente;
     }
 
-    public String getTemporaryCliId() {
+    public String getTemporaryCliId() 
+    {
         return this.temporaryCliId;
     }
 
-    public String setTemporaryCliId(String temporaryCliId) {
+    public String setTemporaryCliId(String temporaryCliId) 
+    {
         return this.temporaryCliId = temporaryCliId;
+    }
+
+    public double getValorTotal()
+    {
+        double valorTotal = 0.0;
+
+        for (PrdCarrinhosModel aux : this.listProdutos)
+        {
+            valorTotal += aux.getProduto().getPrdPreco() * aux.getPcrQuantidade();
+        }
+
+        return valorTotal;
     }
 
     @Override

@@ -43,9 +43,6 @@ public class UsuariosModel
     @OneToMany(mappedBy = "usuario")
     private List<EntradasModel> listEntradas;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<SaidasModel> listSaidas;
-
     public UsuariosModel()
     {
         super();
@@ -141,16 +138,6 @@ public class UsuariosModel
     public void setListEntradas(List<EntradasModel> listEntradas) 
     {
         this.listEntradas = listEntradas;
-    }
-
-    public List<SaidasModel> getListSaidas() 
-    {
-        return this.listSaidas;
-    }
-
-    public void setListSaidas(List<SaidasModel> listSaidas) 
-    {
-        this.listSaidas = listSaidas;
     }
 
     public String getStrUsuAtivo()

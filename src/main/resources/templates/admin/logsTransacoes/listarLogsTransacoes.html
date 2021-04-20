@@ -20,6 +20,7 @@
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
+                        <th style="width: 50px;">ID</th>
                         <th style="width: 100px;">Ação</th>
                         <th>Descrição</th>
                         <th>Tabela</th>
@@ -29,6 +30,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="log : ${logs}">
+                        <th th:text="${log.logId}">ID</th>
                         <td th:text="${log.logAcao}">Ação</td>
                         <td th:text="${log.logDescricao}">Descrição</td>
                         <td th:text="${log.logTabela}">Tabela</td>
@@ -38,6 +40,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar ação"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar descrição"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar tabela"></th>

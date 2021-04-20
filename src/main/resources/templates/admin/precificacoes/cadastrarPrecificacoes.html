@@ -17,6 +17,8 @@
                 <h1 class="h2">Cadastro de precificações</h1>
             </div>
 
+            <div th:include="~{admin/alerts :: alertCreate}"></div>
+
             <div class="h3 text-center my-5">Custo do produto / 100% – ( % DV + % DF + % ML ) = Preço de venda</div>
 
             <form th:action="@{/admin/cadastroPrecificacoes}" th:object="${precificacoesModel}" method="POST">

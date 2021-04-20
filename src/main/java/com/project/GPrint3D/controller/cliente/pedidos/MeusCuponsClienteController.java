@@ -2,9 +2,7 @@ package com.project.GPrint3D.controller.cliente.pedidos;
 
 import java.security.Principal;
 
-import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.UsuariosModel;
-import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.CuponsTrocasRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 
@@ -21,9 +19,6 @@ public class MeusCuponsClienteController
     private UsuariosRepository usuariosRepository;
 
     @Autowired
-    private ClientesRepository clientesRepository;
-
-    @Autowired
     private CuponsTrocasRepository cuponsTrocasRepository;
     
     @RequestMapping("/meusCupons")
@@ -32,9 +27,8 @@ public class MeusCuponsClienteController
         ModelAndView mv = new ModelAndView("/cliente/pedidos/meusCupons");
 
         UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
-        ClientesModel cli = clientesRepository.findByUsuarioId(usu.getUsuId());
         
-        mv.addObject("cupons", cuponsTrocasRepository.findAllByCliente(cli.getCliId()));
+        mv.addObject("cupons", cuponsTrocasRepository.findAllByCliente(usu.getCliente().getCliId()));
 
         return mv;
     }

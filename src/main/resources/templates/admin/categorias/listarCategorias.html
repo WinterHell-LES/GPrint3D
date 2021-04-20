@@ -17,6 +17,8 @@
                 <h1 class="h2">Categorias</h1>
             </div>
 
+            <div th:include="~{admin/alerts :: alertAtiva}"></div>
+
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -36,15 +38,15 @@
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/alterarCategorias}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${categoria.ctgId}">
-                                            <i class="bi bi-pencil-square fs-4" style="color: black;"></i>
+                                            <i class="bi bi-pencil-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar"></i>
                                         </button>
                                     </form>
                                 </div>
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/ativaCategorias}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${categoria.ctgId}">
-                                            <i class="bi bi-unlock fs-4" th:if="${categoria.ctgAtivo == true}"></i>
-                                            <i class="bi bi-lock fs-4" th:if="${categoria.ctgAtivo == false}"></i>
+                                            <i class="bi bi-unlock fs-4" th:if="${categoria.ctgAtivo == true}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inativar"></i>
+                                            <i class="bi bi-lock fs-4" th:if="${categoria.ctgAtivo == false}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ativar"></i>
                                         </button>
                                     </form>
                                 </div>

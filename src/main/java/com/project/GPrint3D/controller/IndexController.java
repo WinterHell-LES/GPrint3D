@@ -1,9 +1,5 @@
 package com.project.GPrint3D.controller;
 
-import java.security.Principal;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.project.GPrint3D.model.CategoriasModel;
 import com.project.GPrint3D.model.ProdutosModel;
 import com.project.GPrint3D.model.VariaveisModel;
@@ -14,7 +10,6 @@ import com.project.GPrint3D.repository.VariaveisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;

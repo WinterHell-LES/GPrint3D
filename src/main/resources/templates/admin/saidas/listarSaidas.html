@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+    layout:decorate="~{layout/admin/layout}">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Admin - Saídas</title>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/dataTables/jquery.dataTables.css}">
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Saídas</h1>
+            </div>
+
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Número do pedido</th>
+                        <th>Produto</th>
+                        <th style="width: 150px;">Quantidade</th>
+                        <th style="width: 100px;">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="saida : ${saidas}">
+                        <td th:text="${saida.pedidoCompra.pdcNumero}">Nome do produto</td>
+                        <td th:text="${saida.produto.prdNome}">Fornecedor</td>
+                        <td th:text="${saida.saiQuantidade}">Quantidade</td>
+                        <td th:text="${#dates.format(saida.saiData, 'dd/MM/yyyy')}">Data</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar numero do pedido"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar produto"></th>
+                        <th></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar data"></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <!-- Script -->
+        <th:block layout:fragment="javascripts">
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.dataTables.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.tableControl.v1.js}"></script>
+        </th:block>
+    </body>
+</html>

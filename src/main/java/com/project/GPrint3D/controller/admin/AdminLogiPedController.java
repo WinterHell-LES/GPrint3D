@@ -53,6 +53,7 @@ public class AdminLogiPedController
 
         mv.addObject("pedido", pedidosComprasRepository.findOneById(id));
         mv.addObject("allStatus", pedidos.getListCompraLogistica());
+        mv.addObject("btStatus", pedidos.getBtListCompraLogistica());
 
         return mv;
     }
@@ -91,6 +92,7 @@ public class AdminLogiPedController
 
         mv.addObject("pedido", pedTroca);
         mv.addObject("allStatus", pedidos.getListTrocaLog(pedTroca.getPdtEscolha()));
+        mv.addObject("btStatus", pedidos.getBtListTrocaLog(pedTroca.getPdtEscolha()));
 
         return mv;
     }

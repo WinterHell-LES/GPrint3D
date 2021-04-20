@@ -20,41 +20,36 @@
                 </a>
             </div>
 
+            <div th:include="~{admin/alerts :: alertUpdate}"></div>
+
             <div class="h3 text-center my-5">Custo do produto / ( 100% – ( % DV + % DF + % ML ) ) = Preço de venda</div>
 
             <form th:action="@{/admin/alterarPrecificacao}" method="POST">
                 <input type="hidden" name="id" th:field="${precificacao.prcId}"/>
-                <div class="row pb-3 pe-0">
-                    <div class="row pe-0">
-                        <div class="col pe-0">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Despesas variáveis (DV)" id="despVariaveis" th:field="${precificacao.prcDespVar}" required/>
-                                <label for="despVariaveis">Despesas variáveis (DV)</label>
-                            </div>
+                
+                <div class="row pb-3">
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Despesas variáveis (DV)" id="despVariaveis" th:field="${precificacao.prcDespVar}" required/>
+                            <label for="despVariaveis">Despesas variáveis (DV)</label>
                         </div>
-                        <div class="col pe-0">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Despesas fixas (DF)" id="despFixas" th:field="${precificacao.prcDespFix}" required/>
-                                <label for="despFixas">Despesas fixas (DF)</label>
-                            </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Despesas fixas (DF)" id="despFixas" th:field="${precificacao.prcDespFix}" required/>
+                            <label for="despFixas">Despesas fixas (DF)</label>
                         </div>
-                        <div class="col pe-0">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="Margem de lucro (ML)" id="margLucro" th:field="${precificacao.prcMargLuc}" required/>
-                                <label for="margLucro">Margem de lucro (ML)</label>
-                            </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Margem de lucro (ML)" id="margLucro" th:field="${precificacao.prcMargLuc}" required/>
+                            <label for="margLucro">Margem de lucro (ML)</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="row pb-3 pe-0">
-                    <div class="row pe-0">
-                        <div class="col-sm pe-0">
-                            <div class="text-end">
-                                <button type="submit" class="btn border shadow-sm">Alterar</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-end">
+                    <button type="submit" class="btn border shadow-sm">Alterar</button>
                 </div>
             </form>
         </section>

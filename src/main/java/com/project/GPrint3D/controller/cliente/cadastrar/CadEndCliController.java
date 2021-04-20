@@ -4,12 +4,10 @@ import java.security.Principal;
 
 import javax.validation.Valid;
 
-import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.EndCobrancasPadroesModel;
 import com.project.GPrint3D.model.EndEntregasPadroesModel;
 import com.project.GPrint3D.model.EnderecosModel;
 import com.project.GPrint3D.model.UsuariosModel;
-import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.EndCobrancasPadroesRepository;
 import com.project.GPrint3D.repository.EndEntregasPadroesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
@@ -32,10 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CadEndCliController 
 {
     @Autowired
-    private ClientesRepository clientes;
-
-    @Autowired
-    private UsuariosRepository usuarios;
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
     private EndCobrancasPadroesRepository endCobrancasPadroes;
@@ -81,12 +76,11 @@ public class CadEndCliController
             return new ModelAndView("redirect:/cliente/cadastrarEndereco/" + id);
         }
 
-        UsuariosModel usu = usuarios.findByEmail(principal.getName());
-        ClientesModel cli = clientes.findByUsuarioId(usu.getUsuId());
+        UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
         EndCobrancasPadroesModel endCobrancaPadrao = endCobrancasPadroes.findByClienteId(endereco.getCliente().getCliId());
         EndEntregasPadroesModel endEntregaPadrao = endEntregasPadroes.findByClienteId(endereco.getCliente().getCliId());
 
-        endereco.setCliente(cli);
+        endereco.setCliente(usu.getCliente());
 
         enderecosService.cadastrar(endereco);
 

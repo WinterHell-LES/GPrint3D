@@ -17,6 +17,9 @@
                 <h1 class="h2">Bandeiras</h1>
             </div>
 
+            <div th:include="~{admin/alerts :: alertAtiva}"></div>
+            <div th:include="~{admin/alerts :: alertDelete}"></div>
+
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
@@ -36,15 +39,15 @@
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/ativaBandeiras}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${bandeira.banId}">
-                                            <i class="bi bi-unlock fs-4" th:if="${bandeira.banAtivo == true}"></i>
-                                            <i class="bi bi-lock fs-4" th:if="${bandeira.banAtivo == false}"></i>
+                                            <i class="bi bi-unlock fs-4" th:if="${bandeira.banAtivo == true}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Inativar"></i>
+                                            <i class="bi bi-lock fs-4" th:if="${bandeira.banAtivo == false}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ativar"></i>
                                         </button>
                                     </form>
                                 </div>
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/deletaBandeiras}" method="POST" th:if="${bandeira.listCartoes.size == 0}">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${bandeira.banId}">
-                                            <i class="bi bi-trash fs-4"></i>
+                                            <i class="bi bi-trash fs-4" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Deletar"></i>
                                         </button>
                                     </form>
                                 </div>

@@ -54,8 +54,25 @@ public class PrdCarrinhosModel
     {
         super( );
 
+        java.util.Date dataAtual = new java.util.Date();
+
         this.pcrId = pcrId;
         this.pcrQuantidade = pcrQuantidade;
+        this.pcrDate = new Date(dataAtual.getTime());
+        this.pcrAtivo = true;
+    }
+
+    public PrdCarrinhosModel(CarrinhosModel carrinho)
+    {
+        super( );
+
+        java.util.Date dataAtual = new java.util.Date();
+
+        this.pcrId = 0;
+        this.pcrQuantidade = 1;
+        this.pcrDate = new Date(dataAtual.getTime());
+        this.pcrAtivo = true;
+        this.carrinho = carrinho;
     }
 
     public Integer getPcrId() 
@@ -116,6 +133,30 @@ public class PrdCarrinhosModel
 
     public void setPcrAtivo(boolean pcrAtivo) {
         this.pcrAtivo = pcrAtivo;
+    }
+
+    public void aumentarProduto()
+    {
+        java.util.Date dataAtual = new java.util.Date();
+
+        this.setPcrQuantidade(this.getPcrQuantidade() + 1);
+        this.setPcrDate(new Date(dataAtual.getTime()));
+    }
+
+    public void diminuirProduto()
+    {
+        java.util.Date dataAtual = new java.util.Date();
+
+        this.setPcrQuantidade(this.getPcrQuantidade() - 1);
+        this.setPcrDate(new Date(dataAtual.getTime()));
+    }
+
+    public void atualizarQtdProduto(Integer quantidade)
+    {
+        java.util.Date dataAtual = new java.util.Date();
+
+        this.setPcrQuantidade(quantidade);
+        this.setPcrDate(new Date(dataAtual.getTime()));
     }
 
     @Override

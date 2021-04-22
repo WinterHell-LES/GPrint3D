@@ -9,6 +9,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import com.project.GPrint3D.model.CarrinhosModel;
+import com.project.GPrint3D.model.CategoriasProdutosModel;
+import com.project.GPrint3D.model.CuponsPromocoesModel;
+import com.project.GPrint3D.model.CuponsTrocasModel;
 import com.project.GPrint3D.model.PedCartoesModel;
 import com.project.GPrint3D.model.PedProdutosModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
@@ -106,64 +109,6 @@ public class CarrinhoUtil
         return null;
     }
 
-    public void aumentarProduto(PrdCarrinhosModel prdCarrinhoModel)
-    {
-        int CarProdQnt = prdCarrinhoModel.getPcrQuantidade();
-
-        prdCarrinhoModel.setPcrQuantidade(CarProdQnt + 1);
-        prdCarrinhoModel.setPcrDate(getDate());
-
-        prdCarrinhosService.atualizar(prdCarrinhoModel);
-    }
-
-    public void diminuirProduto(PrdCarrinhosModel prdCarrinhoModel)
-    {
-        int CarProdQnt = prdCarrinhoModel.getPcrQuantidade();
-
-        prdCarrinhoModel.setPcrQuantidade(CarProdQnt - 1);
-        prdCarrinhoModel.setPcrDate(getDate());
-        
-        prdCarrinhosService.atualizar(prdCarrinhoModel);
-    }
-
-    public void atualizarQtdProduto(PrdCarrinhosModel prdCarrinhoModel, int qtd)
-    {
-        prdCarrinhoModel.setPcrQuantidade(qtd);
-        prdCarrinhoModel.setPcrDate(getDate());
-        
-        prdCarrinhosService.atualizar(prdCarrinhoModel);
-    }
-
-    public void incluirProduto(CarrinhosModel carrinho, PrdCarrinhosModel prdCarrinhoModel)
-    {
-        prdCarrinhoModel.setCarrinho(carrinho);
-        prdCarrinhoModel.setPcrQuantidade(1);
-        prdCarrinhoModel.setPcrAtivo(true);
-        prdCarrinhoModel.setPcrDate(getDate());
-
-        prdCarrinhosService.cadastrar(prdCarrinhoModel);
-    }
-
-    public void removerProduto(PrdCarrinhosModel prdCarrinhoModel)
-    {
-        prdCarrinhosService.excluir(prdCarrinhoModel.getPcrId());
-    }
-
-    public void removerTodosProdutos(CarrinhosModel carrinho)
-    {
-        List<PrdCarrinhosModel> carrinhoProdutos = new ArrayList<PrdCarrinhosModel>();
-
-        //Recebe a listagem dos produtos do carrinho e valida
-        carrinho = validarListaProdutosCarrinho(carrinho);
-        carrinhoProdutos = carrinho.getListProdutos();
-
-        //Tenta atualizar o produto na listagem, se conseguir finalizar o método.
-        for(int i = 0; i < carrinhoProdutos.size(); i++)
-        {
-            prdCarrinhosService.excluir(carrinhoProdutos.get(i).getPcrId());
-        }
-    }
-
     public void criarCarrinho(UsuariosModel usuario, String valorCookie)
     {
         CarrinhosModel carrinho = new CarrinhosModel();
@@ -228,36 +173,6 @@ public class CarrinhoUtil
         }
 
         return carrinho;
-    }
-
-    public java.sql.Date getDate()
-    {
-        long ms = System.currentTimeMillis();  
-        java.sql.Date date = new java.sql.Date(ms);
-
-        return date;
-    }
-
-    public double valorTotalCarrinho(CarrinhosModel carrinho)
-    {
-        Double total = 0D;
-
-        // Cria lista de referência
-        List<PrdCarrinhosModel> carrinhoProdutos = new ArrayList<PrdCarrinhosModel>();
-
-        //Recebe a listagem dos produtos do carrinho e valida
-        carrinho = validarListaProdutosCarrinho(carrinho);
-        carrinhoProdutos = carrinho.getListProdutos();
-
-        //Tenta atualizar o produto na listagem, se conseguir finalizar o método.
-        for(int i = 0; i < carrinhoProdutos.size(); i++)
-        {
-            BigDecimal calculoBD = BigDecimal.valueOf(carrinhoProdutos.get(i).getPcrQuantidade()).multiply(BigDecimal.valueOf(carrinhoProdutos.get(i).getProduto().getPrdPreco()));
-            BigDecimal totalBD = BigDecimal.valueOf(total).add(calculoBD);
-            total =  totalBD.doubleValue();
-        }
-
-        return total;
     }
 
     public CarrinhosModel localizarCarrinho(UsuariosModel usuario, String valorCookie)
@@ -382,4 +297,62 @@ public class CarrinhoUtil
 
         return true;
     }
+
+    public double valorTotalCupons(List<CuponsTrocasModel> listaCuponsTroca)
+    {
+        Double total = 0D;
+
+        if (listaCuponsTroca.size() == 0 || listaCuponsTroca == null)
+        {
+            return total;
+        }
+
+        for (CuponsTrocasModel cupomTroca : listaCuponsTroca)
+        {
+            BigDecimal totalBD = BigDecimal.valueOf(total).add(BigDecimal.valueOf(cupomTroca.getCptSaldo()));
+            total = totalBD.doubleValue();
+        }
+
+        return total;
+    }
+
+    public double valorDescontoCupomPromocional(Integer carrinhoId, CuponsPromocoesModel cupomPromocao)
+    {
+        Double total = 0D;
+
+        CarrinhosModel carrinho = carrinhoRepository.findOneById(carrinhoId);
+
+        for (PrdCarrinhosModel prdCarrinho : carrinho.getListProdutos())
+        {
+
+           for (CategoriasProdutosModel categoria : prdCarrinho.getProduto().getListCategoriasProdutos())
+           {
+                if (categoria.getCategoria() == cupomPromocao.getCategoria())
+                {
+                    BigDecimal totalBD = BigDecimal.valueOf(total).add((BigDecimal.valueOf(prdCarrinho.getProduto().getPrdPreco())).multiply(BigDecimal.valueOf(prdCarrinho.getPcrQuantidade())));
+                    total = totalBD.doubleValue();
+                }
+           }
+        }
+
+        BigDecimal totalBD = BigDecimal.valueOf(total).multiply((BigDecimal.valueOf(cupomPromocao.getCppDesconto()).divide(new BigDecimal("100"))));
+        total = totalBD.doubleValue();
+
+        return total;
+    }
+
+    public void validarCupons(List<CuponsTrocasModel> listaCuponsTrocaDisponiveis, List<CuponsTrocasModel> listaCuponsTrocaUtilizados, Double valorPendente)
+    {
+        for (CuponsTrocasModel cupom : listaCuponsTrocaUtilizados)
+        {
+            if (cupom.getCptValor() > valorPendente)
+            {
+                listaCuponsTrocaUtilizados.remove(cupom);
+                listaCuponsTrocaDisponiveis.add(cupom);
+            }
+        }
+
+        return;
+    }
+
 }

@@ -5,7 +5,6 @@ import com.project.GPrint3D.util.GeradorCodigoUtil;
 
 import java.math.BigDecimal;
 import java.security.Principal;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,16 +16,13 @@ import com.project.GPrint3D.configuration.SecurityConfig;
 
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.CartoesModel;
-import com.project.GPrint3D.model.CategoriasModel;
-import com.project.GPrint3D.model.CategoriasProdutosModel;
 import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.CuponsPromocoesModel;
+import com.project.GPrint3D.model.CuponsTrocasModel;
 import com.project.GPrint3D.model.EnderecosModel;
 import com.project.GPrint3D.model.PedCartoesModel;
 import com.project.GPrint3D.model.PedComFretesModel;
-import com.project.GPrint3D.model.PedCuponsModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
-import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.UsuariosModel;
 
 import com.project.GPrint3D.repository.CarrinhosRepository;
@@ -45,26 +41,27 @@ import com.project.GPrint3D.service.PedidosComprasService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/cliente/carrinho")
 public class CartCliController extends CarrinhoUtil
 {
-    private Integer repeticaoTelaPagamento = 0;
+    private Boolean primeiraExecucao = true;
     private UsuariosModel usuarioMod = new UsuariosModel();
     private ClientesModel clienteMod = new ClientesModel();
     private CarrinhosModel carrinhoMod = new CarrinhosModel();
     private EnderecosModel enderecoMod = new EnderecosModel();
     private PedComFretesModel freteMod = new PedComFretesModel();
+    private List<CuponsTrocasModel> listaCuponsTrocaDisponiveisMod = new ArrayList<CuponsTrocasModel>();
+    private List<CuponsTrocasModel> listaCuponsTrocaUtilizadosMod = new ArrayList<CuponsTrocasModel>();
+    private CuponsPromocoesModel cupomPromocoesMod = new CuponsPromocoesModel();
     private List<PedCartoesModel> listaPedCartoes = new ArrayList<PedCartoesModel>();
     private HashMap<Integer, String> cartaoValidador = new HashMap<Integer, String>();
+    private Double descontoCupomPromocional = 0D;
 
     @Autowired
     private UsuariosRepository usuariosRepository;
@@ -86,6 +83,12 @@ public class CartCliController extends CarrinhoUtil
 
     @Autowired
     private PedidosComprasRepository pedidosComprasRepository;
+
+    @Autowired
+    private CuponsTrocasRepository cuponsTrocasRepository;
+
+    @Autowired
+    private CuponsPromocoesRepository cuponsPromocoesRepository;
 
     @Autowired
     private PedidosComprasService pedidosComprasService;
@@ -116,6 +119,14 @@ public class CartCliController extends CarrinhoUtil
             enderecoMod = enderecosEntregaPadroesRepository.findByClienteId(clienteMod.getCliId()).getEndereco();
         }
 
+        //Resetar as escolhas do pagamento
+        listaPedCartoes = new ArrayList<PedCartoesModel>();
+        listaCuponsTrocaDisponiveisMod = new ArrayList<CuponsTrocasModel>();
+        listaCuponsTrocaUtilizadosMod = new ArrayList<CuponsTrocasModel>();
+        cupomPromocoesMod = new CuponsPromocoesModel();
+        descontoCupomPromocional = 0D;
+        primeiraExecucao = true;
+
         mv.addObject("cliente", clienteMod);
         mv.addObject("endereco", enderecoMod);
 
@@ -133,7 +144,7 @@ public class CartCliController extends CarrinhoUtil
 
     //Grava os dados do endereço do cliente
     @PostMapping("/confirmarEndereco")
-    public ModelAndView confirmarEndereco(@RequestParam (name = "frete", defaultValue = "") String freteParam, @Valid EnderecosModel endereco)
+    public ModelAndView confirmarEndereco(@RequestParam(name = "frete", defaultValue = "") String freteParam, @Valid EnderecosModel endereco)
     {
         if (freteParam.equals(""))
         {
@@ -166,49 +177,111 @@ public class CartCliController extends CarrinhoUtil
     {
         ModelAndView mv = new ModelAndView("/cliente/carrinho/escolherPagamento");
 
+        if (freteMod.getPcfModalidade() == null || freteMod.getPcfModalidade() == "")
+        {
+            String response = "Frete inválido, recomece o processo de compra.";
+
+            return new ModelAndView("redirect:/cliente/carrinho/escolherEndereço");
+        }
+
         usuarioMod = usuariosRepository.findByEmail(principal.getName());
         clienteMod = usuarioMod.getCliente();
         carrinhoMod = carrinhosRepository.findByClienteId(clienteMod.getCliId());
 
-        if (listaPedCartoes.size() == 0 && repeticaoTelaPagamento == 0)
+        if (primeiraExecucao == true)
         {
-            PedCartoesModel pedCartao = new PedCartoesModel();
+            if (listaPedCartoes.size() == 0)
+            {
+                PedCartoesModel pedCartao = new PedCartoesModel();
 
-            pedCartao.setCartao(cartoesPadroesRepository.findByClienteId(clienteMod.getCliId()).getCartao());
+                pedCartao.setCartao(cartoesPadroesRepository.findByClienteId(clienteMod.getCliId()).getCartao());
+                listaPedCartoes.add(pedCartao);
+            }
 
-            listaPedCartoes.add(pedCartao);
+            if (listaCuponsTrocaDisponiveisMod.size() == 0)
+            {
+                listaCuponsTrocaDisponiveisMod = cuponsTrocasRepository.findAllByCliente(clienteMod.getCliId());
+            }
 
-            repeticaoTelaPagamento = 1;
+            primeiraExecucao = false;
         }
 
         mv.addObject("cliente", clienteMod);
-        mv.addObject("totalCarrinho", valorTotalCarrinho(carrinhoMod));
         mv.addObject("carrinho", carrinhoMod);
         mv.addObject("frete", freteMod);
         mv.addObject("listaPedCartoes", listaPedCartoes);
         mv.addObject("totalCartoes", valorTotalCartoes(listaPedCartoes));
+        mv.addObject("cuponsTrocasDisponiveis", listaCuponsTrocaDisponiveisMod);
+        mv.addObject("cuponsTrocasUtilizados", listaCuponsTrocaUtilizadosMod);
+        mv.addObject("totalCuponsTroca", valorTotalCupons(listaCuponsTrocaUtilizadosMod));
+        mv.addObject("cupomPromocaoUtilizado", cupomPromocoesMod);
+        mv.addObject("descontoCupomPromocional", descontoCupomPromocional);
+
+        cartaoValidador = new HashMap<Integer, String>();
 
         return mv;
     }
 
     //Aplica um cupom de troca
     @PostMapping("/aplicaCupomTroca")
-    public ModelAndView aplicarCupomTroca()
+    public ModelAndView aplicarCupomTroca(@RequestParam(name = "codigo") String codigo)
     {
+        CuponsTrocasModel cupom = new CuponsTrocasModel();
+
+        cupom = cuponsTrocasRepository.findByCodigo(codigo);
+
+        listaCuponsTrocaUtilizadosMod.add(cupom);
+        listaCuponsTrocaDisponiveisMod.remove(cupom);
+
+        BigDecimal valorPendenteBD = ((BigDecimal.valueOf(carrinhoMod.getValorTotal()).add(BigDecimal.valueOf(freteMod.getPcfValor()))).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes)))).subtract(BigDecimal.valueOf(valorTotalCupons(listaCuponsTrocaUtilizadosMod)));
+
+        validarCupons(listaCuponsTrocaDisponiveisMod, listaCuponsTrocaUtilizadosMod, valorPendenteBD.doubleValue());
+        
+        return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
+    }
+
+    //Aplica um cupom de troca
+    @PostMapping("/removeCupomTroca")
+    public ModelAndView removerCupom(@RequestParam(name = "codigo") String codigo)
+    {
+        CuponsTrocasModel cupom = new CuponsTrocasModel();
+
+        cupom = cuponsTrocasRepository.findByCodigo(codigo);
+
+        listaCuponsTrocaDisponiveisMod.add(cupom);
+        listaCuponsTrocaUtilizadosMod.remove(cupom);
+
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
     //Aplica um cupom promocional
     @PostMapping("/aplicaCupomPromocional")
-    public ModelAndView aplicarCupomPromocional()
+    public ModelAndView aplicarCupomPromocional(@RequestParam (name = "codigo", defaultValue = "") String codigo)
     {
+        cupomPromocoesMod = cuponsPromocoesRepository.findByCodigo(codigo);
+
+        if (cupomPromocoesMod == null)
+        {
+            cupomPromocoesMod = new CuponsPromocoesModel();
+
+            String response = "Codigo inválido";
+
+            return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
+        }
+
+        descontoCupomPromocional = valorDescontoCupomPromocional(carrinhoMod.getCarId(), cupomPromocoesMod);
+
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Aplica um cupom de troca
-    @PostMapping("/removeCupom")
-    public ModelAndView removerCupom()
+    //Remove um cupom promocional
+    @PostMapping("/removeCupomPromocional")
+    public ModelAndView removerCupomPromocional()
     {
+        cupomPromocoesMod = new CuponsPromocoesModel();
+
+        descontoCupomPromocional = 0D;
+
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
@@ -265,7 +338,7 @@ public class CartCliController extends CarrinhoUtil
         
         Double valorCrt = Double.parseDouble(valor.replace("R$ ", "").replace(".", "").replace(",", "."));
 
-        BigDecimal valorPendenteBD = (BigDecimal.valueOf(valorTotalCarrinho(carrinhoMod)).add(BigDecimal.valueOf(freteMod.getPcfValor()))).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes)));
+        BigDecimal valorPendenteBD = (((BigDecimal.valueOf(carrinhoMod.getValorTotal()).add(BigDecimal.valueOf(freteMod.getPcfValor()))).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes)))).subtract(BigDecimal.valueOf(valorTotalCupons(listaCuponsTrocaUtilizadosMod))).subtract(BigDecimal.valueOf(descontoCupomPromocional)));
 
         Double valorInserir = 0.0;
 
@@ -279,16 +352,38 @@ public class CartCliController extends CarrinhoUtil
         if (listaPedCartoes.get(index).getPctValor() > 0.0);
         {
             listaPedCartoes.get(index).setPctValor(valorInserir);
-            valorPendenteBD = (BigDecimal.valueOf(valorTotalCarrinho(carrinhoMod)).add(BigDecimal.valueOf(freteMod.getPcfValor()))).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes)));
+            valorPendenteBD = (((BigDecimal.valueOf(carrinhoMod.getValorTotal()).add(BigDecimal.valueOf(freteMod.getPcfValor()))).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes)))).subtract(BigDecimal.valueOf(valorTotalCupons(listaCuponsTrocaUtilizadosMod))).subtract(BigDecimal.valueOf(descontoCupomPromocional)));
 
-            if (valorCrt < 10)
+            if (valorCrt > 0 && valorCrt < 10)
             {
-                String response = "Valor menor que o mínimo permitido";
-                valorInserir = 0.0;
+                if (carrinhoMod.getValorTotal() > 10 && listaPedCartoes.size() > 1)
+                {
+                    String response = "Valor menor que o mínimo permitido";
+
+                    valorInserir = 0.0;
+                }
+                else
+                {
+                    if (valorPendenteBD.doubleValue() > 0 && valorPendenteBD.doubleValue() < 10)
+                    {
+                        valorInserir = valorCrt;
+                    }
+                    else
+                    {
+                        String response = "Valor menor que o mínimo permitido";
+    
+                        valorInserir = 0.0;
+                    }
+                }
             }
             else if (valorCrt > valorPendenteBD.doubleValue())
             {
-                valorInserir = valorPendenteBD.doubleValue();
+                if (valorPendenteBD.doubleValue() > 0)
+                {
+                    String response = "Não é necessário efetuar pagamento com o cartão";
+
+                    valorInserir = valorPendenteBD.doubleValue();
+                }
             }
             else
             {
@@ -305,7 +400,7 @@ public class CartCliController extends CarrinhoUtil
     @PostMapping("/confirmarPagamento")
     public ModelAndView confirmarPagamento()
     {
-        BigDecimal valorPendenteBD = (BigDecimal.valueOf(valorTotalCarrinho(carrinhoMod)).add(BigDecimal.valueOf(freteMod.getPcfValor()))).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes)));
+        BigDecimal valorPendenteBD = ((BigDecimal.valueOf(carrinhoMod.getValorTotal()).add(BigDecimal.valueOf(freteMod.getPcfValor()))).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes)))).subtract(BigDecimal.valueOf(valorTotalCupons(listaCuponsTrocaUtilizadosMod)));
 
         if (valorPendenteBD.doubleValue() != 0)
         {
@@ -325,8 +420,7 @@ public class CartCliController extends CarrinhoUtil
 
         mv.addObject("cliente", clienteMod);
         mv.addObject("endereco", enderecoMod);
-        mv.addObject("totalCarrinho", valorTotalCarrinho(carrinhoMod));
-        mv.addObject("produtosCarrinho", carrinhoMod.getListProdutos());
+        mv.addObject("carrinho", carrinhoMod);
         mv.addObject("frete", freteMod);
         mv.addObject("listaPedCartoes", listaPedCartoes);
         mv.addObject("totalCartoes", valorTotalCartoes(listaPedCartoes));

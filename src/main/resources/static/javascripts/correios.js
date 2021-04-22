@@ -64,11 +64,7 @@ function calcularFrete()
 {
     var cep = "";
     
-    if (getCookie("cliCEP") != null)
-    {
-        cep = getCookie("cliCEP");
-    }
-    else if(document.getElementById("cep").value != "")
+    if(document.getElementById("cep").value != "")
     {
         cep = document.getElementById("cep").value.replace("-", "");
         setCookie("cliCEP", cep, 30)
@@ -126,6 +122,8 @@ function calcularFrete()
 function listarFretes(json)
 {
     var lista =  document.getElementById("dispFrete");
+    
+    lista.classList.remove("text-danger");
     var codigoHTML = "";
     var contador = 0;
 

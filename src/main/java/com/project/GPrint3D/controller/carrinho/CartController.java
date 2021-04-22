@@ -4,6 +4,7 @@ import com.project.GPrint3D.util.CarrinhoUtil;
 import com.project.GPrint3D.util.CorreiosUtil;
 
 import java.security.Principal;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.project.GPrint3D.model.ProdutosModel;
 import com.project.GPrint3D.model.VariaveisModel;
 import com.project.GPrint3D.repository.ProdutosRepository;
 import com.project.GPrint3D.repository.VariaveisRepository;
+import com.project.GPrint3D.service.PrdCarrinhosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,13 +33,14 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/carrinho")
 public class CartController extends CarrinhoUtil
 {
-    //private int mesclagemCarrinho = 0;
-
     @Autowired
     private ProdutosRepository produtosRepository;
 
     @Autowired
     private VariaveisRepository variaveisRepository;
+
+    @Autowired
+    private PrdCarrinhosService prdCarrinhosService;
 
     //Tela de alteração de dados do cartão do cliente
     @RequestMapping("/meuCarrinho")
@@ -49,9 +52,8 @@ public class CartController extends CarrinhoUtil
         CarrinhosModel carrinho = new CarrinhosModel();
 
         carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-
-        mv.addObject("totalCarrinho", valorTotalCarrinho(carrinho));
-        mv.addObject("produtosCarrinho", carrinho.getListProdutos());
+        
+        mv.addObject("carrinho", carrinho);
         mv.addObject("clienteCEP", clienteCEP);
 
         return mv;
@@ -79,11 +81,18 @@ public class CartController extends CarrinhoUtil
 
         if (prdCarrinhoModelExistente != null)
         {
-            aumentarProduto(prdCarrinhoModelExistente);
+            prdCarrinhoModelExistente.aumentarProduto();
+            prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
         }
         else
         {
-            incluirProduto(carrinho, prdCarrinhoModelNovo);
+            java.util.Date dataAtual = new java.util.Date();
+
+            prdCarrinhoModelNovo.setCarrinho(carrinho);
+            prdCarrinhoModelNovo.setPcrAtivo(true);
+            prdCarrinhoModelNovo.setPcrDate(new Date(dataAtual.getTime()));
+            
+            prdCarrinhosService.cadastrar(prdCarrinhoModelNovo);
         }
 
         return new ModelAndView("redirect:" + url);
@@ -110,11 +119,18 @@ public class CartController extends CarrinhoUtil
 
         if (prdCarrinhoModelExistente != null)
         {
-            aumentarProduto(prdCarrinhoModelExistente);
+            prdCarrinhoModelExistente.aumentarProduto();
+            prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
         }
         else
         {
-            incluirProduto(carrinho, prdCarrinhoModelNovo);
+            java.util.Date dataAtual = new java.util.Date();
+
+            prdCarrinhoModelNovo.setCarrinho(carrinho);
+            prdCarrinhoModelNovo.setPcrAtivo(true);
+            prdCarrinhoModelNovo.setPcrDate(new Date(dataAtual.getTime()));
+            
+            prdCarrinhosService.cadastrar(prdCarrinhoModelNovo);
         }
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
@@ -141,11 +157,12 @@ public class CartController extends CarrinhoUtil
 
         if (prdCarrinhoModelExistente != null)
         {
-            diminuirProduto(prdCarrinhoModelExistente);
+            prdCarrinhoModelExistente.diminuirProduto();
+            prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
             
             if (prdCarrinhoModelExistente.getPcrQuantidade() < 1)
             {
-                removerProduto(prdCarrinhoModelExistente);
+                prdCarrinhosService.excluir(prdCarrinhoModelExistente.getPcrId());
             }
         }
 
@@ -175,11 +192,12 @@ public class CartController extends CarrinhoUtil
         {
             if (produtoQtd < 1)
             {
-                removerProduto(prdCarrinhoModelExistente);
+                prdCarrinhosService.excluir(prdCarrinhoModelExistente.getPcrId());
             }
             else
             {
-                atualizarQtdProduto(prdCarrinhoModelExistente, produtoQtd);
+                prdCarrinhoModelExistente.atualizarQtdProduto(produtoQtd);
+                prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
             }
         }
 
@@ -207,7 +225,7 @@ public class CartController extends CarrinhoUtil
 
         if (prdCarrinhoModelExistente != null)
         {
-            removerProduto(prdCarrinhoModelExistente);
+            prdCarrinhosService.excluir(prdCarrinhoModelExistente.getPcrId());
         }
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
@@ -221,7 +239,10 @@ public class CartController extends CarrinhoUtil
 
         carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
 
-        removerTodosProdutos(carrinho);
+        for(PrdCarrinhosModel produto : carrinho.getListProdutos())
+        {
+            prdCarrinhosService.excluir(produto.getPcrId());
+        }
             
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }

@@ -44,11 +44,11 @@
                     </div>
                 </div>
 
-                <div class="d-flex flex-row justify-content-center pt-4" th:if="${#lists.isEmpty(produtosCarrinho)}">
+                <div class="d-flex flex-row justify-content-center pt-4" th:if="${#lists.isEmpty(carrinho.listProdutos)}">
                     <p class="text-danger">Você não tem nenhum produto no seu carrinho, continue comprando e adcione um produto para aparecer aqui!</p>
                 </div>
 
-                <div id="produtosAtivos" th:if="!${#lists.isEmpty(produtosCarrinho)}">
+                <div id="produtosAtivos" th:if="!${#lists.isEmpty(carrinho.listProdutos)}">
                     <div class="row mt-2 pb-2 border-bottom" onclick="hideElement(this)" style="cursor: pointer;">
                         <div class="col">
                             <span class="h7 mb-0">Produtos ativos</span>
@@ -60,11 +60,11 @@
 
                     <div id="listaProdutosAtivos">
                         <div id="ocultar">
-                            <div class="d-flex flex-row justify-content-center pt-4" th:if="${produtosCarrinho.size == 0}">
+                            <div class="d-flex flex-row justify-content-center pt-4" th:if="${carrinho.listProdutos.size == 0}">
                                 <p class="text-danger">Você não tem nenhum produto no seu carrinho, continue comprando e adcione um produto para aparecer aqui!</p>
                             </div>
 
-                            <div class="row my-2 pb-2 border-bottom" id="produto" th:each="produto : ${produtosCarrinho}">
+                            <div class="row my-2 pb-2 border-bottom" id="produto" th:each="produto : ${carrinho.listProdutos}">
                                 <div class="col-2">
                                     <img th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" class="img-fluid" alt="...">
                                     <img th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" class="img-fluid" alt="">
@@ -171,7 +171,7 @@
                         <p class="h6 mb-0">Total do pedido:</p>
                     </div>
                     <div class="col-2 d-flex flex-column justify-content-center text-center">
-                        <p class="h6 mb-0" th:text="'R$ ' + ${#numbers.formatDecimal(totalCarrinho, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 150,00</p>
+                        <p class="h6 mb-0" th:text="'R$ ' + ${#numbers.formatDecimal(carrinho.getValorTotal, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 150,00</p>
                     </div>
                     <div class="col-1"></div>
                 </div>

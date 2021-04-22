@@ -63,7 +63,7 @@
                         <p class="h5">Produtos</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-danger" th:text="'R$ ' + ${#numbers.formatDecimal(totalCarrinho, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</span>
+                        <span class="fst-italic text-danger" th:text="'R$ ' + ${#numbers.formatDecimal(carrinho.getValorTotal, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -80,7 +80,7 @@
                                     <th scope="col" class="col-2 text-center">Preço un</th>
                                     <th scope="col" class="col-2 text-center">Sub-total</th>
                                 </tr>
-                                <tr th:each="produto : ${produtosCarrinho}">
+                                <tr th:each="produto : ${carrinho.listProdutos}">
                                     <td th:text="${produto.produto.prdNome}">Produto 1</td>
                                     <td class="text-center" th:text="${produto.pcrQuantidade}">3</td>
                                     <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$50,00</td>

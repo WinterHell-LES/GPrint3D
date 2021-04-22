@@ -345,10 +345,14 @@ public class CarrinhoUtil
     {
         for (CuponsTrocasModel cupom : listaCuponsTrocaUtilizados)
         {
-            if (cupom.getCptValor() > valorPendente)
+            if (valorPendente < 0 && cupom.getCptValor() < Math.abs(valorPendente))
             {
                 listaCuponsTrocaUtilizados.remove(cupom);
                 listaCuponsTrocaDisponiveis.add(cupom);
+
+                //Necessário o formato recursivo com o break, pois é removido um item da própria iteração.
+                validarCupons(listaCuponsTrocaDisponiveis, listaCuponsTrocaUtilizados, valorPendente);
+                break;
             }
         }
 

@@ -269,7 +269,7 @@ public class CorreiosUtil
 
         if (pesoPrd > pesoMax || profundidadePrd > profundidadeMax || larguraPrd > larguraMax || alturaPrd > alturaMax || (profundidadePrd + larguraPrd + alturaPrd) > somaMax)
         {
-            throw new Exception("Peso maior que o permitido");
+            throw new Exception("Dimensão maior que a permitida.");
         }
 
         return produto;

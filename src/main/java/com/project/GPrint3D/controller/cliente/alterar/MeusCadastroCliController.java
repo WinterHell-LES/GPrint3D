@@ -2,8 +2,6 @@ package com.project.GPrint3D.controller.cliente.alterar;
 
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
-
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.ClientesModel;

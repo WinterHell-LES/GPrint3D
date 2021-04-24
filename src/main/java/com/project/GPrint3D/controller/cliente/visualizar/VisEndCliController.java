@@ -2,8 +2,6 @@ package com.project.GPrint3D.controller.cliente.visualizar;
 
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.EnderecosService;
@@ -17,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/cliente")
-public class VisEndCliController 
+public class VisEndCliController
 {
 
     @Autowired
@@ -26,12 +24,12 @@ public class VisEndCliController
     @Autowired
     private EnderecosService enderecosService;
 
-    //Tela dos enderços do clientes
+    // Tela dos enderços do clientes
     @RequestMapping("/meusEnderecos")
-    public ModelAndView meusEnderecos(Principal principal)
+    public ModelAndView meusEnderecos (Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/visualizar/meusEnderecos");
-        
+
         UsuariosModel usu = usuariosRepository.findByEmail(principal.getName());
 
         mv.addObject("cliente", usu.getCliente());
@@ -39,9 +37,9 @@ public class VisEndCliController
         return mv;
     }
 
-    //Deletar endereço do cliente
+    // Deletar endereço do cliente
     @PostMapping("/excluirEndereco")
-    public ModelAndView excluirEndereco(@RequestParam(name = "id") Integer id) 
+    public ModelAndView excluirEndereco (@RequestParam(name = "id") Integer id)
     {
         enderecosService.excluir(id);
 
@@ -49,7 +47,7 @@ public class VisEndCliController
     }
 
     @PostMapping("/editarEndereco")
-    public ModelAndView editarEndereco(@RequestParam(name = "id") Integer id)
+    public ModelAndView editarEndereco (@RequestParam(name = "id") Integer id)
     {
         return new ModelAndView("redirect:/cliente/alterarEndereco/" + id);
     }

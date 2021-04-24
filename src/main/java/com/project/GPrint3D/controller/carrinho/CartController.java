@@ -5,6 +5,7 @@ import com.project.GPrint3D.util.CorreiosUtil;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.PrdCarrinhosModel;
-import com.project.GPrint3D.model.ProdutosModel;
 import com.project.GPrint3D.model.VariaveisModel;
-import com.project.GPrint3D.repository.ProdutosRepository;
+import com.project.GPrint3D.repository.CarrinhosRepository;
+import com.project.GPrint3D.repository.PrdCarrinhosRepository;
 import com.project.GPrint3D.repository.VariaveisRepository;
 import com.project.GPrint3D.service.PrdCarrinhosService;
 
@@ -28,13 +29,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/carrinho")
 public class CartController extends CarrinhoUtil
 {
     @Autowired
-    private ProdutosRepository produtosRepository;
+    private PrdCarrinhosRepository prdCarrinhosRepository;
+
+    @Autowired
+    private CarrinhosRepository carrinhosRepository;
 
     @Autowired
     private VariaveisRepository variaveisRepository;
@@ -42,162 +47,124 @@ public class CartController extends CarrinhoUtil
     @Autowired
     private PrdCarrinhosService prdCarrinhosService;
 
-    //Tela de alteração de dados do cartão do cliente
+    // Tela de alteração de dados do cartão do cliente
     @RequestMapping("/meuCarrinho")
-    public ModelAndView meuCarrinho(@CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, @CookieValue(value = "cliCEP", defaultValue = "") String clienteCEP, HttpServletResponse response, Principal principal)
+    public ModelAndView meuCarrinho (@CookieValue(value = "tempCliId", defaultValue = "") String tempCliId,
+            @CookieValue(value = "JSESSIONID", defaultValue = "") String jsessionid,
+            @CookieValue(value = "cliCEP", defaultValue = "") String clienteCEP, HttpServletResponse response,
+            Principal principal)
     {
         ModelAndView mv = new ModelAndView("/carrinho/meuCarrinho");
-        
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
 
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-        
+        // Instancia um novo carrinho
+        CarrinhosModel carrinho = carrinhoAtivo(principal, tempCliId, jsessionid, response);
+        VariaveisModel variaveis = variaveisRepository.findOneById(1);
+
+        verifPrdCarrinho(carrinho, variaveis.getVarTempCarrinho());
+
         mv.addObject("carrinho", carrinho);
+        mv.addObject("tempCarrinho", variaveis.getVarTempCarrinho());
         mv.addObject("clienteCEP", clienteCEP);
 
         return mv;
     }
 
-    @PostMapping("/incluirNoCarrinho")
-    public ModelAndView adicionaNoCarrinho(@RequestParam(name = "id") Integer produtoId, @RequestParam(name = "url") String url, @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
-    {
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
-
-        //Busca o produtoModel com base no ID selecionado no detalhe do produto
-        ProdutosModel produto = produtosRepository.findOneById(produtoId);
-
-        //Cria um Produto de Carrinho Model para definir a quantidade e poder registrar no carrinho
-        PrdCarrinhosModel prdCarrinhoModelNovo = new PrdCarrinhosModel();
-        PrdCarrinhosModel prdCarrinhoModelExistente = new PrdCarrinhosModel();
-
-        prdCarrinhoModelNovo.setProduto(produto);
-        prdCarrinhoModelNovo.setPcrQuantidade(1);
-
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-
-        prdCarrinhoModelExistente = localizaProduto(carrinho, prdCarrinhoModelNovo);
-
-        if (prdCarrinhoModelExistente != null)
-        {
-            prdCarrinhoModelExistente.aumentarProduto();
-            prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
-        }
-        else
-        {
-            java.util.Date dataAtual = new java.util.Date();
-
-            prdCarrinhoModelNovo.setCarrinho(carrinho);
-            prdCarrinhoModelNovo.setPcrAtivo(true);
-            prdCarrinhoModelNovo.setPcrDate(new Date(dataAtual.getTime()));
-            
-            prdCarrinhosService.cadastrar(prdCarrinhoModelNovo);
-        }
-
-        return new ModelAndView("redirect:" + url);
-    }
-
     @PostMapping("/aumentarProduto")
-    public ModelAndView aumentaProduto(@RequestParam(name = "id") Integer produtoId, @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
+    public ModelAndView aumentaProduto (@RequestParam(name = "id") Integer pcrId, RedirectAttributes attributes)
     {
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
+        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(pcrId);
 
-        //Busca o produtoModel com base no ID selecionado no detalhe do produto
-        ProdutosModel produto = produtosRepository.findOneById(produtoId);
+        prdCarrinho.aumentarProduto();
 
-        //Cria um Produto de Carrinho Model para definir a quantidade e poder registrar no carrinho
-        PrdCarrinhosModel prdCarrinhoModelNovo = new PrdCarrinhosModel();
-        PrdCarrinhosModel prdCarrinhoModelExistente = new PrdCarrinhosModel();
-
-        prdCarrinhoModelNovo.setProduto(produto);
-
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-
-        prdCarrinhoModelExistente = localizaProduto(carrinho, prdCarrinhoModelNovo);
-
-        if (prdCarrinhoModelExistente != null)
+        if (prdCarrinho.getPcrQuantidade() <= prdCarrinho.getProduto().getPrdQuantidade())
         {
-            prdCarrinhoModelExistente.aumentarProduto();
-            prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
+            String[] mensagem = prdCarrinhosService.atualizar(prdCarrinho);
+
+            if (mensagem[0].equals("alteracaoSuccess"))
+            {
+                attributes.addFlashAttribute("success", "Produto adicionado com sucesso");
+            }
+            else
+            {
+                attributes.addFlashAttribute("error", "Erro ao adicionar o produto");
+            }
         }
         else
         {
-            java.util.Date dataAtual = new java.util.Date();
-
-            prdCarrinhoModelNovo.setCarrinho(carrinho);
-            prdCarrinhoModelNovo.setPcrAtivo(true);
-            prdCarrinhoModelNovo.setPcrDate(new Date(dataAtual.getTime()));
-            
-            prdCarrinhosService.cadastrar(prdCarrinhoModelNovo);
+            attributes.addFlashAttribute("error", "Quantidade de estoque atingida");
         }
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
 
     @PostMapping("/diminuirProduto")
-    public ModelAndView diminuiProduto(@RequestParam(name = "id") Integer produtoId, @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
+    public ModelAndView diminuiProduto (@RequestParam(name = "id") Integer pcrId, RedirectAttributes attributes)
     {
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
+        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(pcrId);
+        String[] mensagem;
 
-        //Busca o produtoModel com base no ID selecionado no detalhe do produto
-        ProdutosModel produto = produtosRepository.findOneById(produtoId);
+        prdCarrinho.diminuirProduto();
 
-        //Cria um Produto de Carrinho Model para definir a quantidade e poder registrar no carrinho
-        PrdCarrinhosModel prdCarrinhoModelNovo = new PrdCarrinhosModel();
-        PrdCarrinhosModel prdCarrinhoModelExistente = new PrdCarrinhosModel();
-
-        prdCarrinhoModelNovo.setProduto(produto);
-
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-
-        prdCarrinhoModelExistente = localizaProduto(carrinho, prdCarrinhoModelNovo);
-
-        if (prdCarrinhoModelExistente != null)
+        if (prdCarrinho.getPcrQuantidade() > 0)
         {
-            prdCarrinhoModelExistente.diminuirProduto();
-            prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
-            
-            if (prdCarrinhoModelExistente.getPcrQuantidade() < 1)
-            {
-                prdCarrinhosService.excluir(prdCarrinhoModelExistente.getPcrId());
-            }
+            mensagem = prdCarrinhosService.atualizar(prdCarrinho);
+        }
+        else
+        {
+            mensagem = prdCarrinhosService.excluir(pcrId);
+        }
+
+        if (mensagem[0].equals("alteracaoSuccess") || mensagem[0].equals("deleteSuccess"))
+        {
+            attributes.addFlashAttribute("success", "Produto removido com sucesso");
+        }
+        else
+        {
+            attributes.addFlashAttribute("error", "Erro ao remover o produto");
         }
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
 
     @PostMapping("/atualizarProduto")
-    public ModelAndView atualizaProduto(@RequestParam(name = "id") Integer produtoId, @RequestParam(name = "qtd") Integer produtoQtd, @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
+    public ModelAndView atualizaProduto (@RequestParam(name = "id") Integer pcrId,
+            @RequestParam(name = "qtd") Integer prdQuantidade, RedirectAttributes attributes)
     {
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
+        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(pcrId);
 
-        //Busca o produtoModel com base no ID selecionado no detalhe do produto
-        ProdutosModel produto = produtosRepository.findOneById(produtoId);
+        prdCarrinho.atualizarQtdProduto(prdQuantidade);
 
-        //Cria um Produto de Carrinho Model para definir a quantidade e poder registrar no carrinho
-        PrdCarrinhosModel prdCarrinhoModelNovo = new PrdCarrinhosModel();
-        PrdCarrinhosModel prdCarrinhoModelExistente = new PrdCarrinhosModel();
-
-        prdCarrinhoModelNovo.setProduto(produto);
-
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-
-        prdCarrinhoModelExistente = localizaProduto(carrinho, prdCarrinhoModelNovo);
-
-        if (prdCarrinhoModelExistente != null)
+        if (prdQuantidade > 0)
         {
-            if (produtoQtd < 1)
+            if (prdQuantidade <= prdCarrinho.getProduto().getPrdQuantidade())
             {
-                prdCarrinhosService.excluir(prdCarrinhoModelExistente.getPcrId());
+                String[] mensagem = prdCarrinhosService.atualizar(prdCarrinho);
+
+                if (mensagem[0].equals("alteracaoSuccess"))
+                {
+                    attributes.addFlashAttribute("success", "Quantidade do produto alterada com sucesso");
+                }
+                else
+                {
+                    attributes.addFlashAttribute("error", "Erro ao alterar a quantidade do produto");
+                }
             }
             else
             {
-                prdCarrinhoModelExistente.atualizarQtdProduto(produtoQtd);
-                prdCarrinhosService.atualizar(prdCarrinhoModelExistente);
+                attributes.addFlashAttribute("error", "Quantidade de estoque atingida");
+            }
+        }
+        else
+        {
+            String[] mensagem = prdCarrinhosService.excluir(pcrId);
+
+            if (mensagem[0].equals("deleteSuccess"))
+            {
+                attributes.addFlashAttribute("success", "Produto removido com sucesso");
+            }
+            else
+            {
+                attributes.addFlashAttribute("error", "Erro ao remover o produto");
             }
         }
 
@@ -205,69 +172,130 @@ public class CartController extends CarrinhoUtil
     }
 
     @PostMapping("/removerProduto")
-    public ModelAndView removeProduto(@RequestParam(name = "id") Integer produtoId, @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
+    public ModelAndView removeProduto (@RequestParam(name = "id") Integer produtoId, RedirectAttributes attributes)
     {
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
+        String[] mensagem = prdCarrinhosService.excluir(produtoId);
 
-        //Busca o produtoModel com base no ID selecionado no detalhe do produto
-        ProdutosModel produto = produtosRepository.findOneById(produtoId);
-
-        //Cria um Produto de Carrinho Model para definir a quantidade e poder registrar no carrinho
-        PrdCarrinhosModel prdCarrinhoModelNovo = new PrdCarrinhosModel();
-        PrdCarrinhosModel prdCarrinhoModelExistente = new PrdCarrinhosModel();
-
-        prdCarrinhoModelNovo.setProduto(produto);
-
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-
-        prdCarrinhoModelExistente = localizaProduto(carrinho, prdCarrinhoModelNovo);
-
-        if (prdCarrinhoModelExistente != null)
+        if (mensagem[0].equals("deleteSuccess"))
         {
-            prdCarrinhosService.excluir(prdCarrinhoModelExistente.getPcrId());
+            attributes.addFlashAttribute("success", "Produto removido com sucesso");
+        }
+        else
+        {
+            attributes.addFlashAttribute("error", "Erro ao remover o produto");
         }
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
 
     @PostMapping("/removerTodosProdutos")
-    public ModelAndView removeTodosProdutos(@CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
+    public ModelAndView removeTodosProdutos (@RequestParam(name = "id") Integer carrinhoId,
+            RedirectAttributes attributes)
     {
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
+        CarrinhosModel carrinho = carrinhosRepository.findOneById(carrinhoId);
+        String[] mensagem = new String[2];
 
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
-
-        for(PrdCarrinhosModel produto : carrinho.getListProdutos())
+        for (PrdCarrinhosModel aux : carrinho.getListProdutos())
         {
-            prdCarrinhosService.excluir(produto.getPcrId());
+            mensagem = prdCarrinhosService.excluir(aux.getPcrId());
+
+            if (!mensagem[0].equals("deleteSuccess"))
+            {
+                break;
+            }
         }
-            
+
+        if (mensagem[0].equals("deleteSuccess"))
+        {
+            attributes.addFlashAttribute("success", "Todos os produtos removidos com sucesso");
+        }
+        else
+        {
+            attributes.addFlashAttribute("error", "Erro ao remover todos os produtos o produto");
+        }
+
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
-    
+
+    @PostMapping("/ativarProduto")
+    public ModelAndView ativarProduto (@RequestParam(name = "id") Integer produtoId, RedirectAttributes attributes)
+    {
+        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(produtoId);
+        String[] mensagem;
+
+        if (prdCarrinho.getPcrQuantidade() <= prdCarrinho.getProduto().getPrdQuantidade())
+        {
+            mensagem = prdCarrinhosService.atualizarStatusPrdCarrinhos(prdCarrinho.getPcrQuantidade(), true, produtoId);
+            mensagem[1] = "Produto reativado com sucesso";
+        }
+        else
+        {
+            mensagem = prdCarrinhosService.atualizarStatusPrdCarrinhos(prdCarrinho.getProduto().getPrdQuantidade(),
+                    true, produtoId);
+            mensagem[1] = "Produto reativado com sucesso, e ajustado para a quantidade do estoque";
+        }
+
+        if (mensagem[0].equals("alteracaoSuccess"))
+        {
+            attributes.addFlashAttribute("success", mensagem[1]);
+        }
+        else
+        {
+            attributes.addFlashAttribute("error", "Erro ao reativar o produto");
+        }
+
+        return new ModelAndView("redirect:/carrinho/meuCarrinho");
+    }
+
     @GetMapping("/calcularFreteLista/{cep}")
     @ResponseBody
-    public List<HashMap<String, String>> calcularFreteLista(@PathVariable(value = "cep") String cep, @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId, @CookieValue(value = "JSESSIONID", defaultValue = "") String JSESSIONID, HttpServletResponse response, Principal principal)
+    public List<HashMap<String, String>> calcularFreteLista (@PathVariable(value = "cep") String cep,
+            @CookieValue(value = "tempCliId", defaultValue = "") String tempCliId,
+            @CookieValue(value = "JSESSIONID", defaultValue = "") String jsessionid, HttpServletResponse response,
+            Principal principal)
     {
-        CarrinhosModel carrinho = new CarrinhosModel();
+        CarrinhosModel carrinho = carrinhoAtivo(principal, tempCliId, jsessionid, response);
         VariaveisModel variaveis = variaveisRepository.findOneById(1);
         String variavelCEP = variaveis.getVarCep();
-
-        carrinho = carrinhoAtivo(principal, tempCliId, JSESSIONID, response);
 
         CorreiosUtil calculo = new CorreiosUtil();
 
         try
         {
-            List<HashMap<String, String>> responseFrete = calculo.getValorPrazoLista(variavelCEP.replaceAll("-", ""), cep, carrinho.getListProdutos(), variaveis);
-
-            return responseFrete;
+            return calculo.getValorPrazoLista(variavelCEP.replace("-", ""),
+                    cep, carrinho.getListProdutosAtivo(), variaveis);
         }
         catch (Exception e)
         {
-            return null;
+            return new ArrayList<>();
+        }
+    }
+
+    private void verifPrdCarrinho (CarrinhosModel carrinho, Integer tempCarrinho)
+    {
+        List<PrdCarrinhosModel> prdAtivos = carrinho.getListProdutosAtivo();
+        List<PrdCarrinhosModel> prdInativos = carrinho.getListProdutosInativo();
+
+        for (PrdCarrinhosModel aux : prdAtivos)
+        {
+            Date dataCarrinhoP = Date.valueOf(aux.getPcrData().toLocalDate().plusDays(tempCarrinho));
+            Date dataAtual = new Date(new java.util.Date().getTime());
+
+            if ((aux.getPcrQuantidade() > aux.getProduto().getPrdQuantidade()) || dataAtual.after(dataCarrinhoP))
+            {
+                prdCarrinhosService.atualizarStatusPrdCarrinhos(aux.getPcrQuantidade(), false, aux.getPcrId());
+            }
+        }
+
+        for (PrdCarrinhosModel aux : prdInativos)
+        {
+            Date dataCarrinhoP = Date.valueOf(aux.getPcrData().toLocalDate().plusDays(tempCarrinho));
+            Date dataAtual = new Date(new java.util.Date().getTime());
+
+            if ((aux.getPcrQuantidade() <= aux.getProduto().getPrdQuantidade()) && dataAtual.before(dataCarrinhoP))
+            {
+                prdCarrinhosService.atualizarStatusPrdCarrinhos(aux.getPcrQuantidade(), false, aux.getPcrId());
+            }
         }
     }
 }

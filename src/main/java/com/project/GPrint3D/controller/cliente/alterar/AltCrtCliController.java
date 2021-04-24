@@ -1,9 +1,5 @@
 package com.project.GPrint3D.controller.cliente.alterar;
 
-import java.security.Principal;
-
-import javax.servlet.http.HttpServletRequest;
-
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CartoesModel;
@@ -25,23 +21,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/cliente")
-public class AltCrtCliController 
+public class AltCrtCliController
 {
     @Autowired
     private CartoesRepository cartoesRepository;
-    
+
     @Autowired
     private CartoesPadroesRepository cartoesPadroesRepository;
-    
+
     @Autowired
     private CartoesService cartoesService;
-    
+
     @Autowired
     private CartoesPadroesService cartoesPadroesService;
 
-    //Tela de alteração de dados do cartão do cliente
+    // Tela de alteração de dados do cartão do cliente
     @RequestMapping("/alterarCartao/{id}")
-    public ModelAndView alterarCartao(@PathVariable("id") Integer id)
+    public ModelAndView alterarCartao (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/cliente/alterar/alterarCartao");
 
@@ -58,9 +54,11 @@ public class AltCrtCliController
         return mv;
     }
 
-    //Alterar os dados do cartão do cliente
+    // Alterar os dados do cartão do cliente
     @PostMapping("/alterarCartao/{id}")
-    public ModelAndView alteraCartao(@PathVariable("id") Integer id, @RequestParam(name = "crtPadrao", defaultValue = "false") Boolean crtPadrao, @Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView alteraCartao (@PathVariable("id") Integer id,
+            @RequestParam(name = "crtPadrao", defaultValue = "false") boolean crtPadrao, @Valid CartoesModel cartao,
+            BindingResult result, RedirectAttributes attributes)
     {
         CartoesPadroesModel cartaoPadrao = cartoesPadroesRepository.findByClienteId(cartao.getCliente().getCliId());
 
@@ -69,13 +67,13 @@ public class AltCrtCliController
             return new ModelAndView("redirect:/cliente/alterarCartao");
         }
 
-        if (crtPadrao == true)
+        if (crtPadrao)
         {
             cartaoPadrao.setCartao(cartao);
-            
+
             cartoesPadroesService.atualizar(cartaoPadrao);
         }
-        
+
         cartoesService.atualizar(cartao);
 
         return new ModelAndView("redirect:/cliente/meusCartoes");

@@ -50,7 +50,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/cliente/carrinho")
 public class CartCliController extends CarrinhoUtil
 {
-    private Boolean primeiraExecucao = true;
+    private boolean primeiraExecucao = true;
     private UsuariosModel usuarioMod = new UsuariosModel();
     private ClientesModel clienteMod = new ClientesModel();
     private CarrinhosModel carrinhoMod = new CarrinhosModel();
@@ -79,7 +79,7 @@ public class CartCliController extends CarrinhoUtil
 
     @Autowired
     private CartoesRepository cartoesRepository;
-    
+
     @Autowired
     private CarrinhosRepository carrinhosRepository;
 
@@ -106,13 +106,13 @@ public class CartCliController extends CarrinhoUtil
 
     @Autowired
     private SecurityConfig securityConfig;
-    
-    //Tela dos endereços do cliente
+
+    // Tela dos endereços do cliente
     @RequestMapping("/escolherEndereco")
-    public ModelAndView escolherEndereco(Principal principal)
+    public ModelAndView escolherEndereco (Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/carrinho/escolherEndereco");
-        
+
         usuarioMod = usuariosRepository.findByEmail(principal.getName());
         clienteMod = usuarioMod.getCliente();
         carrinhoMod = carrinhosRepository.findByClienteId(clienteMod.getCliId());
@@ -136,18 +136,19 @@ public class CartCliController extends CarrinhoUtil
         return mv;
     }
 
-    //Alterar endereco de entrega
+    // Alterar endereco de entrega
     @PostMapping("/alterarEndereco")
-    public ModelAndView alterarEnderecoEntrega(@RequestParam(name = "id") Integer enderecoId)
+    public ModelAndView alterarEnderecoEntrega (@RequestParam(name = "id") Integer enderecoId)
     {
         enderecoMod = enderecosRepository.findOneById(enderecoId);
 
         return new ModelAndView("redirect:/cliente/carrinho/escolherEndereco");
     }
 
-    //Grava os dados do endereço do cliente
+    // Grava os dados do endereço do cliente
     @PostMapping("/confirmarEndereco")
-    public ModelAndView confirmarEndereco(@RequestParam(name = "frete", defaultValue = "") String freteParam, @Valid EnderecosModel endereco)
+    public ModelAndView confirmarEndereco (@RequestParam(name = "frete", defaultValue = "") String freteParam,
+            @Valid EnderecosModel endereco)
     {
         if (freteParam.equals(""))
         {
@@ -155,12 +156,12 @@ public class CartCliController extends CarrinhoUtil
 
             return new ModelAndView("redirect:/cliente/carrinho/escolherEndereco");
         }
-        
-        freteParam = freteParam.substring(1, freteParam.length()-1);
+
+        freteParam = freteParam.substring(1, freteParam.length() - 1);
         String[] keyValuePairs = freteParam.split(",");
         Map<String,String> freteMap = new HashMap<>();               
 
-        for(String pair : keyValuePairs)
+        for (String pair : keyValuePairs)
         {
             String[] entry = pair.split(":");
             freteMap.put(entry[0].trim(), entry[1].trim());
@@ -173,10 +174,10 @@ public class CartCliController extends CarrinhoUtil
 
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
-    
-    //Tela dos enderços do clientes
+
+    // Tela dos enderços do clientes
     @RequestMapping("/escolherPagamento")
-    public ModelAndView escolherPagamento(Principal principal)
+    public ModelAndView escolherPagamento (Principal principal)
     {
         ModelAndView mv = new ModelAndView("/cliente/carrinho/escolherPagamento");
 
@@ -189,13 +190,14 @@ public class CartCliController extends CarrinhoUtil
             return new ModelAndView("redirect:/cliente/carrinho/escolherEndereco");
         }
 
-        //Reinstancia para previnir o erro: "failed to lazily initialize a collection".
+        // Reinstancia para previnir o erro: "failed to lazily initialize a collection".
         usuarioMod = usuariosRepository.findByEmail(principal.getName());
         clienteMod = usuarioMod.getCliente();
         carrinhoMod = carrinhosRepository.findByClienteId(clienteMod.getCliId());
 
-        //Primeira execução do código, seleciona o cartão padrão e gera a lista de cupons disponíveis.
-        if (primeiraExecucao == true)
+        // Primeira execução do código, seleciona o cartão padrão e gera a lista de
+        // cupons disponíveis.
+        if (primeiraExecucao)
         {
             if (listaPedCartoes.isEmpty())
             {
@@ -229,9 +231,9 @@ public class CartCliController extends CarrinhoUtil
         return mv;
     }
 
-    //Aplica um cupom de troca
+    // Aplica um cupom de troca
     @PostMapping("/aplicaCupomTroca")
-    public ModelAndView aplicarCupomTroca(@RequestParam(name = "codigo") String codigo)
+    public ModelAndView aplicarCupomTroca (@RequestParam(name = "codigo") String codigo)
     {
         CuponsTrocasModel cupom = cuponsTrocasRepository.findByCodigo(codigo);
 
@@ -252,9 +254,9 @@ public class CartCliController extends CarrinhoUtil
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Aplica um cupom de troca
+    // Aplica um cupom de troca
     @PostMapping("/removeCupomTroca")
-    public ModelAndView removerCupom(@RequestParam(name = "codigo") String codigo)
+    public ModelAndView removerCupom (@RequestParam(name = "codigo") String codigo)
     {
         CuponsTrocasModel cupom = cuponsTrocasRepository.findByCodigo(codigo);
 
@@ -275,9 +277,9 @@ public class CartCliController extends CarrinhoUtil
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Aplica um cupom promocional
+    // Aplica um cupom promocional
     @PostMapping("/aplicaCupomPromocional")
-    public ModelAndView aplicarCupomPromocional(@RequestParam (name = "codigo", defaultValue = "") String codigo)
+    public ModelAndView aplicarCupomPromocional (@RequestParam(name = "codigo", defaultValue = "") String codigo)
     {
         cupomPromocoesMod = cuponsPromocoesRepository.findByCodigo(codigo);
 
@@ -306,9 +308,9 @@ public class CartCliController extends CarrinhoUtil
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Remove um cupom promocional
+    // Remove um cupom promocional
     @PostMapping("/removeCupomPromocional")
-    public ModelAndView removerCupomPromocional()
+    public ModelAndView removerCupomPromocional ()
     {
         cupomPromocoesMod = new CuponsPromocoesModel();
         
@@ -328,9 +330,9 @@ public class CartCliController extends CarrinhoUtil
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Inclui cartão para pagamento
+    // Inclui cartão para pagamento
     @PostMapping("/inlcuiCartao")
-    public ModelAndView incluirCartao(@RequestParam(name = "id") Integer cartaoId)
+    public ModelAndView incluirCartao (@RequestParam(name = "id") Integer cartaoId)
     {
         CartoesModel cartaoIncluir = cartoesRepository.findOneById(cartaoId);
         PedCartoesModel pedCartaoInlcuir = new PedCartoesModel();
@@ -363,9 +365,9 @@ public class CartCliController extends CarrinhoUtil
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Remove cartão para pagamento
+    // Remove cartão para pagamento
     @PostMapping("/removeCartao")
-    public ModelAndView removeCartao(@RequestParam(name = "index") int index)
+    public ModelAndView removeCartao (@RequestParam(name = "index") int index)
     {
         listaPedCartoes.remove(index);
         
@@ -382,11 +384,13 @@ public class CartCliController extends CarrinhoUtil
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Insere o valor a ser pago no cartão
+    // Insere o valor a ser pago no cartão
     @PostMapping("/atualizarCartao")
-    public ModelAndView atualizarCartao(@RequestParam(name = "index") Integer index, @RequestParam(name = "valor") String valor)
+    public ModelAndView atualizarCartao (@RequestParam(name = "index") Integer index,
+            @RequestParam(name = "valor") String valor)
     {
-        //É necessário calcular e confirmar os valores (compras + frete) - (cupons + pagamento) = 0
+        // É necessário calcular e confirmar os valores (compras + frete) - (cupons +
+        // pagamento) = 0
 
         //Verifica se possui algum valor digitado no campo do cartão.
         //Essa validação é necessária para depois converter a String em Double.
@@ -395,9 +399,9 @@ public class CartCliController extends CarrinhoUtil
             valor = "R$ 0,00";
         }
         
-        Double valorDigitado = Double.parseDouble(valor.replace("R$ ", "").replace(".", "").replace(",", "."));
-        Double valorNoCartao = listaPedCartoes.get(index).getPctValor();
-        Double valorInserir = 0D;
+        double valorDigitado = Double.parseDouble(valor.replace("R$ ", "").replace(".", "").replace(",", "."));
+        double valorNoCartao = listaPedCartoes.get(index).getPctValor();
+        double valorInserir = 0D;
 
         //Verifica se é maior que 0.
         if (valorDigitado > 0)
@@ -417,7 +421,14 @@ public class CartCliController extends CarrinhoUtil
                     }
                     else if (valorPendenteTotal > 10)
                     {
-                        valorInserir = valorDigitado;
+                        if (valorDigitado > valorPendenteTotal)
+                        {
+                            valorInserir = valorPendenteTotal;
+                        }
+                        else
+                        {
+                            valorInserir = valorDigitado;
+                        }
                     }
                 }
                 //Verifica se o valor digitado é maior que 0 e menor que 10.
@@ -442,7 +453,14 @@ public class CartCliController extends CarrinhoUtil
                 }
                 else if (valorPendenteTotal > 10)
                 {
-                    valorInserir = valorDigitado;
+                    if (valorDigitado > valorPendenteTotal)
+                    {
+                        valorInserir = valorPendenteTotal;
+                    }
+                    else
+                    {
+                        valorInserir = valorDigitado;
+                    }
                 }
             }
             //Verifica se o valor digitado é maior que 0 e menor que 10.
@@ -465,12 +483,14 @@ public class CartCliController extends CarrinhoUtil
         validarCartoes(listaPedCartoes, valorPendenteCupons, valorPendenteTotal);
         valorPendenteTotal = BigDecimal.valueOf(valorPendenteCupons).subtract(BigDecimal.valueOf(valorTotalCartoes(listaPedCartoes))).doubleValue();
 
+        System.out.println(valorPendenteTotal);
+
         return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
     }
 
-    //Confirmar pagamento
+    // Confirmar pagamento
     @PostMapping("/confirmarPagamento")
-    public ModelAndView confirmarPagamento()
+    public ModelAndView confirmarPagamento ()
     {
         if (valorPendenteTotal != 0)
         {
@@ -482,9 +502,9 @@ public class CartCliController extends CarrinhoUtil
         return new ModelAndView("redirect:/cliente/carrinho/confirmarPedido");
     }
 
-    //Tela de confirmação do pedido
+    // Tela de confirmação do pedido
     @RequestMapping("/confirmarPedido")
-    public ModelAndView confirmarPedido()
+    public ModelAndView confirmarPedido ()
     {
         ModelAndView mv = new ModelAndView("/cliente/carrinho/confirmarPedido");
 
@@ -499,9 +519,9 @@ public class CartCliController extends CarrinhoUtil
         return mv;
     }
 
-    //Confirmar CVV
+    // Confirmar CVV
     @PostMapping("/validarCvv")
-    public ModelAndView validarCvv(@RequestParam(name = "index") Integer index, @RequestParam(name = "cvv") String cvv)
+    public ModelAndView validarCvv (@RequestParam(name = "index") Integer index, @RequestParam(name = "cvv") String cvv)
     {
         if (securityConfig.passwordEncoder().matches(cvv, listaPedCartoes.get(index).getCartao().getCrtCvv()))
         {
@@ -515,7 +535,7 @@ public class CartCliController extends CarrinhoUtil
     }
 
     @PostMapping("/cadastrarPedido")
-    public ModelAndView cadastrarPedido()
+    public ModelAndView cadastrarPedido ()
     {
         if (cartaoValidador.size() != listaPedCartoes.size())
         {
@@ -524,12 +544,13 @@ public class CartCliController extends CarrinhoUtil
         }
 
         PedidosComprasModel pedidoCompra = new PedidosComprasModel();
-        
+
         GeradorCodigoUtil codigo = new GeradorCodigoUtil();
         String pedidoCompraNumero = null;
 
-        //A ideia era garantir que o número do pedido gerado seja único.
-        //Deve validar a informação via BD com a Constraint Unique. -- Verificar esse código do.
+        // A ideia era garantir que o número do pedido gerado seja único.
+        // Deve validar a informação via BD com a Constraint Unique. -- Verificar esse
+        // código do.
         do
         {
             pedidoCompraNumero = codigo.getGerarNumeroPedido();
@@ -539,7 +560,7 @@ public class CartCliController extends CarrinhoUtil
         pedidoCompra.setCliente(clienteMod);
         pedidoCompra.setEndereco(enderecoMod);
         pedidosComprasService.cadastrar(pedidoCompra);
-        
+
         pedidoCompra = pedidosComprasRepository.findByNumeroPedido(pedidoCompraNumero);
 
         freteMod.setPedidoCompra(pedidoCompra);

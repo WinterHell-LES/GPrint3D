@@ -2,8 +2,6 @@ package com.project.GPrint3D.controller.cliente.alterar;
 
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
-
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.EndCobrancasPadroesModel;
@@ -56,12 +54,12 @@ public class AltEndCliController
 
         EnderecosModel endereco = enderecosRepository.findOneById(id);
 
-        if (endereco.getEndId() == endereco.getCliente().getEndCobrancaPadrao().getEndereco().getEndId())
+        if (endereco.getEndId().equals(endereco.getCliente().getEndCobrancaPadrao().getEndereco().getEndId()))
         {
             mv.addObject("endPadrao", endereco.getEndCobrancaPadrao());
         }
 
-        if (endereco.getEndId() == endereco.getCliente().getEndEntregaPadrao().getEndereco().getEndId())
+        if (endereco.getEndId().equals(endereco.getCliente().getEndEntregaPadrao().getEndereco().getEndId()))
         {
             mv.addObject("endPadrao", endereco.getEndEntregaPadrao());
         }
@@ -83,7 +81,7 @@ public class AltEndCliController
             return new ModelAndView("redirect:/cliente/alterarEndereco");
         }
 
-        if (endPadrao == true)
+        if (endPadrao)
         {
             if (endereco.isEndCobranca())
             {

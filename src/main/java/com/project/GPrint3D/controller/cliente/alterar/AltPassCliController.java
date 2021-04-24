@@ -1,7 +1,6 @@
 package com.project.GPrint3D.controller.cliente.alterar;
 
 import java.security.Principal;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.project.GPrint3D.configuration.SecurityConfig;
@@ -50,7 +49,7 @@ public class AltPassCliController
 
     //Alterar a senha do cliente
     @PostMapping("/alterarSenha")
-    public ModelAndView alterarSenha(@RequestParam(name = "oldPassword") String oldPass, @RequestParam(name = "confirmNewPassword") String confirmNewPass, @Valid UsuariosModel Usuario, BindingResult result, RedirectAttributes attributes, Principal principal)
+    public ModelAndView alterarSenha(@RequestParam(name = "oldPassword") String oldPass, @RequestParam(name = "confirmNewPassword") String confirmNewPass, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes, Principal principal)
     {
 
         if (result.hasErrors())
@@ -59,13 +58,13 @@ public class AltPassCliController
         }
 
         String oldUserPass = oldUser.getUsuSenha();
-        String newUserPass = Usuario.getUsuSenha();
+        String newUserPass = usuario.getUsuSenha();
 
         if (securityConfig.passwordEncoder().matches(oldPass, oldUserPass))
         {
             if (confirmNewPass.equals(newUserPass))
             {
-                String[] msgDeErro = usuariosService.atualizarPass(Usuario);
+                String[] msgDeErro = usuariosService.atualizarPass(usuario);
 
                 attributes.addFlashAttribute(msgDeErro[0], msgDeErro[1]);
 

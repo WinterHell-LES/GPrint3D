@@ -177,8 +177,6 @@ public class CarrinhoUtil
 
     public CarrinhosModel localizarCarrinho(UsuariosModel usuario, String valorCookie)
     {
-        carrinhoRepository.flush();
-
         CarrinhosModel carrinho = new CarrinhosModel();
 
         if (usuario != null)
@@ -268,8 +266,7 @@ public class CarrinhoUtil
 
         for (PedCartoesModel pedCartoes : listaPedCartoes)
         {
-            BigDecimal totalBD = BigDecimal.valueOf(total).add(BigDecimal.valueOf(pedCartoes.getPctValor()));
-            total = totalBD.doubleValue();
+            total = BigDecimal.valueOf(total).add(BigDecimal.valueOf(pedCartoes.getPctValor())).doubleValue();
         }
 
         return total;
@@ -298,7 +295,7 @@ public class CarrinhoUtil
         return true;
     }
 
-    public double valorTotalCupons(List<CuponsTrocasModel> listaCuponsTroca)
+    public double valorTotalCuponsTroca(List<CuponsTrocasModel> listaCuponsTroca)
     {
         Double total = 0D;
 
@@ -309,8 +306,7 @@ public class CarrinhoUtil
 
         for (CuponsTrocasModel cupomTroca : listaCuponsTroca)
         {
-            BigDecimal totalBD = BigDecimal.valueOf(total).add(BigDecimal.valueOf(cupomTroca.getCptSaldo()));
-            total = totalBD.doubleValue();
+            total = BigDecimal.valueOf(total).add(BigDecimal.valueOf(cupomTroca.getCptSaldo())).doubleValue();
         }
 
         return total;
@@ -341,17 +337,17 @@ public class CarrinhoUtil
         return total;
     }
 
-    public void validarCupons(List<CuponsTrocasModel> listaCuponsTrocaDisponiveis, List<CuponsTrocasModel> listaCuponsTrocaUtilizados, Double valorPendente)
+    public void validarCupons(List<CuponsTrocasModel> listaCuponsTrocaDisponiveis, List<CuponsTrocasModel> listaCuponsTrocaUtilizados, Double valorPendenteCupons)
     {
         for (CuponsTrocasModel cupom : listaCuponsTrocaUtilizados)
         {
-            if (valorPendente < 0 && cupom.getCptValor() < Math.abs(valorPendente))
-            {
+            if (valorPendenteCupons < 0 && cupom.getCptValor() < Math.abs(valorPendenteCupons))
+            {   
                 listaCuponsTrocaUtilizados.remove(cupom);
                 listaCuponsTrocaDisponiveis.add(cupom);
 
                 //Necessário o formato recursivo com o break, pois é removido um item da própria iteração.
-                validarCupons(listaCuponsTrocaDisponiveis, listaCuponsTrocaUtilizados, valorPendente);
+                validarCupons(listaCuponsTrocaDisponiveis, listaCuponsTrocaUtilizados, valorPendenteCupons);
                 break;
             }
         }
@@ -359,4 +355,30 @@ public class CarrinhoUtil
         return;
     }
 
+    public void validarCartoes(List<PedCartoesModel> listaPedCartoes, Double valorPendenteCupons, Double valorPendenteTotal)
+    {
+        if ((valorPendenteCupons > 0 && valorPendenteCupons / listaPedCartoes.size() < 10) && (valorTotalCartoes(listaPedCartoes) > valorPendenteCupons))
+        {    
+            PedCartoesModel aux = new PedCartoesModel();
+
+            for (PedCartoesModel cartao : listaPedCartoes)
+            {
+                if (aux.getPctValor() < cartao.getPctValor())
+                {
+                    aux = cartao;
+                }
+            }
+            
+            listaPedCartoes.remove(aux);
+
+            validarCartoes(listaPedCartoes, valorPendenteCupons, valorPendenteTotal);
+        }
+
+        if (valorPendenteCupons <= 0)
+        {
+            listaPedCartoes.clear();
+
+            String response = "Não é necessário o pagamento com cartão.";
+        }
+    }
 }

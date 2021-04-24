@@ -1,7 +1,6 @@
 package com.project.GPrint3D.service;
 
 import com.project.GPrint3D.model.CarrinhosModel;
-import com.project.GPrint3D.model.EntityModel;
 import com.project.GPrint3D.repository.CarrinhosRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CarrinhosService extends EntityModel
+public class CarrinhosService
 {
     @Autowired
     private CarrinhosRepository carrinhosRepository;

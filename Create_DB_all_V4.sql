@@ -293,6 +293,16 @@ CREATE TABLE pedidos_compras_cupons_promocoes (
     CONSTRAINT pk_pcp PRIMARY KEY ( pcp_id )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+DROP TABLE IF EXISTS pedidos_compras_cupons_trocas;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE pedidos_compras_cupons_trocas (
+	pct_id				MEDIUMINT NOT NULL AUTO_INCREMENT,
+    pct_cpt_id   		MEDIUMINT NOT NULL,
+    pct_pdc_id  		MEDIUMINT NOT NULL,
+    CONSTRAINT pk_pct PRIMARY KEY ( pct_id )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 DROP TABLE IF EXISTS pedidos_compras_produtos;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -556,6 +566,14 @@ ALTER TABLE pedidos_compras_cupons_promocoes
 
 ALTER TABLE pedidos_compras_cupons_promocoes
     ADD CONSTRAINT fk_pcp_pdc FOREIGN KEY ( pcp_pdc_id )
+        REFERENCES pedidos_compras ( pdc_id );
+        
+ALTER TABLE pedidos_compras_cupons_trocas
+    ADD CONSTRAINT fk_pct_cpt FOREIGN KEY ( pct_cpt_id )
+        REFERENCES cupons_trocas ( cpt_id );
+
+ALTER TABLE pedidos_compras_cupons_trocas
+    ADD CONSTRAINT fk_pct_pdc FOREIGN KEY ( pct_pdc_id )
         REFERENCES pedidos_compras ( pdc_id );
 
 ALTER TABLE pedidos_compras_produtos

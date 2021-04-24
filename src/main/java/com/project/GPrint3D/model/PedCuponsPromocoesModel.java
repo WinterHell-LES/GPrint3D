@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PEDIDOS_COMPRAS_CUPONS_PROMOCOES")
-public class PedCuponsModel 
+public class PedCuponsPromocoesModel 
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +28,14 @@ public class PedCuponsModel
     @JoinColumn(name = "pcp_pdc_id", referencedColumnName = "pdc_id")
     private PedidosComprasModel pedidoCompra;
 
-    public PedCuponsModel() 
+    public PedCuponsPromocoesModel() 
     {
         super();
 
         this.pcpId = 0;
     }
 
-    public PedCuponsModel(Integer pcpId) 
+    public PedCuponsPromocoesModel(Integer pcpId) 
     {
         super( );
 
@@ -80,12 +80,12 @@ public class PedCuponsModel
             return true;
         }
             
-        if (!(o instanceof PedCuponsModel)) 
+        if (!(o instanceof PedCuponsPromocoesModel)) 
         {
             return false;
         }
 
-        PedCuponsModel pedCuponsModel = (PedCuponsModel) o;
+        PedCuponsPromocoesModel pedCuponsModel = (PedCuponsPromocoesModel) o;
         return Objects.equals(pcpId, pedCuponsModel.pcpId);
     }
 

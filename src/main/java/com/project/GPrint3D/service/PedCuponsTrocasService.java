@@ -1,19 +1,19 @@
 package com.project.GPrint3D.service;
 
-import com.project.GPrint3D.model.PedCuponsModel;
-import com.project.GPrint3D.repository.PedCuponsRepository;
+import com.project.GPrint3D.model.PedCuponsTrocasModel;
+import com.project.GPrint3D.repository.PedCuponsTrocasRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedCuponsService
+public class PedCuponsTrocasService
 {
     @Autowired
-    private PedCuponsRepository pedCuponsRepository;
+    private PedCuponsTrocasRepository pedCuponsTrocasRepository;
 
-    public String[] cadastrar (PedCuponsModel pedCupom)
+    public String[] cadastrar (PedCuponsTrocasModel pedCupom)
     {
         String[] response = new String[2];
 
@@ -22,7 +22,7 @@ public class PedCuponsService
 
         try
         {
-            pedCuponsRepository.save(pedCupom);
+            pedCuponsTrocasRepository.save(pedCupom);
 
             response[0] = msg1;
             response[1] = "Cupom do pedido cadastrado com sucesso!";
@@ -41,7 +41,7 @@ public class PedCuponsService
         return response;
     }
 
-    public String[] atualizar (PedCuponsModel pedCupom)
+    public String[] atualizar (PedCuponsTrocasModel pedCupom)
     {
         String[] response = new String[2];
 
@@ -50,7 +50,7 @@ public class PedCuponsService
 
         try
         {
-            pedCuponsRepository.save(pedCupom);
+            pedCuponsTrocasRepository.save(pedCupom);
 
             response[0] = msg1;
             response[1] = "Cadastro do cupom do pedido alterado com sucesso!";
@@ -73,7 +73,7 @@ public class PedCuponsService
 
         try
         {
-            pedCuponsRepository.deleteById(id);
+            pedCuponsTrocasRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro do cupom do pedido deletado com sucesso!";

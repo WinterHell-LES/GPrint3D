@@ -38,9 +38,7 @@ public class AdminBandController
     @RequestMapping("cadastrarBandeiras")
     public ModelAndView cadastrarBandeiras (BandeirasModel bandeira)
     {
-        ModelAndView mv = new ModelAndView("/admin/bandeiras/cadastrarBandeiras");
-
-        return mv;
+        return new ModelAndView("/admin/bandeiras/cadastrarBandeiras");
     }
 
     @PostMapping("cadastrarBandeiras")

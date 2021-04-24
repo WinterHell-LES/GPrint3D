@@ -55,7 +55,10 @@ public class PedidosComprasModel
     private EnderecosModel endereco;
 
     @OneToMany(mappedBy = "pedidoCompra")
-    private List<PedCuponsModel> listPedCupons;
+    private List<PedCuponsPromocoesModel> listPedCuponsPromocoes;
+
+    @OneToMany(mappedBy = "pedidoCompra")
+    private List<PedCuponsTrocasModel> listPedCuponsTrocas;
 
     @OneToMany(mappedBy = "pedidoCompra")
     private List<PedProdutosModel> listPedProdutos;
@@ -179,14 +182,24 @@ public class PedidosComprasModel
         this.endereco = endereco;
     }
 
-    public List<PedCuponsModel> getListPedCupons ()
+    public List<PedCuponsPromocoesModel> getListPedCuponsPromocoes() 
     {
-        return this.listPedCupons;
+        return this.listPedCuponsPromocoes;
     }
 
-    public void setListPedCupons (List<PedCuponsModel> listPedCupons)
+    public void setListPedCuponsPromocoes(List<PedCuponsPromocoesModel> listPedCuponsPromocoes) 
     {
-        this.listPedCupons = listPedCupons;
+        this.listPedCuponsPromocoes = listPedCuponsPromocoes;
+    }
+
+    public List<PedCuponsTrocasModel> getListPedCuponsTrocas() 
+    {
+        return this.listPedCuponsTrocas;
+    }
+
+    public void setListPedCuponsTrocas(List<PedCuponsTrocasModel> listPedCuponsTrocas) 
+    {
+        this.listPedCuponsTrocas = listPedCuponsTrocas;
     }
 
     public List<PedProdutosModel> getListPedProdutos ()

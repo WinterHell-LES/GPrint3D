@@ -45,7 +45,7 @@ public class CuponsPromocoesModel
     private CategoriasModel categoria;
 
     @OneToMany(mappedBy = "cupom")
-    private List<PedCuponsModel> listPedCupons;
+    private List<PedCuponsPromocoesModel> listPedCuponsPromocoes;
 
     public CuponsPromocoesModel() 
     {
@@ -129,14 +129,14 @@ public class CuponsPromocoesModel
         this.categoria = categoria;
     }
 
-    public List<PedCuponsModel> getListPedCupons() 
+    public List<PedCuponsPromocoesModel> getListPedCuponsPromocoes() 
     {
-        return this.listPedCupons;
+        return this.listPedCuponsPromocoes;
     }
 
-    public void setListPedCupons(List<PedCuponsModel> listPedCupons) 
+    public void setListPedCuponsPromocoes(List<PedCuponsPromocoesModel> listPedCuponsPromocoes) 
     {
-        this.listPedCupons = listPedCupons;
+        this.listPedCuponsPromocoes = listPedCuponsPromocoes;
     }
 
     @Override

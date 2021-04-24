@@ -1,5 +1,6 @@
 package com.project.GPrint3D.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -90,12 +91,52 @@ public class CarrinhosModel
     {
         double valorTotal = 0.0;
 
-        for (PrdCarrinhosModel aux : this.listProdutos)
+        for (PrdCarrinhosModel aux : getListProdutosAtivo())
         {
             valorTotal += aux.getProduto().getPrdPreco() * aux.getPcrQuantidade();
         }
 
         return valorTotal;
+    }
+
+    public List<PrdCarrinhosModel> getListProdutosAtivo() 
+    {
+        if (this.listProdutos.size() == 0)
+        {
+            return new ArrayList<>();
+        }
+
+        List<PrdCarrinhosModel> listProduto = new ArrayList<>();
+
+        for (PrdCarrinhosModel aux : this.listProdutos)
+        {
+            if (aux.isPcrAtivo())
+            {
+                listProduto.add(aux);
+            }
+        }
+
+        return listProduto;
+    }
+
+    public List<PrdCarrinhosModel> getListProdutosInativo() 
+    {
+        if (this.listProdutos.size() == 0)
+        {
+            return new ArrayList<>();
+        }
+
+        List<PrdCarrinhosModel> listProduto = new ArrayList<>();
+
+        for (PrdCarrinhosModel aux : this.listProdutos)
+        {
+            if (!aux.isPcrAtivo())
+            {
+                listProduto.add(aux);
+            }
+        }
+
+        return listProduto;
     }
 
     @Override

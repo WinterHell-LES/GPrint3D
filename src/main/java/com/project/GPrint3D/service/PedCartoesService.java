@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedCartoesService 
+public class PedCartoesService
 {
     @Autowired
-    private PedCartoesRepository pedCartoes;
+    private PedCartoesRepository pedCartoesRepository;
 
-    public String[] cadastrar(PedCartoesModel pedCartao)
+    public String[] cadastrar (PedCartoesModel pedCartao)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            pedCartoes.save(pedCartao);
+            pedCartoesRepository.save(pedCartao);
 
             response[0] = msg1;
             response[1] = "Cartão do pedido cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class PedCartoesService
         return response;
     }
 
-    public String[] atualizar(PedCartoesModel pedCartao)
+    public String[] atualizar (PedCartoesModel pedCartao)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            pedCartoes.save(pedCartao);
+            pedCartoesRepository.save(pedCartao);
 
             response[0] = msg1;
             response[1] = "Cadastro de cartão do pedido alterado com sucesso!";
@@ -60,20 +60,20 @@ public class PedCartoesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o cartão do pedido";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            pedCartoes.deleteById(id);
+            pedCartoesRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de cartão do pedido deletado com sucesso!";
@@ -83,7 +83,7 @@ public class PedCartoesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o cartão do pedido";
         }
-        
+
         return response;
-    }  
+    }
 }

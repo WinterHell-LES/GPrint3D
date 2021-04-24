@@ -17,16 +17,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminCategController 
+public class AdminCategController
 {
     @Autowired
     private CategoriasRepository categoriasRepository;
 
-    @Autowired 
+    @Autowired
     private CategoriasService categoriasService;
 
     @RequestMapping("listarCategorias")
-    public ModelAndView listarCategorias(CategoriasModel categoria)
+    public ModelAndView listarCategorias (CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/admin/categorias/listarCategorias");
 
@@ -36,14 +36,14 @@ public class AdminCategController
     }
 
     @RequestMapping("cadastrarCategorias")
-    public ModelAndView cadastrarCategorias(CategoriasModel categoria)
+    public ModelAndView cadastrarCategorias (CategoriasModel categoria)
     {
-        ModelAndView mv = new ModelAndView("/admin/categorias/cadastrarCategorias");
-
-        return mv;
+        return new ModelAndView("/admin/categorias/cadastrarCategorias");
     }
+
     @PostMapping("cadastrarCategorias")
-    public ModelAndView cadastroCategorias(@Valid CategoriasModel categoria, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastroCategorias (@Valid CategoriasModel categoria, BindingResult result,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
@@ -51,14 +51,14 @@ public class AdminCategController
         }
 
         String[] mensagem = categoriasService.cadastrar(categoria);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastrarCategorias");
     }
-    
+
     @PostMapping("/alterarCategorias")
-    public ModelAndView alterarCategorias(@RequestParam(name = "id") Integer id, CategoriasModel categoria)
+    public ModelAndView alterarCategorias (@RequestParam(name = "id") Integer id, CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/admin/categorias/alterarCategorias");
 
@@ -66,22 +66,23 @@ public class AdminCategController
 
         return mv;
     }
+
     @PostMapping("/alterarCategoria")
-    public ModelAndView alterarCategoria(@Valid CategoriasModel categoria, RedirectAttributes attributes)
+    public ModelAndView alterarCategoria (@Valid CategoriasModel categoria, RedirectAttributes attributes)
     {
         String[] mensagem = categoriasService.atualizar(categoria);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/listarCategorias");
     }
 
     @PostMapping("/ativaCategorias")
-    public ModelAndView ativacaoBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
+    public ModelAndView ativacaoBandeiras (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
     {
         CategoriasModel ctg = categoriasRepository.findOneById(id);
 
-        String[] mensagem = categoriasService.ativar(!ctg.getCtgAtivo(), id);   
+        String[] mensagem = categoriasService.ativar(!ctg.getCtgAtivo(), id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

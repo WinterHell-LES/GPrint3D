@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 public class CartoesService
 {
     @Autowired
-    private CartoesRepository cartoes;
+    private CartoesRepository cartoesRepository;
 
     @Autowired
     private SecurityConfig securityConfig;
 
-    public String[] cadastrar(CartoesModel cartao)
+    public String[] cadastrar (CartoesModel cartao)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
             cartao.setCrtCvv(securityConfig.passwordEncoder().encode(cartao.getCrtCvv()));
 
-            cartoes.save(cartao);
+            cartoesRepository.save(cartao);
 
             response[0] = msg1;
             response[1] = "Cartão cadastrado com sucesso!";
@@ -47,16 +47,16 @@ public class CartoesService
         return response;
     }
 
-    public String[] atualizar(CartoesModel cartao)
+    public String[] atualizar (CartoesModel cartao)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            cartoes.save(cartao);
+            cartoesRepository.save(cartao);
 
             response[0] = msg1;
             response[1] = "Cadastro de cartão alterado com sucesso!";
@@ -66,20 +66,20 @@ public class CartoesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o cartão";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            cartoes.deleteById(id);
+            cartoesRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de cartão deletado com sucesso!";
@@ -89,7 +89,7 @@ public class CartoesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o cartão";
         }
-        
+
         return response;
     }
 }

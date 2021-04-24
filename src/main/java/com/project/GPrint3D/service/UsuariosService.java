@@ -9,7 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuariosService 
+public class UsuariosService
 {
     @Autowired
     private UsuariosRepository usuarios;
@@ -17,14 +17,14 @@ public class UsuariosService
     @Autowired
     private SecurityConfig securityConfig;
 
-    public String[] cadastrar(UsuariosModel usuario)
+    public String[] cadastrar (UsuariosModel usuario)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
             usuario.setUsuSenha(securityConfig.passwordEncoder().encode(usuario.getUsuSenha()));
 
@@ -32,13 +32,13 @@ public class UsuariosService
 
             response[0] = msg1;
             response[1] = "Usuário cadastrado com sucesso!";
-        } 
-        catch (DataIntegrityViolationException e) 
+        }
+        catch (DataIntegrityViolationException e)
         {
             response[0] = msg2;
             response[1] = "Usuário já cadastrado";
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             response[0] = msg2;
             response[1] = "Erro ao cadastrar o usuário";
@@ -47,21 +47,21 @@ public class UsuariosService
         return response;
     }
 
-    public String[] atualizar(UsuariosModel usuario) 
+    public String[] atualizar (UsuariosModel usuario)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
             usuarios.save(usuario);
 
             response[0] = msg1;
             response[1] = "Cadastro de usuário alterado com sucesso!";
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             response[0] = msg2;
             response[1] = "Erro ao alterar o usuário";
@@ -70,14 +70,14 @@ public class UsuariosService
         return response;
     }
 
-    public String[] atualizarPass(UsuariosModel usuario) 
+    public String[] atualizarPass (UsuariosModel usuario)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
             usuario.setUsuSenha(securityConfig.passwordEncoder().encode(usuario.getUsuSenha()));
 
@@ -91,18 +91,18 @@ public class UsuariosService
             response[0] = msg2;
             response[1] = "Erro ao alterar a senha";
         }
-        
+
         return response;
     }
 
-    public String[] ativar(Boolean ativa, Integer id)
+    public String[] ativar (Boolean ativa, Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "ativaSuccess";
         String msg2 = "ativaError";
 
-        try 
+        try
         {
             usuarios.updadeAtiva(ativa, id);
 
@@ -114,18 +114,18 @@ public class UsuariosService
             response[0] = msg2;
             response[1] = "Erro ao alterar o usuário";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
             usuarios.deleteById(id);
 
@@ -137,7 +137,7 @@ public class UsuariosService
             response[0] = msg2;
             response[1] = "Erro ao deletar o usuário";
         }
-        
+
         return response;
     }
 }

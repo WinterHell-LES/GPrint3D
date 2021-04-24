@@ -2,16 +2,17 @@ package com.project.GPrint3D.util.Listas;
 
 import java.util.HashMap;
 
-public class PedidosComprasListUtil 
+public class PedidosComprasListUtil
 {
     private HashMap<Integer, String> listCompraPedidos = new HashMap<>();
     private HashMap<Integer, String> listCompraPedidosCli = new HashMap<>();
     private HashMap<Integer, String> listCompraLogistica = new HashMap<>();
+    private HashMap<Integer, String> listCompraLogisticaCli = new HashMap<>();
 
     private HashMap<Integer, String> btListCompraPedidos = new HashMap<>();
     private HashMap<Integer, String> btListCompraLogistica = new HashMap<>();
 
-    public PedidosComprasListUtil() 
+    public PedidosComprasListUtil ()
     {
         listCompraPedidos.put(0, "Pedido recebido");
         listCompraPedidos.put(1, "Pagamento aprovado");
@@ -19,6 +20,7 @@ public class PedidosComprasListUtil
         listCompraPedidos.put(3, "Em transporte");
         listCompraPedidos.put(4, "Pedido entregue");
         listCompraPedidos.put(10, "Pagamento reprovado");
+        listCompraPedidos.put(11, "Pedido cancelado");
 
         listCompraPedidosCli.put(0, "Pedido recebido");
         listCompraPedidosCli.put(1, "Pagamento aprovado");
@@ -35,6 +37,14 @@ public class PedidosComprasListUtil
         listCompraLogistica.put(3, "Enviando para transportadora");
         listCompraLogistica.put(4, "Em transporte");
         listCompraLogistica.put(5, "Pedido entregue");
+        listCompraLogistica.put(11, "Pedido cancelado");
+
+        listCompraLogisticaCli.put(0, "Aguardando nota fiscal");
+        listCompraLogisticaCli.put(1, "Separando pedido");
+        listCompraLogisticaCli.put(2, "Embalando pedido");
+        listCompraLogisticaCli.put(3, "Enviando para transportadora");
+        listCompraLogisticaCli.put(4, "Em transporte");
+        listCompraLogisticaCli.put(5, "Pedido entregue");
 
         btListCompraLogistica.put(0, "Separar pedido");
         btListCompraLogistica.put(1, "Embalar pedido");
@@ -43,27 +53,32 @@ public class PedidosComprasListUtil
         btListCompraLogistica.put(4, "Entregar pedido");
     }
 
-    public HashMap<Integer,String> getListCompraPedidos() 
+    public HashMap<Integer, String> getListCompraPedidos ()
     {
         return this.listCompraPedidos;
     }
 
-    public HashMap<Integer,String> getListCompraPedidosCli() 
+    public HashMap<Integer, String> getListCompraPedidosCli ()
     {
         return this.listCompraPedidosCli;
     }
 
-    public HashMap<Integer,String> getListCompraLogistica() 
+    public HashMap<Integer, String> getListCompraLogistica ()
     {
         return this.listCompraLogistica;
     }
 
-    public HashMap<Integer,String> getBtListCompraPedidos() 
+    public HashMap<Integer, String> getListCompraLogisticaCli ()
+    {
+        return this.listCompraLogisticaCli;
+    }
+
+    public HashMap<Integer, String> getBtListCompraPedidos ()
     {
         return this.btListCompraPedidos;
     }
 
-    public HashMap<Integer,String> getBtListCompraLogistica() 
+    public HashMap<Integer, String> getBtListCompraLogistica ()
     {
         return this.btListCompraLogistica;
     }

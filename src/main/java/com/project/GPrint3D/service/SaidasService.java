@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SaidasService 
+public class SaidasService
 {
     @Autowired
-    private SaidasRepository saidas;
+    private SaidasRepository saidasRepository;
 
-    public String[] cadastrar(SaidasModel saida)
+    public String[] cadastrar (SaidasModel saida)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            saidas.save(saida);
+            saidasRepository.save(saida);
 
             response[0] = msg1;
             response[1] = "Saída cadastrada com sucesso!";
@@ -41,16 +41,16 @@ public class SaidasService
         return response;
     }
 
-    public String[] atualizar(SaidasModel saida)
+    public String[] atualizar (SaidasModel saida)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            saidas.save(saida);
+            saidasRepository.save(saida);
 
             response[0] = msg1;
             response[1] = "Cadastro de saída alterado com sucesso!";
@@ -60,20 +60,20 @@ public class SaidasService
             response[0] = msg2;
             response[1] = "Erro ao alterar a saída";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            saidas.deleteById(id);
+            saidasRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de saída deletado com sucesso!";
@@ -83,7 +83,7 @@ public class SaidasService
             response[0] = msg2;
             response[1] = "Erro ao deletar a saída";
         }
-        
+
         return response;
     }
 }

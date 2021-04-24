@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProdutosJustificativasRepository extends JpaRepository<ProdutosJustificativasModel, Integer>
 {
-    
+
 }

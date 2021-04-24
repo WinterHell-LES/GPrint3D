@@ -9,17 +9,17 @@ public interface EnderecosRepository extends JpaRepository<EnderecosModel, Integ
 {
     // Procura por nome do cliente
     @Query(value = "SELECT * FROM enderecos WHERE end_cli_id = ?", nativeQuery = true)
-    public EnderecosModel findByClienteId(Integer id);
+    public EnderecosModel findByClienteId (Integer id);
 
     // Procura por nome do cliente e endereço de entrega
     @Query(value = "SELECT * FROM enderecos WHERE end_cli_id = ? AND end_entrega = 1", nativeQuery = true)
-    public EnderecosModel findByEnderecosEntrega(Integer id);
+    public EnderecosModel findByEnderecosEntrega (Integer id);
 
     // Procura por nome do cliente e endereço de cobrança
     @Query(value = "SELECT * FROM enderecos WHERE end_cli_id = ? AND end_cobranca = 1", nativeQuery = true)
-    public EnderecosModel findByEnderecosCobranca(Integer id);
+    public EnderecosModel findByEnderecosCobranca (Integer id);
 
     // Procura pelo id do endereço
     @Query(value = "SELECT * FROM enderecos WHERE end_id = ?", nativeQuery = true)
-    public EnderecosModel findOneById(Integer id);
+    public EnderecosModel findOneById (Integer id);
 }

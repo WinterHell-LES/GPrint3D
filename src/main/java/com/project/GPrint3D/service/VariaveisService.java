@@ -8,19 +8,19 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VariaveisService 
+public class VariaveisService
 {
     @Autowired
     private VariaveisRepository variaveisRepository;
 
-    public String[] cadastrar(VariaveisModel variavel)
+    public String[] cadastrar (VariaveisModel variavel)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
             variaveisRepository.save(variavel);
 
@@ -41,14 +41,14 @@ public class VariaveisService
         return response;
     }
 
-    public String[] atualizar(VariaveisModel variavel)
+    public String[] atualizar (VariaveisModel variavel)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
             variaveisRepository.save(variavel);
 
@@ -60,18 +60,18 @@ public class VariaveisService
             response[0] = msg2;
             response[1] = "Erro ao alterar as variáveis";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
             variaveisRepository.deleteById(id);
 
@@ -83,7 +83,7 @@ public class VariaveisService
             response[0] = msg2;
             response[1] = "Erro ao deletar as variáveis";
         }
-        
+
         return response;
     }
 }

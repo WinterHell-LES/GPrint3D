@@ -9,9 +9,9 @@ public interface CuponsPromocoesRepository extends JpaRepository<CuponsPromocoes
 {
     // Procura por id do cupom
     @Query(value = "SELECT * FROM cupons_promocoes WHERE cpp_id = ?", nativeQuery = true)
-    public CuponsPromocoesModel findOneById(Integer id);
+    public CuponsPromocoesModel findOneById (Integer id);
 
     // Procura por codigo do cupom
     @Query(value = "SELECT * FROM cupons_promocoes WHERE cpp_codigo = ?", nativeQuery = true)
-    public CuponsPromocoesModel findByCodigo(String codigo);
+    public CuponsPromocoesModel findByCodigo (String codigo);
 }

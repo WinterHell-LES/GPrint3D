@@ -355,8 +355,5 @@ public class CarrinhoUtil
                 break;
             }
         }
-
-        return;
     }
-
 }

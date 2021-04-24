@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 public class EndCobrancasPadroesService
 {
     @Autowired
-    private EndCobrancasPadroesRepository endCobrancasPadroes;
+    private EndCobrancasPadroesRepository endCobrancasPadroesrRepository;
 
-    public String[] cadastrar(EndCobrancasPadroesModel endCobrancaPadrao)
+    public String[] cadastrar (EndCobrancasPadroesModel endCobrancaPadrao)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            endCobrancasPadroes.save(endCobrancaPadrao);
+            endCobrancasPadroesrRepository.save(endCobrancaPadrao);
 
             response[0] = msg1;
             response[1] = "Endereço de cobrança padrão cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class EndCobrancasPadroesService
         return response;
     }
 
-    public String[] atualizar(EndCobrancasPadroesModel endCobrancaPadrao)
+    public String[] atualizar (EndCobrancasPadroesModel endCobrancaPadrao)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            endCobrancasPadroes.save(endCobrancaPadrao);
+            endCobrancasPadroesrRepository.save(endCobrancaPadrao);
 
             response[0] = msg1;
             response[1] = "Cadastro de endereço de cobrança padrão alterado com sucesso!";
@@ -60,20 +60,20 @@ public class EndCobrancasPadroesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o endereço de cobrança padrão";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            endCobrancasPadroes.deleteById(id);
+            endCobrancasPadroesrRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de endereço de cobrança padrão deletado com sucesso!";
@@ -83,7 +83,7 @@ public class EndCobrancasPadroesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o endereço de cobrança padrão";
         }
-        
+
         return response;
     }
 }

@@ -14,17 +14,15 @@
     <body>
         <!-- Conteudo da página -->
        <section layout:fragment="conteudo">
-            <div class="my-5">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="row border-bottom mb-4">
-                            <p class="h2">Meus cupons</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Meus cupons</h1>
             </div>
 
-            <div class="my-5">
+            <div class="text-center my-5" th:if="${cupons.size == 0}">
+                <h1 class="h4">Nenhum cupom de troca encontrado</h1>
+            </div>
+
+            <div class="my-5" th:if="${cupons.size > 0}">
                 <div class="row mt-2 pb-2 table-header mb-4 border-bottom">
                     <div class="col-3 text-center border-end">
                         <p class="h5 m-0 p-0">Status</p>

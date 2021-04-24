@@ -12,7 +12,7 @@
     <body>
         <section layout:fragment="conteudo">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2" th:text="'Pedido - ' + ${pedido.pdcNumero}">Numero do pedido</h1>
+                <h1 class="h2" th:text="'Pedido - ' + ${pedido.pdtNumero}">Numero do pedido</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <a href="/admin/pedido/listarPedidosCompras" class="btn btn-sm btn-outline-secondary">
                         Voltar
@@ -22,27 +22,27 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/dados'">Dados gerais</a>
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/dados'">Dados gerais</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/produtos'">Produtos</a>
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/produtos'">Produtos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/cliente'">Cliente</a>
+                    <a class="nav-link"th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/cliente'">Cliente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/enderecos'">Endereços</a>
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/enderecos'">Endereços</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/cartoes'">Cartão</a>
+                    <a class="nav-link active" aria-current="page" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/cartoes'">Cartão</a>
                 </li>
             </ul>
 
-            <div class="text-center mt-5" th:if="${pedido.listPedCartoes.size == 0}">
+            <div class="text-center mt-5" th:if="${pedido.pedidoCompra.listPedCartoes.size == 0}">
                 <h1 class="h4">Nenhum cartão selecionado</h1>
             </div>
 
-            <table class="table my-3" th:each="pedCartao, stat : ${pedido.listPedCartoes}">
+            <table class="table my-3" th:each="pedCartao, stat : ${pedido.pedidoCompra.listPedCartoes}">
                 <thead>
                     <tr>
                         <th scope="col" style="width: 250px;" th:text="'Cartão de pagamento ' + ${stat.count}">Cartão de pagamento</th>
@@ -65,10 +65,6 @@
                     <tr>
                         <th scope="row">Validade</th>
                         <td th:text="${pedCartao.cartao.crtValidade}">Validade</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Valor cobrado</th>
-                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedCartao.pctValor, 1, 'DEFAULT', 2, 'DEFAULT')}">Valor cobrado</td>
                     </tr>
                 </tbody>
             </table>

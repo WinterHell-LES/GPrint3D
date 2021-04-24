@@ -37,31 +37,36 @@
                         <td th:text="${pedido.getStrStatusPedido()}">Status</td>
                         <td class="py-0 my-0">
                             <div class="row">
-                                <div class="col-auto px-0 d-flex align-items-center me-1">
+                                <div class="col-auto px-0 d-flex align-items-center me-2">
                                     <a style="text-decoration: none;" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/dados'">
                                         <i class="bi bi-info-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Informações"></i>
                                     </a>
                                 </div>
-                                <div class="col-auto px-0" th:if="${pedido.pdtEscolha} == 0 AND ${pedido.pdtStatusPedido} < 3">
-                                    <form th:action="@{/admin/pedido/alterarPedidosTrocas}" method="POST">
-                                        <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${pedido.pdtId}">
-                                            <i class="bi bi-pencil-square fs-4" style="color: black;"></i>
-                                        </button>
-                                    </form>
-                                </div>
                                 <div class="col-auto px-0" th:if="${pedido.pdtStatusPedido} < 1 AND (${pedido.pdtEscolha} == 1 OR ${pedido.pdtEscolha} == 4)">
                                     <form th:action="@{/admin/pedido/alterarPedidosTrocas}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${pedido.pdtId}">
-                                            <i class="bi bi-pencil-square fs-4" style="color: black;"></i>
+                                            <i class="bi bi-pencil-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar"></i>
                                         </button>
                                     </form>
                                 </div>
                                 <div class="col-auto px-0" th:if="${pedido.pdtStatusPedido} < 2 AND (${pedido.pdtEscolha} == 2 OR ${pedido.pdtEscolha} == 3)">
                                     <form th:action="@{/admin/pedido/alterarPedidosTrocas}" method="POST">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${pedido.pdtId}">
-                                            <i class="bi bi-pencil-square fs-4" style="color: black;"></i>
+                                            <i class="bi bi-pencil-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar"></i>
                                         </button>
                                     </form>
+                                </div>
+                                <div class="col-auto px-0" th:if="${pedido.pdtStatusPedido} < 3 AND ${pedido.pdtEscolha} == 0">
+                                    <form th:action="@{/admin/pedido/alterarPedidosTrocas}" method="POST">
+                                        <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${pedido.pdtId}">
+                                            <i class="bi bi-pencil-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-auto px-0" th:if="(${pedido.pdtEscolha} > 0 AND ${pedido.pdtEscolha} < 4) AND ${#bools.isFalse(pedido.pdtRetorno)}">
+                                    <button type="button" class="" style="background-color: transparent; border-color: transparent;" data-bs-toggle="modal" data-bs-target="#retornoProdutoModal" th:data-bs-pdtId="${pedido.pdtId}" th:data-bs-pdtNome="${pedido.pedProduto.produto.prdNome}" th:data-bs-pdtQuantidade="${pedido.pdtQuantidade}">
+                                        <i class="bi bi-clipboard-check fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Retorno do produto"></i>
+                                    </button>
                                 </div>
                             </div>
                         </td>
@@ -77,12 +82,55 @@
                     </tr>
                 </tfoot>
             </table>
+
+            <!-- Modal -->
+            <div class="modal fade" id="retornoProdutoModal" tabindex="-1" aria-labelledby="retornoProdutoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="retornoProdutoModalLabel">Retorno do produto</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/admin/pedido/retornoProdutoTroca}" th:object="${pedidosTrocasModel}" method="POST">
+                            <div class="modal-body">
+                                <input type="hidden" id="pdtId" th:field="*{pdtId}">
+
+                                <div class="h6 mb-3">
+                                    Selecione a quantidade de produto para retorno ao estoque
+                                </div>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="col-6">Produto</th>
+                                            <th scope="col" class="col-3 text-center">Qtd solicitada</th>
+                                            <th scope="col" class="col-3 text-center">Qtd retorno</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="align-middle" id="pdtNome">Produto</th>
+                                            <td class="text-center align-middle" id="pdtQuantidade">3</td>
+                                            <td class="align-middle"><input type="number" id="iQuantidade" class="form-control text-center p-0" name="quantidade" required></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn btn-outline-secondary shadow" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-secondary shadow" id="confirmarRetornoTroca">Confirmar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Script -->
         <th:block layout:fragment="javascripts">
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.dataTables.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.tableControl.v1.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/modal/modalControlRetTroca.js}"></script>
         </th:block>
     </body>
 </html>

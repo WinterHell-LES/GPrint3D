@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedProdutosService 
+public class PedProdutosService
 {
     @Autowired
-    private PedProdutosRepository pedProdutos;
+    private PedProdutosRepository pedProdutosRepository;
 
-    public String[] cadastrar(PedProdutosModel pedProduto)
+    public String[] cadastrar (PedProdutosModel pedProduto)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            pedProdutos.save(pedProduto);
+            pedProdutosRepository.save(pedProduto);
 
             response[0] = msg1;
             response[1] = "Produto de pedido cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class PedProdutosService
         return response;
     }
 
-    public String[] atualizar(PedProdutosModel pedProduto)
+    public String[] atualizar (PedProdutosModel pedProduto)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            pedProdutos.save(pedProduto);
+            pedProdutosRepository.save(pedProduto);
 
             response[0] = msg1;
             response[1] = "Cadastro do produto de pedido alterado com sucesso!";
@@ -60,20 +60,20 @@ public class PedProdutosService
             response[0] = msg2;
             response[1] = "Erro ao alterar o produto de pedido";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            pedProdutos.deleteById(id);
+            pedProdutosRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro do produto de pedido deletado com sucesso!";
@@ -83,7 +83,7 @@ public class PedProdutosService
             response[0] = msg2;
             response[1] = "Erro ao deletar o produto de pedido";
         }
-        
+
         return response;
     }
 }

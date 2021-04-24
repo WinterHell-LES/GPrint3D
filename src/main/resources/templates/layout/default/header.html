@@ -72,7 +72,7 @@
                             <ul class="dropdown-menu dropdown-menu-lg-end py-1">
                                 <li class="text-center mb-1">
                                     <p class="m-0">Bem vindo,</p>
-                                    <p class="m-0" th:text="${#strings.substringBefore(usuario, ' ')}"></p>
+                                    <p class="m-0" th:text="${#strings.contains(usuario, ' ')} ? ${#strings.substringBefore(usuario, ' ')} : ${usuario}"></p>
                                 </li>
                                 <div class="dropdown-divider my-1"></div>
                                 <li><a class="dropdown-item" href="/cliente/index" sec:authorize="hasRole('CLI')">Usuário</a></li>

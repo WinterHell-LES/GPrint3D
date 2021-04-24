@@ -1,5 +1,7 @@
 package com.project.GPrint3D.controller.admin;
 
+import java.sql.Date;
+
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.PedidosComprasModel;
@@ -21,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin/logistica/")
-public class AdminLogiPedController 
+public class AdminLogiPedController
 {
     @Autowired
     private PedidosComprasRepository pedidosComprasRepository;
@@ -31,12 +33,12 @@ public class AdminLogiPedController
 
     @Autowired
     private PedidosComprasService pedidosComprasService;
-    
+
     @Autowired
     private PedidosTrocasService pedidosTrocasService;
 
     @RequestMapping("listarLogisticaPedidos")
-    public ModelAndView listarLogisticaPedidos()
+    public ModelAndView listarLogisticaPedidos ()
     {
         ModelAndView mv = new ModelAndView("/admin/logistica/pedidosCompras/listarLogisticaPedidos");
 
@@ -46,19 +48,21 @@ public class AdminLogiPedController
     }
 
     @PostMapping("alterarLogisticaPedidos")
-    public ModelAndView alterarLogisticaPedidos(@RequestParam(name = "id") Integer id, PedidosComprasModel pedidosCompra)
+    public ModelAndView alterarLogisticaPedidos (@RequestParam(name = "id") Integer id,
+            PedidosComprasModel pedidosCompra)
     {
         ModelAndView mv = new ModelAndView("/admin/logistica/pedidosCompras/alterarLogisticaPedidos");
         PedidosComprasListUtil pedidos = new PedidosComprasListUtil();
 
         mv.addObject("pedido", pedidosComprasRepository.findOneById(id));
-        mv.addObject("allStatus", pedidos.getListCompraLogistica());
+        mv.addObject("allStatus", pedidos.getListCompraLogisticaCli());
         mv.addObject("btStatus", pedidos.getBtListCompraLogistica());
 
         return mv;
     }
+
     @PostMapping("alterarLogisticaPedido")
-    public ModelAndView alterarLogisticaPedido(@Valid PedidosComprasModel pedido, RedirectAttributes attributes)
+    public ModelAndView alterarLogisticaPedido (@Valid PedidosComprasModel pedido, RedirectAttributes attributes)
     {
         String[] mensagem = pedidosComprasService.atualizarLogistica(pedido.getPdcStatusLogistica(), pedido.getPdcId());
 
@@ -66,14 +70,21 @@ public class AdminLogiPedController
         {
             pedidosComprasService.atualizarPedido(pedido.getPdcStatusLogistica() - 1, pedido.getPdcId());
         }
-  
+
+        if (pedido.getPdcStatusLogistica() == 5)
+        {
+            java.util.Date dataAtual = new java.util.Date();
+
+            pedidosComprasService.atualizarDataEntrega(new Date(dataAtual.getTime()), pedido.getPdcId());
+        }
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/logistica/listarLogisticaPedidos");
     }
 
     @RequestMapping("listarLogisticaTrocas")
-    public ModelAndView listarLogisticaTrocas()
+    public ModelAndView listarLogisticaTrocas ()
     {
         ModelAndView mv = new ModelAndView("/admin/logistica/pedidosTrocas/listarLogisticaTrocas");
 
@@ -83,7 +94,8 @@ public class AdminLogiPedController
     }
 
     @PostMapping("alterarLogisticaTrocas")
-    public ModelAndView alterarLogisticaTrocas(@RequestParam(name = "id") Integer id, PedidosComprasModel pedidosCompra)
+    public ModelAndView alterarLogisticaTrocas (@RequestParam(name = "id") Integer id,
+            PedidosComprasModel pedidosCompra)
     {
         ModelAndView mv = new ModelAndView("/admin/logistica/pedidosTrocas/alterarLogisticaTrocas");
 
@@ -96,8 +108,9 @@ public class AdminLogiPedController
 
         return mv;
     }
+
     @PostMapping("alterarLogisticaTroca")
-    public ModelAndView alterarLogisticaTroca(@Valid PedidosTrocasModel pedido, RedirectAttributes attributes)
+    public ModelAndView alterarLogisticaTroca (@Valid PedidosTrocasModel pedido, RedirectAttributes attributes)
     {
         String[] mensagem = pedidosTrocasService.atualizarLogistica(pedido.getPdtStatusLogistica(), pedido.getPdtId());
 
@@ -115,7 +128,7 @@ public class AdminLogiPedController
                 pedidosTrocasService.atualizarPedido(pedido.getPdtStatusLogistica() - 2, pedido.getPdtId());
             }
         }
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/logistica/listarLogisticaTrocas");

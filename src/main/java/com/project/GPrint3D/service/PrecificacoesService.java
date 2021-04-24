@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PrecificacoesService 
+public class PrecificacoesService
 {
     @Autowired
-    private PrecificacoesRepository precificacoes;
+    private PrecificacoesRepository precificacoesRepository;
 
-    public String[] cadastrar(PrecificacoesModel precificacao)
+    public String[] cadastrar (PrecificacoesModel precificacao)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            precificacoes.save(precificacao);
+            precificacoesRepository.save(precificacao);
 
             response[0] = msg1;
             response[1] = "Precificação cadastrada com sucesso!";
@@ -41,16 +41,16 @@ public class PrecificacoesService
         return response;
     }
 
-    public String[] atualizar(PrecificacoesModel precificacao)
+    public String[] atualizar (PrecificacoesModel precificacao)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            precificacoes.save(precificacao);
+            precificacoesRepository.save(precificacao);
 
             response[0] = msg1;
             response[1] = "Cadastro de precificação alterado com sucesso!";
@@ -60,20 +60,20 @@ public class PrecificacoesService
             response[0] = msg2;
             response[1] = "Erro ao alterar a precificação";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            precificacoes.deleteById(id);
+            precificacoesRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de precificação deletado com sucesso!";
@@ -83,7 +83,7 @@ public class PrecificacoesService
             response[0] = msg2;
             response[1] = "Erro ao deletar a precificação";
         }
-        
+
         return response;
     }
 }

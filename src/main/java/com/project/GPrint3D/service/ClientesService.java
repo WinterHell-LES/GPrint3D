@@ -11,33 +11,33 @@ import org.springframework.stereotype.Service;
 public class ClientesService
 {
     @Autowired
-    private ClientesRepository clientes;
+    private ClientesRepository clientesRepository;
 
-    public String[] cadastrar(ClientesModel cliente)
+    public String[] cadastrar (ClientesModel cliente)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        if (cliente.getUsuario().getUsuId().equals(0)) 
+        if (cliente.getUsuario().getUsuId().equals(0))
         {
             cliente.setUsuario(null);
         }
 
-        try 
+        try
         {
-            clientes.save(cliente);
+            clientesRepository.save(cliente);
 
             response[0] = msg1;
             response[1] = "Cliente cadastrado com sucesso!";
-        } 
-        catch (DataIntegrityViolationException e) 
+        }
+        catch (DataIntegrityViolationException e)
         {
             response[0] = msg2;
             response[1] = "Cliente já cadastrado";
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             response[0] = msg2;
             response[1] = "Erro ao cadastrar o cliente";
@@ -46,7 +46,7 @@ public class ClientesService
         return response;
     }
 
-    public String[] atualizar(ClientesModel cliente) 
+    public String[] atualizar (ClientesModel cliente)
     {
         String[] response = new String[2];
 
@@ -58,9 +58,9 @@ public class ClientesService
             cliente.setUsuario(null);
         }
 
-        try 
+        try
         {
-            clientes.save(cliente);
+            clientesRepository.save(cliente);
 
             response[0] = msg1;
             response[1] = "Cadastro de cliente alterado com sucesso!";
@@ -70,20 +70,20 @@ public class ClientesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o cliente";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            clientes.deleteById(id);
+            clientesRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de cliente deletado com sucesso!";
@@ -93,7 +93,7 @@ public class ClientesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o cliente";
         }
-        
+
         return response;
     }
 }

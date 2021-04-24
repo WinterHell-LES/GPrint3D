@@ -8,14 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 public interface CarrinhosRepository extends JpaRepository<CarrinhosModel, Integer>
 {
     // Procura por Id do carrinho
-   @Query(value = "SELECT * FROM carrinhos WHERE car_id = ?", nativeQuery = true)
-   public CarrinhosModel findOneById(Integer id);
+    @Query(value = "SELECT * FROM carrinhos WHERE car_id = ?", nativeQuery = true)
+    public CarrinhosModel findOneById (Integer id);
 
-     // Procura por id do cliente
+    // Procura por id do cliente
     @Query(value = "SELECT * FROM carrinhos WHERE car_cli_id = ?", nativeQuery = true)
-    public CarrinhosModel findByClienteId(Integer id);
+    public CarrinhosModel findByClienteId (Integer id);
 
     // Procura por temporary cliente id
     @Query(value = "SELECT * FROM carrinhos WHERE car_cli_temp = ?", nativeQuery = true)
-    public CarrinhosModel findByClienteTempId(String id);
+    public CarrinhosModel findByClienteTempId (String id);
 }

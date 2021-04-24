@@ -9,5 +9,5 @@ public interface TelefonesRepository extends JpaRepository<TelefonesModel, Integ
 {
     // Procura por nome do cliente
     @Query(value = "SELECT * FROM telefones WHERE tel_cli_id = ?", nativeQuery = true)
-    public TelefonesModel findByClienteId(Integer id);
+    public TelefonesModel findByClienteId (Integer id);
 }

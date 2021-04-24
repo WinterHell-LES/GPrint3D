@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 public class PedTroFretesService
 {
     @Autowired
-    private PedTroFretesRepository fretes;
+    private PedTroFretesRepository pedTroFretesRepository;
 
-    public String[] cadastrar(PedTroFretesModel frete)
+    public String[] cadastrar (PedTroFretesModel frete)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            fretes.save(frete);
+            pedTroFretesRepository.save(frete);
 
             response[0] = msg1;
             response[1] = "Frete cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class PedTroFretesService
         return response;
     }
 
-    public String[] atualizar(PedTroFretesModel frete)
+    public String[] atualizar (PedTroFretesModel frete)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            fretes.save(frete);
+            pedTroFretesRepository.save(frete);
 
             response[0] = msg1;
             response[1] = "Cadastro de frete alterado com sucesso!";
@@ -60,20 +60,20 @@ public class PedTroFretesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o frete";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            fretes.deleteById(id);
+            pedTroFretesRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de frete deletado com sucesso!";
@@ -83,7 +83,7 @@ public class PedTroFretesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o frete";
         }
-        
+
         return response;
     }
 }

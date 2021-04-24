@@ -6,13 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminGraphController 
+public class AdminGraphController
 {
     @RequestMapping("visualizarVendas")
-    public ModelAndView graficos()
+    public ModelAndView graficos ()
     {
-        ModelAndView mv = new ModelAndView("/admin/graficos/visualizarVendas");
-
-        return mv;
+        return new ModelAndView("/admin/graficos/visualizarVendas");
     }
 }

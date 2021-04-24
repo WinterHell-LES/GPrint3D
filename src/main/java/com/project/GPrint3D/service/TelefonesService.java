@@ -13,14 +13,14 @@ public class TelefonesService
     @Autowired
     private TelefonesRepository telefones;
 
-    public String[] cadastrar(TelefonesModel telefone)
+    public String[] cadastrar (TelefonesModel telefone)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
             telefones.save(telefone);
 
@@ -41,14 +41,14 @@ public class TelefonesService
         return response;
     }
 
-    public String[] atualizar(TelefonesModel telefone)
+    public String[] atualizar (TelefonesModel telefone)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
             telefones.save(telefone);
 
@@ -60,18 +60,18 @@ public class TelefonesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o telefone";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
             telefones.deleteById(id);
 
@@ -83,7 +83,7 @@ public class TelefonesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o telefone";
         }
-        
+
         return response;
     }
 }

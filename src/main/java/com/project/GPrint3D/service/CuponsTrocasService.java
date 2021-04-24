@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CuponsTrocasService 
+public class CuponsTrocasService
 {
     @Autowired
-    private CuponsTrocasRepository cupons;
+    private CuponsTrocasRepository cuponsTrocasRepository;
 
-    public String[] cadastrar(CuponsTrocasModel cupom)
+    public String[] cadastrar (CuponsTrocasModel cupom)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            cupons.save(cupom);
+            cuponsTrocasRepository.save(cupom);
 
             response[0] = msg1;
             response[1] = "Cupom cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class CuponsTrocasService
         return response;
     }
 
-    public String[] atualizar(CuponsTrocasModel cupom)
+    public String[] atualizar (CuponsTrocasModel cupom)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            cupons.save(cupom);
+            cuponsTrocasRepository.save(cupom);
 
             response[0] = msg1;
             response[1] = "Cadastro de cupom alterado com sucesso!";
@@ -60,20 +60,20 @@ public class CuponsTrocasService
             response[0] = msg2;
             response[1] = "Erro ao alterar o cupom";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            cupons.deleteById(id);
+            cuponsTrocasRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de cupom deletado com sucesso!";
@@ -83,7 +83,7 @@ public class CuponsTrocasService
             response[0] = msg2;
             response[1] = "Erro ao deletar o cupom";
         }
-        
+
         return response;
     }
 }

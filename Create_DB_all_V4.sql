@@ -214,7 +214,8 @@ DROP TABLE IF EXISTS pedidos_compras;
 CREATE TABLE pedidos_compras (
     pdc_id            	MEDIUMINT NOT NULL AUTO_INCREMENT,
     pdc_numero			VARCHAR(100) NOT NULL,
-    pdc_data			DATE NOT NULL,
+    pdc_datainicio		DATE NOT NULL,
+    pdc_datafim			DATE,
     pdc_statuspedido	MEDIUMINT NOT NULL DEFAULT 0,
     pdc_statuslogistica	MEDIUMINT NOT NULL DEFAULT 0,
     pdc_cli_id   		MEDIUMINT NOT NULL,
@@ -235,6 +236,7 @@ CREATE TABLE pedidos_trocas (
     pdt_statuspedido	MEDIUMINT NOT NULL DEFAULT 0,
     pdt_statuslogistica	MEDIUMINT NOT NULL DEFAULT 0,
     pdt_descricao		VARCHAR(255),
+    pdt_retorno			BOOLEAN NOT NULL DEFAULT false,
     pdt_ppd_id  		MEDIUMINT NOT NULL,
     pdt_pdc_id			MEDIUMINT NOT NULL,
     pdt_cli_id			MEDIUMINT NOT NULL,
@@ -336,7 +338,7 @@ CREATE TABLE produtos_carrinhos (
     pcr_prd_id  		MEDIUMINT NOT NULL,
     pcr_car_id  		MEDIUMINT NOT NULL,
     pcr_quantidade      MEDIUMINT NOT NULL,
-    pcr_date			DATE NOT NULL,
+    pcr_data			DATE NOT NULL,
     pcr_ativo			BOOLEAN NOT NULL,
     CONSTRAINT pk_pcr PRIMARY KEY ( pcr_id )
     /*CONSTRAINT uk_pcr UNIQUE KEY ( pcr_car_id, pcr_prd_id )*/
@@ -424,6 +426,7 @@ CREATE TABLE sis_variaveis (
     var_cep  			VARCHAR(20) NOT NULL,
     var_categoria		MEDIUMINT NOT NULL DEFAULT 2,
     var_temptroca		MEDIUMINT NOT NULL,
+    var_tempcarrinho	MEDIUMINT NOT NULL,
     var_validcupom		MEDIUMINT NOT NULL,
     var_rank_1			MEDIUMINT NOT NULL,
     var_rank_2			MEDIUMINT NOT NULL,

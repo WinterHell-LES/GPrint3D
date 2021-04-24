@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminClientesController 
+public class AdminClientesController
 {
     @Autowired
     private ClientesRepository clientesRepository;
@@ -30,7 +30,7 @@ public class AdminClientesController
     private UsuariosService usuariosService;
 
     @RequestMapping("/listarClientes")
-    public ModelAndView listarClientes(ClientesModel cliente) 
+    public ModelAndView listarClientes (ClientesModel cliente)
     {
         ModelAndView mv = new ModelAndView("admin/clientes/listarClientes");
 
@@ -40,7 +40,7 @@ public class AdminClientesController
     }
 
     @PostMapping("/clientesAtiva")
-    public ModelAndView ativacaoCliente(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
+    public ModelAndView ativacaoCliente (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
     {
         UsuariosModel usu = usuariosRepository.findOneById(id);
 
@@ -53,7 +53,7 @@ public class AdminClientesController
         else
         {
             mensagem = usuariosService.ativar(true, id);
-        }    
+        }
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -61,7 +61,7 @@ public class AdminClientesController
     }
 
     @GetMapping(value = "/cliente/{id}/dados")
-    public ModelAndView listagemDadosCliente(@PathVariable("id") Integer id)
+    public ModelAndView listagemDadosCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesDados");
 
@@ -71,7 +71,7 @@ public class AdminClientesController
     }
 
     @GetMapping(value = "/cliente/{id}/documentos")
-    public ModelAndView listagemDocumentosCliente(@PathVariable("id") Integer id)
+    public ModelAndView listagemDocumentosCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesDocumentos");
 
@@ -81,7 +81,7 @@ public class AdminClientesController
     }
 
     @GetMapping(value = "/cliente/{id}/telefones")
-    public ModelAndView listagemTelefonesCliente(@PathVariable("id") Integer id)
+    public ModelAndView listagemTelefonesCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesTelefones");
 
@@ -91,7 +91,7 @@ public class AdminClientesController
     }
 
     @GetMapping(value = "/cliente/{id}/enderecos")
-    public ModelAndView listagemEnderecosCliente(@PathVariable("id") Integer id)
+    public ModelAndView listagemEnderecosCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesEnderecos");
 
@@ -101,7 +101,7 @@ public class AdminClientesController
     }
 
     @GetMapping(value = "/cliente/{id}/cartoes")
-    public ModelAndView listagemCartoesCliente(@PathVariable("id") Integer id, UsuariosModel usuario)
+    public ModelAndView listagemCartoesCliente (@PathVariable("id") Integer id, UsuariosModel usuario)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClienteCartoes");
 
@@ -111,7 +111,7 @@ public class AdminClientesController
     }
 
     @GetMapping(value = "/cliente/{id}/usuario")
-    public ModelAndView listagemUsuariosCliente(@PathVariable("id") Integer id, UsuariosModel usuario)
+    public ModelAndView listagemUsuariosCliente (@PathVariable("id") Integer id, UsuariosModel usuario)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesUsuario");
 

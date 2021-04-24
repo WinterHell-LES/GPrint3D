@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PedProdutosRepository extends JpaRepository<PedProdutosModel, Integer>
 {
-    
+
 }

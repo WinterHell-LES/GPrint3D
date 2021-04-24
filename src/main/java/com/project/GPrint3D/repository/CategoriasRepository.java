@@ -13,19 +13,19 @@ public interface CategoriasRepository extends JpaRepository<CategoriasModel, Int
 {
     // Procura por nome do produto
     @Query(value = "SELECT * FROM categorias WHERE ctg_nome = ?", nativeQuery = true)
-    public CategoriasModel findOneByNome(String nome);
+    public CategoriasModel findOneByNome (String nome);
 
     // Procura por id da categoria
     @Query(value = "SELECT * FROM categorias WHERE ctg_id = ?", nativeQuery = true)
-    public CategoriasModel findOneById(Integer id);
+    public CategoriasModel findOneById (Integer id);
 
-    // Procura por categoria randomicamente 
+    // Procura por categoria randomicamente
     @Query(value = "SELECT * FROM categorias ORDER BY RAND() LIMIT ?", nativeQuery = true)
-    public List<CategoriasModel> findAllRand(Integer quantidade);
+    public List<CategoriasModel> findAllRand (Integer quantidade);
 
     // Atualiza a ativação para a categoria referente
     @Modifying
     @Transactional(readOnly = false)
     @Query(value = "UPDATE categorias SET ctg_ativo = ?1 WHERE ctg_id = ?2", nativeQuery = true)
-    public void updadeAtiva(Boolean ativo, Integer id);
+    public void updadeAtiva (Boolean ativo, Integer id);
 }

@@ -14,6 +14,15 @@
 
     <body>
         <section layout:fragment="conteudo">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(success)}">
+                <span th:text="${success}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(error)}">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <div class="container mb-5 border shadow">
                 <div class="row border-bottom">
                     <div class="col-1 d-grid gap-3 py-4">
@@ -48,15 +57,14 @@
                         
                         <p class="fs-8 mb-1 mt-3" th:text="'Quantidade em estoque: ' + ${produto.prdQuantidade} + ' itens'">Quantidade em estoque: X itens.</p>
                         <div class="row px-3 mb-2 mt-1 text-center">
-                            <form th:action="@{/carrinho/incluirNoCarrinho}" method="POST" class="px-0">
+                            <form th:action="@{/incluirNoCarrinho}" method="POST" class="px-0">
                                 <input type="hidden" th:value="${#httpServletRequest.requestURI}" name="url">
                                 <button type="submit" name="id" th:value="${produto.prdId}" class="btn border shadow-sm w-100">Adicionar ao carrinho</button>
                             </form>
                         </div>
                         <div class="row px-3 my-2">
-                            <a href="/carrinho/meuCarrinho" class="btn border shadow-sm">Comprar</a>
+                            <button type="button" class="btn border shadow-sm" data-bs-toggle="modal" data-bs-target="#comprarProdutoModal">Comprar</button>
                         </div>
-
                     </div>
                 </div>
 
@@ -143,6 +151,46 @@
                         <li class="ms-5">Desvantagens 2</li>
                     </ul>
                 </div> -->
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="comprarProdutoModal" tabindex="-1" aria-labelledby="comprarProdutoModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="comprarProdutoModalLabel">Comprar produto</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/incluirCarrinhoComprar}" method="POST">
+                            <div class="modal-body">
+                                <input type="hidden" th:field="${produto.prdId}">
+
+                                <div class="h6 mb-3">
+                                    Selecione a quantidade de produto para retorno ao estoque
+                                </div>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="col-9">Produto</th>
+                                            <th scope="col" class="col-3 text-center">Quantidade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" class="align-middle" id="pdtNome" th:text="${produto.prdNome}">Produto</th>
+                                            <td class="align-middle"><input type="number" class="form-control text-center p-0" name="quantidade" min="1" th:max="${produto.prdQuantidade}" required></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn btn-outline-secondary shadow" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-secondary shadow" id="confirmarCompra">Comprar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
 

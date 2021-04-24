@@ -99,7 +99,7 @@
                                         <span class="h7 my-1">Frete</span>
                                     </div>
                                     <div class="col text-end">
-                                        <span class="h7 my-1">R$ 12,00</span>
+                                        <span class="h7 my-1" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 12,00</span>
                                     </div>
                                 </div>
                                 <div class="row py-2 align-self-str">
@@ -107,7 +107,7 @@
                                         <span class="h7 my-1">Total</span>
                                     </div>
                                     <div class="col text-end">
-                                        <span class="h7 my-1">R$ 132,00</span>
+                                        <span class="h7 my-1" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotal() + pedido.frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 132,00</span>
                                     </div>
                                 </div>
                             </div>
@@ -217,20 +217,26 @@
                                 <div class="row text-center align-content-end h-50">
                                     <p class="fw-bold">FERRAM.</p>
                                 </div>
-                                <div class="row text-center align-content-start h-50" th:if="${pedProduto.ppdStatus} == 0 AND ${pedido.pdcStatusPedido} == 4">
+                                <div class="row text-center align-content-start h-50" th:if="(${pedProduto.ppdStatus} == 0 AND ${pedido.pdcStatusPedido} == 4) AND ${#bools.isTrue(pedido.getStatusDataTroca(tempTroca))}">
                                     <button type="button" class="p-1 border-0 bg-transparent" title="Trocar produto" data-bs-toggle="modal" data-bs-target="#trocarPedidoModal" th:data-bs-pdcId="${pedido.pdcId}" th:data-bs-ppdId="${pedProduto.ppdId}" th:data-bs-prdNome="${pedProduto.produto.prdNome}" th:data-bs-prdQuantidade="${pedProduto.ppdQuantidade}" th:data-bs-cliId="${pedido.cliente.cliId}">
                                         <span class="icon-return-box"></span>
                                     </button>
                                 </div>
-                                <div class="row text-center align-content-start h-50" th:if="${pedido.pdcStatusPedido} != 4 AND ${pedido.pdcStatusPedido} < 10">
+                                <div class="row text-center align-content-start h-50" th:if="(${pedido.pdcStatusPedido} != 4 AND ${pedido.pdcStatusPedido} < 10) AND ${#bools.isTrue(pedido.getStatusDataTroca(tempTroca))}">
                                     <span>Aguardando recebimento</span>
                                 </div>
-                                <div class="row text-center align-content-start h-50" th:if="${pedido.pdcStatusPedido} > 4">
+                                <div class="row text-center align-content-start h-50" th:if="${pedido.pdcStatusPedido} == 10 AND ${#bools.isTrue(pedido.getStatusDataTroca(tempTroca))}">
                                     <span>Pedido recusado</span>
                                 </div>
-                                <div class="row text-center align-content-start h-50" th:if="${pedProduto.ppdStatus} > 0">
+                                <div class="row text-center align-content-start h-50" th:if="${pedido.pdcStatusPedido} == 11 AND ${#bools.isTrue(pedido.getStatusDataTroca(tempTroca))}">
+                                    <span>Pedido cancelado</span>
+                                </div>
+                                <div class="row text-center align-content-start h-50" th:if="${pedProduto.ppdStatus} > 0 AND ${#bools.isTrue(pedido.getStatusDataTroca(tempTroca))}">
                                     <span th:if="${pedProduto.pedidosTroca.pdtEscolha} > 0" th:text="${pedProduto.pedidosTroca.getStrEscolha()}"></span>
                                     <span th:text="${pedProduto.pedidosTroca.getStrStatusPedido()}">Status</span>
+                                </div>
+                                <div class="row text-center align-content-start h-50" th:if="${#bools.isFalse(pedido.getStatusDataTroca(tempTroca))}">
+                                    <span>Troca indisponível</span>
                                 </div>
                             </div>
                         </div>
@@ -240,8 +246,9 @@
 
                 <div class="pedido-footer row border-top py-4 ferramentas" th:if="${pedido.pdcStatusPedido < 3}">
                     <div class="col text-center">
-                        <a href="#" class="btn mx-2 border shadow-sm">Cancelar pedido</a>
-                        <!-- <a href="#" class="btn mx-2 border shadow-sm">Solicitar troca</a> -->
+                        <form th:action="@{/cliente/meusPedidos/cancelarPedido}" method="POST">
+                            <button type="submit" class="btn mx-2 border shadow-sm" name="id" th:value="${pedido.pdcId}">Cancelar pedido</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -264,8 +271,8 @@
                                     <thead>
                                         <tr>
                                             <th scope="col" class="col-6">Produto</th>
-                                            <th scope="col" class="col-3 text-center">Qtd Disp.</th>
-                                            <th scope="col" class="col-3 text-center">Qtd Troca</th>
+                                            <th scope="col" class="col-3 text-center">Qtd disp.</th>
+                                            <th scope="col" class="col-3 text-center">Qtd troca</th>
                                         </tr>
                                     </thead>
                                     <tbody>

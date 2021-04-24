@@ -9,9 +9,9 @@ public interface EndCobrancasPadroesRepository extends JpaRepository<EndCobranca
 {
     // Procura por id do endereço
     @Query(value = "SELECT * FROM enderecos_cobrancas_padroes WHERE ecp_end_id = ?", nativeQuery = true)
-    public EndCobrancasPadroesModel findByEnderecoId(Integer id);
+    public EndCobrancasPadroesModel findByEnderecoId (Integer id);
 
     // Procura por id do cliente
     @Query(value = "SELECT * FROM enderecos_cobrancas_padroes WHERE ecp_cli_id = ?", nativeQuery = true)
-    public EndCobrancasPadroesModel findByClienteId(Integer id);
+    public EndCobrancasPadroesModel findByClienteId (Integer id);
 }

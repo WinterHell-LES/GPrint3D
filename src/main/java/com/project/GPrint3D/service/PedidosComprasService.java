@@ -1,5 +1,7 @@
 package com.project.GPrint3D.service;
 
+import java.sql.Date;
+
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
 
@@ -8,21 +10,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedidosComprasService 
+public class PedidosComprasService
 {
     @Autowired
-    private PedidosComprasRepository pedidos;
+    private PedidosComprasRepository pedidosComprasRepository;
 
-    public String[] cadastrar(PedidosComprasModel pedido)
+    public String[] cadastrar (PedidosComprasModel pedido)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            pedidos.save(pedido);
+            pedidosComprasRepository.save(pedido);
 
             response[0] = msg1;
             response[1] = "Pedido cadastrado com sucesso!";
@@ -41,16 +43,16 @@ public class PedidosComprasService
         return response;
     }
 
-    public String[] atualizar(PedidosComprasModel pedido)
+    public String[] atualizar (PedidosComprasModel pedido)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            pedidos.save(pedido);
+            pedidosComprasRepository.save(pedido);
 
             response[0] = msg1;
             response[1] = "Cadastro de pedido alterado com sucesso!";
@@ -60,20 +62,20 @@ public class PedidosComprasService
             response[0] = msg2;
             response[1] = "Erro ao alterar o pedido";
         }
-        
+
         return response;
     }
 
-    public String[] atualizarPedido(Integer status, Integer id)
+    public String[] atualizarPedido (Integer status, Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            pedidos.updateStatusPedido(status, id);
+            pedidosComprasRepository.updateStatusPedido(status, id);
 
             response[0] = msg1;
             response[1] = "Cadastro de pedido alterado com sucesso!";
@@ -83,20 +85,20 @@ public class PedidosComprasService
             response[0] = msg2;
             response[1] = "Erro ao alterar o pedido";
         }
-        
+
         return response;
     }
 
-    public String[] atualizarLogistica(Integer status, Integer id)
+    public String[] atualizarLogistica (Integer status, Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            pedidos.updateStatusLogistica(status, id);
+            pedidosComprasRepository.updateStatusLogistica(status, id);
 
             response[0] = msg1;
             response[1] = "Cadastro de pedido alterado com sucesso!";
@@ -106,20 +108,43 @@ public class PedidosComprasService
             response[0] = msg2;
             response[1] = "Erro ao alterar o pedido";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] atualizarDataEntrega (Date data, Integer id)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        try
+        {
+            pedidosComprasRepository.updateDataEntrega(data, id);
+
+            response[0] = msg1;
+            response[1] = "Cadastro de pedido alterado com sucesso!";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao alterar o pedido";
+        }
+
+        return response;
+    }
+
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            pedidos.deleteById(id);
+            pedidosComprasRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de pedido deletado com sucesso!";
@@ -129,7 +154,7 @@ public class PedidosComprasService
             response[0] = msg2;
             response[1] = "Erro ao deletar o pedido";
         }
-        
+
         return response;
-    }    
+    }
 }

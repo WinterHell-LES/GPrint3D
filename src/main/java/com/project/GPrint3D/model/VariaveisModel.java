@@ -32,6 +32,10 @@ public class VariaveisModel
     @Column(name = "var_temptroca")
     private Integer varTempTroca;
 
+    @NotNull(message = "Tempo do carrinho é obrigatório")
+    @Column(name = "var_tempcarrinho")
+    private Integer varTempCarrinho;
+
     @NotNull(message = "Validade do cupom é obrigatória")
     @Column(name = "var_validcupom")
     private Integer varValidCupom;
@@ -98,6 +102,7 @@ public class VariaveisModel
         this.varCep = "";
         this.varCategoria = 0;
         this.varTempTroca = 0;
+        this.varTempCarrinho = 0;
         this.varValidCupom = 0;
         this.varRank1 = 0;
         this.varRank2 = 0;
@@ -115,12 +120,13 @@ public class VariaveisModel
         this.varCorPeMin = 0.0;
     }
 
-    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varValidCupom, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4, double varCorAlMax, double varCorAlMin, double varCorLaMax, double varCorLaMin, double varCorPrMax, double varCorPrMin, double varCorSomDimMax, double varCorSomDimMin, double varCorPeMax, double varCorPeMin) 
+    public VariaveisModel(Integer varId, String varCep, Integer varCategoria, Integer varTempTroca, Integer varTempCarrinho, Integer varValidCupom, Integer varRank1, Integer varRank2, Integer varRank3, Integer varRank4, double varCorAlMax, double varCorAlMin, double varCorLaMax, double varCorLaMin, double varCorPrMax, double varCorPrMin, double varCorSomDimMax, double varCorSomDimMin, double varCorPeMax, double varCorPeMin) 
     {
         this.varId = varId;
         this.varCep = varCep;
         this.varCategoria = varCategoria;
         this.varTempTroca = varTempTroca;
+        this.varTempCarrinho = varTempCarrinho;
         this.varValidCupom = varValidCupom;
         this.varRank1 = varRank1;
         this.varRank2 = varRank2;
@@ -176,6 +182,16 @@ public class VariaveisModel
     public void setVarTempTroca(Integer varTempTroca) 
     {
         this.varTempTroca = varTempTroca;
+    }
+
+    public Integer getVarTempCarrinho() 
+    {
+        return this.varTempCarrinho;
+    }
+
+    public void setVarTempCarrinho(Integer varTempCarrinho) 
+    {
+        this.varTempCarrinho = varTempCarrinho;
     }
 
     public Integer getVarRank1() 

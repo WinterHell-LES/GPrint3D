@@ -19,40 +19,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     private DataSource dataSource;
 
     @Autowired
-    protected void configAuthentication(AuthenticationManagerBuilder auth) throws Exception 
+    protected void configAuthentication (AuthenticationManagerBuilder auth) throws Exception
     {
-        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-            .dataSource(dataSource)
-            .usersByUsernameQuery("SELECT usu_email, usu_senha, usu_ativo FROM usuarios WHERE usu_email=?")
-            .authoritiesByUsernameQuery("SELECT usu_email, usu_regra FROM usuarios WHERE usu_email=?");
+        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder()).dataSource(dataSource)
+                .usersByUsernameQuery("SELECT usu_email, usu_senha, usu_ativo FROM usuarios WHERE usu_email=?")
+                .authoritiesByUsernameQuery("SELECT usu_email, usu_regra FROM usuarios WHERE usu_email=?");
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception 
+    public void configure (WebSecurity web) throws Exception
     {
         web.ignoring().antMatchers("/javascripts/**", "/stylesheets/**", "/images/**");
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception 
+    protected void configure (HttpSecurity http) throws Exception
     {
-        http.authorizeRequests()
-            .antMatchers("/admin/**").hasRole("ADM")
-            .antMatchers("/cliente/**").hasRole("CLI")
-            .anyRequest().permitAll()
-            .and()
-            .formLogin()
-            .loginPage("/login")
-            .permitAll()
-            .and()
-            .logout()
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .logoutSuccessUrl("/index")
-            .permitAll();
+        http.authorizeRequests().antMatchers("/admin/**").hasRole("ADM").antMatchers("/cliente/**").hasRole("CLI")
+                .anyRequest().permitAll().and().formLogin().loginPage("/login").permitAll().and().logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/index").permitAll();
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() 
+    public BCryptPasswordEncoder passwordEncoder ()
     {
         return new BCryptPasswordEncoder();
     }

@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 public class DocumentosService
 {
     @Autowired
-    private DocumentosRepository documentos;
+    private DocumentosRepository documentosRepository;
 
-    public String[] cadastrar(DocumentosModel documento)
+    public String[] cadastrar (DocumentosModel documento)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            documentos.save(documento);
+            documentosRepository.save(documento);
 
             response[0] = msg1;
             response[1] = "Documento cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class DocumentosService
         return response;
     }
 
-    public String[] atualizar(DocumentosModel documento)
+    public String[] atualizar (DocumentosModel documento)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            documentos.save(documento);
+            documentosRepository.save(documento);
 
             response[0] = msg1;
             response[1] = "Cadastro de documento alterado com sucesso!";
@@ -60,20 +60,20 @@ public class DocumentosService
             response[0] = msg2;
             response[1] = "Erro ao alterar o documento";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            documentos.deleteById(id);
+            documentosRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de documento deletado com sucesso!";
@@ -83,7 +83,7 @@ public class DocumentosService
             response[0] = msg2;
             response[1] = "Erro ao deletar o documento";
         }
-        
+
         return response;
     }
 }

@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 public class BandeirasService
 {
     @Autowired
-    private BandeirasRepository bandeiras;
+    private BandeirasRepository bandeirasRepository;
 
-    public String[] cadastrar(BandeirasModel bandeira)
+    public String[] cadastrar (BandeirasModel bandeira)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            bandeiras.save(bandeira);
+            bandeirasRepository.save(bandeira);
 
             response[0] = msg1;
             response[1] = "Bandeira cadastrada com sucesso!";
@@ -41,16 +41,16 @@ public class BandeirasService
         return response;
     }
 
-    public String[] atualizar(BandeirasModel bandeira)
+    public String[] atualizar (BandeirasModel bandeira)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            bandeiras.save(bandeira);
+            bandeirasRepository.save(bandeira);
 
             response[0] = msg1;
             response[1] = "Cadastro de bandeira alterado com sucesso!";
@@ -60,20 +60,20 @@ public class BandeirasService
             response[0] = msg2;
             response[1] = "Erro ao alterar a bandeira";
         }
-        
+
         return response;
     }
 
-    public String[] ativar(Boolean ativa, Integer id)
+    public String[] ativar (Boolean ativa, Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "ativaSuccess";
         String msg2 = "ativaError";
 
-        try 
+        try
         {
-            bandeiras.updadeAtiva(ativa, id);
+            bandeirasRepository.updadeAtiva(ativa, id);
 
             response[0] = msg1;
             response[1] = "Cadastro de bandeira alterado com sucesso!";
@@ -83,20 +83,20 @@ public class BandeirasService
             response[0] = msg2;
             response[1] = "Erro ao alterar a bandeira";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            bandeiras.deleteById(id);
+            bandeirasRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de bandeira deletado com sucesso!";
@@ -106,7 +106,7 @@ public class BandeirasService
             response[0] = msg2;
             response[1] = "Erro ao deletar a bandeira";
         }
-        
+
         return response;
     }
 }

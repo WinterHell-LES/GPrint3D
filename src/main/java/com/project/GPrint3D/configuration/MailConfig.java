@@ -2,7 +2,6 @@ package com.project.GPrint3D.configuration;
 
 import java.util.Properties;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -14,18 +13,15 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @PropertySource("classpath:mail.properties")
 public class MailConfig 
 {
-    @Autowired
-    private Environment env;
-
     @Bean
-    public JavaMailSender mailSender()
+    public JavaMailSender mailSender(Environment environment)
     {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
-        mailSender.setHost(env.getProperty("mail.smtp.host"));
-        mailSender.setPort(env.getProperty("mail.smtp.port", Integer.class));
-        mailSender.setUsername(env.getProperty("mail.smtp.username"));
-        mailSender.setPassword(env.getProperty("mail.smtp.password"));
+        mailSender.setHost(environment.getProperty("mail.smtp.host"));
+        mailSender.setPort(environment.getProperty("mail.smtp.port", Integer.class));
+        mailSender.setUsername(environment.getProperty("mail.smtp.username"));
+        mailSender.setPassword(environment.getProperty("mail.smtp.password"));
 
         Properties props = new Properties();
 

@@ -150,8 +150,8 @@
                             </div>
                         </div>
 
-                        <div class="row p-2 border-top" th:if="${#strings.isEmpty(cupomPromocaoUtilizado.cppCodigo)}">
-                            <div class="col">
+                        <div class="row p-2" th:if="${#strings.isEmpty(cupomPromocaoUtilizado.cppCodigo)}">
+                            <div class="col border-top">
                                 <div class="row pt-2 pb-0">
                                     <p>Possui algum cupom promocional?</p>
                                 </div>
@@ -168,7 +168,7 @@
                             </div>
                         </div>
                         <div class="row p-2" th:if="${not #strings.isEmpty(cupomPromocaoUtilizado.cppCodigo)}">
-                            <div class="col">
+                            <div class="col border-top">
                                 <div class="row pt-2 pb-0">
                                     <p>Cupom promocional aplicado:</p>
                                 </div>

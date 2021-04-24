@@ -69,14 +69,15 @@
                             <a class="nav-link text-light" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 <i class="bi bi-person-square fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuário"></i>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-lg-end">
-                                <li class="text-center my-2">
+                            <ul class="dropdown-menu dropdown-menu-lg-end py-1">
+                                <li class="text-center mb-1">
                                     <p class="m-0">Bem vindo,</p>
                                     <p class="m-0" th:text="${#strings.substringBefore(usuario, ' ')}"></p>
                                 </li>
+                                <div class="dropdown-divider my-1"></div>
                                 <li><a class="dropdown-item" href="/cliente/index" sec:authorize="hasRole('CLI')">Usuário</a></li>
                                 <li><a class="dropdown-item" href="/admin/index" sec:authorize="hasRole('ADM')">Sistema</a></li>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider my-1"></div>
                                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
                         </div>

@@ -251,20 +251,36 @@ public class CorreiosUtil
         {
             produto.setPrdDimEmbPe(pesoMin);
         }
+        else
+        {
+            produto.setPrdDimEmbPe(pesoPrd);
+        }
 
         if (profundidadePrd < profundidadeMin)
         {
             produto.setPrdDimEmbPr(profundidadeMin);
+        }
+        else
+        {
+            produto.setPrdDimEmbPr(profundidadePrd);
         }
 
         if (larguraPrd < larguraMin)
         {
             produto.setPrdDimEmbLa(larguraMin);
         }
+        else
+        {
+            produto.setPrdDimEmbLa(larguraPrd);
+        }
 
         if (alturaPrd < alturaMin)
         {
             produto.setPrdDimEmbAl(alturaMin);
+        }
+        else
+        {
+            produto.setPrdDimEmbAl(alturaPrd);
         }
 
         if (pesoPrd > pesoMax || profundidadePrd > profundidadeMax || larguraPrd > larguraMax || alturaPrd > alturaMax || (profundidadePrd + larguraPrd + alturaPrd) > somaMax)

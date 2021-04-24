@@ -9,5 +9,5 @@ public interface VariaveisRepository extends JpaRepository<VariaveisModel, Integ
 {
     // Procura por id da variavel
     @Query(value = "SELECT * FROM sis_variaveis WHERE var_id = ?", nativeQuery = true)
-    public VariaveisModel findOneById(Integer id);
+    public VariaveisModel findOneById (Integer id);
 }

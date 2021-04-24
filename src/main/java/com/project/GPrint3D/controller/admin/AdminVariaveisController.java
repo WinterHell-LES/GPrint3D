@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminVariaveisController 
+public class AdminVariaveisController
 {
     @Autowired
     private VariaveisRepository variaveisRepository;
@@ -26,7 +26,7 @@ public class AdminVariaveisController
     private VariaveisService variaveisService;
 
     @RequestMapping("listarVariaveis")
-    public ModelAndView listarVariaveis(VariaveisModel variavel)
+    public ModelAndView listarVariaveis (VariaveisModel variavel)
     {
         ModelAndView mv = new ModelAndView("/admin/configuracoes/listarVariaveis");
 
@@ -36,14 +36,14 @@ public class AdminVariaveisController
     }
 
     @RequestMapping("cadastrarVariaveis")
-    public ModelAndView cadastrarVariaveis(VariaveisModel variavel)
+    public ModelAndView cadastrarVariaveis (VariaveisModel variavel)
     {
-        ModelAndView mv = new ModelAndView("/admin/configuracoes/cadastrarVariaveis");
-
-        return mv;
+        return new ModelAndView("/admin/configuracoes/cadastrarVariaveis");
     }
+
     @PostMapping("cadastrarVariaveis")
-    public ModelAndView cadastroVariaveis(@Valid VariaveisModel variavel, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastroVariaveis (@Valid VariaveisModel variavel, BindingResult result,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
@@ -51,25 +51,25 @@ public class AdminVariaveisController
         }
 
         String[] mensagem = variaveisService.cadastrar(variavel);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastrarVariaveis");
     }
 
     @PostMapping("/alterarVariaveis")
-    public ModelAndView alterarCategoria(@Valid VariaveisModel variavel, RedirectAttributes attributes)
+    public ModelAndView alterarCategoria (@Valid VariaveisModel variavel, RedirectAttributes attributes)
     {
         String[] mensagem = variaveisService.atualizar(variavel);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/listarVariaveis");
     }
 
     @PostMapping("/deletaVariaveis")
-    public ModelAndView deletarBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
-    {        
+    public ModelAndView deletarBandeiras (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
+    {
         String[] mensagem = variaveisService.excluir(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);

@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProdutosJustificativasService 
+public class ProdutosJustificativasService
 {
     @Autowired
-    private ProdutosJustificativasRepository produtosJustificativas;
+    private ProdutosJustificativasRepository produtosJustificativasRepository;
 
-    public String[] cadastrar(ProdutosJustificativasModel produtosJustificativa)
+    public String[] cadastrar (ProdutosJustificativasModel produtosJustificativa)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            produtosJustificativas.save(produtosJustificativa);
+            produtosJustificativasRepository.save(produtosJustificativa);
 
             response[0] = msg1;
             response[1] = "Justificativa cadastrada com sucesso!";
@@ -41,16 +41,16 @@ public class ProdutosJustificativasService
         return response;
     }
 
-    public String[] atualizar(ProdutosJustificativasModel produtosJustificativa)
+    public String[] atualizar (ProdutosJustificativasModel produtosJustificativa)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            produtosJustificativas.save(produtosJustificativa);
+            produtosJustificativasRepository.save(produtosJustificativa);
 
             response[0] = msg1;
             response[1] = "Cadastro de justificativa alterado com sucesso!";
@@ -60,20 +60,20 @@ public class ProdutosJustificativasService
             response[0] = msg2;
             response[1] = "Erro ao alterar a justificativa";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            produtosJustificativas.deleteById(id);
+            produtosJustificativasRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de justificativa deletado com sucesso!";
@@ -83,7 +83,7 @@ public class ProdutosJustificativasService
             response[0] = msg2;
             response[1] = "Erro ao deletar a justificativa";
         }
-        
+
         return response;
     }
 }

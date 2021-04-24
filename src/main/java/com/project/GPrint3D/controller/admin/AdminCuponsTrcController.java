@@ -9,13 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminCuponsTrcController 
+public class AdminCuponsTrcController
 {
     @Autowired
     private CuponsTrocasRepository cuponsTrocasRepository;
 
     @RequestMapping("cupons/listarCuponsTrocas")
-    public ModelAndView listarCuponsTrocas()
+    public ModelAndView listarCuponsTrocas ()
     {
         ModelAndView mv = new ModelAndView("/admin/cupons/trocas/listarCuponsTrocas");
 

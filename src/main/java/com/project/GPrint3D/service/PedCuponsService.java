@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedCuponsService 
+public class PedCuponsService
 {
     @Autowired
-    private PedCuponsRepository pedCupons;
+    private PedCuponsRepository pedCuponsRepository;
 
-    public String[] cadastrar(PedCuponsModel pedCupom)
+    public String[] cadastrar (PedCuponsModel pedCupom)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            pedCupons.save(pedCupom);
+            pedCuponsRepository.save(pedCupom);
 
             response[0] = msg1;
             response[1] = "Cupom do pedido cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class PedCuponsService
         return response;
     }
 
-    public String[] atualizar(PedCuponsModel pedCupom)
+    public String[] atualizar (PedCuponsModel pedCupom)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            pedCupons.save(pedCupom);
+            pedCuponsRepository.save(pedCupom);
 
             response[0] = msg1;
             response[1] = "Cadastro do cupom do pedido alterado com sucesso!";
@@ -60,20 +60,20 @@ public class PedCuponsService
             response[0] = msg2;
             response[1] = "Erro ao alterar o cupom do pedido";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            pedCupons.deleteById(id);
+            pedCuponsRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro do cupom do pedido deletado com sucesso!";
@@ -83,7 +83,7 @@ public class PedCuponsService
             response[0] = msg2;
             response[1] = "Erro ao deletar o cupom do pedido";
         }
-        
+
         return response;
     }
 }

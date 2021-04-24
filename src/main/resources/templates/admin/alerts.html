@@ -2,44 +2,44 @@
     <body>
         <div th:fragment="alertCreate">
             <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(cadastroSuccess)}">
-                <span th:text=${cadastroSuccess}></span>
+                <span th:text="${cadastroSuccess}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(cadastroError)}">
-                <span th:text=${cadastroError}></span>
+                <span th:text="${cadastroError}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
 
         <div th:fragment="alertUpdate">
             <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(alteracaoSuccess)}">
-                <span th:text=${alteracaoSuccess}></span>
+                <span th:text="${alteracaoSuccess}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(alteracaoError)}">
-                <span th:text=${alteracaoError}></span>
+                <span th:text="${alteracaoError}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
 
         <div th:fragment="alertDelete">
             <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(deleteSuccess)}">
-                <span th:text=${deleteSuccess}></span>
+                <span th:text="${deleteSuccess}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(deleteError)}">
-                <span th:text=${deleteError}></span>
+                <span th:text="${deleteError}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
 
         <div th:fragment="alertAtiva">
             <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(ativaSuccess)}">
-                <span th:text=${ativaSuccess}></span>
+                <span th:text="${ativaSuccess}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(ativaError)}">
-                <span th:text=${ativaError}></span>
+                <span th:text="${ativaError}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>

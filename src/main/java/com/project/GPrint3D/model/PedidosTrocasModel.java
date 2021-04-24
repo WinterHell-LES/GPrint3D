@@ -52,6 +52,9 @@ public class PedidosTrocasModel
     @Column(name = "pdt_descricao")
     private String pdtDescricao;
 
+    @Column(name = "pdt_retorno")
+    private boolean pdtRetorno;
+
     @OneToOne
     @JoinColumn(name = "pdt_ppd_id", referencedColumnName = "ppd_id")
     private PedProdutosModel pedProduto;
@@ -81,9 +84,10 @@ public class PedidosTrocasModel
         this.pdtStatusPedido = 0;
         this.pdtStatusLogistica = 0;
         this.pdtDescricao = "";
+        this.pdtRetorno = false;
     }
 
-    public PedidosTrocasModel(Integer pdtId, String pdtNumero, Integer pdtQuantidade, Date pdtData, Integer pdtEscolha, Integer pdtStatusPedido, Integer pdtStatusLogistica, String pdtDescricao) 
+    public PedidosTrocasModel(Integer pdtId, String pdtNumero, Integer pdtQuantidade, Date pdtData, Integer pdtEscolha, Integer pdtStatusPedido, Integer pdtStatusLogistica, String pdtDescricao, boolean pdtRetorno) 
     {
         super( );
 
@@ -95,6 +99,7 @@ public class PedidosTrocasModel
         this.pdtStatusPedido = pdtStatusPedido;
         this.pdtStatusLogistica = pdtStatusLogistica;
         this.pdtDescricao = pdtDescricao;
+        this.pdtRetorno = pdtRetorno;
     }
 
     public Integer getPdtId() 
@@ -177,6 +182,21 @@ public class PedidosTrocasModel
         this.pdtDescricao = pdtDescricao;
     }
 
+    public boolean isPdtRetorno() 
+    {
+        return this.pdtRetorno;
+    }
+
+    public boolean getPdtRetorno() 
+    {
+        return this.pdtRetorno;
+    }
+
+    public void setPdtRetorno(boolean pdtRetorno) 
+    {
+        this.pdtRetorno = pdtRetorno;
+    }
+
     public PedProdutosModel getPedProduto() 
     {
         return this.pedProduto;
@@ -205,6 +225,16 @@ public class PedidosTrocasModel
     public void setCliente(ClientesModel cliente) 
     {
         this.cliente = cliente;
+    }
+
+    public PedTroFretesModel getFrete() 
+    {
+        return this.frete;
+    }
+
+    public void setFrete(PedTroFretesModel frete) 
+    {
+        this.frete = frete;
     }
 
     public String getStrStatusPedido()

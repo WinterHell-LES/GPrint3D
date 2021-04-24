@@ -23,21 +23,19 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-public class CorreiosUtil 
+public class CorreiosUtil
 {
-    public HashMap<String, String> getValidarCEP(String cep)
+    public HashMap<String, String> getValidarCEP (String cep)
     {
         HashMap<String, String> resp = new HashMap<>();
 
         String url = "https://viacep.com.br/ws/" + cep + "/xml/";
 
-        try 
+        try
         {
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-            //int responseCode = con.getResponseCode();
-            //System.out.println("Response code: " + responseCode);
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String inputLine;
@@ -50,7 +48,8 @@ public class CorreiosUtil
 
             in.close();
 
-            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(response.toString())));
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                    .parse(new InputSource(new StringReader(response.toString())));
 
             NodeList errNodes = doc.getElementsByTagName("xmlcep");
 
@@ -63,8 +62,8 @@ public class CorreiosUtil
                     resp.put("erro", "false");
                 }
             }
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             System.out.println(e);
 
@@ -74,14 +73,15 @@ public class CorreiosUtil
         return resp;
     }
 
-    public List<HashMap<String, String>> getValorPrazo(String cepRemetente, String cepDestinatario, ProdutosModel produto, VariaveisModel variaveis)
+    public List<HashMap<String, String>> getValorPrazo (String cepRemetente, String cepDestinatario,
+            ProdutosModel produto, VariaveisModel variaveis)
     {
-        // Código  Serviço
-        // 04014   SEDEX à vista
-        // 04510   PAC à vista
-        // 04782   SEDEX 12 (à vista)
-        // 04790   SEDEX 10 (à vista)
-        // 04804   SEDEX Hoje à vista
+        // Código Serviço
+        // 04014 SEDEX à vista
+        // 04510 PAC à vista
+        // 04782 SEDEX 12 (à vista)
+        // 04790 SEDEX 10 (à vista)
+        // 04804 SEDEX Hoje à vista
 
         try
         {
@@ -89,41 +89,30 @@ public class CorreiosUtil
         }
         catch (Exception e)
         {
-            return null;
+            return new ArrayList<>();
         }
 
         List<HashMap<String, String>> listHash = new ArrayList<>();
 
-        String[] formEnvioNome = {"SEDEX", "PAC", "SEDEX 12", "SEDEX 10", "SEDEX Hoje"};
-        String[] formEnvioCod = {"04014", "04510", "04782", "04790", "04804"};
+        String[] formEnvioNome = { "SEDEX", "PAC", "SEDEX 12", "SEDEX 10", "SEDEX Hoje" };
+        String[] formEnvioCod = { "04014", "04510", "04782", "04790", "04804" };
 
         for (int i = 0 ; i < formEnvioNome.length ; i++)
         {
-            try 
+            try
             {
-                String url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx" + 
-                                "?nCdEmpresa=" +
-                                "&sDsSenha=" +
-                                "&sCepOrigem=" + cepRemetente +
-                                "&sCepDestino=" + cepDestinatario +
-                                "&nVlPeso=" + (int) produto.getPrdDimEmbPe() +
-                                "&nCdFormato=1" +
-                                "&nVlComprimento=" + (int) Math.ceil((produto.getPrdDimEmbPr() / 10)) +
-                                "&nVlAltura=" + (int) Math.ceil((produto.getPrdDimEmbAl() / 10)) +
-                                "&nVlLargura=" + (int) Math.ceil((produto.getPrdDimEmbLa() / 10)) +
-                                "&sCdMaoPropria=N" +
-                                "&nVlValorDeclarado=0" +
-                                "&sCdAvisoRecebimento=N" +
-                                "&nCdServico=" + formEnvioCod[i] +
-                                "&nVlDiametro=0" +
-                                "&StrRetorno=xml" +
-                                "&nIndicaCalculo=3";
+                String url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx" + "?nCdEmpresa=" + "&sDsSenha="
+                        + "&sCepOrigem=" + cepRemetente + "&sCepDestino=" + cepDestinatario + "&nVlPeso="
+                        + (int) produto.getPrdDimEmbPe() + "&nCdFormato=1" + "&nVlComprimento="
+                        + (int) Math.ceil((produto.getPrdDimEmbPr() / 10)) + "&nVlAltura="
+                        + (int) Math.ceil((produto.getPrdDimEmbAl() / 10)) + "&nVlLargura="
+                        + (int) Math.ceil((produto.getPrdDimEmbLa() / 10)) + "&sCdMaoPropria=N" + "&nVlValorDeclarado=0"
+                        + "&sCdAvisoRecebimento=N" + "&nCdServico=" + formEnvioCod[i] + "&nVlDiametro=0"
+                        + "&StrRetorno=xml" + "&nIndicaCalculo=3";
 
                 URL obj = new URL(url);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                //int responseCode = con.getResponseCode();
-                //System.out.println("Response code: " + responseCode);
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
                 String inputLine;
@@ -136,7 +125,8 @@ public class CorreiosUtil
 
                 in.close();
 
-                Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(new StringReader(response.toString())));
+                Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+                        .parse(new InputSource(new StringReader(response.toString())));
 
                 NodeList errNodes = doc.getElementsByTagName("cServico");
 
@@ -150,31 +140,35 @@ public class CorreiosUtil
                     resp.put("Codigo", err.getElementsByTagName("Codigo").item(0).getTextContent());
                     resp.put("Valor", err.getElementsByTagName("Valor").item(0).getTextContent());
                     resp.put("PrazoEntrega", err.getElementsByTagName("PrazoEntrega").item(0).getTextContent());
-                    resp.put("ValorSemAdicionais", err.getElementsByTagName("ValorSemAdicionais").item(0).getTextContent());
+                    resp.put("ValorSemAdicionais",
+                            err.getElementsByTagName("ValorSemAdicionais").item(0).getTextContent());
                     resp.put("ValorMaoPropria", err.getElementsByTagName("ValorMaoPropria").item(0).getTextContent());
-                    resp.put("ValorAvisoRecebimento", err.getElementsByTagName("ValorAvisoRecebimento").item(0).getTextContent());
-                    resp.put("ValorValorDeclarado", err.getElementsByTagName("ValorValorDeclarado").item(0).getTextContent());
-                    resp.put("EntregaDomiciliar", err.getElementsByTagName("EntregaDomiciliar").item(0).getTextContent());
+                    resp.put("ValorAvisoRecebimento",
+                            err.getElementsByTagName("ValorAvisoRecebimento").item(0).getTextContent());
+                    resp.put("ValorValorDeclarado",
+                            err.getElementsByTagName("ValorValorDeclarado").item(0).getTextContent());
+                    resp.put("EntregaDomiciliar",
+                            err.getElementsByTagName("EntregaDomiciliar").item(0).getTextContent());
                     resp.put("EntregaSabado", err.getElementsByTagName("EntregaSabado").item(0).getTextContent());
 
                     listHash.add(resp);
                 }
-            } 
-            catch (Exception e) 
+            }
+            catch (Exception e)
             {
-                System.out.println(e);
+                System.out.println("Erro: " + e);
             }
         }
 
-        //listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Valor"))));
         listHash.sort(Comparator.comparing(o -> String.valueOf(o.get("Nome"))));
 
         return listHash;
     }
-    
-    public List<HashMap<String, String>> getValorPrazoLista(String cepRemetente, String cep, List<PrdCarrinhosModel> listaProdutos, VariaveisModel variaveis) throws Exception
+
+    public List<HashMap<String, String>> getValorPrazoLista (String cepRemetente, String cep,
+            List<PrdCarrinhosModel> listaProdutos, VariaveisModel variaveis) throws Exception
     {
-        if (listaProdutos.size() == 0)
+        if (listaProdutos.isEmpty())
         {
             throw new Exception("Nenhum produto encontrado");
         }
@@ -183,7 +177,8 @@ public class CorreiosUtil
 
         for (PrdCarrinhosModel produtoCarrinho : listaProdutos)
         {
-            List<HashMap<String, String>> listHashTemp = getValorPrazo(cepRemetente, cep, produtoCarrinho.getProduto(), variaveis);
+            List<HashMap<String, String>> listHashTemp = getValorPrazo(cepRemetente, cep, produtoCarrinho.getProduto(),
+                    variaveis);
             int cont = 0;
 
             if (listHashTemp == null)
@@ -197,7 +192,9 @@ public class CorreiosUtil
 
                 hashTemp.put("Nome", aux.get("Nome"));
 
-                BigDecimal valorBD = new BigDecimal(aux.get("Valor").replace(".", "").replace(",", ".")).multiply(BigDecimal.valueOf(produtoCarrinho.getPcrQuantidade())).setScale(2, RoundingMode.HALF_EVEN);
+                BigDecimal valorBD = new BigDecimal(aux.get("Valor").replace(".", "").replace(",", "."))
+                        .multiply(BigDecimal.valueOf(produtoCarrinho.getPcrQuantidade()))
+                        .setScale(2, RoundingMode.HALF_EVEN);
 
                 hashTemp.put("Valor", valorBD.toString().replace(".", ","));
                 hashTemp.put("PrazoEntrega", aux.get("PrazoEntrega"));
@@ -210,7 +207,8 @@ public class CorreiosUtil
                 {
                     HashMap<String, String> hashMergeTemp = listHash.get(cont);
 
-                    valorBD = new BigDecimal(hashMergeTemp.get("Valor").replace(",", ".")).add(valorBD).setScale(2, RoundingMode.HALF_EVEN);
+                    valorBD = new BigDecimal(hashMergeTemp.get("Valor").replace(",", ".")).add(valorBD).setScale(2,
+                            RoundingMode.HALF_EVEN);
 
                     hashTemp.put("Valor", valorBD.toString().replace(".", ","));
 
@@ -221,7 +219,7 @@ public class CorreiosUtil
 
                     listHash.set(cont, hashTemp);
 
-                    cont++;                  
+                    cont++;
                 }
             }
         }
@@ -229,23 +227,23 @@ public class CorreiosUtil
         return listHash;
     }
 
-    public ProdutosModel enquadrarCorreios(ProdutosModel produto, VariaveisModel variaveis) throws Exception
+    public ProdutosModel enquadrarCorreios (ProdutosModel produto, VariaveisModel variaveis) throws Exception
     {
-        Double pesoMin = variaveis.getVarCorPeMin();
-        Double pesoMax = variaveis.getVarCorPeMax();
-        Double profundidadeMin = variaveis.getVarCorPrMin();
-        Double profundidadeMax = variaveis.getVarCorPrMax();
-        Double larguraMin = variaveis.getVarCorLaMin();
-        Double larguraMax = variaveis.getVarCorLaMax();
-        Double alturaMin = variaveis.getVarCorAlMin();
-        Double alturaMax = variaveis.getVarCorAlMax();
-        Double somaMin = variaveis.getVarCorSomDimMin(); // Garantindo que cada dimensão seja seu mínimo, não há necessidade de verificar a somaMin
-        Double somaMax = variaveis.getVarCorSomDimMax();
+        double pesoMin = variaveis.getVarCorPeMin();
+        double pesoMax = variaveis.getVarCorPeMax();
+        double profundidadeMin = variaveis.getVarCorPrMin();
+        double profundidadeMax = variaveis.getVarCorPrMax();
+        double larguraMin = variaveis.getVarCorLaMin();
+        double larguraMax = variaveis.getVarCorLaMax();
+        double alturaMin = variaveis.getVarCorAlMin();
+        double alturaMax = variaveis.getVarCorAlMax();// Garantindo que cada dimensão seja seu mínimo, não há
+                                                      // necessidade de verificar a somaMin
+        double somaMax = variaveis.getVarCorSomDimMax();
 
-        Double pesoPrd = Math.ceil(produto.getPrdDimEmbPe());
-        Double profundidadePrd = Math.ceil(produto.getPrdDimEmbPr());
-        Double larguraPrd =  Math.ceil(produto.getPrdDimEmbLa());
-        Double alturaPrd =  Math.ceil(produto.getPrdDimEmbAl());
+        double pesoPrd = Math.ceil(produto.getPrdDimEmbPe());
+        double profundidadePrd = Math.ceil(produto.getPrdDimEmbPr());
+        double larguraPrd = Math.ceil(produto.getPrdDimEmbLa());
+        double alturaPrd = Math.ceil(produto.getPrdDimEmbAl());
 
         if (pesoPrd < pesoMin)
         {
@@ -283,7 +281,8 @@ public class CorreiosUtil
             produto.setPrdDimEmbAl(alturaPrd);
         }
 
-        if (pesoPrd > pesoMax || profundidadePrd > profundidadeMax || larguraPrd > larguraMax || alturaPrd > alturaMax || (profundidadePrd + larguraPrd + alturaPrd) > somaMax)
+        if (pesoPrd > pesoMax || profundidadePrd > profundidadeMax || larguraPrd > larguraMax || alturaPrd > alturaMax
+                || (profundidadePrd + larguraPrd + alturaPrd) > somaMax)
         {
             throw new Exception("Dimensão maior que a permitida.");
         }

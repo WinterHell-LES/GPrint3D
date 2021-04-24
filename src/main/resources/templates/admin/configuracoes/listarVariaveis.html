@@ -32,11 +32,11 @@
                     <tbody>
                         <tr>
                             <th scope="row" class="align-middle">CEP remetente</th>
-                            <td class="align-middle"><input class="form-control" type="text" name="cep" id="cep" th:field="${variaveis.varCep}" /></td>
+                            <td class="align-middle"><input class="form-control" type="text" th:field="${variaveis.varCep}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Quantidade de categorias na pagina inicial</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varCategoria}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCategoria}" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,19 +51,19 @@
                     <tbody>
                         <tr>
                             <th scope="row" class="align-middle">Ranking 1 (Bronze)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varRank1}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varRank1}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Ranking 2 (Prata)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varRank2}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varRank2}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Ranking 3 (Ouro)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varRank3}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varRank3}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Ranking 4 (Platina)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varRank4}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varRank4}" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -78,11 +78,15 @@
                     <tbody>
                         <tr>
                             <th scope="row" class="align-middle">Tempo de troca do produto recebido (dias)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varTempTroca}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varTempTroca}" /></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="align-middle">Validade dos itens no carrinho (dias)</th>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varTempCarrinho}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Validade do cupom de troca (dias)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varValidCupom}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varValidCupom}" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,44 +101,44 @@
                     <tbody>
                         <tr>
                             <th scope="row" class="align-middle">Altura máxima da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varCorAlMax}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorAlMax}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Largura máxima da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varCorLaMax}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorLaMax}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Profundidade máxima da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varCorPrMax}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorPrMax}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Soma máxima do dimensional da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varCorSomDimMax}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorSomDimMax}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Peso máximo (Kg)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varCorPeMax}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorPeMax}" /></td>
                         </tr>
 
                         <tr>
                             <th scope="row" class="align-middle">Altura mínima da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varCorAlMin}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorAlMin}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Largura mínima da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varCorLaMin}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorLaMin}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Profundidade mínima da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varCorPrMin}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorPrMin}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Soma mínima do dimensional da caixa (mm)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="categoria" id="categoria" th:field="${variaveis.varCorSomDimMin}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorSomDimMin}" /></td>
                         </tr>
                         <tr>
                             <th scope="row" class="align-middle">Peso mínimo (Kg)</th>
-                            <td class="align-middle"><input class="form-control" type="number" name="cep" id="cep" th:field="${variaveis.varCorPeMin}" /></td>
+                            <td class="align-middle"><input class="form-control" type="number" th:field="${variaveis.varCorPeMin}" /></td>
                         </tr>
                     </tbody>
                 </table>

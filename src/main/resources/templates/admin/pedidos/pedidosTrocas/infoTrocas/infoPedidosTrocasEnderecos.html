@@ -12,7 +12,7 @@
     <body>
         <section layout:fragment="conteudo">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2" th:text="'Pedido - ' + ${pedido.pdcNumero}">Numero do pedido</h1>
+                <h1 class="h2" th:text="'Pedido - ' + ${pedido.pdtNumero}">Numero do pedido</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <a href="/admin/pedido/listarPedidosCompras" class="btn btn-sm btn-outline-secondary">
                         Voltar
@@ -22,19 +22,19 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/dados'">Dados gerais</a>
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/dados'">Dados gerais</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/produtos'">Produtos</a>
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/produtos'">Produtos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/cliente'">Cliente</a>
+                    <a class="nav-link"th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/cliente'">Cliente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/enderecos'">Endereços</a>
+                    <a class="nav-link active" aria-current="page" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/enderecos'">Endereços</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdcId} + '/cartoes'">Cartão</a>
+                    <a class="nav-link" th:href="'/admin/pedido/infoTrocas/' + ${pedido.pdtId} + '/cartoes'">Cartão</a>
                 </li>
             </ul>
 
@@ -48,39 +48,39 @@
                 <tbody>
                     <tr>
                         <th scope="row">Descrição</th>
-                        <td th:text="${pedido.endereco.endDescricao}">Descrição</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endDescricao}">Descrição</td>
                     </tr>
                     <tr>
                         <th scope="row">Tipo</th>
-                        <td th:text="${pedido.endereco.endTipo}">Tipo</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endTipo}">Tipo</td>
                     </tr>
                     <tr>
                         <th scope="row">Logradouro</th>
-                        <td th:text="${pedido.endereco.endLogradouro}">Logradouro</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endLogradouro}">Logradouro</td>
                     </tr>
                     <tr>
                         <th scope="row">Número</th>
-                        <td th:text="${pedido.endereco.endNumero}">Número</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endNumero}">Número</td>
                     </tr>
                     <tr>
                         <th scope="row">CEP</th>
-                        <td th:text="${pedido.endereco.endCep}">CEP</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endCep}">CEP</td>
                     </tr>
                     <tr>
                         <th scope="row">Complemento</th>
-                        <td th:text="${pedido.endereco.endComplemento}">Complemento</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endComplemento}">Complemento</td>
                     </tr>
                     <tr>
                         <th scope="row">Cidade</th>
-                        <td th:text="${pedido.endereco.endCidade}">Cidade</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endCidade}">Cidade</td>
                     </tr>
                     <tr>
                         <th scope="row">Estado</th>
-                        <td th:text="${pedido.endereco.endEstado}">Estado</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endEstado}">Estado</td>
                     </tr>
                     <tr>
                         <th scope="row">País</th>
-                        <td th:text="${pedido.endereco.endPais}">País</td>
+                        <td th:text="${pedido.pedidoCompra.endereco.endPais}">País</td>
                     </tr>
                 </tbody>
             </table>

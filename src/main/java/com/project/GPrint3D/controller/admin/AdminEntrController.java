@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminEntrController 
+public class AdminEntrController
 {
     @Autowired
     private CategoriasRepository categoriasRepository;
@@ -35,7 +35,7 @@ public class AdminEntrController
     private EntradasService entradasService;
 
     @RequestMapping("listarEntradas")
-    public ModelAndView listarEntradas()
+    public ModelAndView listarEntradas ()
     {
         ModelAndView mv = new ModelAndView("/admin/entradas/listarEntradas");
 
@@ -45,7 +45,7 @@ public class AdminEntrController
     }
 
     @RequestMapping("cadastrarEntradas")
-    public ModelAndView cadastrarEntradas(EntradasModel entrada)
+    public ModelAndView cadastrarEntradas (EntradasModel entrada)
     {
         ModelAndView mv = new ModelAndView("/admin/entradas/cadastrarEntradas");
 
@@ -53,8 +53,10 @@ public class AdminEntrController
 
         return mv;
     }
+
     @PostMapping("cadastrarEntradas")
-    public ModelAndView cadastroEntradas(@Valid EntradasModel entrada, Principal principal, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastroEntradas (@Valid EntradasModel entrada, Principal principal, BindingResult result,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors() || (entrada.getEntQuantidade().intValue() <= 0))
         {
@@ -64,7 +66,7 @@ public class AdminEntrController
         entrada.setUsuario(usuariosRepository.findByEmail(principal.getName()));
 
         String[] mensagem = entradasService.cadastrar(entrada);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastrarEntradas");

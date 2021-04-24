@@ -39,7 +39,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminProdController 
+public class AdminProdController
 {
     @Autowired
     private ProdutosRepository produtosRepository;
@@ -55,7 +55,7 @@ public class AdminProdController
 
     @Autowired
     private UsuariosRepository usuariosRepository;
-    
+
     @Autowired
     private ProdutosJustificativasRepository produtosJustificativasRepository;
 
@@ -75,7 +75,7 @@ public class AdminProdController
     private SecurityConfig securityConfig;
 
     @RequestMapping("listarProdutos")
-    public ModelAndView listagemProdutos(ProdutosModel produto)
+    public ModelAndView listagemProdutos (ProdutosModel produto)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/listarProdutos");
 
@@ -85,7 +85,7 @@ public class AdminProdController
     }
 
     @RequestMapping("cadastrarProdutos")
-    public ModelAndView cadastrarProdutos(ProdutosModel produto, FotosModel foto)
+    public ModelAndView cadastrarProdutos (ProdutosModel produto, FotosModel foto)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarProdutos");
 
@@ -94,19 +94,22 @@ public class AdminProdController
 
         return mv;
     }
+
     @PostMapping("cadastrarProdutos")
-    public ModelAndView cadastroProdutos(@Valid ProdutosModel produto, @RequestParam("categoriaProduto") Integer ctgId, @RequestParam("foto") MultipartFile multipartFile, BindingResult result, RedirectAttributes attributes) throws IOException
+    public ModelAndView cadastroProdutos (@Valid ProdutosModel produto, @RequestParam("categoriaProduto") Integer ctgId,
+            @RequestParam("foto") MultipartFile multipartFile, BindingResult result, RedirectAttributes attributes)
+            throws IOException
     {
         if (result.hasErrors())
         {
             return new ModelAndView("redirect:/admin/cadastrarProdutos");
         }
 
-        produtosService.cadastrar(produto);
+        String[] mensagem = produtosService.cadastrar(produto);
 
         ProdutosModel prod = produtosRepository.findOneByNome(produto.getPrdNome());
         CategoriasModel ctg = categoriasRepository.findOneById(ctgId);
-        
+
         CategoriasProdutosModel ctgPrd = new CategoriasProdutosModel();
 
         ctgPrd.setProduto(prod);
@@ -124,13 +127,14 @@ public class AdminProdController
 
         fotosService.cadastrar(foto);
 
-        ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarProdutos");
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
-        return mv;
+        return new ModelAndView("redirect:/admin/cadastrarProdutos");
     }
 
     @PostMapping("/alterarProdutos")
-    public ModelAndView alterarProdutos(@RequestParam(name = "id") Integer id, ProdutosModel produto, CategoriasModel categoria)
+    public ModelAndView alterarProdutos (@RequestParam(name = "id") Integer id, ProdutosModel produto,
+            CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/alterarProdutos");
 
@@ -140,23 +144,26 @@ public class AdminProdController
 
         return mv;
     }
+
     @PostMapping("/alterarProduto")
-    public ModelAndView alterarProduto(@Valid ProdutosModel produto, RedirectAttributes attributes)
+    public ModelAndView alterarProduto (@Valid ProdutosModel produto, RedirectAttributes attributes)
     {
         EntradasModel ent = entradasRepository.findByProduto(produto.getPrdId());
 
-        if (produto.getPrdPreco() < ((ent.getEntPrecoCusto() / ent.getEntQuantidade()) * (1 - (produto.getPrecificacao().getPrcMargLuc() / 100))))
+        if (produto.getPrdPreco() < ((ent.getEntPrecoCusto() / ent.getEntQuantidade())
+                * (1 - (produto.getPrecificacao().getPrcMargLuc() / 100))))
         {
             return alterarProdutoML(produto);
         }
 
         String[] mensagem = produtosService.atualizar(produto);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/listarProdutos");
     }
-    public ModelAndView alterarProdutoML(ProdutosModel produto)
+
+    public ModelAndView alterarProdutoML (ProdutosModel produto)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/confirmAlterarProdutos");
 
@@ -164,28 +171,28 @@ public class AdminProdController
 
         return mv;
     }
+
     @PostMapping("/alterarProdutoConfirm")
-    public ModelAndView alterarProdutoConfirm(@RequestParam(name = "password") String senha, @Valid ProdutosModel produto, RedirectAttributes attributes)
+    public ModelAndView alterarProdutoConfirm (@RequestParam(name = "password") String senha,
+            @Valid ProdutosModel produto, RedirectAttributes attributes)
     {
         UsuariosModel usu = usuariosRepository.findByEmail("admin@gprint3d.com");
 
         if (!securityConfig.passwordEncoder().matches(senha, usu.getUsuSenha()))
         {
-            System.out.println(senha);
-            System.out.println(usu.getUsuSenha());
-            System.out.println(securityConfig.passwordEncoder().encode(senha));
             return alterarProdutoML(produto);
         }
 
         String[] mensagem = produtosService.atualizar(produto);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/listarProdutos");
     }
 
     @PostMapping("/ativarProdutos")
-    public ModelAndView ativarProdutos(@RequestParam(name = "id") Integer id, ProdutosJustificativasModel produtosJustificativa)
+    public ModelAndView ativarProdutos (@RequestParam(name = "id") Integer id,
+            ProdutosJustificativasModel produtosJustificativa)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/justificarProdutos");
 
@@ -210,11 +217,13 @@ public class AdminProdController
 
         return mv;
     }
+
     @PostMapping("/ativaProdutos")
-    public ModelAndView ativaProdutos(@RequestParam(name = "id") Integer id, @Valid ProdutosJustificativasModel produtosJustificativa, RedirectAttributes attributes)
+    public ModelAndView ativaProdutos (@RequestParam(name = "id") Integer id,
+            @Valid ProdutosJustificativasModel produtosJustificativa, RedirectAttributes attributes)
     {
         ProdutosModel prd = produtosRepository.findOneById(id);
-        
+
         produtosJustificativa.setPjuProduto(prd.getPrdNome());
 
         for (int i = 0 ; i < prd.getListCategoriasProdutos().size() ; i++)
@@ -236,16 +245,16 @@ public class AdminProdController
             produtosJustificativa.setPjuAcao("ATIVAR");
         }
 
-        String[] mensagem1 = produtosJustificativasService.cadastrar(produtosJustificativa);
-        String[] mensagem2 = produtosService.ativar(!prd.getPrdAtivo(), id);
-  
-        attributes.addFlashAttribute(mensagem2[0], mensagem2[1]);
+        produtosJustificativasService.cadastrar(produtosJustificativa);
+        String[] mensagem1 = produtosService.ativar(!prd.getPrdAtivo(), id);
+
+        attributes.addFlashAttribute(mensagem1[0], mensagem1[1]);
 
         return new ModelAndView("redirect:/admin/listarProdutos");
     }
 
     @RequestMapping("justificativasProdutos")
-    public ModelAndView justificativasProdutos(ProdutosJustificativasModel produtosJustificativa)
+    public ModelAndView justificativasProdutos (ProdutosJustificativasModel produtosJustificativa)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/justificativasProdutos");
 
@@ -255,7 +264,7 @@ public class AdminProdController
     }
 
     @GetMapping("cadastroFotos/{id}")
-    public ModelAndView cadastroFotos(@PathVariable(value = "id") Integer id)
+    public ModelAndView cadastroFotos (@PathVariable(value = "id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarFotos");
 
@@ -266,8 +275,10 @@ public class AdminProdController
 
         return mv;
     }
+
     @PostMapping("addFotos")
-    public ModelAndView addFotos(@RequestParam("foto") MultipartFile[] multipartFile, @Valid ProdutosModel produto, BindingResult result, RedirectAttributes attributes) throws IOException
+    public ModelAndView addFotos (@RequestParam("foto") MultipartFile[] multipartFile, @Valid ProdutosModel produto,
+            BindingResult result, RedirectAttributes attributes) throws IOException
     {
         String[] mensagem = new String[2];
 
@@ -288,18 +299,21 @@ public class AdminProdController
 
         return new ModelAndView("redirect:/admin/cadastroFotos/" + produto.getPrdId());
     }
+
     @PostMapping("deleteFotos")
-    public ModelAndView deleteFotos(@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto, RedirectAttributes attributes)
+    public ModelAndView deleteFotos (@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto,
+            RedirectAttributes attributes)
     {
         String[] mensagem = fotosService.excluir(id);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastroFotos/" + produto.getPrdId());
     }
 
     @GetMapping("cadastroCategorias/{id}")
-    public ModelAndView cadastroCategorias(@PathVariable(value = "id") Integer id, CategoriasProdutosModel categoriaProduto, CategoriasModel categoria)
+    public ModelAndView cadastroCategorias (@PathVariable(value = "id") Integer id,
+            CategoriasProdutosModel categoriaProduto, CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarCategorias");
 
@@ -311,8 +325,10 @@ public class AdminProdController
 
         return mv;
     }
+
     @PostMapping("addCategoria")
-    public ModelAndView addCategoria(@Valid CategoriasModel categoria, @Valid ProdutosModel produto, BindingResult result, RedirectAttributes attributes) throws IOException
+    public ModelAndView addCategoria (@Valid CategoriasModel categoria, @Valid ProdutosModel produto,
+            BindingResult result, RedirectAttributes attributes)
     {
         CategoriasProdutosModel cpr = new CategoriasProdutosModel();
         cpr.setCategoria(categoria);
@@ -324,11 +340,13 @@ public class AdminProdController
 
         return new ModelAndView("redirect:/admin/cadastroCategorias/" + produto.getPrdId());
     }
+
     @PostMapping("deleteCategoria")
-    public ModelAndView deleteCategoria(@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto, RedirectAttributes attributes)
+    public ModelAndView deleteCategoria (@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto,
+            RedirectAttributes attributes)
     {
         String[] mensagem = categoriasProdutosService.excluir(id);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastroCategorias/" + produto.getPrdId());

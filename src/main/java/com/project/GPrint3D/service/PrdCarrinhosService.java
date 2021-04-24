@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PrdCarrinhosService 
+public class PrdCarrinhosService
 {
     @Autowired
-    private PrdCarrinhosRepository prdCarrinhos;
+    private PrdCarrinhosRepository prdCarrinhosRepository;
 
-    public String[] cadastrar(PrdCarrinhosModel prdCarrinho)
+    public String[] cadastrar (PrdCarrinhosModel prdCarrinho)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            prdCarrinhos.saveAndFlush(prdCarrinho);
+            prdCarrinhosRepository.saveAndFlush(prdCarrinho);
 
             response[0] = msg1;
             response[1] = "Produto do carrinho cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class PrdCarrinhosService
         return response;
     }
 
-    public String[] atualizar(PrdCarrinhosModel prdCarrinho)
+    public String[] atualizar (PrdCarrinhosModel prdCarrinho)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            prdCarrinhos.saveAndFlush(prdCarrinho);
+            prdCarrinhosRepository.saveAndFlush(prdCarrinho);
 
             response[0] = msg1;
             response[1] = "Cadastro do produto do carrinho alterado com sucesso!";
@@ -60,20 +60,43 @@ public class PrdCarrinhosService
             response[0] = msg2;
             response[1] = "Erro ao alterar o produto do carrinho";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] atualizarStatusPrdCarrinhos (Integer quantidade, boolean status, Integer id)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        try
+        {
+            prdCarrinhosRepository.updateStatusPrdCarrinho(quantidade, status, id);
+
+            response[0] = msg1;
+            response[1] = "Cadastro do produto do carrinho alterado com sucesso!";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao alterar o produto do carrinho";
+        }
+
+        return response;
+    }
+
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            prdCarrinhos.deleteById(id);
+            prdCarrinhosRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro do produto do carrinho deletado com sucesso!";
@@ -83,7 +106,7 @@ public class PrdCarrinhosService
             response[0] = msg2;
             response[1] = "Erro ao deletar o produto do carrinho";
         }
-        
+
         return response;
-    }    
+    }
 }

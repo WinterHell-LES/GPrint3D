@@ -9,5 +9,5 @@ public interface DocumentosRepository extends JpaRepository<DocumentosModel, Int
 {
     // Procura por nome do cliente
     @Query(value = "SELECT * FROM documentos WHERE doc_cli_id = ?", nativeQuery = true)
-    public DocumentosModel findByClienteId(Integer id);
+    public DocumentosModel findByClienteId (Integer id);
 }

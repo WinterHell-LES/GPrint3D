@@ -1,5 +1,6 @@
 package com.project.GPrint3D.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.project.GPrint3D.model.PedidosComprasModel;
@@ -13,25 +14,31 @@ public interface PedidosComprasRepository extends JpaRepository<PedidosComprasMo
 {
     // Procura por Id do cliente
     @Query(value = "SELECT * FROM pedidos_compras WHERE pdc_cli_id = ?", nativeQuery = true)
-    public List<PedidosComprasModel> findAllByCliente(Integer id);
+    public List<PedidosComprasModel> findAllByCliente (Integer id);
 
     // Procura por Id do pedido
     @Query(value = "SELECT * FROM pedidos_compras WHERE pdc_id = ?", nativeQuery = true)
-    public PedidosComprasModel findOneById(Integer id);
+    public PedidosComprasModel findOneById (Integer id);
 
     // Procura pelo número do pedido
     @Query(value = "SELECT * FROM pedidos_compras WHERE pdc_numero = ?", nativeQuery = true)
-    public PedidosComprasModel findByNumeroPedido(String numero);
+    public PedidosComprasModel findByNumeroPedido (String numero);
 
     // Atualiza o status do pedido para o pedido referente
     @Modifying
     @Transactional(readOnly = false)
     @Query(value = "UPDATE pedidos_compras SET pdc_statuspedido = ?1 WHERE pdc_id = ?2", nativeQuery = true)
-    public void updateStatusPedido(Integer status, Integer id);
+    public void updateStatusPedido (Integer status, Integer id);
 
     // Atualiza o status da logitica para o pedido referente
     @Modifying
     @Transactional(readOnly = false)
     @Query(value = "UPDATE pedidos_compras SET pdc_statuslogistica = ?1 WHERE pdc_id = ?2", nativeQuery = true)
-    public void updateStatusLogistica(Integer status, Integer id);
+    public void updateStatusLogistica (Integer status, Integer id);
+
+    // Atualiza o status da data de entrega para o pedido referente
+    @Modifying
+    @Transactional(readOnly = false)
+    @Query(value = "UPDATE pedidos_compras SET pdc_datafim = ?1 WHERE pdc_id = ?2", nativeQuery = true)
+    public void updateDataEntrega (Date data, Integer id);
 }

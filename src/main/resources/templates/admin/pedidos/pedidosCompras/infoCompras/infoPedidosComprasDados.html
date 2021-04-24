@@ -51,12 +51,27 @@
                         <td th:text="${pedido.pdcNumero}">Número</td>
                     </tr>
                     <tr>
+                        <th scope="row">Data do pedido</th>
+                        <td th:text="${#dates.format(pedido.pdcDataInicio, 'dd/MM/yyyy')}">Data do pedido</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Data da entrega</th>
+                        <td th:if="${pedido.pdcDataFim} != null AND ${pedido.pdcStatusPedido} != 11" th:text="${#dates.format(pedido.pdcDataFim, 'dd/MM/yyyy')}">Data da entrega</td>
+                        <td th:if="${pedido.pdcDataFim} == null AND ${pedido.pdcStatusPedido} != 11">Ainda não entregue</td>
+                        <td th:if="${pedido.pdcStatusPedido} == 11">Pedido cancelado</td>
+                    </tr>
+                    <tr>
                         <th scope="row">Valor total</th>
                         <td th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotal(), 1, 'DEFAULT', 2, 'DEFAULT')}">Valor total</td>
                     </tr>
                     <tr>
                         <th scope="row">Frete</th>
-                        <td>Frete</td>
+                        <td>
+                            <span class="me-3 pe-3 border-end" th:text="'Empresa: ' + ${pedido.frete.pcfEmpresa}"></span>
+                            <span class="me-3 pe-3 border-end" th:text="'Modalidade: ' + ${pedido.frete.pcfModalidade}"></span>
+                            <span class="me-3 pe-3 border-end" th:text="'Prazo: ' + ${pedido.frete.pcfPrazo} + ' dia(s)'"></span>
+                            <span th:text="'Valor: R$ ' + ${#numbers.formatDecimal(pedido.frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}"></span>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Status pedido</th>

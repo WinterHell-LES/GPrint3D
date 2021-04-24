@@ -351,8 +351,6 @@ public class CarrinhoUtil
                 break;
             }
         }
-
-        return;
     }
 
     public void validarCartoes(List<PedCartoesModel> listaPedCartoes, Double valorPendenteCupons, Double valorPendenteTotal)

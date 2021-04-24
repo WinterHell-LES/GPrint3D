@@ -26,6 +26,14 @@ public class PrdCarrinhosModel
     @Column(name = "pcr_quantidade")
     private Integer pcrQuantidade;
 
+    @NotNull(message = "Data é obrigatória")
+    @Column(name = "pcr_data")
+    private Date pcrData;
+
+    @NotNull(message = "Estado é obrigatório")
+    @Column(name = "pcr_ativo")
+    private boolean pcrAtivo;
+
     @ManyToOne
     @JoinColumn(name = "pcr_prd_id", referencedColumnName = "prd_id")
     private ProdutosModel produto;
@@ -34,23 +42,19 @@ public class PrdCarrinhosModel
     @JoinColumn(name = "pcr_car_id", referencedColumnName = "car_id")
     private CarrinhosModel carrinho;
 
-    @NotNull(message = "Data é obrigatória")
-    @Column(name = "pcr_date")
-    private Date pcrDate;
-
-    @NotNull(message = "Estado é obrigatório")
-    @Column(name = "pcr_ativo")
-    private boolean pcrAtivo;
-
     public PrdCarrinhosModel() 
     {
         super();
 
+        java.util.Date dataAtual = new java.util.Date();
+
         this.pcrId = 0;
-        this.pcrQuantidade = 0;
+        this.pcrQuantidade = 1;
+        this.pcrData = new Date(dataAtual.getTime());
+        this.pcrAtivo = true;
     }
 
-    public PrdCarrinhosModel(Integer pcrId, Integer pcrQuantidade) 
+    public PrdCarrinhosModel(Integer pcrId, Integer pcrQuantidade, Date pcrData, boolean pcrAtivo) 
     {
         super( );
 
@@ -58,7 +62,7 @@ public class PrdCarrinhosModel
 
         this.pcrId = pcrId;
         this.pcrQuantidade = pcrQuantidade;
-        this.pcrDate = new Date(dataAtual.getTime());
+        this.pcrData = new Date(dataAtual.getTime());
         this.pcrAtivo = true;
     }
 
@@ -70,7 +74,7 @@ public class PrdCarrinhosModel
 
         this.pcrId = 0;
         this.pcrQuantidade = 1;
-        this.pcrDate = new Date(dataAtual.getTime());
+        this.pcrData = new Date(dataAtual.getTime());
         this.pcrAtivo = true;
         this.carrinho = carrinho;
     }
@@ -115,23 +119,28 @@ public class PrdCarrinhosModel
         this.carrinho = carrinho;
     }
 
-    public Date getPcrDate() {
-        return this.pcrDate;
+    public Date getPcrData() 
+    {
+        return this.pcrData;
     }
 
-    public void setPcrDate(Date pcrDate) {
-        this.pcrDate = pcrDate;
+    public void setPcrData(Date pcrData) 
+    {
+        this.pcrData = pcrData;
     }
 
-    public boolean isPcrAtivo() {
+    public boolean isPcrAtivo() 
+    {
         return this.pcrAtivo;
     }
 
-    public boolean getPcrAtivo() {
+    public boolean getPcrAtivo() 
+    {
         return this.pcrAtivo;
     }
 
-    public void setPcrAtivo(boolean pcrAtivo) {
+    public void setPcrAtivo(boolean pcrAtivo) 
+    {
         this.pcrAtivo = pcrAtivo;
     }
 
@@ -139,24 +148,42 @@ public class PrdCarrinhosModel
     {
         java.util.Date dataAtual = new java.util.Date();
 
-        this.setPcrQuantidade(this.getPcrQuantidade() + 1);
-        this.setPcrDate(new Date(dataAtual.getTime()));
+        this.pcrQuantidade = this.pcrQuantidade + 1;
+        this.pcrData = new Date(dataAtual.getTime());
     }
 
     public void diminuirProduto()
     {
         java.util.Date dataAtual = new java.util.Date();
 
-        this.setPcrQuantidade(this.getPcrQuantidade() - 1);
-        this.setPcrDate(new Date(dataAtual.getTime()));
+        this.pcrQuantidade = this.pcrQuantidade - 1;
+        this.pcrData = new Date(dataAtual.getTime());
     }
 
     public void atualizarQtdProduto(Integer quantidade)
     {
         java.util.Date dataAtual = new java.util.Date();
 
-        this.setPcrQuantidade(quantidade);
-        this.setPcrDate(new Date(dataAtual.getTime()));
+        this.pcrQuantidade = quantidade;
+        this.pcrData = new Date(dataAtual.getTime());
+    }
+
+    public String getMotivoInativacao(String dataPlus)
+    {
+        if (this.pcrQuantidade > this.produto.getPrdQuantidade())
+        {
+            return "Indisponíbilidade do produto";
+        }
+
+        Date dataCarrinhoP = Date.valueOf(this.pcrData.toLocalDate().plusDays(Integer.parseInt(dataPlus)));
+        Date dataAtual = new Date(new java.util.Date().getTime());
+
+        if (dataAtual.after(dataCarrinhoP))
+        {
+            return "Não efetivação da compra";
+        }
+
+        return "Motivo desconhecido";
     }
 
     @Override

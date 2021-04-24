@@ -9,13 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminSaidasController 
+public class AdminSaidasController
 {
     @Autowired
     private SaidasRepository saidasRepository;
 
     @RequestMapping("listarSaidas")
-    public ModelAndView listarSaidas()
+    public ModelAndView listarSaidas ()
     {
         ModelAndView mv = new ModelAndView("/admin/saidas/listarSaidas");
 

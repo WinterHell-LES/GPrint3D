@@ -6,13 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminIndexController 
+public class AdminIndexController
 {
-    @RequestMapping({"/", "/index"})
-    public ModelAndView index()
+    @RequestMapping({ "/", "/index" })
+    public ModelAndView index ()
     {
-        ModelAndView mv = new ModelAndView("/admin/index");
-
-        return mv;
+        return new ModelAndView("/admin/index");
     }
 }

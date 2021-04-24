@@ -10,13 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminLogTransController 
+public class AdminLogTransController
 {
     @Autowired
     private LogTransacoesRepository logs;
 
     @RequestMapping("listarLogsTransacoes")
-    public ModelAndView listarLogsTransacoes(LogTransacoesModel log)
+    public ModelAndView listarLogsTransacoes (LogTransacoesModel log)
     {
         ModelAndView mv = new ModelAndView("/admin/logsTransacoes/listarLogsTransacoes");
 

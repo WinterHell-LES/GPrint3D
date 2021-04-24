@@ -186,7 +186,7 @@ function listarFretes(json)
 
     lista.innerHTML = "";
 
-    if (codigoHTML == "")
+    if (contador == 0)
     {
         erroFrete("Nenhum valor encontrado")
     }
@@ -242,17 +242,17 @@ function getCookie(cookieNome)
 
     for(var i = 0; i <partesCookie.length; i++)
     {
-      var char = partesCookie[i];
-      
-      while (char.charAt(0) == ' ')
-      {
-        char = char.substring(1);
-      }
+        var char = partesCookie[i];
+        
+        while (char.charAt(0) == ' ')
+        {
+            char = char.substring(1);
+        }
 
-      if (char.indexOf(nome) == 0)
-      {
-        return char.substring(nome.length, char.length);
-      }
+        if (char.indexOf(nome) == 0)
+        {
+            return char.substring(nome.length, char.length);
+        }
     }
 
     return null;

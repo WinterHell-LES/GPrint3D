@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriasProdutosService 
+public class CategoriasProdutosService
 {
     @Autowired
-    private CategoriasProdutosRepository categoriasProdutos;
+    private CategoriasProdutosRepository categoriasProdutosRepository;
 
-    public String[] cadastrar(CategoriasProdutosModel categoriaProduto)
+    public String[] cadastrar (CategoriasProdutosModel categoriaProduto)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            categoriasProdutos.save(categoriaProduto);
+            categoriasProdutosRepository.save(categoriaProduto);
 
             response[0] = msg1;
             response[1] = "Categoria cadastrada com sucesso!";
@@ -41,16 +41,16 @@ public class CategoriasProdutosService
         return response;
     }
 
-    public String[] atualizar(CategoriasProdutosModel categoriaProduto)
+    public String[] atualizar (CategoriasProdutosModel categoriaProduto)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            categoriasProdutos.save(categoriaProduto);
+            categoriasProdutosRepository.save(categoriaProduto);
 
             response[0] = msg1;
             response[1] = "Cadastro de categoria alterado com sucesso!";
@@ -60,20 +60,20 @@ public class CategoriasProdutosService
             response[0] = msg2;
             response[1] = "Erro ao alterar a categoria";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            categoriasProdutos.deleteById(id);
+            categoriasProdutosRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de categoria deletado com sucesso!";
@@ -83,7 +83,7 @@ public class CategoriasProdutosService
             response[0] = msg2;
             response[1] = "Erro ao deletar a categoria";
         }
-        
+
         return response;
     }
 }

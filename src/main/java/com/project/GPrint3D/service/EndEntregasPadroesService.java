@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 public class EndEntregasPadroesService
 {
     @Autowired
-    private EndEntregasPadroesRepository endEntregasPadroes;
+    private EndEntregasPadroesRepository endEntregasPadroesRepository;
 
-    public String[] cadastrar(EndEntregasPadroesModel endEntregaPadrao)
+    public String[] cadastrar (EndEntregasPadroesModel endEntregaPadrao)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            endEntregasPadroes.save(endEntregaPadrao);
+            endEntregasPadroesRepository.save(endEntregaPadrao);
 
             response[0] = msg1;
             response[1] = "Endereço de entrega padrão cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class EndEntregasPadroesService
         return response;
     }
 
-    public String[] atualizar(EndEntregasPadroesModel endEntregaPadrao)
+    public String[] atualizar (EndEntregasPadroesModel endEntregaPadrao)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            endEntregasPadroes.save(endEntregaPadrao);
+            endEntregasPadroesRepository.save(endEntregaPadrao);
 
             response[0] = msg1;
             response[1] = "Cadastro de endereço de entrega padrão alterado com sucesso!";
@@ -60,20 +60,20 @@ public class EndEntregasPadroesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o endereço de entrega padrão";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            endEntregasPadroes.deleteById(id);
+            endEntregasPadroesRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de endereço de entrega padrão deletado com sucesso!";
@@ -83,7 +83,7 @@ public class EndEntregasPadroesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o endereço de entrega padrão";
         }
-        
+
         return response;
     }
 }

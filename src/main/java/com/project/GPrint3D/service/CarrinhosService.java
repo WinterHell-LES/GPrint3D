@@ -1,6 +1,7 @@
 package com.project.GPrint3D.service;
 
 import com.project.GPrint3D.model.CarrinhosModel;
+import com.project.GPrint3D.model.EntityModel;
 import com.project.GPrint3D.repository.CarrinhosRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,21 +9,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CarrinhosService 
+public class CarrinhosService extends EntityModel
 {
     @Autowired
-    private CarrinhosRepository carrinhos;
+    private CarrinhosRepository carrinhosRepository;
 
-    public String[] cadastrar(CarrinhosModel carrinho)
+    public String[] cadastrar (CarrinhosModel carrinho)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            carrinhos.saveAndFlush(carrinho);
+            carrinhosRepository.saveAndFlush(carrinho);
 
             response[0] = msg1;
             response[1] = "Carrinho cadastrado com sucesso!";
@@ -41,16 +42,16 @@ public class CarrinhosService
         return response;
     }
 
-    public String[] atualizar(CarrinhosModel carrinho)
+    public String[] atualizar (CarrinhosModel carrinho)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            carrinhos.saveAndFlush(carrinho);
+            carrinhosRepository.saveAndFlush(carrinho);
 
             response[0] = msg1;
             response[1] = "Cadastro de carrinho alterado com sucesso!";
@@ -60,21 +61,21 @@ public class CarrinhosService
             response[0] = msg2;
             response[1] = "Erro ao alterar o carrinho";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            carrinhos.deleteById(id);
-            
+            carrinhosRepository.deleteById(id);
+
             response[0] = msg1;
             response[1] = "Cadastro de carrinho deletado com sucesso!";
         }
@@ -83,7 +84,7 @@ public class CarrinhosService
             response[0] = msg2;
             response[1] = "Erro ao deletar o carrinho";
         }
-        
+
         return response;
     }
 }

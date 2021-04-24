@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminBandController 
+public class AdminBandController
 {
     @Autowired
     private BandeirasRepository bandeirasRepository;
@@ -26,7 +26,7 @@ public class AdminBandController
     private BandeirasService bandeirasService;
 
     @RequestMapping("listarBandeiras")
-    public ModelAndView listarBandeiras(BandeirasModel bandeira)
+    public ModelAndView listarBandeiras (BandeirasModel bandeira)
     {
         ModelAndView mv = new ModelAndView("/admin/bandeiras/listarBandeiras");
 
@@ -36,14 +36,16 @@ public class AdminBandController
     }
 
     @RequestMapping("cadastrarBandeiras")
-    public ModelAndView cadastrarBandeiras(BandeirasModel bandeira)
+    public ModelAndView cadastrarBandeiras (BandeirasModel bandeira)
     {
         ModelAndView mv = new ModelAndView("/admin/bandeiras/cadastrarBandeiras");
 
         return mv;
     }
+
     @PostMapping("cadastrarBandeiras")
-    public ModelAndView cadastroBandeiras(@Valid BandeirasModel bandeira, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastroBandeiras (@Valid BandeirasModel bandeira, BindingResult result,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
@@ -51,18 +53,18 @@ public class AdminBandController
         }
 
         String[] mensagem = bandeirasService.cadastrar(bandeira);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastrarBandeiras");
     }
 
     @PostMapping("/ativaBandeiras")
-    public ModelAndView ativacaoBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes) 
+    public ModelAndView ativacaoBandeiras (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
     {
         BandeirasModel band = bandeirasRepository.findOneById(id);
 
-        String[] mensagem = bandeirasService.ativar(!band.getBanAtivo(), id); 
+        String[] mensagem = bandeirasService.ativar(!band.getBanAtivo(), id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -71,8 +73,8 @@ public class AdminBandController
 
     // Controle de exclusão
     @PostMapping("/deletaBandeiras")
-    public ModelAndView deletarBandeiras(@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
-    {        
+    public ModelAndView deletarBandeiras (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
+    {
         String[] mensagem = bandeirasService.excluir(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);

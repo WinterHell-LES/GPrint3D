@@ -3,31 +3,31 @@ package com.project.GPrint3D.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class GeradorCodigoUtil 
+public class GeradorCodigoUtil
 {
     private String codigo;
 
-    public GeradorCodigoUtil() 
+    public GeradorCodigoUtil ()
     {
         this.codigo = "";
     }
 
-    public GeradorCodigoUtil(String codigo) 
+    public GeradorCodigoUtil (String codigo)
     {
         this.codigo = codigo;
     }
 
-    public String getCodigo() 
+    public String getCodigo ()
     {
         return this.codigo;
     }
 
-    public void setCodigo(String codigo) 
+    public void setCodigo (String codigo)
     {
         this.codigo = codigo;
     }
 
-    public String getGerarCodigoPromocional()
+    public String getGerarCodigoPromocional ()
     {
         Date data = new Date();
 
@@ -36,7 +36,7 @@ public class GeradorCodigoUtil
         return this.codigo;
     }
 
-    public String getGerarCodigoTroca()
+    public String getGerarCodigoTroca ()
     {
         Date data = new Date();
 
@@ -45,7 +45,7 @@ public class GeradorCodigoUtil
         return this.codigo;
     }
 
-    public String getGerarNumeroPedido()
+    public String getGerarNumeroPedido ()
     {
         Date data = new Date();
 

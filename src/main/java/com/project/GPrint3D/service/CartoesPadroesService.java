@@ -11,18 +11,18 @@ import org.springframework.stereotype.Service;
 public class CartoesPadroesService
 {
     @Autowired
-    private CartoesPadroesRepository cartoes_padroes;
+    private CartoesPadroesRepository cartoesPadroesRepository;
 
-    public String[] cadastrar(CartoesPadroesModel cartao_padrao)
+    public String[] cadastrar (CartoesPadroesModel cartaoPadrao)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            cartoes_padroes.save(cartao_padrao);
+            cartoesPadroesRepository.save(cartaoPadrao);
 
             response[0] = msg1;
             response[1] = "Cartão padrão cadastrado com sucesso!";
@@ -41,16 +41,16 @@ public class CartoesPadroesService
         return response;
     }
 
-    public String[] atualizar(CartoesPadroesModel cartao_padrao)
+    public String[] atualizar (CartoesPadroesModel cartaoPadrao)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            cartoes_padroes.save(cartao_padrao);
+            cartoesPadroesRepository.save(cartaoPadrao);
 
             response[0] = msg1;
             response[1] = "Cadastro de cartão padrão alterado com sucesso!";
@@ -60,20 +60,20 @@ public class CartoesPadroesService
             response[0] = msg2;
             response[1] = "Erro ao alterar o cartão padrão";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            cartoes_padroes.deleteById(id);
+            cartoesPadroesRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de cartão padrão deletado com sucesso!";
@@ -83,7 +83,7 @@ public class CartoesPadroesService
             response[0] = msg2;
             response[1] = "Erro ao deletar o cartão padrão";
         }
-        
+
         return response;
     }
 }

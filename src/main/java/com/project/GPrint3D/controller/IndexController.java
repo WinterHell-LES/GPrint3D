@@ -15,37 +15,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class IndexController 
+public class IndexController
 {
     @Autowired
     private CategoriasRepository categoriasRepository;
 
     @Autowired
     private ProdutosRepository produtosRepository;
-    
+
     @Autowired
     private VariaveisRepository variaveisRepository;
 
-    @RequestMapping({"/", "/index"})
-    public ModelAndView index(CategoriasModel categoria)
+    @RequestMapping({ "/", "/index" })
+    public ModelAndView index (CategoriasModel categoria)
     {
         ModelAndView mv = new ModelAndView("/index");
 
         VariaveisModel variavel = variaveisRepository.findOneById(1);
 
         mv.addObject("categorias", categoriasRepository.findAllRand(variavel.getVarCategoria()));
-        
+
         return mv;
     }
 
     @GetMapping("/pesquisa")
-    public ModelAndView pesquisa(@RequestParam(name = "search") String pesquisa, ProdutosModel produto)
+    public ModelAndView pesquisa (@RequestParam(name = "search") String pesquisa, ProdutosModel produto)
     {
         ModelAndView mv = new ModelAndView("/produtos/procuras/procurasProdutos");
 
         mv.addObject("tituloPesquisa", pesquisa);
         mv.addObject("produtos", produtosRepository.findAllLike(pesquisa));
-        
+
+        return mv;
+    }
+
+    @RequestMapping("/teste")
+    public ModelAndView teste ()
+    {
+        ModelAndView mv = new ModelAndView("/teste");
+
         return mv;
     }
 }

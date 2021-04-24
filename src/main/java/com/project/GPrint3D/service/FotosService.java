@@ -8,21 +8,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FotosService 
+public class FotosService
 {
     @Autowired
-    private FotosRepository fotos;
+    private FotosRepository fotosRepository;
 
-    public String[] cadastrar(FotosModel foto)
+    public String[] cadastrar (FotosModel foto)
     {
         String[] response = new String[2];
 
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try 
+        try
         {
-            fotos.save(foto);
+            fotosRepository.save(foto);
 
             response[0] = msg1;
             response[1] = "Foto cadastrada com sucesso!";
@@ -41,16 +41,16 @@ public class FotosService
         return response;
     }
 
-    public String[] atualizar(FotosModel foto)
+    public String[] atualizar (FotosModel foto)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        try 
+        try
         {
-            fotos.save(foto);
+            fotosRepository.save(foto);
 
             response[0] = msg1;
             response[1] = "Cadastro de foto alterado com sucesso!";
@@ -60,20 +60,20 @@ public class FotosService
             response[0] = msg2;
             response[1] = "Erro ao alterar a foto";
         }
-        
+
         return response;
     }
 
-    public String[] excluir(Integer id)
+    public String[] excluir (Integer id)
     {
         String[] response = new String[2];
 
         String msg1 = "deleteSuccess";
         String msg2 = "deleteError";
 
-        try 
+        try
         {
-            fotos.deleteById(id);
+            fotosRepository.deleteById(id);
 
             response[0] = msg1;
             response[1] = "Cadastro de foto deletado com sucesso!";
@@ -83,7 +83,7 @@ public class FotosService
             response[0] = msg2;
             response[1] = "Erro ao deletar a foto";
         }
-        
+
         return response;
     }
 }

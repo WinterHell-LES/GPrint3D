@@ -37,13 +37,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/cadastro")
-public class CadClienteController 
-{ 
+public class CadClienteController
+{
     private UsuariosModel usuariosMod = new UsuariosModel();
     private CartoesPadroesModel cartaoPadraoMod = new CartoesPadroesModel();
     private ClientesModel clientesMod = new ClientesModel();
     private DocumentosModel documentosMod = new DocumentosModel();
-    private TelefonesModel telefonesMod = new TelefonesModel(); 
+    private TelefonesModel telefonesMod = new TelefonesModel();
     private EnderecosModel enderecosMod = new EnderecosModel();
     private EndCobrancasPadroesModel endCobrancasPadroesMod = new EndCobrancasPadroesModel();
     private EndEntregasPadroesModel endEntregasPadroesMod = new EndEntregasPadroesModel();
@@ -89,25 +89,26 @@ public class CadClienteController
 
     @Autowired
     private UsuariosRepository usuariosRepository;
-    
+
     // Controle de cadastro de dados pessoais
     @RequestMapping("/cadastroDadosPessoais")
-    public ModelAndView cadastroDadosPessoais(ClientesModel cliente, TelefonesModel telefone, DocumentosModel documento, UsuariosModel usuario)
+    public ModelAndView cadastroDadosPessoais (ClientesModel cliente, TelefonesModel telefone,
+            DocumentosModel documento, UsuariosModel usuario)
     {
-        ModelAndView mv = new ModelAndView("/cadastro/cadDadosPessoais");
-
-        return mv;
+        return new ModelAndView("/cadastro/cadDadosPessoais");
     }
-    
+
     @PostMapping("/cadastroDadosPessoais")
-    public ModelAndView cadastrarDadosPessoais(@RequestParam(name = "confirm_password") String confirmPass, @Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento, @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarDadosPessoais (@RequestParam(name = "confirm_password") String confirmPass,
+            @Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento,
+            @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
             return cadastroDadosPessoais(cliente, telefone, documento, usuario);
         }
 
-        //Valida a senha e a confimação
+        // Valida a senha e a confimação
         String newUserPass = usuario.getUsuSenha();
 
         if (!confirmPass.equals(newUserPass))
@@ -115,11 +116,11 @@ public class CadClienteController
             return cadastroDadosPessoais(cliente, telefone, documento, usuario);
         }
 
-        //Atribui os valores padrões
+        // Atribui os valores padrões
         usuario.setUsuRegra("ROLE_CLI");
         cliente.setCliRanking(0);
 
-        //Atribui as informações do html às variaveis
+        // Atribui as informações do html às variaveis
         clientesMod = cliente;
         telefonesMod = telefone;
         documentosMod = documento;
@@ -129,25 +130,26 @@ public class CadClienteController
     }
 
     @RequestMapping("/cadastroEndereco")
-    public ModelAndView cadastroEndereco(EnderecosModel endereco)
+    public ModelAndView cadastroEndereco (EnderecosModel endereco)
     {
         ModelAndView mv = new ModelAndView("/cadastro/cadEndereco");
 
-        //Define endereço de entrega como escolha inicial do tipo de endereço
+        // Define endereço de entrega como escolha inicial do tipo de endereço
         endereco.setEndEntrega(true);
 
         return mv;
     }
 
     @PostMapping("/cadastroEndereco")
-    public ModelAndView cadastrarEndereco(@Valid EnderecosModel endereco, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarEndereco (@Valid EnderecosModel endereco, BindingResult result,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
             return cadastroEndereco(endereco);
         }
 
-        //Atribui as informações do html à variável
+        // Atribui as informações do html à variável
         enderecosMod = endereco;
 
         endereco.setEndEntrega(true);
@@ -157,73 +159,75 @@ public class CadClienteController
     }
 
     @RequestMapping("/cadastroCartao")
-    public ModelAndView cadastroCartao(CartoesModel cartao)
+    public ModelAndView cadastroCartao (CartoesModel cartao)
     {
         ModelAndView mv = new ModelAndView("/cadastro/cadCartao");
-        
+
         mv.addObject("bandeiras", bandeirasRepository.findAll());
 
         return mv;
     }
 
     @PostMapping("/cadastroCartao")
-    public ModelAndView cadastrarCartao(@Valid CartoesModel cartao, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastrarCartao (@Valid CartoesModel cartao, BindingResult result,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
             return cadastroCartao(cartao);
         }
 
-        //Registra o novo usuário
+        // Registra o novo usuário
         usuariosService.cadastrar(usuariosMod);
 
-        //Busca o novo usuário pelo emaill
+        // Busca o novo usuário pelo emaill
         UsuariosModel usu = usuariosRepository.findByEmail(usuariosMod.getUsuEmail());
 
-        //Define e cadastra o novo cliente com o usuário já registrado
+        // Define e cadastra o novo cliente com o usuário já registrado
         clientesMod.setUsuario(usu);
         clientesService.cadastrar(clientesMod);
 
-        //Busca o novo cliente cadastrado
+        // Busca o novo cliente cadastrado
         ClientesModel cli = clientesRepository.findByUsuarioId(usu.getUsuId());
 
-        //Define o novo cliente nos dados vinculados
+        // Define o novo cliente nos dados vinculados
         telefonesMod.setCliente(cli);
         documentosMod.setCliente(cli);
         enderecosMod.setCliente(cli);
         cartao.setCliente(cli);
 
-        //Cadastra os dados vinculados ao novo cliente
+        // Cadastra os dados vinculados ao novo cliente
         telefonesService.cadastrar(telefonesMod);
         enderecosService.cadastrar(enderecosMod);
         documentosService.cadastrar(documentosMod);
         cartoesService.cadastrar(cartao);
 
-        //Busca o novo endereço cadastrado
+        // Busca o novo endereço cadastrado
         EnderecosModel end = enderecosRepository.findByClienteId(cli.getCliId());
 
-        //Verifica se o endereço é de cobrança
+        // Verifica se o endereço é de cobrança
         if (end.isEndCobranca())
         {
-            //Configura o novo cliente e novo endereço no endereço de cobrança padrao
+            // Configura o novo cliente e novo endereço no endereço de cobrança padrao
             endCobrancasPadroesMod.setCliente(cli);
             endCobrancasPadroesMod.setEndereco(end);
             endCobrancasPadroesService.cadastrar(endCobrancasPadroesMod);
         }
 
-        //Verifica se o endereço é de entrega
+        // Verifica se o endereço é de entrega
         if (end.isEndEntrega())
         {
-            //Configura o novo cliente e novo endereço no endereço de entrega padrao
+            // Configura o novo cliente e novo endereço no endereço de entrega padrao
             endEntregasPadroesMod.setCliente(cli);
             endEntregasPadroesMod.setEndereco(end);
             endEntregasPadroesService.cadastrar(endEntregasPadroesMod);
         }
 
-        //Busca o novo cartão cadastrado
+        // Busca o novo cartão cadastrado
         CartoesModel crt = cartoesRepository.findByClienteId(cli.getCliId());
 
-        //Configura e cadastra o novo cartão padrão com o cliente e o cartão cadastrados
+        // Configura e cadastra o novo cartão padrão com o cliente e o cartão
+        // cadastrados
         cartaoPadraoMod.setCartao(crt);
         cartaoPadraoMod.setCliente(cli);
         cartoesPadroesService.cadastrar(cartaoPadraoMod);

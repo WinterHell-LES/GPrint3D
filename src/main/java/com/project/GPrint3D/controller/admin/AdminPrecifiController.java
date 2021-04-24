@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminPrecifiController 
+public class AdminPrecifiController
 {
     @Autowired
     private PrecificacoesRepository precificacoesRepository;
@@ -26,7 +26,7 @@ public class AdminPrecifiController
     private PrecificacoesService precificacoesService;
 
     @RequestMapping("listarPrecificacoes")
-    public ModelAndView listarPrecificacoes(PrecificacoesModel precificacao)
+    public ModelAndView listarPrecificacoes (PrecificacoesModel precificacao)
     {
         ModelAndView mv = new ModelAndView("/admin/precificacoes/listarPrecificacoes");
 
@@ -36,14 +36,16 @@ public class AdminPrecifiController
     }
 
     @RequestMapping("cadastrarPrecificacoes")
-    public ModelAndView cadastrarPrecificacoes(PrecificacoesModel precificacao)
+    public ModelAndView cadastrarPrecificacoes (PrecificacoesModel precificacao)
     {
         ModelAndView mv = new ModelAndView("/admin/precificacoes/cadastrarPrecificacoes");
 
         return mv;
     }
+
     @PostMapping("cadastroPrecificacoes")
-    public ModelAndView cadastroPrecificacoes(@Valid PrecificacoesModel precificacao, BindingResult result, RedirectAttributes attributes)
+    public ModelAndView cadastroPrecificacoes (@Valid PrecificacoesModel precificacao, BindingResult result,
+            RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
@@ -51,14 +53,14 @@ public class AdminPrecifiController
         }
 
         String[] mensagem = precificacoesService.cadastrar(precificacao);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/cadastrarPrecificacoes");
     }
 
     @PostMapping("alterarPrecificacoes")
-    public ModelAndView alterarPrecificacoes(@RequestParam(name = "id") Integer id, PrecificacoesModel precificacao)
+    public ModelAndView alterarPrecificacoes (@RequestParam(name = "id") Integer id, PrecificacoesModel precificacao)
     {
         ModelAndView mv = new ModelAndView("/admin/precificacoes/alterarPrecificacoes");
 
@@ -66,19 +68,20 @@ public class AdminPrecifiController
 
         return mv;
     }
+
     @PostMapping("alterarPrecificacao")
-    public ModelAndView alterarPrecificacao(@Valid PrecificacoesModel precificacao, RedirectAttributes attributes)
+    public ModelAndView alterarPrecificacao (@Valid PrecificacoesModel precificacao, RedirectAttributes attributes)
     {
         String[] mensagem = precificacoesService.atualizar(precificacao);
-  
+
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/listarPrecificacoes");
     }
 
     @PostMapping("/deletaPrecificacoes")
-    public ModelAndView deletaPrecificacoes(@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
-    {        
+    public ModelAndView deletaPrecificacoes (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
+    {
         String[] mensagem = precificacoesService.excluir(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);

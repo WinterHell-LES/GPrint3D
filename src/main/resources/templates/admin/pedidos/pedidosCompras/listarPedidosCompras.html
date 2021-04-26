@@ -33,7 +33,7 @@
                     <tr th:each="pedido : ${pedidos}">
                         <td th:text="${pedido.pdcNumero}">Número do pedido</td>
                         <td th:text="${pedido.cliente.cliNome}">Cliente</td>
-                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotal(), 1, 'DEFAULT', 2, 'DEFAULT')}">Preço total</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotalPedido(), 1, 'DEFAULT', 2, 'DEFAULT')}">Preço total</td>
                         <td th:text="${pedido.getStrStatusPedido()}">Status</td>
                         <td class="py-0 my-0">
                             <div class="row">

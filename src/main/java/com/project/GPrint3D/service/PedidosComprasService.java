@@ -22,11 +22,11 @@ public class PedidosComprasService
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        try
-        {
+        //try
+        //{
             pedidosComprasRepository.save(pedido);
 
-            response[0] = msg1;
+            /*response[0] = msg1;
             response[1] = "Pedido cadastrado com sucesso!";
         }
         catch (DataIntegrityViolationException e)
@@ -38,7 +38,7 @@ public class PedidosComprasService
         {
             response[0] = msg2;
             response[1] = "Erro ao cadastrar o pedido";
-        }
+        }*/
 
         return response;
     }

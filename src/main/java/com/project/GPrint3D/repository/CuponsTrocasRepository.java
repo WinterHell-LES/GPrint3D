@@ -16,6 +16,9 @@ public interface CuponsTrocasRepository extends JpaRepository<CuponsTrocasModel,
     // Procura por id do cliente
     @Query(value = "SELECT * FROM cupons_trocas WHERE cpt_cli_id = ?", nativeQuery = true)
     public List<CuponsTrocasModel> findAllByCliente (Integer id);
+    // Procura por id do cliente
+    @Query(value = "SELECT * FROM cupons_trocas WHERE cpt_cli_id = ? AND cpt_status = 1", nativeQuery = true)
+    public List<CuponsTrocasModel> findAllAtivoByCliente (Integer id);
 
     // Procura pelo código do cupom
     @Query(value = "SELECT * FROM cupons_trocas WHERE cpt_codigo = ?", nativeQuery = true)

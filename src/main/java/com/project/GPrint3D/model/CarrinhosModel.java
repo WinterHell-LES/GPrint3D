@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,7 @@ public class CarrinhosModel
     @Column(name = "car_cli_temp")
     private String temporaryCliId;
 
-    @OneToMany(mappedBy = "carrinho")
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL)
     private List<PrdCarrinhosModel> listProdutos;
 
     public CarrinhosModel() 

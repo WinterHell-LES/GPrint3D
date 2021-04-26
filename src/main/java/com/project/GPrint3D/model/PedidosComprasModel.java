@@ -1,10 +1,12 @@
 package com.project.GPrint3D.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -182,28 +184,53 @@ public class PedidosComprasModel
         this.endereco = endereco;
     }
 
-    public List<PedCuponsPromocoesModel> getListPedCuponsPromocoes() 
+    public List<PedCuponsPromocoesModel> getListPedCuponsPromocoes ()
     {
+        if (this.listPedCuponsPromocoes == null)
+        {
+            this.listPedCuponsPromocoes = new ArrayList<>();
+        }
+        
         return this.listPedCuponsPromocoes;
     }
 
-    public void setListPedCuponsPromocoes(List<PedCuponsPromocoesModel> listPedCuponsPromocoes) 
+    public void setListPedCuponsPromocoes (List<PedCuponsPromocoesModel> listPedCuponsPromocoes)
     {
         this.listPedCuponsPromocoes = listPedCuponsPromocoes;
     }
 
-    public List<PedCuponsTrocasModel> getListPedCuponsTrocas() 
+    public void removeAllFromListPedCuponsPromocoes ()
     {
+        this.listPedCuponsPromocoes = new ArrayList<>();
+    }
+
+    public List<PedCuponsTrocasModel> getListPedCuponsTrocas ()
+    {
+        if (this.listPedCuponsPromocoes == null)
+        {
+            this.listPedCuponsPromocoes = new ArrayList<>();
+        }
+        
         return this.listPedCuponsTrocas;
     }
 
-    public void setListPedCuponsTrocas(List<PedCuponsTrocasModel> listPedCuponsTrocas) 
+    public void setListPedCuponsTrocas (List<PedCuponsTrocasModel> listPedCuponsTrocas)
     {
         this.listPedCuponsTrocas = listPedCuponsTrocas;
     }
 
+    public void removeAllFromListPedCuponsTrocas ()
+    {
+        this.listPedCuponsTrocas = new ArrayList<>();
+    }
+
     public List<PedProdutosModel> getListPedProdutos ()
     {
+        if (this.listPedCuponsPromocoes == null)
+        {
+            this.listPedCuponsPromocoes = new ArrayList<>();
+        }
+        
         return this.listPedProdutos;
     }
 
@@ -212,8 +239,18 @@ public class PedidosComprasModel
         this.listPedProdutos = listPedProdutos;
     }
 
+    public void removeAllFromListPedProdutos ()
+    {
+        this.listPedProdutos = new ArrayList<>();
+    }
+
     public List<PedCartoesModel> getListPedCartoes ()
     {
+        if (this.listPedCuponsPromocoes == null)
+        {
+            this.listPedCuponsPromocoes = new ArrayList<>();
+        }
+        
         return this.listPedCartoes;
     }
 
@@ -222,8 +259,18 @@ public class PedidosComprasModel
         this.listPedCartoes = listPedCartoes;
     }
 
+    public void removeAllFromListPedCartoes ()
+    {
+        this.listPedCartoes = new ArrayList<>();
+    }
+
     public List<SaidasModel> getListSaidas ()
     {
+        if (this.listPedCuponsPromocoes == null)
+        {
+            this.listPedCuponsPromocoes = new ArrayList<>();
+        }
+        
         return this.listSaidas;
     }
 
@@ -234,6 +281,11 @@ public class PedidosComprasModel
 
     public List<PedidosTrocasModel> getListPedTrocas ()
     {
+        if (this.listPedCuponsPromocoes == null)
+        {
+            this.listPedCuponsPromocoes = new ArrayList<>();
+        }
+        
         return this.listPedTrocas;
     }
 
@@ -252,7 +304,7 @@ public class PedidosComprasModel
         this.frete = frete;
     }
 
-    public double getValorTotal ()
+    public double getValorTotalProdutos ()
     {
         double valorTotal = 0.0;
 
@@ -293,6 +345,70 @@ public class PedidosComprasModel
         }
 
         return true;
+    }
+
+    public double getValorTotalCartoes ()
+    {
+        double valorTotal = 0.0;
+
+        for (PedCartoesModel pedCartoes : this.listPedCartoes)
+        {
+            valorTotal += pedCartoes.getPctValor();
+        }
+
+        return valorTotal;
+    }
+
+    public double getValorTotalCuponsTroca ()
+    {
+        double valorTotal = 0.0;
+
+        for (PedCuponsTrocasModel cupomTroca : this.listPedCuponsTrocas)
+        {
+            valorTotal += cupomTroca.getCupom().getCptSaldo();
+        }
+
+        return valorTotal;
+    }
+
+    public double getValorCupomPromocao ()
+    {
+        double valorTotal = 0.0;
+
+        if (!this.listPedCuponsPromocoes.isEmpty())
+        {
+            for (PedProdutosModel produto : this.listPedProdutos)
+            {
+                for (CategoriasProdutosModel categoria : produto.getProduto().getListCategoriasProdutos())
+                {
+                    if (categoria.getCategoria().getCtgId() == this.listPedCuponsPromocoes.get(0).getCupom().getCategoria().getCtgId())
+                    {
+                        valorTotal += produto.getProduto().getPrdPreco() * produto.getPpdQuantidade();
+                    }
+                }
+            }
+
+            
+            valorTotal = valorTotal * this.listPedCuponsPromocoes.get(0).getCupom().getCppDesconto() / 100;
+        }
+        
+        return valorTotal;
+    }
+
+    public double getValorTotalCupons ()
+    {
+        return this.getValorTotalCuponsTroca() + this.getValorCupomPromocao();
+    }
+
+    public Double getValorPendenteTotal ()
+    {
+        return this.getValorTotalProdutos() + this.getFrete().getPcfValor() - this.getValorTotalCupons()
+                - this.getValorTotalCartoes();
+    }
+
+    public double getValorTotalPedido ()
+    {
+        return this.getValorTotalProdutos() + this.getFrete().getPcfValor() - this.getValorTotalCupons();
     }
 
     @Override

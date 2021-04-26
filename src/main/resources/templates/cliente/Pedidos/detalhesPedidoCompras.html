@@ -58,11 +58,11 @@
                         <div class="row">
                             <div class="col-4 pagamento border-end">
                                 <div class="cupom mb-1">
-                                    <div class="row py-2 border-bottom" th:if="${pedido.listPedCupons.size == 0}">
-                                        <div class="row" th:if="${pedido.listPedCupons.size == 0}">
+                                    <div class="row py-2 border-bottom" th:if="${pedido.listPedCuponsPromocoes.size == 0}">
+                                        <div class="row" th:if="${pedido.listPedCuponsPromocoes.size == 0}">
                                             <span class="h7 my-1">Nenhum cupom utilizado</span>                                        
                                         </div>
-                                        <div class="row" th:each="pedCupom : ${pedido.listPedCupons}">
+                                        <div class="row" th:each="pedCupom : ${pedido.listPedCuponsPromocoes}">
                                             <div class="col">
                                                 <i class="bi bi-credit-card pe-0"></i>
                                                 <span class="h7 my-1" th:text="${pedCupom.cupom.cppCodigo}">XXXXXX</span>
@@ -91,7 +91,7 @@
                                         <span class="h7 my-1">Subtotal</span>
                                     </div>
                                     <div class="col text-end">
-                                        <span class="h7 my-1" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotal(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 120,00</span>
+                                        <span class="h7 my-1" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotalPedido(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 120,00</span>
                                     </div>
                                 </div>
                                 <div class="row pt-1 pb-2 border-bottom">
@@ -107,7 +107,7 @@
                                         <span class="h7 my-1">Total</span>
                                     </div>
                                     <div class="col text-end">
-                                        <span class="h7 my-1" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotal() + pedido.frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 132,00</span>
+                                        <span class="h7 my-1" th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotalPedido() + pedido.frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 132,00</span>
                                     </div>
                                 </div>
                             </div>

@@ -113,19 +113,19 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row" class="col-3">Descrição:</th>
-                                            <td th:text="${endereco.endDescricao}">Casa</td>
+                                            <td th:text="${pedidoCompra.endereco.endDescricao}">Casa</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Endereço:</th>
-                                            <td th:text="${#strings.isEmpty(endereco.endComplemento)} ? ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero} : ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero + ' - ' + endereco.endComplemento}">Rua João das Neves, 123 - Complemento</td>
+                                            <td th:text="${#strings.isEmpty(pedidoCompra.endereco.endComplemento)} ? ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero} : ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero + ' - ' + pedidoCompra.endereco.endComplemento}">Rua João das Neves, 123 - Complemento</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Cidade / UF:</th>
-                                            <td th:text="${endereco.endCidade + ' / ' + endereco.endEstado}">Mogi das Cruzes / SP</td>
+                                            <td th:text="${pedidoCompra.endereco.endCidade + ' / ' + pedidoCompra.endereco.endEstado}">Mogi das Cruzes / SP</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">CEP:</th>
-                                            <td th:text="${endereco.endCep}">12345-123</td>
+                                            <td th:text="${pedidoCompra.endereco.endCep}">12345-123</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -146,7 +146,7 @@
                         <p class="h5">Cupons</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-success">R$ 0,00</span>
+                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCupons(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -154,14 +154,40 @@
                 </div>
 
                 <div id="detalhesCupons">
-                    <div class="border-top visually-hidden p-2">
-                        <div class="row pt-2 pb-0">
-                            <p>Cupons aplicados:</p>
+                    <div class="border-top visually-hidden">
+                        <div class="row p-2">
+                            <div class="col" th:if="${not #lists.isEmpty(pedidoCompra.listPedCuponsTrocas)}">
+                                <div class="row pt-2 pb-0">
+                                    <p>Cupons de troca aplicados:</p>
+                                </div>
+                                <div class="row pb-2" th:each="cupomPedido : ${pedidoCompra.listPedCuponsTrocas}">
+                                    <div class="col">
+                                        <i class="bi bi-x-circle d-inline"></i>
+                                        <span class="d-inline">Cupom </span><span class="fw-bold" th:text="${cupomPedido.cupom.cptCodigo}">código do cupom</span><span> aplicado no valor de </span><span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(cupomPedido.cupom.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span><span>.</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row fst-italic pb-3">
-                            <div class="col">
-                                <i class="bi bi-check-circle d-inline"></i>
-                                <span class="d-inline">Cupom XXXXX aplicado no valor de </span><span class="fw-bold">R$ 0,00</span><span>.</span>
+
+                        <div class="row p-2" th:if="${not #lists.isEmpty(pedidoCompra.getListPedCuponsPromocoes)}">
+                            <div class="col border-top">
+                                <div class="row pt-2 pb-0">
+                                    <p>Cupom promocional aplicado:</p>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <i class="bi bi-x-circle d-inline"></i>
+                                        <span class="d-inline">Cupom </span>
+                                        <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppCodigo()}">código do cupom</span>
+                                        <span> aplicado na categoria </span>
+                                        <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCategoria().getCtgNome()}">categoria</span>
+                                        <span> com desconto de </span>
+                                        <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppDesconto()} + '%'">% de desconto</span>
+                                        <span> equivalente a </span>
+                                        <span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorCupomPromocao(), 1, 'DEFAULT', 2, 'DEFAULT')}">valor do cupom em reais R$ 0,00</span>
+                                        <span>.</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -176,7 +202,7 @@
                     </div>
                     
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(totalCartoes, 1, 'DEFAULT', 2, 'DEFAULT')}">R$-132,00</span>
+                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCartoes(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$-132,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-up"></i>
@@ -195,7 +221,7 @@
                                         <th scope="col" class="col-2 text-center">Valor</th>
                                         <th scope="col" class="col-1-sm text-center">CVV</th>
                                     </tr>
-                                    <tr th:each="pedCartao : ${listaPedCartoes}" th:if="!${#lists.isEmpty(listaPedCartoes)}">
+                                    <tr th:each="pedCartao : ${pedidoCompra.listPedCartoes}" th:if="!${#lists.isEmpty(pedidoCompra.listPedCartoes)}">
                                         <td th:text="${pedCartao.cartao.crtNumero}">1234 1234 1234 1234</td>
                                         <td th:text="${pedCartao.cartao.crtNome}">José da Silva</td>
                                         <td th:text="${pedCartao.cartao.bandeira.banNome}">Visa</td>
@@ -206,7 +232,7 @@
                                                 <input type="text" class="form-control cvv text-center p-0" value="" placeholder="cvv" minlength="3" maxlength="3" name="cvv" id="cvv" onfocusout="submit(this)">
                                             </form>
                                         </td>
-                                        <td class="text-center" th:if="${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">Ok</td>
+                                        <td class="text-center text-success" th:if="${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">Confirmado</td>
                                     </tr>
                                 </tbody>
                             </table>

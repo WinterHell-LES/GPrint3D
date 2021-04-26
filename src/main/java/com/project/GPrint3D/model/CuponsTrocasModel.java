@@ -137,7 +137,7 @@ public class CuponsTrocasModel
         this.cptValor = cptValor;
     }
 
-    public double getCptSaldo() 
+    public Double getCptSaldo() 
     {
         return this.cptSaldo;
     }

@@ -38,11 +38,11 @@
                     </div>
                 </div>
 
-                <div class="row border mx-2 cupom shadow" th:each="cupom, stat : ${cupons}">
+                <div class="row border mx-2 mb-4 cupom shadow" th:each="cupom, stat : ${cupons}">
                     <div class="col cupom-header"  onclick="showElement(this)">
                         <div class="row my-2 py-2 cupom-name">
                             <div class="col text-start">
-                                <span class="h5 ps-5" th:text="'Cupom ' + ${stat.count} + ' - ' + ${cupom.cptCodigo}">Cupom 1</span>
+                                <span class="h5 ps-5" th:text="'Cupom - ' + ${cupom.cptCodigo}">Cupom 1</span>
                             </div>
                                     
                             <div class="col-1 text-center">

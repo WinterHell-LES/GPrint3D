@@ -91,7 +91,7 @@ function getCSRF()
     return param;
 }*/
 
-function alert(url = "", selfElem = Object)
+function alerta(url = "", selfElem = Object)
 {   
     var confirmacao = confirm("Isto fará você reinicar o processo de compra, você realmente deseja ser redirecionado para outra página?");
     
@@ -121,7 +121,7 @@ function modificarBotoes(tipo)
 
     var urlNovo = novoBotao.getAttribute("href").toString();
 
-    novoBotao.setAttribute("onclick", "alert(\"" + urlNovo + "\")");
+    novoBotao.setAttribute("onclick", "alerta(\"" + urlNovo + "\")");
     novoBotao.setAttribute("class", "text-decoration-underline");
     novoBotao.outerHTML = novoBotao.outerHTML.replace("<a", "<span").replace("<\/a>", "<\/span>");
 
@@ -132,7 +132,7 @@ function modificarBotoes(tipo)
         {
             if (id.includes("excluir") || id.includes("alterar"))
             {
-                editarExcluirBotoes[i].setAttribute("onclick", "alert(null, this)");
+                editarExcluirBotoes[i].setAttribute("onclick", "alerta(null, this)");
                 editarExcluirBotoes[i].setAttribute("type", "button");
             }
         }

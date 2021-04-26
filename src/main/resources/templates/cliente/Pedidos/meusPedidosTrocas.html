@@ -106,20 +106,20 @@
                                 <input type="hidden" id="pdtStatusPedido" th:field="*{pdtStatusPedido}" value="0">
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" value="1" th:field="*{pdtEscolha}" required>
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" value="1" id="pdtEscolha1" th:field="*{pdtEscolha}" required>
+                                    <label class="form-check-label" th:for="pdtEscolha1">
                                         Troca por outro produto
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" value="2" th:field="*{pdtEscolha}">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" value="2" id="pdtEscolha2" th:field="*{pdtEscolha}">
+                                    <label class="form-check-label" th:for="pdtEscolha2">
                                         Troca por um cupom de troca
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" value="3" th:field="*{pdtEscolha}">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" value="3" id="pdtEscolha3" th:field="*{pdtEscolha}">
+                                    <label class="form-check-label" th:for="pdtEscolha3">
                                         Reembolso do valor do produto
                                     </label>
                                 </div>

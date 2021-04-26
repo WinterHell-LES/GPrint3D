@@ -63,7 +63,7 @@
                         <p class="h5">Valor total do pedido</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-danger" th:text="'R$ ' + ${#numbers.formatDecimal(carrinho.getValorTotal + frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 162,00</span>
+                        <span class="fst-italic text-danger" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalProdutos() + frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 162,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -102,7 +102,7 @@
                         <p class="h5">Cupons</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-success"  th:text="'R$ ' + ${#numbers.formatDecimal(totalCuponsTroca + descontoCupomPromocional, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span>
+                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCupons(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -112,14 +112,14 @@
                 <div id="detalhesCupons">
                     <div class="border-top visually-hidden">
                         <div class="row p-2">
-                            <div class="col" th:classappend="${not #lists.isEmpty(cuponsTrocasUtilizados)} ? border-end" th:if="${not #lists.isEmpty(cuponsTrocasDisponiveis)}">
+                            <div class="col" th:classappend="${not #lists.isEmpty(pedidoCompra.listPedCuponsTrocas)} ? border-end">
                                 <div class="row pt-2 pb-0">
                                     <p>Seus cupons de troca disponíveis:</p>
                                 </div>
-                                <div class="row" th:if="${#lists.isEmpty(cuponsTrocasDisponiveis)}">
+                                <div class="row" th:if="${#lists.isEmpty(cuponsTrocasCliente)}">
                                     <span class="text-danger">Você não possui nenhum cupom no momento.</span>
                                 </div>
-                                <div class="row" th:each="cupom : ${cuponsTrocasDisponiveis}">
+                                <div class="row" th:each="cupom : ${cuponsTrocasCliente}">
                                     <div class="col">
                                         <form th:action="@{/cliente/carrinho/aplicaCupomTroca}" method="POST">
                                             <input class="visually-hidden" type="hidden" name="codigo" th:value="${cupom.cptCodigo}">
@@ -132,17 +132,17 @@
                                 </div>
                             </div>
 
-                            <div class="col" th:if="${not #lists.isEmpty(cuponsTrocasUtilizados)}">
+                            <div class="col" th:if="${not #lists.isEmpty(pedidoCompra.listPedCuponsTrocas)}">
                                 <div class="row pt-2 pb-0">
                                     <p>Cupons de troca aplicados:</p>
                                 </div>
-                                <div class="row fst-italic" th:each="cupom : ${cuponsTrocasUtilizados}">
+                                <div class="row fst-italic" th:each="cupomPedido : ${pedidoCompra.listPedCuponsTrocas}">
                                     <div class="col">
                                         <form th:action="@{/cliente/carrinho/removeCupomTroca}" method="POST">
-                                            <input class="visually-hidden" type="hidden" name="codigo" th:value="${cupom.cptCodigo}">
+                                            <input class="visually-hidden" type="hidden" name="codigo" th:value="${cupomPedido.cupom.cptCodigo}">
                                             <button type="submit" class="btn text-start px-0">
                                                 <i class="bi bi-x-circle d-inline text-danger"></i>
-                                                <span class="d-inline">Cupom </span><span class="fw-bold" th:text="${cupom.cptCodigo}">código do cupom</span><span> aplicado no valor de </span><span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(cupom.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span><span>.</span>
+                                                <span class="d-inline">Cupom </span><span class="fw-bold" th:text="${cupomPedido.cupom.cptCodigo}">código do cupom</span><span> aplicado no valor de </span><span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(cupomPedido.cupom.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span><span>.</span>
                                             </button>
                                         </form>
                                     </div>
@@ -150,7 +150,7 @@
                             </div>
                         </div>
 
-                        <div class="row p-2" th:if="${#strings.isEmpty(cupomPromocaoUtilizado.cppCodigo)}">
+                        <div class="row p-2" th:if="${#lists.isEmpty(pedidoCompra.getListPedCuponsPromocoes)}">
                             <div class="col border-top">
                                 <div class="row pt-2 pb-0">
                                     <p>Possui algum cupom promocional?</p>
@@ -167,7 +167,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="row p-2" th:if="${not #strings.isEmpty(cupomPromocaoUtilizado.cppCodigo)}">
+                        <div class="row p-2" th:if="${not #lists.isEmpty(pedidoCompra.getListPedCuponsPromocoes)}">
                             <div class="col border-top">
                                 <div class="row pt-2 pb-0">
                                     <p>Cupom promocional aplicado:</p>
@@ -175,10 +175,18 @@
                                 <div class="row fst-italic">
                                     <div class="col">
                                         <form th:action="@{/cliente/carrinho/removeCupomPromocional}" method="POST">
-                                            <input class="visually-hidden" type="hidden" name="codigo" th:value="${cupomPromocaoUtilizado.cppCodigo}">
+                                            <input class="visually-hidden" type="hidden" name="codigo" th:value="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppCodigo()}">
                                             <button type="submit" class="btn text-start px-0">
                                                 <i class="bi bi-x-circle d-inline text-danger"></i>
-                                                <span class="d-inline">Cupom </span><span class="fw-bold" th:text="${cupomPromocaoUtilizado.cppCodigo}">código do cupom</span><span> aplicado na categoria </span><span class="fw-bold" th:text="${cupomPromocaoUtilizado.categoria.ctgNome}">categoria</span><span> com desconto de </span><span class="fw-bold" th:text="${cupomPromocaoUtilizado.cppDesconto} + '%'">% de desconto</span><span> equivalente a </span><span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(descontoCupomPromocional, 1, 'DEFAULT', 2, 'DEFAULT')}">valor do cupom em reais R$ 0,00</span><span>.</span>
+                                                <span class="d-inline">Cupom </span>
+                                                <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppCodigo()}">código do cupom</span>
+                                                <span> aplicado na categoria </span>
+                                                <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCategoria().getCtgNome()}">categoria</span>
+                                                <span> com desconto de </span>
+                                                <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppDesconto()} + '%'">% de desconto</span>
+                                                <span> equivalente a </span>
+                                                <span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorCupomPromocao(), 1, 'DEFAULT', 2, 'DEFAULT')}">valor do cupom em reais R$ 0,00</span>
+                                                <span>.</span>
                                             </button>
                                         </form>
                                     </div>
@@ -211,7 +219,7 @@
                         <p class="h5">Pagamento</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(totalCartoes, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 162,00</span>
+                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCartoes(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 162,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-up"></i>
@@ -230,7 +238,7 @@
                                     <th scope="col" class="col-2 text-center">Valor</th>
                                     <th scope="col" class="col-2 text-center">Remover</th>
                                 </tr>
-                                <tr th:each="pedCartao : ${listaPedCartoes}" th:if="!${#lists.isEmpty(listaPedCartoes)}">
+                                <tr th:each="pedCartao : ${pedidoCompra.listPedCartoes}" th:if="!${#lists.isEmpty(pedidoCompra.listPedCartoes)}">
                                     <td th:text="${pedCartao.cartao.crtNumero}">1234 1234 1234 1234</td>
                                     <td th:text="${pedCartao.cartao.crtNome}">José da Silva</td>
                                     <td th:text="${pedCartao.cartao.bandeira.banNome}">Visa</td>
@@ -248,17 +256,17 @@
                                         </form>
                                     </td>
                                 </tr>
-                                <tr th:if="${#lists.isEmpty(listaPedCartoes)}">
+                                <tr th:if="${#lists.isEmpty(pedidoCompra.listPedCartoes)}">
                                     <td class="text-danger text-center" colspan="12">Você ainda não adicionou nenhum cartão para pagamento do carrinho, escolha um cartão para aparecer aqui.</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="row" th:if="${!(((carrinho.getValorTotal + frete.pcfValor) - totalCartoes) &lt; 0.01)}">
+                        <div class="row" th:if="${!(((pedidoCompra.getValorTotalProdutos() + frete.pcfValor) - pedidoCompra.getValorTotalCartoes()) &lt; 0.01)}">
                             <div class="col-8 text-end fw-bold">
                                 <p>Pendente:</p>
                             </div>
                             <div class="col-2 text-center">
-                                <p class="text-danger" th:text="'R$ ' + ${#numbers.formatDecimal((carrinho.getValorTotal + frete.pcfValor) - (totalCartoes + totalCuponsTroca + descontoCupomPromocional), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</p>
+                                <p class="text-danger" th:text="'R$ ' + ${#numbers.formatDecimal((pedidoCompra.getValorPendenteTotal()), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</p>
                             </div>
                             <div class="col-3"></div>
                         </div>

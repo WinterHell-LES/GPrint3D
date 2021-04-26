@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.CategoriasProdutosModel;
-import com.project.GPrint3D.model.CuponsPromocoesModel;
 import com.project.GPrint3D.model.CuponsTrocasModel;
 import com.project.GPrint3D.model.PedCartoesModel;
+import com.project.GPrint3D.model.PedCuponsTrocasModel;
 import com.project.GPrint3D.model.PedProdutosModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.CarrinhosRepository;
+import com.project.GPrint3D.repository.CategoriasProdutosRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.CarrinhosService;
-import com.project.GPrint3D.service.PedProdutosService;
 import com.project.GPrint3D.service.PrdCarrinhosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,10 @@ public class CarrinhoUtil
 {
     @Autowired
     private CarrinhosRepository carrinhoRepository;
-    
+
+    @Autowired
+    private CategoriasProdutosRepository categoriasProdutosRepository;
+
     @Autowired
     private CarrinhosService carrinhoService;
 
@@ -37,36 +40,9 @@ public class CarrinhoUtil
     private PrdCarrinhosService prdCarrinhosService;
 
     @Autowired
-    private PedProdutosService pedProdutosService;
-
-    @Autowired
     private UsuariosRepository usuarios;
 
-    public boolean estaLogado(Principal principal)
-    {
-        if (principal != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public boolean temCookieId(String valorCookie)
-    {
-        if (valorCookie.equals(""))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-
-    public void registrarCookie(String nomeCookie, String valorCookie, HttpServletResponse response)
+    public void registrarCookie (String nomeCookie, String valorCookie, HttpServletResponse response)
     {
         Cookie cookie = new Cookie(nomeCookie, valorCookie);
         cookie.setMaxAge(7 * 24 * 60 * 60);
@@ -75,11 +51,12 @@ public class CarrinhoUtil
         response.addCookie(cookie);
     }
 
-    public PrdCarrinhosModel localizaProduto(CarrinhosModel carrinho, PrdCarrinhosModel prdCarrinhoModel)
+    public PrdCarrinhosModel localizaProduto (CarrinhosModel carrinho, PrdCarrinhosModel prdCarrinhoModel)
     {
         /**
-         * Recebe o carrinho, o produto carrinho model e atualiza no banco se já houver esse produto,
-         * em caso negativo ele inclui uma nova entrada do produto para o carrinho selecionado.
+         * Recebe o carrinho, o produto carrinho model e atualiza no banco se já houver
+         * esse produto, em caso negativo ele inclui uma nova entrada do produto para o
+         * carrinho selecionado.
          */
 
         if (carrinho.getListProdutos() == null)
@@ -88,31 +65,30 @@ public class CarrinhoUtil
         }
 
         // Cria lista de referência
-        List<PrdCarrinhosModel> carrinhoProdutos = new ArrayList<PrdCarrinhosModel>();
+        List<PrdCarrinhosModel> carrinhoProdutos;
 
-        //Recebe a listagem dos produtos do carrinho e valida
+        // Recebe a listagem dos produtos do carrinho e valida
         carrinho = validarListaProdutosCarrinho(carrinho);
         carrinhoProdutos = carrinho.getListProdutos();
 
-        //Tenta atualizar o produto na listagem, se conseguir finalizar o método.
-        for(int i = 0; i < carrinhoProdutos.size(); i++)
+        // Tenta atualizar o produto na listagem, se conseguir finalizar o método.
+        for (int i = 0 ; i < carrinhoProdutos.size() ; i++)
         {
-            if (carrinhoProdutos.get(i).getProduto().getPrdId() ==  prdCarrinhoModel.getProduto().getPrdId())
+            if (carrinhoProdutos.get(i).getProduto().getPrdId() == prdCarrinhoModel.getProduto().getPrdId())
             {
-                //Caso possua o item especificado no carrinho, adiciona uma unidade do item ao invés de criar um novo item
-                PrdCarrinhosModel prdCarPrdModel = carrinhoProdutos.get(i);
-
-                return prdCarPrdModel;
+                // Caso possua o item especificado no carrinho, adiciona uma unidade do item ao
+                // invés de criar um novo item
+                return carrinhoProdutos.get(i);
             }
         }
 
         return null;
     }
 
-    public void criarCarrinho(UsuariosModel usuario, String valorCookie)
+    public void criarCarrinho (UsuariosModel usuario, String valorCookie)
     {
         CarrinhosModel carrinho = new CarrinhosModel();
-        //Fornecer ou um parâmetro ou o outro, nunca os dois.
+        // Fornecer ou um parâmetro ou o outro, nunca os dois.
         if (usuario != null)
         {
             carrinho.setCliente(usuario.getCliente());
@@ -127,40 +103,42 @@ public class CarrinhoUtil
         carrinhoService.cadastrar(carrinho);
     }
 
-    public CarrinhosModel carrinhoAtivo(Principal principal, String valorCookie, String JSESSIONID, HttpServletResponse response)
+    public CarrinhosModel carrinhoAtivo (Principal principal, String valorCookie, String JSESSIONID,
+            HttpServletResponse response)
     {
         /**
-         * Busca o carrinho ativo pelo usuario logado e em caso negativo busca pelo cookie do cliente
-         * e em caso negativo cria um novo carrinho e atribui o cookie do cliente no carrinho e no browser
+         * Busca o carrinho ativo pelo usuario logado e em caso negativo busca pelo
+         * cookie do cliente e em caso negativo cria um novo carrinho e atribui o cookie
+         * do cliente no carrinho e no browser
          */
 
-        //Instancia um novo carrinho
-        CarrinhosModel carrinho = new CarrinhosModel();
+        // Instancia um novo carrinho
+        CarrinhosModel carrinho;
 
-        if (estaLogado(principal))
+        if (principal != null)
         {
-            //Define o usuário pelo principal
+            // Define o usuário pelo principal
             UsuariosModel usuario = usuarios.findByEmail(principal.getName());
-            
+
             if (usuario.getUsuRegra().equals("ROLE_CLI"))
             {
-                if (temCookieId(valorCookie))
+                if (!valorCookie.equals(""))
                 {
-                    //Recupera o carrinho do cookie e verifica no BD
+                    // Recupera o carrinho do cookie e verifica no BD
                     carrinho = mesclarCarrinhos(localizarCarrinho(usuario, ""), localizarCarrinho(null, valorCookie));
 
                     return carrinho;
                 }
-                //Verifica se o cliente possui algum carrinho
+                // Verifica se o cliente possui algum carrinho
                 carrinho = localizarCarrinho(usuario, "");
 
                 return carrinho;
             }
         }
-        
-        if (temCookieId(valorCookie))
+
+        if (!valorCookie.equals(""))
         {
-            //Recupera o carrinho do cookie e verifica no BD
+            // Recupera o carrinho do cookie e verifica no BD
             carrinho = localizarCarrinho(null, valorCookie);
         }
         else
@@ -175,14 +153,14 @@ public class CarrinhoUtil
         return carrinho;
     }
 
-    public CarrinhosModel localizarCarrinho(UsuariosModel usuario, String valorCookie)
+    public CarrinhosModel localizarCarrinho (UsuariosModel usuario, String valorCookie)
     {
         CarrinhosModel carrinho = new CarrinhosModel();
 
         if (usuario != null)
         {
             carrinho = carrinhoRepository.findByClienteId(usuario.getCliente().getCliId());
-                
+
             if (carrinho == null)
             {
                 criarCarrinho(usuario, "");
@@ -191,7 +169,7 @@ public class CarrinhoUtil
             }
         }
 
-        if (valorCookie != "")
+        if (!valorCookie.equals(""))
         {
             carrinho = carrinhoRepository.findByClienteTempId(valorCookie);
 
@@ -208,18 +186,18 @@ public class CarrinhoUtil
         return carrinho;
     }
 
-    public CarrinhosModel validarListaProdutosCarrinho(CarrinhosModel carrinho)
+    public CarrinhosModel validarListaProdutosCarrinho (CarrinhosModel carrinho)
     {
         if (carrinho.getListProdutos() == null)
         {
-            List<PrdCarrinhosModel> carrinhoProdutos = new ArrayList<PrdCarrinhosModel>();
+            List<PrdCarrinhosModel> carrinhoProdutos = new ArrayList<>();
             carrinho.setListProdutos(carrinhoProdutos);
         }
 
         return carrinho;
     }
 
-    public CarrinhosModel mesclarCarrinhos(CarrinhosModel carrinhoLogado, CarrinhosModel carrinhoCookie)
+    public CarrinhosModel mesclarCarrinhos (CarrinhosModel carrinhoLogado, CarrinhosModel carrinhoCookie)
     {
         for (PrdCarrinhosModel produto : carrinhoCookie.getListProdutos())
         {
@@ -232,10 +210,10 @@ public class CarrinhoUtil
         return carrinhoLogado;
     }
 
-    public List<PrdCarrinhosModel> excluirProdutosDuplicados(List<PrdCarrinhosModel> carrinhoProdutos)
+    public List<PrdCarrinhosModel> excluirProdutosDuplicados (List<PrdCarrinhosModel> carrinhoProdutos)
     {
-        List<Integer> idsUnico = new ArrayList<Integer>();
-        List<PrdCarrinhosModel> carrinhoProdutoAux = new ArrayList<PrdCarrinhosModel>();
+        List<Integer> idsUnico = new ArrayList<>();
+        List<PrdCarrinhosModel> carrinhoProdutoAux = new ArrayList<>();
 
         carrinhoProdutoAux.addAll(carrinhoProdutos);
 
@@ -255,128 +233,82 @@ public class CarrinhoUtil
         return carrinhoProdutoAux;
     }
 
-    public double valorTotalCartoes(List<PedCartoesModel> listaPedCartoes)
-    {
-        Double total = 0D;
-
-        if (listaPedCartoes.size() == 0 || listaPedCartoes == null)
-        {
-            return total;
-        }
-
-        for (PedCartoesModel pedCartoes : listaPedCartoes)
-        {
-            total = BigDecimal.valueOf(total).add(BigDecimal.valueOf(pedCartoes.getPctValor())).doubleValue();
-        }
-
-        return total;
-    }
-
-    public boolean converterProdutosCarrinhoParaPedidos(CarrinhosModel carrinho, PedidosComprasModel pedidoCompra)
+    public void converterProdutosCarrinhoParaPedidos (CarrinhosModel carrinho, PedidosComprasModel pedidoCompra)
     {
         List<PrdCarrinhosModel> listaProdutosCarrinho = carrinho.getListProdutos();
 
-        if (listaProdutosCarrinho == null || pedidoCompra == null)
-        {
-            return false;
-        }
-        
         for (PrdCarrinhosModel carProduto : listaProdutosCarrinho)
         {
             PedProdutosModel pedProduto = new PedProdutosModel();
+            List<CategoriasProdutosModel> listaCategorias = categoriasProdutosRepository.findAllByProdutosId(carProduto.getProduto().getPrdId());
 
             pedProduto.setProduto(carProduto.getProduto());
             pedProduto.setPpdQuantidade(carProduto.getPcrQuantidade());
-            pedProduto.setPedidoCompra(pedidoCompra);
+            pedProduto.getProduto().setListCategoriasProdutos(listaCategorias);
 
-            pedProdutosService.cadastrar(pedProduto);
+            pedidoCompra.getListPedProdutos().add(pedProduto);
         }
-
-        return true;
     }
 
-    public double valorTotalCuponsTroca(List<CuponsTrocasModel> listaCuponsTroca)
+    public void validarCupons (PedidosComprasModel pedidoCompra, List<CuponsTrocasModel> listaCuponsTrocasCliente)
     {
-        Double total = 0D;
-
-        if (listaCuponsTroca.size() == 0 || listaCuponsTroca == null)
+        // Pelo for ternario (each) o objeto cupom não era reconhecido, fazendo com que
+        // fosse excluido o primeiro cupom da lista, acredito que o problema ocorra
+        // devido ao caminho CupomTrocasModel > PedCuponsTrocas > PedidoCompras.
+        for (int index = 0 ; index < pedidoCompra.getListPedCuponsTrocas().size() ; index++)
         {
-            return total;
-        }
+            if (pedidoCompra.getValorTotalPedido() < 0 && pedidoCompra.getListPedCuponsTrocas().get(index).getCupom()
+                    .getCptSaldo() < Math.abs(pedidoCompra.getValorTotalPedido()))
+            {
+                listaCuponsTrocasCliente.add(pedidoCompra.getListPedCuponsTrocas().get(index).getCupom());
+                pedidoCompra.getListPedCuponsTrocas().remove(index);
 
-        for (CuponsTrocasModel cupomTroca : listaCuponsTroca)
-        {
-            total = BigDecimal.valueOf(total).add(BigDecimal.valueOf(cupomTroca.getCptSaldo())).doubleValue();
-        }
+                // Necessário o formato recursivo com o break, pois é removido um item da
+                // própria iteração.
+                validarCupons(pedidoCompra, listaCuponsTrocasCliente);
+                break;
+            }
 
-        return total;
+        }
     }
 
-    public double valorDescontoCupomPromocional(Integer carrinhoId, CuponsPromocoesModel cupomPromocao)
+    public void validarCartoes (PedidosComprasModel pedidoCompra)
     {
-        Double total = 0D;
-
-        CarrinhosModel carrinho = carrinhoRepository.findOneById(carrinhoId);
-
-        for (PrdCarrinhosModel prdCarrinho : carrinho.getListProdutos())
+        if (pedidoCompra.getValorTotalPedido() > 0
+                && (int)(pedidoCompra.getValorTotalPedido() / (pedidoCompra.getListPedCartoes().size()) * 10) == 0)
         {
+            pedidoCompra.getListPedCartoes().remove(pedidoCompra.getListPedCartoes().size()-1);
 
-           for (CategoriasProdutosModel categoria : prdCarrinho.getProduto().getListCategoriasProdutos())
-           {
-                if (categoria.getCategoria() == cupomPromocao.getCategoria())
-                {
-                    BigDecimal totalBD = BigDecimal.valueOf(total).add((BigDecimal.valueOf(prdCarrinho.getProduto().getPrdPreco())).multiply(BigDecimal.valueOf(prdCarrinho.getPcrQuantidade())));
-                    total = totalBD.doubleValue();
-                }
-           }
+            validarCartoes(pedidoCompra);
         }
 
-        BigDecimal totalBD = BigDecimal.valueOf(total).multiply((BigDecimal.valueOf(cupomPromocao.getCppDesconto()).divide(new BigDecimal("100"))));
-        total = totalBD.doubleValue();
-
-        return total;
-    }
-
-    public void validarCupons(List<CuponsTrocasModel> listaCuponsTrocaDisponiveis, List<CuponsTrocasModel> listaCuponsTrocaUtilizados, Double valorPendenteCupons)
-    {
-        for (CuponsTrocasModel cupom : listaCuponsTrocaUtilizados)
+        if (pedidoCompra.getValorTotalPedido() <= 0)
         {
-            if (valorPendenteCupons < 0 && cupom.getCptValor() < Math.abs(valorPendenteCupons))
-            {   
-                listaCuponsTrocaUtilizados.remove(cupom);
-                listaCuponsTrocaDisponiveis.add(cupom);
+            pedidoCompra.getListPedCartoes().clear();
 
-                //Necessário o formato recursivo com o break, pois é removido um item da própria iteração.
-                validarCupons(listaCuponsTrocaDisponiveis, listaCuponsTrocaUtilizados, valorPendenteCupons);
+            String response = "Não é necessário o pagamento com cartão.";
+        }
+
+        double valorTotal = pedidoCompra.getValorTotalCartoes();
+
+        for (int index = pedidoCompra.getListPedCartoes().size() - 1; index >= 0; index--)
+        {
+            if (pedidoCompra.getValorTotalCartoes() > pedidoCompra.getValorTotalPedido())
+            {
+                pedidoCompra.getListPedCartoes().get(index).setPctValor(0.0);
+            }
+            else
+            {
                 break;
             }
         }
-    }
 
-    public void validarCartoes(List<PedCartoesModel> listaPedCartoes, Double valorPendenteCupons, Double valorPendenteTotal)
-    {
-        if ((valorPendenteCupons > 0 && valorPendenteCupons / listaPedCartoes.size() < 10) && (valorTotalCartoes(listaPedCartoes) > valorPendenteCupons))
-        {    
-            PedCartoesModel aux = new PedCartoesModel();
-
-            for (PedCartoesModel cartao : listaPedCartoes)
-            {
-                if (aux.getPctValor() < cartao.getPctValor())
-                {
-                    aux = cartao;
-                }
-            }
-            
-            listaPedCartoes.remove(aux);
-
-            validarCartoes(listaPedCartoes, valorPendenteCupons, valorPendenteTotal);
-        }
-
-        if (valorPendenteCupons <= 0)
+        for (int index = pedidoCompra.getListPedCartoes().size() - 1; index >= 0; index--)
         {
-            listaPedCartoes.clear();
-
-            String response = "Não é necessário o pagamento com cartão.";
+            if (pedidoCompra.getValorPendenteTotal() < 10 && pedidoCompra.getListPedCartoes().get(index).getPctValor() == 0.0)
+            {
+                pedidoCompra.getListPedCartoes().remove(index);
+            }
         }
     }
 }

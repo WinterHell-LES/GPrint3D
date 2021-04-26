@@ -558,7 +558,8 @@ values ('Comercial', '(67)', '3697-5899', '1');
 
 -- Cartao
 insert into cartoes(crt_nome, crt_numero, crt_validade, crt_cvv, crt_ban_id, crt_cli_id)
-values ('Sérgio Levi Yuri Melo', '1234 5688 8885 5221', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '1', '1');
+values ('Sérgio Levi Yuri Melo', '1234 5688 8885 5221', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '1', '1'),
+	   ('Sérgio Levi Yuri Melo', '4321 5688 8885 9865', '07/20', '$2a$10$AAA/43qvp1TX0GaMGwGAFufPqMtMIqf./DQQYUR3Cq0UStqWFwhUy', '2', '1');
 
 -- Cartao Padrao
 insert into cartoes_padroes (ctp_crt_id, ctp_cli_id)
@@ -566,24 +567,24 @@ values ('1', '1');
 
 -- Pedidos
 insert into pedidos_compras(pdc_numero, pdc_datainicio, pdc_datafim, pdc_statuspedido, pdc_statuslogistica, pdc_cli_id, pdc_end_id)
-values ('10101010', CURDATE(), null, 0, 0, 1, 1);
+values ('GP3PED210420221907', CURDATE(), null, 4, 5, 1, 1);
 
 insert into pedidos_compras(pdc_numero, pdc_datainicio, pdc_datafim, pdc_statuspedido, pdc_statuslogistica, pdc_cli_id, pdc_end_id)
-values ('10101011', CURDATE(), null, 0, 0, 1, 1);
+values ('GP3PED210420222056', CURDATE(), null, 4, 5, 1, 1);
+
+insert into pedidos_compras_produtos(ppd_quantidade, pdc_status, ppd_pdc_id, ppd_prd_id)
+values (1, 1, 1, 1),
+	   (2, 0, 1, 2),
+	   (3, 0, 1, 3),
+	   (4, 0, 1, 4),
+	   (5, 0, 1, 5),
+	   (6, 0, 1, 6);
 
 insert into pedidos_compras_produtos(ppd_quantidade, ppd_pdc_id, ppd_prd_id)
-values (1, 1, 1),
-	   (2, 1, 2),
-	   (3, 1, 3),
-	   (4, 1, 4),
-	   (5, 1, 5),
-	   (6, 1, 6);
-
-insert into pedidos_compras_produtos(ppd_quantidade, ppd_pdc_id, ppd_prd_id)
-values (1, 2, 10),
-	   (2, 2, 11),
-	   (3, 2, 12),
-	   (4, 2, 13);
+values (1, 1, 2, 10),
+	   (2, 0, 2, 11),
+	   (3, 1, 2, 12),
+	   (4, 0, 2, 13);
        
 insert into pedidos_compras_cartoes(pct_valor, pct_crt_id, pct_pdc_id)
 values (72447.90, 1, 1),
@@ -592,6 +593,19 @@ values (72447.90, 1, 1),
 insert into pedidos_compras_fretes(pcf_empresa, pcf_modalidade, pcf_prazo, pcf_valor, pcf_pdc_id)
 values ('Correios', 'SEDEX', 2, 1000.00, 1),
 	   ('Correios', 'SEDEX', 3, 500.00, 2);
+
+insert into pedidos_trocas (pdt_numero, pdt_quantidade, pdt_data, pdt_escolha, pdt_statuspedido, pdt_statuslogistica, pdt_descricao, pdt_retorno, pdt_ppd_id, pdt_pdc_id, pdt_cli_id)
+values ('GP3DCT210425031029', 1, '2021-04-25', 2, 2, 0, 'defeito', 0, 1, 1, 1),
+	   ('GP3DCT210425031043', 3, '2021-04-25', 2, 2, 0, 'defeito', 0, 9, 2, 1),
+       ('GP3DCT210425031057', 1, '2021-04-25', 2, 2, 0, 'defeito', 0, 7, 2, 1);
+       
+insert into cupons_promocoes (cpp_nome, cpp_codigo, cpp_desconto, cpp_validade, cpp_ctg_id)
+values ('GPRINT3D20OFF', 'GP3DCP210425173316', 20, '2050-01-01', 1);
+
+insert into cupons_trocas (cpt_status, cpt_data, cpt_validade, cpt_valor, cpt_saldo, cpt_codigo, cpt_cli_id)
+values (1, '2021-04-25', '2021-08-03', 1899.90, 1899.90, 'GP3DCT210425031219', 1),
+	   (1, '2021-04-25', '2021-08-03', 419.70, 419.870, 'GP3DCT210425031226', 1),
+       (1, '2021-04-25', '2021-08-03', 99.90, 99.90, 'GP3DCT210425031231', 1);
 
 
 -- Usuario - Cliente 2

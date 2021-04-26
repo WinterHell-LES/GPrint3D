@@ -18,7 +18,7 @@
                                     Categorias
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-                                    <li th:each="cat : ${ctgs}"><a class="dropdown-item" th:href="${'/c/' + #strings.replace(cat.ctgNome, ' ', '_')}" th:text="${cat.ctgNome}" th:if="${cat.getVerifCategoria()}">Categoria</a></li>
+                                    <li th:each="cat : ${ctgs}"><a class="dropdown-item" th:href="${'/c/' + #strings.replace(cat.ctgNome, ' ', '_')}" th:text="${cat.ctgNome}">Categoria</a></li>
                                 </ul>
                             </li>
                         </ul>

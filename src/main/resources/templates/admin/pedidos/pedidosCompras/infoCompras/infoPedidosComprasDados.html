@@ -62,7 +62,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Valor total</th>
-                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotal(), 1, 'DEFAULT', 2, 'DEFAULT')}">Valor total</td>
+                        <td th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotalPedido(), 1, 'DEFAULT', 2, 'DEFAULT')}">Valor total</td>
                     </tr>
                     <tr>
                         <th scope="row">Frete</th>

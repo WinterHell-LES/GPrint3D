@@ -70,20 +70,20 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row" class="col-3">Descrição:</th>
-                                        <td th:text="${endereco.endDescricao}">Casa</td>
+                                        <td th:text="${pedidoCompra.endereco.endDescricao}">Casa</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Endereço:</th>
-                                        <td th:text="${#strings.isEmpty(endereco.endComplemento)} ? ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero} : ${endereco.endTipo + ' ' + endereco.endLogradouro + ', ' + endereco.endNumero + ' - ' + endereco.endComplemento}">Rua João das Neves, 123 - Complemento</td>
+                                        <td th:text="${#strings.isEmpty(pedidoCompra.endereco.endComplemento)} ? ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero} : ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero + ' - ' + pedidoCompra.endereco.endComplemento}">Rua João das Neves, 123 - Complemento</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Cidade / UF:</th>
-                                        <td th:text="${endereco.endCidade + ' / ' + endereco.endEstado}">Mogi das Cruzes / SP</td>
+                                        <td th:text="${pedidoCompra.endereco.endCidade + ' / ' + pedidoCompra.endereco.endEstado}">Mogi das Cruzes / SP</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">CEP:</th>
-                                        <td th:text="${endereco.endCep}">12345-123</td>
-                                        <input type="hidden" class="visually-hidden cep" name="cep" id="cep" th:value="${endereco.endCep}">
+                                        <td th:text="${pedidoCompra.endereco.endCep}">12345-123</td>
+                                        <input type="hidden" class="visually-hidden cep" name="cep" id="cep" th:value="${pedidoCompra.endereco.endCep}">
                                     </tr>
                                 </tbody>
                             </table>
@@ -155,7 +155,7 @@
             <script type="text/javascript" th:src="@{/javascripts/correios.js}"></script>
 
             <script type="text/javascript" th:inline="javascript">
-                window.addEventListener('load', function ()
+                document.addEventListener("DOMContentLoaded", function ()
                 {
                     modificarBotoes("endereco");
                     calcularFrete();

@@ -27,7 +27,7 @@
                         <div class="card-end text-center" style="max-width: 200px; min-width: 200px;">
                             <!-- <p class="fs-7 fs text-decoration-line-through text-black-50">R$ 99,99</p> -->
                             <p class="fs-5 fw-bolder" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">Preço</p>
-                            <a th:href="${link + '/p/' + #strings.replace(produto.produto.prdNome, ' ', '_')}" class="btn btn-secondary mt-2 stretched-link" style="width: 100%;">Comprar</a>
+                            <a th:href="${link + '/p/' + #strings.replace(produto.produto.prdNome, ' ', '_')}" class="btn btn-secondary mt-2 stretched-link" style="width: 100%;">Detalhes</a>
                         </div>
                     </div>
                 </div>

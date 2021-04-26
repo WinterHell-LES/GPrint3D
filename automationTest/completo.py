@@ -14,9 +14,11 @@ from selenium.webdriver.support import expected_conditions as EC # available sin
 
 #Chromium path
 CHROMIUM_PATH = 'automationTest/chromium/chromedriver.exe'
+GECKODRIVER_PATH = 'automationTest/geckodriver/geckodriver.exe'
 
 #Carrega o webdriver
-driver = webdriver.Chrome(executable_path=CHROMIUM_PATH)
+#driver = webdriver.Chrome(executable_path=CHROMIUM_PATH)
+driver = webdriver.Firefox(executable_path=GECKODRIVER_PATH)
 driver.get('http://127.0.0.1:8080')
 
 #Cadastrar usuário

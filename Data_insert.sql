@@ -572,7 +572,7 @@ values ('GP3PED210420221907', CURDATE(), null, 4, 5, 1, 1);
 insert into pedidos_compras(pdc_numero, pdc_datainicio, pdc_datafim, pdc_statuspedido, pdc_statuslogistica, pdc_cli_id, pdc_end_id)
 values ('GP3PED210420222056', CURDATE(), null, 4, 5, 1, 1);
 
-insert into pedidos_compras_produtos(ppd_quantidade, pdc_status, ppd_pdc_id, ppd_prd_id)
+insert into pedidos_compras_produtos(ppd_quantidade, ppd_status, ppd_pdc_id, ppd_prd_id)
 values (1, 1, 1, 1),
 	   (2, 0, 1, 2),
 	   (3, 0, 1, 3),
@@ -580,7 +580,7 @@ values (1, 1, 1, 1),
 	   (5, 0, 1, 5),
 	   (6, 0, 1, 6);
 
-insert into pedidos_compras_produtos(ppd_quantidade, ppd_pdc_id, ppd_prd_id)
+insert into pedidos_compras_produtos(ppd_quantidade, ppd_status, ppd_pdc_id, ppd_prd_id)
 values (1, 1, 2, 10),
 	   (2, 0, 2, 11),
 	   (3, 1, 2, 12),

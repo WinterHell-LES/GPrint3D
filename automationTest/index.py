@@ -11,7 +11,8 @@ from selenium.common.exceptions import ElementClickInterceptedException
 
 def clicarLogin(driver):
     #Clica no login
-    button_click(driver, by_css_selector='button[data-bs-toggle="dropdown"]')
+    button_click(
+        driver, by_xpath='/html/body/div[2]/div/header/div/div[3]/div/a[2]')
     try:
         WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[href="/cadastro/cadastroDadosPessoais"]')))
     except:
@@ -31,7 +32,8 @@ def logarUsuario(driver, email, senha):
     driver.find_element_by_id('inputPassword').send_keys(senha)
     sleep(0.5)
 
-    button_click(driver, by_xpath='/html/body/div[2]/div/div/nav/div/div[2]/div/div/div/form/div/button')
+    button_click(
+        driver, by_xpath='/html/body/div[2]/div/header/div/div[3]/div/div/div/form/div/button')
     sleep(1)
 
 def entrarMenuUsuario(driver):

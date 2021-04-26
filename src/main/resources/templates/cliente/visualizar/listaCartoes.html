@@ -41,7 +41,7 @@
                         </div>
                         <div class="row pt-2" th:if="${#httpServletRequest.requestURI.contains('carrinho')}">
                             <div class="col d-flex flex-column text-center">
-                                <form th:action="@{/cliente/carrinho/inlcuiCartao}" method="POST">
+                                <form th:action="@{/cliente/carrinho/incluirCartao}" method="POST">
                                     <button class="btn border shadow-sm w-100" name="id" th:value="${cartao.crtId}">Incluir</button>
                                 </form>
                             </div>

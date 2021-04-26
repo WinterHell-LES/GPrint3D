@@ -180,7 +180,7 @@ public class PrdCarrinhosModel
 
         if (dataAtual.after(dataCarrinhoP))
         {
-            return "Não efetivação da compra";
+            return "Prazo de compra expirado";
         }
 
         return "Motivo desconhecido";

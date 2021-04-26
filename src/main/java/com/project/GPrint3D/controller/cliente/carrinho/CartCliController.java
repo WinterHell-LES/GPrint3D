@@ -51,6 +51,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/cliente/carrinho")
@@ -300,13 +301,16 @@ public class CartCliController extends CarrinhoUtil
 
     // Aplica um cupom promocional
     @PostMapping("/aplicaCupomPromocional")
-    public ModelAndView aplicarCupomPromocional (@RequestParam(name = "codigo", defaultValue = "") String codigo)
+    public ModelAndView aplicarCupomPromocional (@RequestParam(name = "codigo", defaultValue = "") String codigo,
+            RedirectAttributes attributes)
     {
         CuponsPromocoesModel cupom = cuponsPromocoesRepository.findByCodigo(codigo);
 
         if (cupom == null)
         {
             String response = "Codigo inválido";
+
+            attributes.addFlashAttribute("error", response);
 
             return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
         }
@@ -341,8 +345,8 @@ public class CartCliController extends CarrinhoUtil
     }
 
     // Inclui cartão para pagamento
-    @PostMapping("/inlcuiCartao")
-    public ModelAndView incluirCartao (@RequestParam(name = "id") Integer cartaoId)
+    @PostMapping("/incluirCartao")
+    public ModelAndView incluirCartao (@RequestParam(name = "id") Integer cartaoId, RedirectAttributes attributes)
     {
         CartoesModel cartaoIncluir = cartoesRepository.findOneById(cartaoId);
 
@@ -352,6 +356,8 @@ public class CartCliController extends CarrinhoUtil
             {
                 String response = "Cartão já incluso, inclua outro cartão.";
 
+                attributes.addFlashAttribute("error", response);
+
                 return new ModelAndView("redirect:/cliente/carrinho/escolherPagamento");
             }
         }
@@ -360,6 +366,8 @@ public class CartCliController extends CarrinhoUtil
                 || (pedidoCompra.getValorPendenteTotal() < 10 && !pedidoCompra.getListPedCartoes().isEmpty()))
         {
             String response = "Valor insuficiente para incluir um cartão.";
+
+            attributes.addFlashAttribute("error", response);
         }
         else
         {
@@ -377,7 +385,7 @@ public class CartCliController extends CarrinhoUtil
 
     // Remove cartão para pagamento
     @PostMapping("/removeCartao")
-    public ModelAndView removeCartao (@RequestParam(name = "index") int index)
+    public ModelAndView removeCartao (@RequestParam(name = "index") int index, RedirectAttributes attributes)
     {
         pedidoCompra.getListPedCartoes().remove(index);
 
@@ -394,7 +402,7 @@ public class CartCliController extends CarrinhoUtil
     // Insere o valor a ser pago no cartão
     @PostMapping("/atualizarCartao")
     public ModelAndView atualizarCartao (@RequestParam(name = "index") Integer index,
-            @RequestParam(name = "valor") String valor)
+            @RequestParam(name = "valor") String valor, RedirectAttributes attributes)
     {
         // É necessário calcular e confirmar os valores (compras + frete) - (cupons +
         // pagamento) = 0
@@ -443,6 +451,8 @@ public class CartCliController extends CarrinhoUtil
                 else if (valorDigitado >= 0 && valorDigitado < 10)
                 {
                     String response = "Valor menor que o mínimo permitido.";
+
+                    attributes.addFlashAttribute("error", response);
                 }
                 else
                 {

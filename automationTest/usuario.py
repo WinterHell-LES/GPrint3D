@@ -53,7 +53,16 @@ def alterarSenha(driver):
 
 def meusPedidos(driver):
     #Acessa meus pedidos
-    button_click(driver, by_css_selector='a[href="/cliente/meusPedidos"]')
+    button_click(driver, by_xpath='//*[@id="bt_pedidos"]')
+    sleep(0.5)
+
+    button_click(
+        driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[4]/div/ul[1]/li/a')
+    sleep(0.5)
+
+def detalhe_pedidos(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[2]/div/div[2]/div/form/div/button')
     sleep(0.5)
 
 def visualizarPedido(driver):

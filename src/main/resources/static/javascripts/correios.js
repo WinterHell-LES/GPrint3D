@@ -2,10 +2,10 @@ async function validarCEP()
 {
     var cep = document.getElementById("cep").value.replace("-", "");
 
-    link = "http://localhost:8080/validarCEP/" + cep;
+    var link = "http://localhost:8080/validarCEP/" + cep;
 
     var config = { 
-        method: 'GET'
+        method: 'GET',
     };
 
     const response = await fetch(link, config);
@@ -29,6 +29,8 @@ async function buscarFrete()
 {
     var cep = document.getElementById("cep").value.replace("-", ""); 
 
+    var link = "";
+
     switch (checkUrl())
     {
         case "produto":
@@ -44,7 +46,7 @@ async function buscarFrete()
             return null;
     }
 
-    var config = { 
+    var config = {
         method: 'GET'
     };
 
@@ -159,7 +161,7 @@ function listarFretes(json)
 
                 case "carrinhoLogado":
                     codigoHTML +=   "<div class=\"form-check\">" +
-                                        "<input class=\"form-check-input\" type=\"radio\" name=\"frete\" id=" + aux.Nome.replace(" ","_") + " value=" + JSON.stringify({'empresa':'correios', 'modalidade': aux.Nome.replace(" ","_"), 'prazo': aux.PrazoEntrega, 'valor': aux.Valor.replace(",", ".")}) + " required>" +
+                                        "<input class=\"form-check-input\" type=\"radio\" name=\"frete\" id=" + aux.Nome.replace(" ","_") + " value=" + JSON.stringify({'empresa':'correios', 'modalidade': aux.Nome.replace(" ","_"), 'prazo': aux.PrazoEntrega, 'valor': aux.Valor.replace(",", ".")}) + " required />" +
                                         "<label class=\"form-check-label row\" for=" + aux.Nome.replace(" ","_") + ">" +
                                             "<div class=\"col-lg\">" +
                                                 aux.Nome +

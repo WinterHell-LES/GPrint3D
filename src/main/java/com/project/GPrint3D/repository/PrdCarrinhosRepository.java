@@ -1,5 +1,7 @@
 package com.project.GPrint3D.repository;
 
+import java.sql.Date;
+
 import com.project.GPrint3D.model.PrdCarrinhosModel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +20,10 @@ public interface PrdCarrinhosRepository extends JpaRepository<PrdCarrinhosModel,
     @Transactional(readOnly = false)
     @Query(value = "UPDATE produtos_carrinhos SET pcr_quantidade = ?1, pcr_ativo = ?2 WHERE pcr_id = ?3", nativeQuery = true)
     public void updateStatusPrdCarrinho (Integer quantidade, boolean status, Integer id);
+
+    // Atualiza a quantidade e status do produto no carrinho
+    @Modifying
+    @Transactional(readOnly = false)
+    @Query(value = "UPDATE produtos_carrinhos SET pcr_quantidade = ?1, pcr_ativo = ?2, pcr_data = ?3 WHERE pcr_id = ?4", nativeQuery = true)
+    public void updateStatusAtivaPrdCarrinho (Integer quantidade, boolean status, Date data, Integer id);
 }

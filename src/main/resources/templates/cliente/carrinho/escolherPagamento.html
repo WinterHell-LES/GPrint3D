@@ -286,6 +286,17 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="position-fixed top-0 mt-6 end-0 p-3" style="z-index: 5" th:if="${not #strings.isEmpty(error)}">
+                <div id="mensagemErroToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header">
+                        <strong class="me-auto">Erro</strong>
+                        <small>Agora</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body" th:text="${error}">Erro</div>
+                </div>
+            </div>
         </section>
 
         <!-- Script-->
@@ -295,6 +306,7 @@
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.maskMoney.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.maskMoney.min.js}"></script>
             <script type="text/javascript" th:src="@{/javascripts/carrinho.js}"></script>
+            <script type="text/javascript" th:src="@{/javascripts/toasts.js}"></script>
             <script type="text/javascript" th:inline="javascript">
                 window.addEventListener('load', function ()
                 {

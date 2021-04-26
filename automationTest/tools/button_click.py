@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 from selenium.common.exceptions import ElementClickInterceptedException
 
-def button_click(driver, by_id=None, by_css_selector=None, by_xpath=None, by_element=None):
+def button_click(driver, by_id=None, by_css_selector=None, by_xpath=None, by_element=None, idx=None):
     if by_id != None:
         WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, by_id)))
         button = driver.find_element_by_id(by_id)

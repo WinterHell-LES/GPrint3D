@@ -225,7 +225,10 @@ public class CartController extends CarrinhoUtil
 
         if (prdCarrinho.getPcrQuantidade() <= prdCarrinho.getProduto().getPrdQuantidade())
         {
-            mensagem = prdCarrinhosService.atualizarStatusPrdCarrinhos(prdCarrinho.getPcrQuantidade(), true, produtoId);
+            java.util.Date dataAtual = new java.util.Date();
+
+            mensagem = prdCarrinhosService.atualizarStatusAtivaPrdCarrinhos(prdCarrinho.getPcrQuantidade(), true,
+                    new Date(dataAtual.getTime()), produtoId);
             mensagem[1] = "Produto reativado com sucesso";
         }
         else
@@ -262,8 +265,8 @@ public class CartController extends CarrinhoUtil
 
         try
         {
-            return calculo.getValorPrazoLista(variavelCEP.replace("-", ""),
-                    cep, carrinho.getListProdutosAtivo(), variaveis);
+            return calculo.getValorPrazoLista(variavelCEP.replace("-", ""), cep, carrinho.getListProdutosAtivo(),
+                    variaveis);
         }
         catch (Exception e)
         {
@@ -284,6 +287,7 @@ public class CartController extends CarrinhoUtil
             if ((aux.getPcrQuantidade() > aux.getProduto().getPrdQuantidade()) || dataAtual.after(dataCarrinhoP))
             {
                 prdCarrinhosService.atualizarStatusPrdCarrinhos(aux.getPcrQuantidade(), false, aux.getPcrId());
+                aux.setPcrAtivo(false);
             }
         }
 
@@ -294,7 +298,8 @@ public class CartController extends CarrinhoUtil
 
             if ((aux.getPcrQuantidade() <= aux.getProduto().getPrdQuantidade()) && dataAtual.before(dataCarrinhoP))
             {
-                prdCarrinhosService.atualizarStatusPrdCarrinhos(aux.getPcrQuantidade(), false, aux.getPcrId());
+                prdCarrinhosService.atualizarStatusPrdCarrinhos(aux.getPcrQuantidade(), true, aux.getPcrId());
+                aux.setPcrAtivo(true);
             }
         }
     }

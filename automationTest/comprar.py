@@ -22,6 +22,25 @@ def entrarProduto(driver):
     button_click(driver, by_css_selector='a[href="/c/Impressoras_3D/p/Impressora_3D_Creality_Ender-3"]')
     sleep(1)
 
+
+def entrarProduto1(driver):
+    #escolhe o produto
+    button_click(driver, by_css_selector='a[href="/c/Impressoras_3D/p/Impressora_3D_Creality_Ender-3"]')
+    sleep(1)
+
+def entrarProduto2(driver):
+    #escolhe o produto
+    button_click(
+        driver, by_css_selector='a[href="/c/Impressoras_3D/p/Impressora_3D_Anycubic_I3_Mega_S"]')
+    sleep(1)
+
+
+def entrarProduto3(driver):
+    #escolhe o produto
+    button_click(
+        driver, by_css_selector='a[href="/c/Impressoras_3D/p/Impressora_3D_Creality_LD-002R"]')
+    sleep(1)
+
 def adicionarProdutoCarrinho(driver):
     #Adiciona o produto no carrinho
     button_click(driver, by_css_selector='button[name="id"]')
@@ -75,4 +94,69 @@ def confirmarPedido(driver):
 
     #Confirmar pedido
     button_click(driver, by_id="confirmar")
+    sleep(1)
+
+def aumentar_produto(driver):
+    #Clicar no produto 2
+    button_click(
+        driver, by_xpath='/html/body/section/div/div[3]/div[2]/div/div[2]/div[3]/div/div/form[3]/button')
+    sleep(1)
+
+    #Clicar no produto 3
+    button_click(
+        driver, by_xpath='/html/body/section/div/div[3]/div[2]/div/div[3]/div[3]/div/div/form[3]/button')
+    sleep(1)
+
+    #Clicar no produto 3
+    button_click(
+        driver, by_xpath='/html/body/section/div/div[3]/div[2]/div/div[3]/div[3]/div/div/form[3]/button')
+    sleep(1)
+
+def login_carrinho(driver, email, senha):
+    driver.find_element_by_id('inputUsuario').send_keys(email)
+    sleep(0.5)
+
+    driver.find_element_by_id('inputSenha').send_keys(senha)
+    sleep(0.5)
+
+    button_click(
+        driver, by_xpath='/html/body/section/div/form/div/button')
+    sleep(1)
+
+def listar_enderecos(driver):
+    button_click(driver, by_xpath='/html/body/section/div[4]/div[1]/div[1]')
+    sleep(3)
+
+def selecionar_frete(driver):
+    button_click(
+        driver, by_xpath='/html/body/section/div[3]/form/div[2]/div[2]/div[2]/div/div[1]/input')
+
+def confirmar_endereco(driver):
+    button_click(driver, by_xpath='//*[@id="confirmar"]')
+    sleep(1)
+
+def listar_produtos(driver):
+    button_click(driver, by_xpath='/html/body/section/div[3]/div[1]/div[1]')
+    sleep(1)
+    button_click(driver, by_xpath='/html/body/section/div[3]/div[1]/div[1]')
+    sleep(1)
+
+def listar_cupons(driver):
+    button_click(driver, by_xpath='/html/body/section/div[4]/div[1]/div[1]')
+    sleep(1)
+    button_click(driver, by_xpath='/html/body/section/div[4]/div[1]/div[1]')
+    sleep(1)
+
+def listar_cartoes(driver):
+    button_click(driver, by_xpath='/html/body/section/div[5]/div[1]/div[1]')
+    sleep(1)
+
+def add_cartao(driver):
+    button_click(driver, by_xpath='//*[@id="novoCartao"]')
+    sleep(1)
+    driver.switch_to.alert.accept()
+
+def add_novo_cartao(driver):
+    button_click(
+        driver, by_xpath='/html/body/section/div[5]/div[2]/div/div/div[3]/div/div/div[3]/div/form/button')
     sleep(1)

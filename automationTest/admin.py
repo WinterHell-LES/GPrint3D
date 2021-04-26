@@ -98,7 +98,23 @@ def listarPedidos(driver):
     button_click(driver, by_css_selector='button[data-bs-target="#pedidos"]')
     sleep(0.5)
 
-    button_click(driver, by_css_selector='a[href="/admin/listarPedidos"]')
+    button_click(
+        driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[9]/div/ul/li[1]/a')
+    sleep(0.5)
+
+def acessar_pedido_compra(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/table/tbody/tr[1]/td[5]/div/div[2]/form/button')
+    sleep(0.5)
+
+def aprovar_pagamento(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/div[3]/form/div/button')
+    sleep(0.5)
+
+def gerar_nota(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/div[2]/form/div/button')
     sleep(0.5)
 
 def listarPedidosTroca(driver):
@@ -111,7 +127,18 @@ def logisticaPedidos(driver):
     button_click(driver, by_css_selector='button[data-bs-target="#logistica"]')
     sleep(0.5)
 
-    button_click(driver, by_css_selector='a[href="/admin/logistica/listarLogisticaPedidos"]')
+    button_click(
+        driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[10]/div/ul/li[1]/a')
+    sleep(0.5)
+
+def acessar_logistica_compra(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/table/tbody/tr[1]/td[5]/div/form/button')
+    sleep(0.5)
+
+def avancar_logistica(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/form/div/button')
     sleep(0.5)
 
 def logisticaTrocas(driver):

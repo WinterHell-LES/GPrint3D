@@ -229,7 +229,7 @@
                                         <td th:if="!${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">
                                             <form th:action="@{/cliente/carrinho/validarCvv}" method="POST" class="px-0">
                                                 <input type="hidden" class="hidden" name="index" th:value="${pedCartaoStat.index}">
-                                                <input type="text" class="form-control cvv text-center p-0" value="" placeholder="cvv" minlength="3" maxlength="3" name="cvv" id="cvv" onfocusout="submit(this)">
+                                                <input type="text" class="form-control cvv text-center p-0" value="" placeholder="cvv" minlength="3" maxlength="3" name="cvv" th:id="'cvv' + ${pedCartaoStat.count}" onfocusout="submit(this)">
                                             </form>
                                         </td>
                                         <td class="text-center text-success" th:if="${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">Confirmado</td>

@@ -190,8 +190,7 @@ public class CarrinhoUtil
     {
         if (carrinho.getListProdutos() == null)
         {
-            List<PrdCarrinhosModel> carrinhoProdutos = new ArrayList<>();
-            carrinho.setListProdutos(carrinhoProdutos);
+            carrinho.setListProdutos(new ArrayList<>());
         }
 
         return carrinho;

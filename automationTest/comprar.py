@@ -131,7 +131,7 @@ def selecionar_frete(driver):
     button_click(
         driver, by_xpath='/html/body/section/div[3]/form/div[2]/div[2]/div[2]/div/div[1]/input')
 
-def confirmar_endereco(driver):
+def confirmar(driver):
     button_click(driver, by_xpath='//*[@id="confirmar"]')
     sleep(1)
 
@@ -144,7 +144,15 @@ def listar_produtos(driver):
 def listar_cupons(driver):
     button_click(driver, by_xpath='/html/body/section/div[4]/div[1]/div[1]')
     sleep(1)
-    button_click(driver, by_xpath='/html/body/section/div[4]/div[1]/div[1]')
+
+def add_cupom_troca(driver):
+    button_click(driver, by_xpath='/html/body/section/div[4]/div[2]/div/div[1]/div/div[2]/div/form/button/span[2]')
+    sleep(1)
+
+def add_cupom_promocao(driver, codigo):
+    driver.find_element_by_id('cupom').send_keys(codigo)
+    sleep(0.2)
+    button_click(driver, by_xpath='/html/body/section/div[4]/div[2]/div/div[2]/div/form/div/div[2]/button')
     sleep(1)
 
 def listar_cartoes(driver):
@@ -156,7 +164,19 @@ def add_cartao(driver):
     sleep(1)
     driver.switch_to.alert.accept()
 
-def add_novo_cartao(driver):
+def add_cartao_pagamento(driver, posicao):
     button_click(
-        driver, by_xpath='/html/body/section/div[5]/div[2]/div/div/div[3]/div/div/div[3]/div/form/button')
+        driver, by_xpath='/html/body/section/div[5]/div[2]/div/div/div[' + str(int(posicao + 1)) + ']/div/div/div[3]/div/form/button')
+    sleep(1)
+
+def add_valor(driver, posicao, valor):
+    driver.find_element_by_xpath('/html/body/section/div[6]/div[2]/div/table/tbody/tr[' + str(int(posicao + 1)) + ']/td[4]/form/input[3]').send_keys(valor)
+    sleep(0.2)
+    driver.find_element_by_xpath('/html/body/section/div[6]/div[2]/div/table/tbody/tr[' + str(int(posicao + 1)) + ']/td[4]/form/input[3]').send_keys(Keys.ENTER)
+    sleep(1)
+
+def add_cvv(driver, posicao, cvv):
+    driver.find_element_by_id("cvv" + str(posicao)).send_keys(cvv)
+    sleep(0.2)
+    driver.find_element_by_id("cvv" + str(posicao)).send_keys(Keys.ENTER)
     sleep(1)

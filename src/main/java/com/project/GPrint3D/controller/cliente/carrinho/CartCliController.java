@@ -143,10 +143,10 @@ public class CartCliController extends CarrinhoUtil
         // Resetar as escolhas do pagamento
         listaCuponsTrocasCliente = new ArrayList<>();
         listaCuponsTrocasCliente.addAll(cuponsTrocasRepository.findAllAtivoByCliente(pedidoCompra.getCliente().getCliId()));
-        pedidoCompra.setListPedCartoes(new ArrayList<>());
-        pedidoCompra.setListPedCuponsPromocoes(new ArrayList<>());
-        pedidoCompra.setListPedCuponsTrocas(new ArrayList<>());
-        pedidoCompra.setListPedProdutos(new ArrayList<>());
+        pedidoCompra.removeAllFromListPedCartoes();
+        pedidoCompra.removeAllFromListPedCuponsPromocoes();
+        pedidoCompra.removeAllFromListPedCuponsTrocas();
+        pedidoCompra.removeAllFromListPedProdutos();
         primeiraExecucao = true;
         converterProdutosCarrinhoParaPedidos(carrinho, pedidoCompra);
 

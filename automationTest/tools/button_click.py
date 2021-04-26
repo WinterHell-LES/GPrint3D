@@ -7,7 +7,7 @@ from selenium.common.exceptions import ElementClickInterceptedException
 
 def button_click(driver, by_id=None, by_css_selector=None, by_xpath=None, by_element=None, idx=None):
     if by_id != None:
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID, by_id)))
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, by_id)))
         button = driver.find_element_by_id(by_id)
         try:
             button.click()
@@ -15,7 +15,7 @@ def button_click(driver, by_id=None, by_css_selector=None, by_xpath=None, by_ele
             driver.execute_script("arguments[0].click();", button)
         
     elif by_css_selector != None:
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR, by_css_selector)))
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, by_css_selector)))
         button = driver.find_element_by_css_selector(by_css_selector)
         try:
             button.click()
@@ -23,7 +23,7 @@ def button_click(driver, by_id=None, by_css_selector=None, by_xpath=None, by_ele
             driver.execute_script("arguments[0].click();", button)
         
     elif by_xpath != None:
-        WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH, by_xpath)))
+        WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, by_xpath)))
         button = driver.find_element_by_xpath(by_xpath)
         try:
             button.click()

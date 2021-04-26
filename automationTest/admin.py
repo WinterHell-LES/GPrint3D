@@ -104,7 +104,7 @@ def listarPedidos(driver):
 
 def acessar_pedido_compra(driver):
     button_click(
-        driver, by_xpath='/html/body/main/section/div[3]/table/tbody/tr[1]/td[5]/div/div[2]/form/button')
+        driver, by_xpath='//*[@id="example"]/tbody/tr[3]/td[5]/div/div[2]/form/button')
     sleep(0.5)
 
 def aprovar_pagamento(driver):

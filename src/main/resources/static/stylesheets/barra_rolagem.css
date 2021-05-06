@@ -5,8 +5,10 @@
 
 ::-webkit-scrollbar-track
 {
-    background: #828a90;
-    background: linear-gradient(180deg, #828a90 0px, #6c757d 51px);
+    /* background: #828a90;
+    background: linear-gradient(180deg, #828a90 0px, #6c757d 51px); */
+
+    background: transparent 0;
 }
 
 ::-webkit-scrollbar-thumb

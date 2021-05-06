@@ -23,6 +23,7 @@
                 <thead>
                     <tr>
                         <th>Número do pedido</th>
+                        <th style="width: 150px;">Data do pedido</th>
                         <th>Cliente</th>
                         <th style="width: 150px;">Preço total</th>
                         <th style="width: 150px;">Status</th>
@@ -32,6 +33,7 @@
                 <tbody>
                     <tr th:each="pedido : ${pedidos}">
                         <td th:text="${pedido.pdcNumero}">Número do pedido</td>
+                        <td th:text="${#dates.format(pedido.pdcDataInicio, 'dd/MM/yyyy')}"></td>
                         <td th:text="${pedido.cliente.cliNome}">Cliente</td>
                         <td th:text="'R$ ' + ${#numbers.formatDecimal(pedido.getValorTotalPedido(), 1, 'DEFAULT', 2, 'DEFAULT')}">Preço total</td>
                         <td th:text="${pedido.getStrStatusPedido()}">Status</td>
@@ -49,6 +51,13 @@
                                         </button>
                                     </form>
                                 </div>
+                                <div class="col-auto px-0" th:if="${pedido.pdcStatusPedido} >= 2 AND ${pedido.pdcStatusLogistica} < 5">
+                                    <form th:action="@{/admin/logistica/alterarLogisticaPedidos}" method="POST">
+                                        <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${pedido.pdcId}">
+                                            <i class="bi bi-arrow-right-circle fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logística"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -56,6 +65,7 @@
                 <tfoot>
                     <tr>
                         <th><input style="width: 100%" type="text" placeholder="Procurar número do pedido"></th>
+                        <th><input style="width: 100%" type="text" placeholder="Procurar data"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar cliente"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar preço"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar status"></th>

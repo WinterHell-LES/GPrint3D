@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" layout:decorate="~{layout/admin/layout}">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>GPrint3D - Admin - Gráficos</title>
+    </head>
+
+    <body>
+        <section layout:fragment="conteudo">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Demonstrativo de vendas por produto</h1>
+            </div>
+
+            <ul class="nav nav-tabs mb-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/visualizarGraficoPedidos">Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/admin/visualizarGraficoProdutos">Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/visualizarGraficoCategorias">Categorias</a>
+                </li>
+            </ul>
+
+            <div id="container" class="mx-auto" style="width: 75vw; height: 65vh"></div>
+        </section>
+
+        <!-- Script -->
+        <th:block layout:fragment="javascripts">
+            <script src="https://code.highcharts.com/stock/highstock.js"></script>
+            <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+            <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+            <script type="text/javascript" th:src="@{/javascripts/highcharts/chartControl.produtos.js}"></script>
+        </th:block>
+    </body>
+
+</html>

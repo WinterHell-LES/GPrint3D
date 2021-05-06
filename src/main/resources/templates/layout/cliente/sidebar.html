@@ -1,4 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
     <body>
         <div th:fragment="sidebar">
             <div class="container-fluid">
@@ -7,7 +16,9 @@
                         <div class="position-sticky pt-3">
                             <ul class="nav flex-column mx-2">
                                 <li class="nav-item">
-                                    <a class="btn d-inline-flex align-items-center rounded collapsed" href="/cliente/index" th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
+                                    <a class="btn d-inline-flex align-items-center rounded collapsed"
+                                        href="/cliente/index"
+                                        th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
                                         Início
                                     </a>
                                 </li>
@@ -15,48 +26,72 @@
                                 <li class="my-3 me-2 border-top"></li>
 
                                 <li class="nav-item mb-1">
-                                    <a class="btn d-inline-flex align-items-center rounded" href="/cliente/meuRanking" th:classappend="${#httpServletRequest.requestURI.contains('meuRanking')} ? 'active'">
+                                    <a class="btn d-inline-flex align-items-center rounded" href="/cliente/meuRanking"
+                                        th:classappend="${#httpServletRequest.requestURI.contains('meuRanking')} ? 'active'">
                                         Meu ranking
                                     </a>
-                                </li>  
+                                </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_pedidos" data-bs-toggle="collapse" data-bs-target="#pedidos" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_pedidos" data-bs-toggle="collapse" data-bs-target="#pedidos"
+                                        aria-expanded="false">
                                         Pedidos
                                     </button>
                                     <div class="collapse" id="pedidos">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/cliente/meusPedidos/meusPedidosCompras" th:classappend="${#httpServletRequest.requestURI.contains('meusPedidosCompras')} ? 'active'">Meus pedidos de compra</a></li>
+                                            <li><a class="nav-link" href="/cliente/meusPedidos/meusPedidosCompras"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('meusPedidosCompras')} ? 'active'">Meus
+                                                    pedidos de compra</a></li>
                                         </ul>
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/cliente/meusPedidos/meusPedidosTrocas" th:classappend="${#httpServletRequest.requestURI.contains('meusPedidosTrocas')} ? 'active'">Meus pedidos de troca</a></li>
+                                            <li><a class="nav-link" href="/cliente/meusPedidos/meusPedidosTrocas"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('meusPedidosTrocas')} ? 'active'">Meus
+                                                    pedidos de troca</a></li>
                                         </ul>
                                     </div>
-                                </li> 
-                                
+                                </li>
+
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons" data-bs-toggle="collapse" data-bs-target="#cupons" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_cupons" data-bs-toggle="collapse" data-bs-target="#cupons"
+                                        aria-expanded="false">
                                         Cupons
                                     </button>
                                     <div class="collapse" id="cupons">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/cliente/meusCupons" th:classappend="${#httpServletRequest.requestURI.contains('meusCupons')} ? 'active'">Meus cupons de troca</a></li>
+                                            <li><a class="nav-link" href="/cliente/meusCupons"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('meusCupons')} ? 'active'">Meus
+                                                    cupons de troca</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="my-3 me-2 border-top"></li>
-                                
+
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_dados_pessoais" data-bs-toggle="collapse" data-bs-target="#dados_pessoais" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_dados_pessoais" data-bs-toggle="collapse"
+                                        data-bs-target="#dados_pessoais" aria-expanded="false">
                                         Dados pessoais
                                     </button>
                                     <div class="collapse" id="dados_pessoais">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/cliente/meuCadastro" th:classappend="${#httpServletRequest.requestURI.contains('meuCadastro')} ? 'active'">Meu cadastro</a></li>
-                                            <li><a class="nav-link" href="/cliente/meusEnderecos" th:classappend="${#httpServletRequest.requestURI.contains('meusEnderecos')} ? 'active'">Meus endereços</a></li>
-                                            <li><a class="nav-link" href="/cliente/meusCartoes" th:classappend="${#httpServletRequest.requestURI.contains('meusCartoes')} ? 'active'">Meus cartões</a></li>
-                                            <li><a class="nav-link" href="/cliente/alterarSenha" th:classappend="${#httpServletRequest.requestURI.contains('alterarSenha')} ? 'active'">Alterar senha</a></li>
+                                            <li><a class="nav-link" href="/cliente/meuCadastro"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('meuCadastro')} ? 'active'">Meu
+                                                    cadastro</a></li>
+                                            <li><a class="nav-link" href="/cliente/meusEnderecos"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('meusEnderecos')} ? 'active'">Meus
+                                                    endereços</a></li>
+                                            <li><a class="nav-link" href="/cliente/meusCartoes"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('meusCartoes')} ? 'active'">Meus
+                                                    cartões</a></li>
+                                            <li><a class="nav-link" href="/cliente/alterarSenha"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('alterarSenha')} ? 'active'">Alterar
+                                                    senha</a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -67,4 +102,5 @@
             </div>
         </div>
     </body>
+
 </html>

@@ -20,7 +20,6 @@ body, html
     position: absolute;
     top: 0;
     left: 0;
-    /*background-color: #242f3f;*/
     background-color: rgb(52, 58, 64);
     display:flex;
     justify-content: center;

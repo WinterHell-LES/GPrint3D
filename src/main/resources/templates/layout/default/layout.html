@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-    xmlns:th="http://www.thymeleaf.org">
-    
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,27 +15,28 @@
         <title>Layout</title>
     </head>
 
-    <body>
+    <body class="d-flex flex-column h-100">
         <!-- Loader -->
         <div class="loader-wrapper" style="z-index: 5;">
             <span class="loader"><span class="loader-inner"></span></span>
         </div>
-        
+
         <!-- Header -->
-        <div th:insert="~{layout/default/header :: header}"></div>
-        
+        <div th:include="~{layout/default/header :: header}"></div>
+
         <!-- Conteudo da página -->
         <section class="container-fluid my-2 pt-6 px-5 col col-xl-10" layout:fragment="conteudo"></section>
-        
+
         <!-- Footer -->
-        <div th:insert="~{layout/default/footer :: footer}"></div>
-        
+        <footer class="footer mt-auto py-1 border-top border-1 border-secondary" th:include="~{layout/default/footer :: footer}"></footer>
+
         <!-- Scripts -->
         <script type="text/javascript" th:src="@{/javascripts/jquery/jquery-3.6.0.min.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/bootstrap/bootstrap.bundle.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/loader.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/tooltips.js}"></script>
-        
+
         <th:block layout:fragment="javascripts"></th:block>
     </body>
+
 </html>

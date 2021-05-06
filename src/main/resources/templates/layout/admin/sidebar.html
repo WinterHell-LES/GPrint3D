@@ -1,4 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
     <body>
         <div th:fragment="sidebar">
             <div class="container-fluid">
@@ -7,7 +16,9 @@
                         <div class="position-sticky pt-3">
                             <ul class="nav flex-column mx-2">
                                 <li class="nav-item">
-                                    <a class="btn d-inline-flex align-items-center rounded collapsed" href="/admin/index" th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
+                                    <a class="btn d-inline-flex align-items-center rounded collapsed"
+                                        href="/admin/index"
+                                        th:classappend="${#httpServletRequest.requestURI.contains('index')} ? 'active'">
                                         Início
                                     </a>
                                 </li>
@@ -15,78 +26,123 @@
                                 <li class="my-3 me-2 border-top"></li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_bandeiras_cartao" data-bs-toggle="collapse" data-bs-target="#bandeiras_cartao" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_bandeiras_cartao" data-bs-toggle="collapse"
+                                        data-bs-target="#bandeiras_cartao" aria-expanded="false">
                                         Bandeiras de cartão
                                     </button>
                                     <div class="collapse" id="bandeiras_cartao">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/cadastrarBandeiras" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarBandeiras')} ? 'active'">Cadastro de bandeira</a></li>
-                                            <li><a class="nav-link" href="/admin/listarBandeiras" th:classappend="${#httpServletRequest.requestURI.contains('listarBandeiras')} ? 'active'">Listagem de bandeira</a></li>
+                                            <li><a class="nav-link" href="/admin/cadastrarBandeiras"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('cadastrarBandeiras')} ? 'active'">Cadastro
+                                                    de bandeira</a></li>
+                                            <li><a class="nav-link" href="/admin/listarBandeiras"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarBandeiras')} ? 'active'">Listagem
+                                                    de bandeira</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_precificacoes" data-bs-toggle="collapse" data-bs-target="#precificacoes" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_precificacoes" data-bs-toggle="collapse" data-bs-target="#precificacoes"
+                                        aria-expanded="false">
                                         Precificações
                                     </button>
                                     <div class="collapse" id="precificacoes">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/cadastrarPrecificacoes" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarPrecificacoes')} ? 'active'">Cadastro de precificações</a></li>
-                                            <li><a class="nav-link" href="/admin/listarPrecificacoes" th:classappend="${#httpServletRequest.requestURI.contains('listarPrecificacoes')} ? 'active'">Listagem de precificações</a></li>
+                                            <li><a class="nav-link" href="/admin/cadastrarPrecificacoes"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('cadastrarPrecificacoes')} ? 'active'">Cadastro
+                                                    de precificações</a></li>
+                                            <li><a class="nav-link" href="/admin/listarPrecificacoes"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarPrecificacoes')} ? 'active'">Listagem
+                                                    de precificações</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_categorias" data-bs-toggle="collapse" data-bs-target="#categorias" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_categorias" data-bs-toggle="collapse" data-bs-target="#categorias"
+                                        aria-expanded="false">
                                         Categorias
                                     </button>
                                     <div class="collapse" id="categorias">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/cadastrarCategorias" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCategorias')} ? 'active'">Cadastro de categorias</a></li>
-                                            <li><a class="nav-link" href="/admin/listarCategorias" th:classappend="${#httpServletRequest.requestURI.contains('listarCategorias')} ? 'active'">Listagem de categorias</a></li>
+                                            <li><a class="nav-link" href="/admin/cadastrarCategorias"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCategorias')} ? 'active'">Cadastro
+                                                    de categorias</a></li>
+                                            <li><a class="nav-link" href="/admin/listarCategorias"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarCategorias')} ? 'active'">Listagem
+                                                    de categorias</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_produtos" data-bs-toggle="collapse" data-bs-target="#produtos" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_produtos" data-bs-toggle="collapse" data-bs-target="#produtos"
+                                        aria-expanded="false">
                                         Produtos
                                     </button>
                                     <div class="collapse" id="produtos">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/cadastrarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">Cadastro de produtos</a></li>
-                                            <li><a class="nav-link" href="/admin/listarProdutos" th:classappend="${#httpServletRequest.requestURI.contains('listarProdutos')} ? 'active'">Listagem de produtos</a></li>
-                                            <li><a class="nav-link" href="/admin/justificativasProdutos" th:classappend="${#httpServletRequest.requestURI.contains('justificativasProdutos')} ? 'active'">Justificativas de produtos</a></li>
+                                            <li><a class="nav-link" href="/admin/cadastrarProdutos"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('cadastrarProdutos')} ? 'active'">Cadastro
+                                                    de produtos</a></li>
+                                            <li><a class="nav-link" href="/admin/listarProdutos"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarProdutos')} ? 'active'">Listagem
+                                                    de produtos</a></li>
+                                            <li><a class="nav-link" href="/admin/justificativasProdutos"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('justificativasProdutos')} ? 'active'">Justificativas
+                                                    de produtos</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_estoque" data-bs-toggle="collapse" data-bs-target="#estoque" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_estoque" data-bs-toggle="collapse" data-bs-target="#estoque"
+                                        aria-expanded="false">
                                         Estoque
                                     </button>
                                     <div class="collapse" id="estoque">
                                         <ul class="list-unstyled ms-2">
                                             <li class="mb-1">
-                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_entradas" data-bs-toggle="collapse" data-bs-target="#entradas" aria-expanded="false">
+                                                <button
+                                                    class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                                    id="bt_entradas" data-bs-toggle="collapse"
+                                                    data-bs-target="#entradas" aria-expanded="false">
                                                     Entradas
                                                 </button>
                                                 <div class="collapse" id="entradas">
                                                     <ul class="list-unstyled">
-                                                        <li><a class="nav-link" href="/admin/cadastrarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarEntradas')} ? 'active'">Cadastro de entradas</a></li>
-                                                        <li><a class="nav-link" href="/admin/listarEntradas" th:classappend="${#httpServletRequest.requestURI.contains('listarEntradas')} ? 'active'">Listagem de entradas</a></li>
+                                                        <li><a class="nav-link" href="/admin/cadastrarEntradas"
+                                                                th:classappend="${#httpServletRequest.requestURI.contains('cadastrarEntradas')} ? 'active'">Cadastro
+                                                                de entradas</a></li>
+                                                        <li><a class="nav-link" href="/admin/listarEntradas"
+                                                                th:classappend="${#httpServletRequest.requestURI.contains('listarEntradas')} ? 'active'">Listagem
+                                                                de entradas</a></li>
                                                     </ul>
                                                 </div>
                                             </li>
                                             <li class="mb-1">
-                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_saidas" data-bs-toggle="collapse" data-bs-target="#saidas" aria-expanded="false">
+                                                <button
+                                                    class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                                    id="bt_saidas" data-bs-toggle="collapse" data-bs-target="#saidas"
+                                                    aria-expanded="false">
                                                     Saídas
                                                 </button>
                                                 <div class="collapse" id="saidas">
                                                     <ul class="list-unstyled">
-                                                        <li><a class="nav-link" href="/admin/listarSaidas" th:classappend="${#httpServletRequest.requestURI.contains('listarSaidas')} ? 'active'">Listagem de saídas</a></li>
+                                                        <li><a class="nav-link" href="/admin/listarSaidas"
+                                                                th:classappend="${#httpServletRequest.requestURI.contains('listarSaidas')} ? 'active'">Listagem
+                                                                de saídas</a></li>
                                                     </ul>
                                                 </div>
                                             </li>
@@ -95,29 +151,46 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons" data-bs-toggle="collapse" data-bs-target="#cupons" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_cupons" data-bs-toggle="collapse" data-bs-target="#cupons"
+                                        aria-expanded="false">
                                         Cupons
                                     </button>
                                     <div class="collapse" id="cupons">
                                         <ul class="list-unstyled ms-2">
                                             <li class="mb-1">
-                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons_promocionais" data-bs-toggle="collapse" data-bs-target="#cupons_promocionais" aria-expanded="false">
+                                                <button
+                                                    class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                                    id="bt_cupons_promocionais" data-bs-toggle="collapse"
+                                                    data-bs-target="#cupons_promocionais" aria-expanded="false">
                                                     Cupons promocionais
                                                 </button>
                                                 <div class="collapse" id="cupons_promocionais">
                                                     <ul class="list-unstyled">
-                                                        <li><a class="nav-link" href="/admin/cupons/cadastrarCuponsPromocionais" th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCuponsPromocionais')} ? 'active'">Cadastro de cupons</a></li>
-                                                        <li><a class="nav-link" href="/admin/cupons/listarCuponsPromocionais" th:classappend="${#httpServletRequest.requestURI.contains('listarCuponsPromocionais')} ? 'active'">Listagem de cupons</a></li>
+                                                        <li><a class="nav-link"
+                                                                href="/admin/cupons/cadastrarCuponsPromocionais"
+                                                                th:classappend="${#httpServletRequest.requestURI.contains('cadastrarCuponsPromocionais')} ? 'active'">Cadastro
+                                                                de cupons</a></li>
+                                                        <li><a class="nav-link"
+                                                                href="/admin/cupons/listarCuponsPromocionais"
+                                                                th:classappend="${#httpServletRequest.requestURI.contains('listarCuponsPromocionais')} ? 'active'">Listagem
+                                                                de cupons</a></li>
                                                     </ul>
                                                 </div>
                                             </li>
                                             <li class="mb-1">
-                                                <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_cupons_trocas" data-bs-toggle="collapse" data-bs-target="#cupons_trocas" aria-expanded="false">
+                                                <button
+                                                    class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                                    id="bt_cupons_trocas" data-bs-toggle="collapse"
+                                                    data-bs-target="#cupons_trocas" aria-expanded="false">
                                                     Cupons de troca
                                                 </button>
                                                 <div class="collapse" id="cupons_trocas">
                                                     <ul class="list-unstyled">
-                                                        <li><a class="nav-link" href="/admin/cupons/listarCuponsTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarCuponsTrocas')} ? 'active'">Listagem de cupons</a></li>
+                                                        <li><a class="nav-link" href="/admin/cupons/listarCuponsTrocas"
+                                                                th:classappend="${#httpServletRequest.requestURI.contains('listarCuponsTrocas')} ? 'active'">Listagem
+                                                                de cupons</a></li>
                                                     </ul>
                                                 </div>
                                             </li>
@@ -126,58 +199,93 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_pedidos" data-bs-toggle="collapse" data-bs-target="#pedidos" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_pedidos" data-bs-toggle="collapse" data-bs-target="#pedidos"
+                                        aria-expanded="false">
                                         Pedidos
                                     </button>
                                     <div class="collapse" id="pedidos">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/pedido/listarPedidosCompras" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidosCompras')} AND ${!#httpServletRequest.requestURI.contains('Trocas')} ? 'active'">Listagem de pedidos de compras</a></li>
-                                            <li><a class="nav-link" href="/admin/pedido/listarPedidosTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarPedidosTrocas')} ? 'active'">Listagem de pedidos de troca</a></li>
+                                            <li><a class="nav-link" href="/admin/pedido/listarPedidosCompras"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarPedidosCompras')} AND ${!#httpServletRequest.requestURI.contains('Trocas')} ? 'active'">Listagem
+                                                    de pedidos de compras</a></li>
+                                            <li><a class="nav-link" href="/admin/pedido/listarPedidosTrocas"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarPedidosTrocas')} ? 'active'">Listagem
+                                                    de pedidos de troca</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_logistica" data-bs-toggle="collapse" data-bs-target="#logistica" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_logistica" data-bs-toggle="collapse" data-bs-target="#logistica"
+                                        aria-expanded="false">
                                         Logística
                                     </button>
                                     <div class="collapse" id="logistica">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaPedidos" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaPedidos')} ? 'active'">Logística de pedidos de compras</a></li>
-                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaTrocas" th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaTrocas')} ? 'active'">Logística de pedidos de troca</a></li>
+                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaPedidos"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaPedidos')} ? 'active'">Logística
+                                                    de pedidos de compras</a></li>
+                                            <li><a class="nav-link" href="/admin/logistica/listarLogisticaTrocas"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarLogisticaTrocas')} ? 'active'">Logística
+                                                    de pedidos de troca</a></li>
                                         </ul>
                                     </div>
                                 </li>
-                                
+
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_clientes" data-bs-toggle="collapse" data-bs-target="#clientes" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_clientes" data-bs-toggle="collapse" data-bs-target="#clientes"
+                                        aria-expanded="false">
                                         Clientes
                                     </button>
                                     <div class="collapse" id="clientes">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/listarClientes" th:classappend="${#httpServletRequest.requestURI.contains('listarClientes')} ? 'active'">Listagem de clientes</a></li>
+                                            <li><a class="nav-link" href="/admin/listarClientes"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarClientes')} ? 'active'">Listagem
+                                                    de clientes</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_graficos" data-bs-toggle="collapse" data-bs-target="#graficos" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_graficos" data-bs-toggle="collapse" data-bs-target="#graficos"
+                                        aria-expanded="false">
                                         Gráficos
                                     </button>
                                     <div class="collapse" id="graficos">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/visualizarVendas" th:classappend="${#httpServletRequest.requestURI.contains('visualizarVendas')} ? 'active'">Gráfico de vendas</a></li>
+                                            <li><a class="nav-link" href="/admin/visualizarGraficoPedidos"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('visualizarGraficoPedidos')} ? 'active'">Visualizar
+                                                    gráfico de pedidos</a></li>
+                                            <li><a class="nav-link" href="/admin/visualizarGraficoProdutos"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('visualizarGraficoProdutos')} ? 'active'">Visualizar
+                                                    gráfico de produtos</a></li>
+                                            <li><a class="nav-link" href="/admin/visualizarGraficoCategorias"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('visualizarGraficoCategorias')} ? 'active'">Visualizar
+                                                    gráfico de categorias</a></li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn d-inline-flex align-items-center rounded collapsed accordion-button" id="bt_variaveis" data-bs-toggle="collapse" data-bs-target="#variaveis" aria-expanded="false">
+                                    <button
+                                        class="btn d-inline-flex align-items-center rounded collapsed accordion-button"
+                                        id="bt_variaveis" data-bs-toggle="collapse" data-bs-target="#variaveis"
+                                        aria-expanded="false">
                                         Configurações
                                     </button>
                                     <div class="collapse" id="variaveis">
                                         <ul class="list-unstyled">
-                                            <li><a class="nav-link" href="/admin/listarVariaveis" th:classappend="${#httpServletRequest.requestURI.contains('listarVariaveis')} ? 'active'">Variáveis</a></li>
+                                            <li><a class="nav-link" href="/admin/listarVariaveis"
+                                                    th:classappend="${#httpServletRequest.requestURI.contains('listarVariaveis')} ? 'active'">Variáveis</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -185,10 +293,12 @@
                                 <li class="my-3 me-2 border-top"></li>
 
                                 <li class="nav-item mb-3">
-                                    <a class="btn d-inline-flex align-items-center rounded collapsed" href="/admin/listarLogsTransacoes" th:classappend="${#httpServletRequest.requestURI.contains('listarLogsTransacoes')} ? 'active'">
+                                    <a class="btn d-inline-flex align-items-center rounded collapsed"
+                                        href="/admin/listarLogsTransacoes"
+                                        th:classappend="${#httpServletRequest.requestURI.contains('listarLogsTransacoes')} ? 'active'">
                                         Logs de transações
                                     </a>
-                                </li>                                                             
+                                </li>
                             </ul>
                         </div>
                     </nav>
@@ -196,4 +306,5 @@
             </div>
         </div>
     </body>
+
 </html>

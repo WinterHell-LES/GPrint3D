@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-    xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" class="h-100">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,19 +15,20 @@
 
         <title>Layout</title>
     </head>
-    <body>
+
+    <body class="d-flex flex-column h-100">
         <!-- Loader -->
         <div class="loader-wrapper" style="z-index: 5;">
             <span class="loader"><span class="loader-inner"></span></span>
         </div>
 
         <!-- Header -->
-        <div th:insert="~{layout/admin/header :: header}"></div>
+        <div th:include="~{layout/admin/header :: header}"></div>
 
         <!-- Sidebar -->
-        <div th:insert="~{layout/admin/sidebar :: sidebar}"></div>
-        
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-md-5">       
+        <div th:include="~{layout/admin/sidebar :: sidebar}"></div>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-md-5">
             <!-- Conteudo da página -->
             <section class="container-fluid" layout:fragment="conteudo" onload="pageListener()"></section>
         </main>
@@ -41,4 +42,5 @@
 
         <th:block layout:fragment="javascripts"></th:block>
     </body>
+
 </html>

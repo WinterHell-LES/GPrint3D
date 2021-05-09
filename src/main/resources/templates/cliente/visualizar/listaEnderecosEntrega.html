@@ -1,15 +1,21 @@
 <html>
+
     <body>
         <div th:fragment="listaEnderecoEntrega" class="row">
-            <div class="row my-3">
-                <div class="col">
-                    <div class="text-end">
-                        <a th:href="'/cliente/cadastrarEndereco/' + ${cliente.cliId} + '/0'" class="text-reset" id="novoEnderecoEntrega"><i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i></a>
-                    </div>
+            <div class="row">
+                <div class="mt-3 mb-4 text-end">
+                    <form th:action="@{/cliente/cadastrarEndereco/}" method="POST">
+                        <button class="m-0 p-0 border-0" style="background-color: transparent;" type="submit" name="id"
+                            th:value="${cliente.cliId}">
+                            <input type="hidden" name="check" value="0">
+                            <i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i>
+                        </button>
+                    </form>
                 </div>
             </div>
 
-            <div class="col-4 mb-5 d-flex justify-content-center" th:each="endereco : ${cliente.listEndereco}" th:if="${endereco.endEntrega == true}">
+            <div class="col-4 mb-5 d-flex justify-content-center" th:each="endereco : ${cliente.listEndereco}"
+                th:if="${endereco.endEntrega == true}">
                 <div class="card shadow" style="width: 18rem;">
                     <div class="card-body">
                         <div class="row">
@@ -18,35 +24,42 @@
                             </div>
 
                             <div class="col-1 px-1 text-end">
-                                <i class="bi bi-check2-square fs-6" style="color: limegreen;" th:if="${endereco.endEntregaPadrao != null} AND ${endereco.endEntregaPadrao.endereco.endId} == ${endereco.endId}"></i>
+                                <i class="bi bi-check2-square fs-6" style="color: limegreen;"
+                                    th:if="${endereco.endEntregaPadrao != null} AND ${endereco.endEntregaPadrao.endereco.endId == endereco.endId} AND ${endereco.endEntregaPadrao.cliente.cliId == cliente.cliId}"></i>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-10 pe-0">
-                                <p class="card-text" th:text="${endereco.endTipo} + ' ' + ${endereco.endLogradouro}">Rua exemplo.</p>
+                                <p class="card-text" th:text="${endereco.endTipo} + ' ' + ${endereco.endLogradouro}">Rua
+                                    exemplo.</p>
                             </div>
 
                             <div class="col-1 px-0 text-center">
                                 <form th:action="@{/cliente/excluirEndereco}" class="m-0 p-0" method="POST">
-                                    <button class="m-0 p-0 border-0" style="background-color: transparent;" type="submit" name="id" th:value="${endereco.endId}" th:id="excluir + ${endereco.endId}">
+                                    <button class="m-0 p-0 border-0" style="background-color: transparent;"
+                                        type="submit" name="id" th:value="${endereco.endId}"
+                                        th:id="excluir + ${endereco.endId}">
                                         <i class="bi bi-trash" style="cursor: pointer;"></i>
                                     </button>
                                 </form>
                             </div>
                             <div class="col-1 px-0 text-center">
-                                <form th:action="@{/cliente/editarEndereco}" class="m-0 p-0" method="POST">
-                                    <button class="m-0 p-0 border-0" style="background-color: transparent;" type="submit" name="id" th:value="${endereco.endId}" th:id="alterar + ${endereco.endId}">
+                                <form th:action="@{/cliente/alterarEndereco}" class="m-0 p-0" method="POST">
+                                    <button class="m-0 p-0 border-0" style="background-color: transparent;"
+                                        type="submit" name="id" th:value="${endereco.endId}"
+                                        th:id="alterar + ${endereco.endId}">
                                         <i class="bi bi-pencil-square" style="cursor: pointer;"></i>
                                     </button>
                                 </form>
                             </div>
                         </div>
-                        
+
                         <div class="row pt-2" th:if="${#httpServletRequest.requestURI.contains('carrinho')}">
                             <div class="col d-flex flex-column text-center">
                                 <form th:action="@{/cliente/carrinho/alterarEndereco}" method="POST">
-                                    <button class="btn border shadow-sm" name="id" th:value="${endereco.endId}" style="width: 100%;">Selecionar</button>
+                                    <button class="btn border shadow-sm" name="id" th:value="${endereco.endId}"
+                                        style="width: 100%;">Selecionar</button>
                                 </form>
                             </div>
                         </div>
@@ -60,4 +73,5 @@
             <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
         </th:block>
     </body>
+
 </html>

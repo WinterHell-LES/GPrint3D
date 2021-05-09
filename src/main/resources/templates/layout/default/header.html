@@ -1,4 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
     <body>
         <div th:fragment="header">
             <header class="navbar navbar-expand-sm navbar-light bg-secondary bg-gradient shadow fixed-top">
@@ -14,46 +23,61 @@
                                 <a class="nav-link text-light" aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
+                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Categorias
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-                                    <li th:each="cat : ${ctgs}"><a class="dropdown-item" th:href="${'/c/' + #strings.replace(cat.ctgNome, ' ', '_')}" th:text="${cat.ctgNome}">Categoria</a></li>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li th:each="cat : ${ctgs}"><a class="dropdown-item"
+                                            th:href="${'/c/' + #strings.replace(cat.ctgNome, ' ', '_')}"
+                                            th:text="${cat.ctgNome}">Categoria</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
                     <div class="mx-5 w-100">
                         <form th:action=@{/pesquisa} method="GET">
-                            <input type="search" id="pesquisa" name="search" class="form-control rounded-pill px-4" placeholder="Pesquisar" list="listPesquisa" th:value="${tituloPesquisa} ? ${tituloPesquisa} : ''"/>
+                            <input type="search" id="pesquisa" name="search" class="form-control rounded-pill px-4"
+                                placeholder="Pesquisar" list="listPesquisa"
+                                th:value="${tituloPesquisa} ? ${tituloPesquisa} : ''" />
                         </form>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end" sec:authorize="!isAuthenticated()">
                         <div class="btn-group">
-                            <a class="nav-link text-light" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
-                                <i class="bi bi-cart3 fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Carrinho"></i>
+                            <a class="nav-link text-light" style="color: white; text-decoration: none;"
+                                href="/carrinho/meuCarrinho">
+                                <i class="bi bi-cart3 fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Carrinho"></i>
                             </a>
-                            <a class="nav-link text-light" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                <i class="bi bi-box-arrow-in-right fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Entrar"></i>
+                            <a class="nav-link text-light" href="#" data-bs-toggle="dropdown" data-bs-display="static"
+                                aria-expanded="false">
+                                <i class="bi bi-box-arrow-in-right fs-5" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="Entrar"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end p-0 m-0">
-                                <div class="dropdown-item nohover nofocus notactive p-0 m-0" style="width: 250px;" disabled>
+                                <div class="dropdown-item nohover nofocus notactive p-0 m-0" style="width: 250px;"
+                                    disabled>
                                     <form class="form-signin" th:action=@{/login} method="POST">
                                         <div class="shadow-lg p-3 bg-light rounded">
-                                            <div class="alert alert-danger text-center p-0" role="alert" th:if="${#bools.isTrue(param.error)}">
+                                            <div class="alert alert-danger text-center p-0" role="alert"
+                                                th:if="${#bools.isTrue(param.error)}">
                                                 Usuário e/ou<br>senha inválido(s)
                                             </div>
 
                                             <label for="inputEmail" class="sr-only">E-mail</label>
-                                            <input type="email" id="inputEmail" class="form-control mb-2" name="username" placeholder="E-mail" required autofocus>
-                            
+                                            <input type="email" id="inputEmail" class="form-control mb-2"
+                                                name="username" placeholder="E-mail" required autofocus>
+
                                             <label for="inputPassword" class="sr-only">Senha</label>
-                                            <input type="password" id="inputPassword" class="form-control mb-2" name="password" placeholder="Senha" required>
-                            
-                                            <button class="btn btn-outline-light bg-secondary rounded" type="submit" style="width:100%">Entrar</button>
-                                            
+                                            <input type="password" id="inputPassword" class="form-control mb-2"
+                                                name="password" placeholder="Senha" required>
+
+                                            <button class="btn btn-outline-light bg-secondary rounded" type="submit"
+                                                style="width:100%">Entrar</button>
+
                                             <div class="row text-center">
-                                                <a class="col pt-1" href="/cadastro/cadastroDadosPessoais">Não tem conta?<br>Clique aqui e crie uma!</a>
+                                                <a class="col pt-1" href="/cadastro/cadastroDadosPessoais">Não tem
+                                                    conta?<br>Clique aqui e crie uma!</a>
                                             </div>
                                         </div>
                                     </form>
@@ -63,20 +87,28 @@
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end" sec:authorize="isAuthenticated()">
                         <div class="btn-group">
-                            <a class="nav-link text-light" style="color: white; text-decoration: none;" href="/carrinho/meuCarrinho">
-                                <i class="bi bi-cart3 fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Carrinho"></i>
+                            <a class="nav-link text-light" style="color: white; text-decoration: none;"
+                                href="/carrinho/meuCarrinho">
+                                <i class="bi bi-cart3 fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Carrinho"></i>
                             </a>
-                            <a class="nav-link text-light" href="#" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                <i class="bi bi-person-square fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Usuário"></i>
+                            <a class="nav-link text-light" href="#" data-bs-toggle="dropdown" data-bs-display="static"
+                                aria-expanded="false">
+                                <i class="bi bi-person-square fs-5" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="Usuário"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg-end py-1">
                                 <li class="text-center mb-1">
                                     <p class="m-0">Bem vindo,</p>
-                                    <p class="m-0" th:text="${#strings.contains(usuario, ' ')} ? ${#strings.substringBefore(usuario, ' ')} : ${usuario}"></p>
+                                    <p class="m-0"
+                                        th:text="${#strings.contains(usuario, ' ')} ? ${#strings.substringBefore(usuario, ' ')} : ${usuario}">
+                                    </p>
                                 </li>
                                 <div class="dropdown-divider my-1"></div>
-                                <li><a class="dropdown-item" href="/cliente/index" sec:authorize="hasRole('CLI')">Usuário</a></li>
-                                <li><a class="dropdown-item" href="/admin/index" sec:authorize="hasRole('ADM')">Sistema</a></li>
+                                <li><a class="dropdown-item" href="/cliente/index"
+                                        sec:authorize="hasRole('CLI')">Usuário</a></li>
+                                <li><a class="dropdown-item" href="/admin/index"
+                                        sec:authorize="hasRole('ADM')">Sistema</a></li>
                                 <div class="dropdown-divider my-1"></div>
                                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
@@ -86,4 +118,5 @@
             </header>
         </div>
     </body>
+
 </html>

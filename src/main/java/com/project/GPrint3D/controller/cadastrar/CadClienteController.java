@@ -3,28 +3,13 @@ package com.project.GPrint3D.controller.cadastrar;
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CartoesModel;
-import com.project.GPrint3D.model.CartoesPadroesModel;
 import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.DocumentosModel;
 import com.project.GPrint3D.model.EnderecosModel;
-import com.project.GPrint3D.model.EndCobrancasPadroesModel;
-import com.project.GPrint3D.model.EndEntregasPadroesModel;
 import com.project.GPrint3D.model.TelefonesModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.BandeirasRepository;
-import com.project.GPrint3D.repository.CartoesRepository;
-import com.project.GPrint3D.repository.ClientesRepository;
-import com.project.GPrint3D.repository.EnderecosRepository;
-import com.project.GPrint3D.repository.UsuariosRepository;
-import com.project.GPrint3D.service.CartoesPadroesService;
-import com.project.GPrint3D.service.CartoesService;
-import com.project.GPrint3D.service.ClientesService;
-import com.project.GPrint3D.service.DocumentosService;
-import com.project.GPrint3D.service.EndCobrancasPadroesService;
-import com.project.GPrint3D.service.EndEntregasPadroesService;
-import com.project.GPrint3D.service.EnderecosService;
-import com.project.GPrint3D.service.TelefonesService;
-import com.project.GPrint3D.service.UsuariosService;
+import com.project.GPrint3D.service.DefaultFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,55 +25,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CadClienteController
 {
     private UsuariosModel usuariosMod = new UsuariosModel();
-    private CartoesPadroesModel cartaoPadraoMod = new CartoesPadroesModel();
     private ClientesModel clientesMod = new ClientesModel();
     private DocumentosModel documentosMod = new DocumentosModel();
     private TelefonesModel telefonesMod = new TelefonesModel();
     private EnderecosModel enderecosMod = new EnderecosModel();
-    private EndCobrancasPadroesModel endCobrancasPadroesMod = new EndCobrancasPadroesModel();
-    private EndEntregasPadroesModel endEntregasPadroesMod = new EndEntregasPadroesModel();
-
-    @Autowired
-    private CartoesService cartoesService;
-
-    @Autowired
-    private CartoesPadroesService cartoesPadroesService;
-
-    @Autowired
-    private ClientesService clientesService;
-
-    @Autowired
-    private DocumentosService documentosService;
-
-    @Autowired
-    private EnderecosService enderecosService;
-
-    @Autowired
-    private EndCobrancasPadroesService endCobrancasPadroesService;
-
-    @Autowired
-    private EndEntregasPadroesService endEntregasPadroesService;
-
-    @Autowired
-    private TelefonesService telefonesService;
-
-    @Autowired
-    private UsuariosService usuariosService;
 
     @Autowired
     private BandeirasRepository bandeirasRepository;
 
-    @Autowired
-    private CartoesRepository cartoesRepository;
-
-    @Autowired
-    private ClientesRepository clientesRepository;
-
-    @Autowired
-    private EnderecosRepository enderecosRepository;
-
-    @Autowired
-    private UsuariosRepository usuariosRepository;
+    @Autowired 
+    private DefaultFacadeService defaultFacadeService;
 
     // Controle de cadastro de dados pessoais
     @RequestMapping("/cadastroDadosPessoais")
@@ -177,60 +123,9 @@ public class CadClienteController
             return cadastroCartao(cartao);
         }
 
-        // Registra o novo usuário
-        usuariosService.cadastrar(usuariosMod);
+        String[] mensagem = defaultFacadeService.cadastrarCliente(usuariosMod, clientesMod, telefonesMod, documentosMod, enderecosMod, cartao);
 
-        // Busca o novo usuário pelo emaill
-        UsuariosModel usu = usuariosRepository.findByEmail(usuariosMod.getUsuEmail());
-
-        // Define e cadastra o novo cliente com o usuário já registrado
-        clientesMod.setUsuario(usu);
-        clientesService.cadastrar(clientesMod);
-
-        // Busca o novo cliente cadastrado
-        ClientesModel cli = clientesRepository.findByUsuarioId(usu.getUsuId());
-
-        // Define o novo cliente nos dados vinculados
-        telefonesMod.setCliente(cli);
-        documentosMod.setCliente(cli);
-        enderecosMod.setCliente(cli);
-        cartao.setCliente(cli);
-
-        // Cadastra os dados vinculados ao novo cliente
-        telefonesService.cadastrar(telefonesMod);
-        enderecosService.cadastrar(enderecosMod);
-        documentosService.cadastrar(documentosMod);
-        cartoesService.cadastrar(cartao);
-
-        // Busca o novo endereço cadastrado
-        EnderecosModel end = enderecosRepository.findByClienteId(cli.getCliId());
-
-        // Verifica se o endereço é de cobrança
-        if (end.isEndCobranca())
-        {
-            // Configura o novo cliente e novo endereço no endereço de cobrança padrao
-            endCobrancasPadroesMod.setCliente(cli);
-            endCobrancasPadroesMod.setEndereco(end);
-            endCobrancasPadroesService.cadastrar(endCobrancasPadroesMod);
-        }
-
-        // Verifica se o endereço é de entrega
-        if (end.isEndEntrega())
-        {
-            // Configura o novo cliente e novo endereço no endereço de entrega padrao
-            endEntregasPadroesMod.setCliente(cli);
-            endEntregasPadroesMod.setEndereco(end);
-            endEntregasPadroesService.cadastrar(endEntregasPadroesMod);
-        }
-
-        // Busca o novo cartão cadastrado
-        CartoesModel crt = cartoesRepository.findByClienteId(cli.getCliId());
-
-        // Configura e cadastra o novo cartão padrão com o cliente e o cartão
-        // cadastrados
-        cartaoPadraoMod.setCartao(crt);
-        cartaoPadraoMod.setCliente(cli);
-        cartoesPadroesService.cadastrar(cartaoPadraoMod);
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/index");
     }

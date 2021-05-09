@@ -8,7 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriasProdutosService
+class CategoriasProdutosService
 {
     @Autowired
     private CategoriasProdutosRepository categoriasProdutosRepository;

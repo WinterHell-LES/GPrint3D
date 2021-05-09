@@ -6,13 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/cliente")
-public class ClienteIndexController 
+public class CliIndexController 
 {
     @RequestMapping({"/", "/index"})
     public ModelAndView index()
     {
-        ModelAndView mv = new ModelAndView("/cliente/index");
-
-        return mv;
+        return new ModelAndView("/cliente/index");
     }
 }

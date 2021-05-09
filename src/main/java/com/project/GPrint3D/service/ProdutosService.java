@@ -1,6 +1,9 @@
 package com.project.GPrint3D.service;
 
+import com.project.GPrint3D.configuration.SecurityConfig;
+import com.project.GPrint3D.model.EntradasModel;
 import com.project.GPrint3D.model.ProdutosModel;
+import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.ProdutosRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +11,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProdutosService
+class ProdutosService
 {
     @Autowired
     private ProdutosRepository produtosRepository;
+
+    @Autowired
+    private SecurityConfig securityConfig;
 
     public String[] cadastrar (ProdutosModel produto)
     {
@@ -131,5 +137,16 @@ public class ProdutosService
         }
 
         return response;
+    }
+
+    public boolean verificaPrecificacao (ProdutosModel produto, EntradasModel entrada)
+    {
+        return (produto.getPrdPreco() < ((entrada.getEntPrecoCusto() / entrada.getEntQuantidade())
+                * (1 - (produto.getPrecificacao().getPrcMargLuc() / 100))));
+    }
+
+    public boolean verificaUsuario (String senha, UsuariosModel usuario)
+    {
+        return securityConfig.passwordEncoder().matches(senha, usuario.getUsuSenha());
     }
 }

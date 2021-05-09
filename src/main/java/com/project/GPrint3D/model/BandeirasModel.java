@@ -26,7 +26,7 @@ public class BandeirasModel
     @Column(name = "ban_nome")
     private String banNome;
 
-    @NotNull(message = "teste")
+    @NotNull(message = "Status é obrigatório")
     @Column(name = "ban_ativo")
     private boolean banAtivo;
 

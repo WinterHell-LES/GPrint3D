@@ -19,33 +19,28 @@
                 <div class="row">
                     <div class="col-sm">
                         <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
-
-                            <!--<input type="hidden" th:value="${checkOldPass.senha}" th:field="${checkOldPass.senha}">-->
-                            <input type="hidden" th:field="${usuario.usuId}">
-                            <input type="hidden" th:field="${usuario.usuEmail}">
-                            <input type="hidden" th:field="${usuario.usuRegra}">
-                            <input type="hidden" th:field="${usuario.usuAtivo}">
+                            <input type="hidden" name="usuarioId" th:value="${usuario.usuId}">
                             
                             <div class="container border shadow rounded-3 py-2">
                                 <div class="row py-3 pe-0">
                                     <div class="row pb-3 pe-0">
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Senha Antiga" name="oldPassword" id="oldPassword" minlength="8">
+                                                <input type="password" class="form-control" placeholder="Senha Antiga" name="oldPassword" minlength="8">
                                                 <label for="oldPassword">Senha Antiga</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Nova Senha" id="newPassword" minlength="8" th:field="${usuario.usuSenha}">
+                                                <input type="password" class="form-control" placeholder="Nova Senha" id="newPassword" name="newPassword" minlength="8">
                                                 <label for="newPassword">Nova Senha</label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm pe-0">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Confirmação de Nova Senha" name="confirmNewPassword" id="confirmNewPassword" minlength="8">
+                                                <input type="password" class="form-control" placeholder="Confirmação de Nova Senha" name="confirmNewPassword" minlength="8">
                                                 <label for="confirmNewPassword">Confirmação de Nova Senha</label>
                                             </div>
                                         </div>

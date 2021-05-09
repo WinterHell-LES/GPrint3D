@@ -22,6 +22,8 @@
                 </div>
             </div>
 
+            <div th:include="~{admin/alerts :: alertUpdate}"></div>
+
             <form th:action="@{/admin/ativaProdutos}" method="POST">
                 <input type="hidden" name="id" th:value="${produto.prdId}">
                 <div class="row pb-3 pe-0">

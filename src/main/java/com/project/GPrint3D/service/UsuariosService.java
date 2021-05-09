@@ -9,7 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuariosService
+class UsuariosService
 {
     @Autowired
     private UsuariosRepository usuarios;
@@ -70,12 +70,28 @@ public class UsuariosService
         return response;
     }
 
-    public String[] atualizarPass (UsuariosModel usuario)
+    public String[] atualizarPass (String oldPassword, String newPassword, String confirmNewPassword, UsuariosModel usuario)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
+
+        if (securityConfig.passwordEncoder().matches(oldPassword, usuario.getUsuSenha()))
+        {
+            response[0] = msg2;
+            response[1] = "Senha antiga não confere, favor digitar corretamente";
+
+            return response;
+        }
+
+        if (!newPassword.equals(confirmNewPassword))
+        {
+            response[0] = msg2;
+            response[1] = "Senha nova diferente da confirmação de senha, favor digitar corretamente";
+
+            return response;
+        }
 
         try
         {

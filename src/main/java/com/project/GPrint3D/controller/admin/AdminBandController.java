@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import com.project.GPrint3D.model.BandeirasModel;
 import com.project.GPrint3D.repository.BandeirasRepository;
-import com.project.GPrint3D.service.BandeirasService;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class AdminBandController
     private BandeirasRepository bandeirasRepository;
 
     @Autowired
-    private BandeirasService bandeirasService;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("listarBandeiras")
     public ModelAndView listarBandeiras (BandeirasModel bandeira)
@@ -50,7 +50,7 @@ public class AdminBandController
             return cadastrarBandeiras(bandeira);
         }
 
-        String[] mensagem = bandeirasService.cadastrar(bandeira);
+        String[] mensagem = adminFacadeService.cadastrarBandeira(bandeira);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -62,7 +62,7 @@ public class AdminBandController
     {
         BandeirasModel band = bandeirasRepository.findOneById(id);
 
-        String[] mensagem = bandeirasService.ativar(!band.getBanAtivo(), id);
+        String[] mensagem = adminFacadeService.ativarBandeira(!band.getBanAtivo(), id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -73,7 +73,7 @@ public class AdminBandController
     @PostMapping("/deletaBandeiras")
     public ModelAndView deletarBandeiras (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
     {
-        String[] mensagem = bandeirasService.excluir(id);
+        String[] mensagem = adminFacadeService.excluirBandeira(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import com.project.GPrint3D.model.PrecificacoesModel;
 import com.project.GPrint3D.repository.PrecificacoesRepository;
-import com.project.GPrint3D.service.PrecificacoesService;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class AdminPrecifiController
     private PrecificacoesRepository precificacoesRepository;
 
     @Autowired
-    private PrecificacoesService precificacoesService;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("listarPrecificacoes")
     public ModelAndView listarPrecificacoes (PrecificacoesModel precificacao)
@@ -52,7 +52,7 @@ public class AdminPrecifiController
             return cadastrarPrecificacoes(precificacao);
         }
 
-        String[] mensagem = precificacoesService.cadastrar(precificacao);
+        String[] mensagem = adminFacadeService.cadastrarPrecificacao(precificacao);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -72,7 +72,7 @@ public class AdminPrecifiController
     @PostMapping("alterarPrecificacao")
     public ModelAndView alterarPrecificacao (@Valid PrecificacoesModel precificacao, RedirectAttributes attributes)
     {
-        String[] mensagem = precificacoesService.atualizar(precificacao);
+        String[] mensagem = adminFacadeService.atualizarPrecificacao(precificacao);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -82,7 +82,7 @@ public class AdminPrecifiController
     @PostMapping("/deletaPrecificacoes")
     public ModelAndView deletaPrecificacoes (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
     {
-        String[] mensagem = precificacoesService.excluir(id);
+        String[] mensagem = adminFacadeService.excluirPrecificacao(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

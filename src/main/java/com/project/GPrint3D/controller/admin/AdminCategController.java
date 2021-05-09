@@ -4,7 +4,7 @@ import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CategoriasModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
-import com.project.GPrint3D.service.CategoriasService;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ public class AdminCategController
     private CategoriasRepository categoriasRepository;
 
     @Autowired
-    private CategoriasService categoriasService;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("listarCategorias")
     public ModelAndView listarCategorias (CategoriasModel categoria)
@@ -50,7 +50,7 @@ public class AdminCategController
             return cadastrarCategorias(categoria);
         }
 
-        String[] mensagem = categoriasService.cadastrar(categoria);
+        String[] mensagem = adminFacadeService.cadastrarCategoria(categoria);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -70,7 +70,7 @@ public class AdminCategController
     @PostMapping("/alterarCategoria")
     public ModelAndView alterarCategoria (@Valid CategoriasModel categoria, RedirectAttributes attributes)
     {
-        String[] mensagem = categoriasService.atualizar(categoria);
+        String[] mensagem = adminFacadeService.atualizarCategoria(categoria);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -82,7 +82,7 @@ public class AdminCategController
     {
         CategoriasModel ctg = categoriasRepository.findOneById(id);
 
-        String[] mensagem = categoriasService.ativar(!ctg.getCtgAtivo(), id);
+        String[] mensagem = adminFacadeService.ativarCategoria(!ctg.getCtgAtivo(), id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

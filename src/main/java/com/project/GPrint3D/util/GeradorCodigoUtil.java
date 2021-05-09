@@ -49,7 +49,7 @@ public class GeradorCodigoUtil
     {
         Date data = new Date();
 
-        this.codigo = "GP3PED" + new SimpleDateFormat("yyMMddHHmmss").format(data);
+        this.codigo = "GP3PDC" + new SimpleDateFormat("yyMMddHHmmss").format(data);
 
         return this.codigo;
     }

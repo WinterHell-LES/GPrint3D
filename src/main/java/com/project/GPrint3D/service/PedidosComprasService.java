@@ -2,6 +2,8 @@ package com.project.GPrint3D.service;
 
 import java.sql.Date;
 
+import com.project.GPrint3D.configuration.SecurityConfig;
+import com.project.GPrint3D.model.PedCartoesModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
 
@@ -10,10 +12,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedidosComprasService
+class PedidosComprasService
 {
     @Autowired
     private PedidosComprasRepository pedidosComprasRepository;
+
+    @Autowired
+    private SecurityConfig securityConfig;
 
     public String[] cadastrar (PedidosComprasModel pedido)
     {
@@ -22,11 +27,11 @@ public class PedidosComprasService
         String msg1 = "cadastroSuccess";
         String msg2 = "cadastroError";
 
-        //try
-        //{
+        try
+        {
             pedidosComprasRepository.save(pedido);
 
-            /*response[0] = msg1;
+            response[0] = msg1;
             response[1] = "Pedido cadastrado com sucesso!";
         }
         catch (DataIntegrityViolationException e)
@@ -38,7 +43,7 @@ public class PedidosComprasService
         {
             response[0] = msg2;
             response[1] = "Erro ao cadastrar o pedido";
-        }*/
+        }
 
         return response;
     }
@@ -156,5 +161,10 @@ public class PedidosComprasService
         }
 
         return response;
+    }
+
+    public boolean verificaCvv (String cvv, PedCartoesModel pedCartao)
+    {
+        return securityConfig.passwordEncoder().matches(cvv, pedCartao.getCartao().getCrtCvv());
     }
 }

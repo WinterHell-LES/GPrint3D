@@ -1,11 +1,9 @@
 package com.project.GPrint3D.controller.admin;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.validation.Valid;
 
-import com.project.GPrint3D.configuration.SecurityConfig;
 import com.project.GPrint3D.model.CategoriasModel;
 import com.project.GPrint3D.model.CategoriasProdutosModel;
 import com.project.GPrint3D.model.EntradasModel;
@@ -19,14 +17,10 @@ import com.project.GPrint3D.repository.PrecificacoesRepository;
 import com.project.GPrint3D.repository.ProdutosJustificativasRepository;
 import com.project.GPrint3D.repository.ProdutosRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
-import com.project.GPrint3D.service.CategoriasProdutosService;
-import com.project.GPrint3D.service.FotosService;
-import com.project.GPrint3D.service.ProdutosJustificativasService;
-import com.project.GPrint3D.service.ProdutosService;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,19 +54,7 @@ public class AdminProdController
     private ProdutosJustificativasRepository produtosJustificativasRepository;
 
     @Autowired
-    private ProdutosService produtosService;
-
-    @Autowired
-    private CategoriasProdutosService categoriasProdutosService;
-
-    @Autowired
-    private ProdutosJustificativasService produtosJustificativasService;
-
-    @Autowired
-    private FotosService fotosService;
-
-    @Autowired
-    private SecurityConfig securityConfig;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("listarProdutos")
     public ModelAndView listagemProdutos (ProdutosModel produto)
@@ -97,35 +79,14 @@ public class AdminProdController
 
     @PostMapping("cadastrarProdutos")
     public ModelAndView cadastroProdutos (@Valid ProdutosModel produto, @RequestParam("categoriaProduto") Integer ctgId,
-            @RequestParam("foto") MultipartFile multipartFile, BindingResult result, RedirectAttributes attributes)
-            throws IOException
+            @RequestParam("foto") MultipartFile multipartFile, BindingResult result, RedirectAttributes attributes) throws IOException
     {
         if (result.hasErrors())
         {
             return new ModelAndView("redirect:/admin/cadastrarProdutos");
         }
 
-        String[] mensagem = produtosService.cadastrar(produto);
-
-        ProdutosModel prod = produtosRepository.findOneByNome(produto.getPrdNome());
-        CategoriasModel ctg = categoriasRepository.findOneById(ctgId);
-
-        CategoriasProdutosModel ctgPrd = new CategoriasProdutosModel();
-
-        ctgPrd.setProduto(prod);
-        ctgPrd.setCategoria(ctg);
-
-        categoriasProdutosService.cadastrar(ctgPrd);
-
-        String fotoNome = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-        FotosModel foto = new FotosModel();
-        foto.setFtoNome(fotoNome);
-        foto.setFtoContent(multipartFile.getBytes());
-        foto.setFtoData(new Date(new java.util.Date().getTime()));
-        foto.setProduto(prod);
-
-        fotosService.cadastrar(foto);
+        String[] mensagem = adminFacadeService.cadastrarProduto(produto, ctgId, multipartFile);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -148,15 +109,14 @@ public class AdminProdController
     @PostMapping("/alterarProduto")
     public ModelAndView alterarProduto (@Valid ProdutosModel produto, RedirectAttributes attributes)
     {
-        EntradasModel ent = entradasRepository.findByProduto(produto.getPrdId());
+        EntradasModel entrada = entradasRepository.findByProduto(produto.getPrdId());
 
-        if (produto.getPrdPreco() < ((ent.getEntPrecoCusto() / ent.getEntQuantidade())
-                * (1 - (produto.getPrecificacao().getPrcMargLuc() / 100))))
+        if (adminFacadeService.verificaPrecificacao(produto, entrada))
         {
             return alterarProdutoML(produto);
         }
 
-        String[] mensagem = produtosService.atualizar(produto);
+        String[] mensagem = adminFacadeService.atualizarProduto(produto);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -176,14 +136,16 @@ public class AdminProdController
     public ModelAndView alterarProdutoConfirm (@RequestParam(name = "password") String senha,
             @Valid ProdutosModel produto, RedirectAttributes attributes)
     {
-        UsuariosModel usu = usuariosRepository.findByEmail("admin@gprint3d.com");
+        UsuariosModel usuario = usuariosRepository.findByEmail("admin@gprint3d.com");
 
-        if (!securityConfig.passwordEncoder().matches(senha, usu.getUsuSenha()))
+        if (!adminFacadeService.verificaUsuario(senha, usuario))
         {
+            attributes.addFlashAttribute("alteracaoError", "Senha inválida");
+
             return alterarProdutoML(produto);
         }
 
-        String[] mensagem = produtosService.atualizar(produto);
+        String[] mensagem = adminFacadeService.atualizarProduto(produto);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -222,31 +184,7 @@ public class AdminProdController
     public ModelAndView ativaProdutos (@RequestParam(name = "id") Integer id,
             @Valid ProdutosJustificativasModel produtosJustificativa, RedirectAttributes attributes)
     {
-        ProdutosModel prd = produtosRepository.findOneById(id);
-
-        produtosJustificativa.setPjuProduto(prd.getPrdNome());
-
-        for (int i = 0 ; i < prd.getListCategoriasProdutos().size() ; i++)
-        {
-            produtosJustificativa.setPjuCategorias(prd.getListCategoriasProdutos().get(i).getCategoria().getCtgNome());
-
-            if (i < prd.getListCategoriasProdutos().size() - 1)
-            {
-                produtosJustificativa.setPjuCategorias(", ");
-            }
-        }
-
-        if (prd.getPrdAtivo())
-        {
-            produtosJustificativa.setPjuAcao("DESATIVAR");
-        }
-        else
-        {
-            produtosJustificativa.setPjuAcao("ATIVAR");
-        }
-
-        produtosJustificativasService.cadastrar(produtosJustificativa);
-        String[] mensagem1 = produtosService.ativar(!prd.getPrdAtivo(), id);
+        String[] mensagem1 = adminFacadeService.ativarProduto(id, produtosJustificativa);
 
         attributes.addFlashAttribute(mensagem1[0], mensagem1[1]);
 
@@ -268,10 +206,7 @@ public class AdminProdController
     {
         ModelAndView mv = new ModelAndView("/admin/produtos/cadastrarFotos");
 
-        ProdutosModel prd = produtosRepository.findOneById(id);
-
-        mv.addObject("produto", prd);
-        mv.addObject("fotos", prd.getListFotos());
+        mv.addObject("produto", produtosRepository.findOneById(id));
 
         return mv;
     }
@@ -280,20 +215,7 @@ public class AdminProdController
     public ModelAndView addFotos (@RequestParam("foto") MultipartFile[] multipartFile, @Valid ProdutosModel produto,
             BindingResult result, RedirectAttributes attributes) throws IOException
     {
-        String[] mensagem = new String[2];
-
-        for (MultipartFile aux : multipartFile)
-        {
-            String fotoNome = StringUtils.cleanPath(aux.getOriginalFilename());
-
-            FotosModel foto = new FotosModel();
-            foto.setFtoNome(fotoNome);
-            foto.setFtoContent(aux.getBytes());
-            foto.setFtoData(new Date(new java.util.Date().getTime()));
-            foto.setProduto(produto);
-
-            mensagem = fotosService.cadastrar(foto);
-        }
+        String[] mensagem = adminFacadeService.cadastrarProdutoFoto(multipartFile, produto);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -304,7 +226,7 @@ public class AdminProdController
     public ModelAndView deleteFotos (@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto,
             RedirectAttributes attributes)
     {
-        String[] mensagem = fotosService.excluir(id);
+        String[] mensagem = adminFacadeService.excluirProdutoFoto(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -330,11 +252,7 @@ public class AdminProdController
     public ModelAndView addCategoria (@Valid CategoriasModel categoria, @Valid ProdutosModel produto,
             BindingResult result, RedirectAttributes attributes)
     {
-        CategoriasProdutosModel cpr = new CategoriasProdutosModel();
-        cpr.setCategoria(categoria);
-        cpr.setProduto(produto);
-
-        String[] mensagem = categoriasProdutosService.cadastrar(cpr);
+        String[] mensagem = adminFacadeService.cadatrarProdutoCategoria(categoria, produto);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -345,7 +263,7 @@ public class AdminProdController
     public ModelAndView deleteCategoria (@RequestParam(name = "id") Integer id, @Valid ProdutosModel produto,
             RedirectAttributes attributes)
     {
-        String[] mensagem = categoriasProdutosService.excluir(id);
+        String[] mensagem = adminFacadeService.excluirProdutoCategoria(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

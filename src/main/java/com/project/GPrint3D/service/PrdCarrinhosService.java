@@ -10,7 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PrdCarrinhosService
+class PrdCarrinhosService
 {
     @Autowired
     private PrdCarrinhosRepository prdCarrinhosRepository;
@@ -27,7 +27,7 @@ public class PrdCarrinhosService
             prdCarrinhosRepository.saveAndFlush(prdCarrinho);
 
             response[0] = msg1;
-            response[1] = "Produto do carrinho cadastrado com sucesso!";
+            response[1] = "Produto adicionado com sucesso";
         }
         catch (DataIntegrityViolationException e)
         {
@@ -37,7 +37,7 @@ public class PrdCarrinhosService
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao cadastrar o produto do carrinho";
+            response[1] = "Erro ao adicionar o produto";
         }
 
         return response;
@@ -66,6 +66,98 @@ public class PrdCarrinhosService
         return response;
     }
 
+    public String[] aumentarQuantidadeProduto (PrdCarrinhosModel prdCarrinho)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        if (prdCarrinho.getPcrQuantidade() > prdCarrinho.getProduto().getPrdQuantidade())
+        {
+            response[0] = msg2;
+            response[1] = "Quantidade de estoque atingida";
+
+            return response;
+        }
+
+        try
+        {
+            prdCarrinhosRepository.saveAndFlush(prdCarrinho);
+
+            response[0] = msg1;
+            response[1] = "Produto adicionado com sucesso";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao adicionar o produto";
+        }
+
+        return response;
+    }
+
+    public String[] diminuirQuantidadeProduto (PrdCarrinhosModel prdCarrinho)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        try
+        {
+            if (prdCarrinho.getPcrQuantidade() > 0)
+            {
+                prdCarrinhosRepository.saveAndFlush(prdCarrinho);
+            }
+            else
+            {
+                prdCarrinhosRepository.deleteByPcrId(prdCarrinho.getPcrId());
+            }
+
+            response[0] = msg1;
+            response[1] = "Produto removido com sucesso";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao remover o produto";
+        }
+
+        return response;
+    }
+
+    public String[] atualizarQuantidadeProduto (PrdCarrinhosModel prdCarrinho)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "alteracaoSuccess";
+        String msg2 = "alteracaoError";
+
+        if (prdCarrinho.getPcrQuantidade() > prdCarrinho.getProduto().getPrdQuantidade())
+        {
+            response[0] = msg2;
+            response[1] = "Quantidade de estoque atingida";
+
+            return response;
+        }
+
+        try
+        {
+            prdCarrinhosRepository.saveAndFlush(prdCarrinho);
+
+            response[0] = msg1;
+            response[1] = "Quantidade do produto alterada com sucesso";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao alterar a quantidade do produto";
+        }
+
+        return response;
+    }
+
     public String[] atualizarStatusPrdCarrinhos (Integer quantidade, boolean status, Integer id)
     {
         String[] response = new String[2];
@@ -78,12 +170,28 @@ public class PrdCarrinhosService
             prdCarrinhosRepository.updateStatusPrdCarrinho(quantidade, status, id);
 
             response[0] = msg1;
-            response[1] = "Cadastro do produto do carrinho alterado com sucesso!";
+
+            if (status)
+            {
+                response[1] = "Produto reativado com sucesso, e ajustado para a quantidade do estoque";
+            }
+            else
+            {
+                response[1] = "Produto desativado com sucesso";
+            }
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao alterar o produto do carrinho";
+
+            if (status)
+            {
+                response[1] = "Erro ao reativar o produto";
+            }
+            else
+            {
+                response[1] = "Erro ao desativar o produto";
+            }
         }
 
         return response;
@@ -101,12 +209,12 @@ public class PrdCarrinhosService
             prdCarrinhosRepository.updateStatusAtivaPrdCarrinho(quantidade, status, data, id);
 
             response[0] = msg1;
-            response[1] = "Cadastro do produto do carrinho alterado com sucesso!";
+            response[1] = "Produto reativado com sucesso";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao alterar o produto do carrinho";
+            response[1] = "Erro ao reativar o produto";
         }
 
         return response;
@@ -121,15 +229,38 @@ public class PrdCarrinhosService
 
         try
         {
-            prdCarrinhosRepository.deleteById(id);
+            prdCarrinhosRepository.deleteByPcrId(id);
 
             response[0] = msg1;
-            response[1] = "Cadastro do produto do carrinho deletado com sucesso!";
+            response[1] = "Produto removido com sucesso";
         }
         catch (Exception e)
         {
             response[0] = msg2;
-            response[1] = "Erro ao deletar o produto do carrinho";
+            response[1] = "Erro ao remover o produto";
+        }
+
+        return response;
+    }
+
+    public String[] excluirAll (Integer carId)
+    {
+        String[] response = new String[2];
+
+        String msg1 = "deleteSuccess";
+        String msg2 = "deleteError";
+
+        try
+        {
+            prdCarrinhosRepository.deleteAllByCarId(carId);
+
+            response[0] = msg1;
+            response[1] = "Todos os produtos removidos com sucesso";
+        }
+        catch (Exception e)
+        {
+            response[0] = msg2;
+            response[1] = "Erro ao remover todos os produtos do carrinho";
         }
 
         return response;

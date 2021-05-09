@@ -58,12 +58,10 @@ public class PrdCarrinhosModel
     {
         super( );
 
-        java.util.Date dataAtual = new java.util.Date();
-
         this.pcrId = pcrId;
         this.pcrQuantidade = pcrQuantidade;
-        this.pcrData = new Date(dataAtual.getTime());
-        this.pcrAtivo = true;
+        this.pcrData = pcrData;
+        this.pcrAtivo = pcrAtivo;
     }
 
     public PrdCarrinhosModel(CarrinhosModel carrinho)

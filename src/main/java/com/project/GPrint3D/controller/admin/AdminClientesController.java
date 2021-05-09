@@ -4,7 +4,7 @@ import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.ClientesRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
-import com.project.GPrint3D.service.UsuariosService;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class AdminClientesController
     private UsuariosRepository usuariosRepository;
 
     @Autowired
-    private UsuariosService usuariosService;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("/listarClientes")
     public ModelAndView listarClientes (ClientesModel cliente)
@@ -46,14 +46,7 @@ public class AdminClientesController
 
         String[] mensagem;
 
-        if (usu.getUsuAtivo())
-        {
-            mensagem = usuariosService.ativar(false, id);
-        }
-        else
-        {
-            mensagem = usuariosService.ativar(true, id);
-        }
+        mensagem = adminFacadeService.ativarCliente(!usu.getUsuAtivo(), id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

@@ -9,7 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CartoesService
+class CartoesService
 {
     @Autowired
     private CartoesRepository cartoesRepository;
@@ -91,5 +91,15 @@ public class CartoesService
         }
 
         return response;
+    }
+
+    public boolean verificaCvv (String cvv, CartoesModel cartao)
+    {
+        return securityConfig.passwordEncoder().matches(cvv, cartao.getCrtCvv());
+    }
+
+    public String gerarCvv (String cvv)
+    {
+        return securityConfig.passwordEncoder().encode(cvv);
     }
 }

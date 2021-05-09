@@ -27,10 +27,10 @@
 
             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Adicionar uma foto</button>
 
-            <div th:if="${fotos.size == 0}" class="text-center my-5 h3">Nenhuma foto cadastrada</div>
+            <div th:if="${produto.getListFotos().size == 0}" class="text-center my-5 h3">Nenhuma foto cadastrada</div>
             
             <div class="row my-4">
-                <div class="col d-flex justify-content-start mb-4" th:each="foto : ${fotos}">
+                <div class="col d-flex justify-content-start mb-4" th:each="foto : ${produto.getListFotos()}">
                     <div class="card" style="width: 18rem;">
                         <img th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}" class="card-img-top" alt="...">
                         <div class="card-body text-center">

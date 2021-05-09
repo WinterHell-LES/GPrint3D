@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.VariaveisModel;
-import com.project.GPrint3D.repository.CarrinhosRepository;
-import com.project.GPrint3D.repository.PrdCarrinhosRepository;
 import com.project.GPrint3D.repository.VariaveisRepository;
-import com.project.GPrint3D.service.PrdCarrinhosService;
+import com.project.GPrint3D.service.DefaultFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,16 +34,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CartController extends CarrinhoUtil
 {
     @Autowired
-    private PrdCarrinhosRepository prdCarrinhosRepository;
-
-    @Autowired
-    private CarrinhosRepository carrinhosRepository;
-
-    @Autowired
     private VariaveisRepository variaveisRepository;
 
     @Autowired
-    private PrdCarrinhosService prdCarrinhosService;
+    private DefaultFacadeService defaultFacadeService;
 
     // Tela de alteração de dados do cartão do cliente
     @RequestMapping("/meuCarrinho")
@@ -56,7 +48,6 @@ public class CartController extends CarrinhoUtil
     {
         ModelAndView mv = new ModelAndView("/carrinho/meuCarrinho");
 
-        // Instancia um novo carrinho
         CarrinhosModel carrinho = carrinhoAtivo(principal, tempCliId, jsessionid, response);
         VariaveisModel variaveis = variaveisRepository.findOneById(1);
 
@@ -72,27 +63,9 @@ public class CartController extends CarrinhoUtil
     @PostMapping("/aumentarProduto")
     public ModelAndView aumentaProduto (@RequestParam(name = "id") Integer pcrId, RedirectAttributes attributes)
     {
-        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(pcrId);
-
-        prdCarrinho.aumentarProduto();
-
-        if (prdCarrinho.getPcrQuantidade() <= prdCarrinho.getProduto().getPrdQuantidade())
-        {
-            String[] mensagem = prdCarrinhosService.atualizar(prdCarrinho);
-
-            if (mensagem[0].equals("alteracaoSuccess"))
-            {
-                attributes.addFlashAttribute("success", "Produto adicionado com sucesso");
-            }
-            else
-            {
-                attributes.addFlashAttribute("error", "Erro ao adicionar o produto");
-            }
-        }
-        else
-        {
-            attributes.addFlashAttribute("error", "Quantidade de estoque atingida");
-        }
+        String[] mensagem = defaultFacadeService.aumentarProduto(pcrId);
+        
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
@@ -100,28 +73,9 @@ public class CartController extends CarrinhoUtil
     @PostMapping("/diminuirProduto")
     public ModelAndView diminuiProduto (@RequestParam(name = "id") Integer pcrId, RedirectAttributes attributes)
     {
-        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(pcrId);
-        String[] mensagem;
+        String[] mensagem = defaultFacadeService.diminuiProduto(pcrId);
 
-        prdCarrinho.diminuirProduto();
-
-        if (prdCarrinho.getPcrQuantidade() > 0)
-        {
-            mensagem = prdCarrinhosService.atualizar(prdCarrinho);
-        }
-        else
-        {
-            mensagem = prdCarrinhosService.excluir(pcrId);
-        }
-
-        if (mensagem[0].equals("alteracaoSuccess") || mensagem[0].equals("deleteSuccess"))
-        {
-            attributes.addFlashAttribute("success", "Produto removido com sucesso");
-        }
-        else
-        {
-            attributes.addFlashAttribute("error", "Erro ao remover o produto");
-        }
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
@@ -130,122 +84,40 @@ public class CartController extends CarrinhoUtil
     public ModelAndView atualizaProduto (@RequestParam(name = "id") Integer pcrId,
             @RequestParam(name = "qtd") Integer prdQuantidade, RedirectAttributes attributes)
     {
-        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(pcrId);
+        String[] mensagem = defaultFacadeService.atualizaProduto(pcrId, prdQuantidade);
 
-        prdCarrinho.atualizarQtdProduto(prdQuantidade);
-
-        if (prdQuantidade > 0)
-        {
-            if (prdQuantidade <= prdCarrinho.getProduto().getPrdQuantidade())
-            {
-                String[] mensagem = prdCarrinhosService.atualizar(prdCarrinho);
-
-                if (mensagem[0].equals("alteracaoSuccess"))
-                {
-                    attributes.addFlashAttribute("success", "Quantidade do produto alterada com sucesso");
-                }
-                else
-                {
-                    attributes.addFlashAttribute("error", "Erro ao alterar a quantidade do produto");
-                }
-            }
-            else
-            {
-                attributes.addFlashAttribute("error", "Quantidade de estoque atingida");
-            }
-        }
-        else
-        {
-            String[] mensagem = prdCarrinhosService.excluir(pcrId);
-
-            if (mensagem[0].equals("deleteSuccess"))
-            {
-                attributes.addFlashAttribute("success", "Produto removido com sucesso");
-            }
-            else
-            {
-                attributes.addFlashAttribute("error", "Erro ao remover o produto");
-            }
-        }
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
 
     @PostMapping("/removerProduto")
-    public ModelAndView removeProduto (@RequestParam(name = "id") Integer produtoId, RedirectAttributes attributes)
+    public ModelAndView removeProduto (@RequestParam(name = "id") Integer pcrId, RedirectAttributes attributes)
     {
-        String[] mensagem = prdCarrinhosService.excluir(produtoId);
+        String[] mensagem = defaultFacadeService.removeProduto(pcrId);
 
-        if (mensagem[0].equals("deleteSuccess"))
-        {
-            attributes.addFlashAttribute("success", "Produto removido com sucesso");
-        }
-        else
-        {
-            attributes.addFlashAttribute("error", "Erro ao remover o produto");
-        }
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
 
     @PostMapping("/removerTodosProdutos")
-    public ModelAndView removeTodosProdutos (@RequestParam(name = "id") Integer carrinhoId,
+    public ModelAndView removeTodosProdutos (@RequestParam(name = "id") Integer carId,
             RedirectAttributes attributes)
     {
-        CarrinhosModel carrinho = carrinhosRepository.findOneById(carrinhoId);
-        String[] mensagem = new String[2];
+        String[] mensagem = defaultFacadeService.removeTodosProdutos(carId);
 
-        for (PrdCarrinhosModel aux : carrinho.getListProdutos())
-        {
-            mensagem = prdCarrinhosService.excluir(aux.getPcrId());
-
-            if (!mensagem[0].equals("deleteSuccess"))
-            {
-                break;
-            }
-        }
-
-        if (mensagem[0].equals("deleteSuccess"))
-        {
-            attributes.addFlashAttribute("success", "Todos os produtos removidos com sucesso");
-        }
-        else
-        {
-            attributes.addFlashAttribute("error", "Erro ao remover todos os produtos o produto");
-        }
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
 
     @PostMapping("/ativarProduto")
-    public ModelAndView ativarProduto (@RequestParam(name = "id") Integer produtoId, RedirectAttributes attributes)
+    public ModelAndView ativarProduto (@RequestParam(name = "id") Integer pcrId, RedirectAttributes attributes)
     {
-        PrdCarrinhosModel prdCarrinho = prdCarrinhosRepository.findOneById(produtoId);
-        String[] mensagem;
+        String[] mensagem = defaultFacadeService.removeTodosProdutos(pcrId);
 
-        if (prdCarrinho.getPcrQuantidade() <= prdCarrinho.getProduto().getPrdQuantidade())
-        {
-            java.util.Date dataAtual = new java.util.Date();
-
-            mensagem = prdCarrinhosService.atualizarStatusAtivaPrdCarrinhos(prdCarrinho.getPcrQuantidade(), true,
-                    new Date(dataAtual.getTime()), produtoId);
-            mensagem[1] = "Produto reativado com sucesso";
-        }
-        else
-        {
-            mensagem = prdCarrinhosService.atualizarStatusPrdCarrinhos(prdCarrinho.getProduto().getPrdQuantidade(),
-                    true, produtoId);
-            mensagem[1] = "Produto reativado com sucesso, e ajustado para a quantidade do estoque";
-        }
-
-        if (mensagem[0].equals("alteracaoSuccess"))
-        {
-            attributes.addFlashAttribute("success", mensagem[1]);
-        }
-        else
-        {
-            attributes.addFlashAttribute("error", "Erro ao reativar o produto");
-        }
+        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/carrinho/meuCarrinho");
     }
@@ -286,7 +158,7 @@ public class CartController extends CarrinhoUtil
 
             if ((aux.getPcrQuantidade() > aux.getProduto().getPrdQuantidade()) || dataAtual.after(dataCarrinhoP))
             {
-                prdCarrinhosService.atualizarStatusPrdCarrinhos(aux.getPcrQuantidade(), false, aux.getPcrId());
+                defaultFacadeService.atualizarStatusProduto(aux.getPcrQuantidade(), false, aux.getPcrId());
                 aux.setPcrAtivo(false);
             }
         }
@@ -298,7 +170,7 @@ public class CartController extends CarrinhoUtil
 
             if ((aux.getPcrQuantidade() <= aux.getProduto().getPrdQuantidade()) && dataAtual.before(dataCarrinhoP))
             {
-                prdCarrinhosService.atualizarStatusPrdCarrinhos(aux.getPcrQuantidade(), true, aux.getPcrId());
+                defaultFacadeService.atualizarStatusProduto(aux.getPcrQuantidade(), true, aux.getPcrId());
                 aux.setPcrAtivo(true);
             }
         }

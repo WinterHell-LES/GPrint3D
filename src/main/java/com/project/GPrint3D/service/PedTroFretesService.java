@@ -8,7 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PedTroFretesService
+class PedTroFretesService
 {
     @Autowired
     private PedTroFretesRepository pedTroFretesRepository;

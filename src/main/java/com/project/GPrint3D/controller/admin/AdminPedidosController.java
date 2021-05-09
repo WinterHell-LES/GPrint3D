@@ -1,27 +1,12 @@
 package com.project.GPrint3D.controller.admin;
 
-import java.time.LocalDate;
-import java.sql.Date;
-
 import javax.validation.Valid;
 
-import com.project.GPrint3D.model.CuponsTrocasModel;
-import com.project.GPrint3D.model.PedProdutosModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.model.PedidosTrocasModel;
-import com.project.GPrint3D.model.ProdutosModel;
-import com.project.GPrint3D.model.SaidasModel;
-import com.project.GPrint3D.model.VariaveisModel;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
 import com.project.GPrint3D.repository.PedidosTrocasRepository;
-import com.project.GPrint3D.repository.ProdutosRepository;
-import com.project.GPrint3D.repository.VariaveisRepository;
-import com.project.GPrint3D.service.CuponsTrocasService;
-import com.project.GPrint3D.service.PedidosComprasService;
-import com.project.GPrint3D.service.PedidosTrocasService;
-import com.project.GPrint3D.service.ProdutosService;
-import com.project.GPrint3D.service.SaidasService;
-import com.project.GPrint3D.util.GeradorCodigoUtil;
+import com.project.GPrint3D.service.AdminFacadeService;
 import com.project.GPrint3D.util.Listas.PedidosComprasListUtil;
 import com.project.GPrint3D.util.Listas.PedidosTrocasListUtil;
 
@@ -46,25 +31,8 @@ public class AdminPedidosController
     private PedidosTrocasRepository pedidosTrocasRepository;
 
     @Autowired
-    private ProdutosRepository produtosRepository;
+    private AdminFacadeService adminFacadeService;
 
-    @Autowired
-    private VariaveisRepository variaveisRepository;
-
-    @Autowired
-    private PedidosComprasService pedidosComprasService;
-
-    @Autowired
-    private PedidosTrocasService pedidosTrocasService;
-
-    @Autowired
-    private ProdutosService produtosService;
-
-    @Autowired
-    private CuponsTrocasService cuponsTrocasService;
-
-    @Autowired
-    private SaidasService saidasService;
 
     // Controle de compras
     @RequestMapping("listarPedidosCompras")
@@ -143,24 +111,7 @@ public class AdminPedidosController
     @PostMapping("alterarPedidoCompra")
     public ModelAndView alterarPedidoCompra (@Valid PedidosComprasModel pedido, RedirectAttributes attributes)
     {
-        String[] mensagem = pedidosComprasService.atualizarPedido(pedido.getPdcStatusPedido(), pedido.getPdcId());
-
-        if (pedido.getPdcStatusPedido() == 1)
-        {
-            SaidasModel saida = new SaidasModel();
-
-            pedido = pedidosComprasRepository.findOneById(pedido.getPdcId());
-
-            saida.setPedidoCompra(pedido);
-
-            for (PedProdutosModel aux : pedido.getListPedProdutos())
-            {
-                saida.setProduto(aux.getProduto());
-                saida.setSaiQuantidade(aux.getPpdQuantidade());
-
-                saidasService.cadastrar(saida);
-            }
-        }
+        String[] mensagem = adminFacadeService.atualizarPedidoCompras(pedido);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -246,14 +197,7 @@ public class AdminPedidosController
     @PostMapping("alterarPedidoTroca")
     public ModelAndView alterarPedidoTroca (@Valid PedidosTrocasModel pedido, RedirectAttributes attributes)
     {
-        String[] mensagem = pedidosTrocasService.atualizarPedido(pedido.getPdtStatusPedido(), pedido.getPdtId());
-
-        PedidosTrocasModel pedTroca = pedidosTrocasRepository.findOneById(pedido.getPdtId());
-
-        if ((pedTroca.getPdtEscolha() == 2) && (pedTroca.getPdtStatusPedido() == 2))
-        {
-            cuponsTrocasService.cadastrar(gerarCupom(pedTroca));
-        }
+        String[] mensagem = adminFacadeService.atualizarPedidoTrocas(pedido);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -264,37 +208,10 @@ public class AdminPedidosController
     public ModelAndView retornoProdutoTroca (@Valid PedidosTrocasModel pedido,
             @RequestParam(name = "quantidade") Integer quantidade, RedirectAttributes attributes)
     {
-        PedidosTrocasModel pedTroca = pedidosTrocasRepository.findOneById(pedido.getPdtId());
-
-        ProdutosModel produto = produtosRepository.findOneById(pedTroca.getPedProduto().getProduto().getPrdId());
-
-        produtosService.atualizarQuantidade(produto.getPrdQuantidade() + quantidade, produto.getPrdId());
-
-        String[] mensagem = pedidosTrocasService.atualizarRetorno(true, pedido.getPdtId());
+        String[] mensagem = adminFacadeService.cadastrarRetornoPedidoTroca(pedido, quantidade);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
         return new ModelAndView("redirect:/admin/pedido/listarPedidosTrocas");
-    }
-
-    private CuponsTrocasModel gerarCupom (PedidosTrocasModel pedTroca)
-    {
-        GeradorCodigoUtil codigo = new GeradorCodigoUtil();
-        CuponsTrocasModel cupom = new CuponsTrocasModel();
-
-        VariaveisModel variavel = variaveisRepository.findOneById(1);
-
-        double valor = pedTroca.getPedProduto().getProduto().getPrdPreco() * pedTroca.getPdtQuantidade();
-
-        cupom.setCptValor(valor);
-        cupom.setCptSaldo(valor);
-
-        cupom.setCptCodigo(codigo.getGerarCodigoTroca());
-
-        cupom.setCliente(pedTroca.getCliente());
-
-        cupom.setCptValidade(Date.valueOf(LocalDate.now().plusDays(variavel.getVarValidCupom())));
-
-        return cupom;
     }
 }

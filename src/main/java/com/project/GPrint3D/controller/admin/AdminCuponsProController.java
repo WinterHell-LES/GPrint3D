@@ -5,8 +5,7 @@ import javax.validation.Valid;
 import com.project.GPrint3D.model.CuponsPromocoesModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
 import com.project.GPrint3D.repository.CuponsPromocoesRepository;
-import com.project.GPrint3D.service.CuponsPromocoesService;
-import com.project.GPrint3D.util.GeradorCodigoUtil;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,7 @@ public class AdminCuponsProController
     private CuponsPromocoesRepository cuponsPromocoesRepository;
 
     @Autowired
-    private CuponsPromocoesService cuponsPromocoesService;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("cupons/listarCuponsPromocionais")
     public ModelAndView listarCuponsPromocionais ()
@@ -59,11 +58,7 @@ public class AdminCuponsProController
             return cadastrarCuponsPromocionais(cuponsPromocao);
         }
 
-        GeradorCodigoUtil codigo = new GeradorCodigoUtil();
-
-        cuponsPromocao.setCppCodigo(codigo.getGerarCodigoPromocional());
-
-        String[] mensagem = cuponsPromocoesService.cadastrar(cuponsPromocao);
+        String[] mensagem = adminFacadeService.cadastrarCupomPromocional(cuponsPromocao);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -86,7 +81,7 @@ public class AdminCuponsProController
     public ModelAndView alterarCuponsPromocionais (@Valid CuponsPromocoesModel cuponsPromocao, BindingResult result,
             RedirectAttributes attributes)
     {
-        String[] mensagem = cuponsPromocoesService.atualizar(cuponsPromocao);
+        String[] mensagem = adminFacadeService.atualizarCupomPromocional(cuponsPromocao);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -96,7 +91,7 @@ public class AdminCuponsProController
     @PostMapping("cupons/deletaCuponsPromocionais")
     public ModelAndView deletaCuponsPromocionais (@RequestParam(name = "id") Integer id, RedirectAttributes attributes)
     {
-        String[] mensagem = cuponsPromocoesService.excluir(id);
+        String[] mensagem = adminFacadeService.excluirCupomPromocional(id);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

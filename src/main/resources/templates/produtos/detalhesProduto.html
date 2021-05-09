@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-    layout:decorate="~{layout/default/layout}">
-    
+<html lang="pt-br" layout:decorate="~{layout/default/layout}">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,23 +13,40 @@
 
     <body>
         <section layout:fragment="conteudo">
-            <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(success)}">
-                <span th:text="${success}"></span>
+            <div class="alert alert-success alert-dismissible fade show" role="alert"
+                th:if="${not #strings.isEmpty(cadastroSuccess)}">
+                <span th:text="${cadastroSuccess}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(error)}">
-                <span th:text="${error}"></span>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                th:if="${not #strings.isEmpty(cadastroError)}">
+                <span th:text="${cadastroError}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert"
+                th:if="${not #strings.isEmpty(alteracaoSuccess)}">
+                <span th:text="${alteracaoSuccess}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                th:if="${not #strings.isEmpty(alteracaoError)}">
+                <span th:text="${alteracaoError}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
             <div class="container mb-5 border shadow">
                 <div class="row border-bottom">
                     <div class="col-1 d-grid gap-3 py-4">
-                        <img th:if="${produto.listFotos.size == 0}" src="/images/Teste.png" class="img-thumbnail selectable active-thumbnail mb-3" th:alt="${produto.prdNome}">
-                        <img class="img-thumbnail selectable" th:each="foto, stat : ${produto.listFotos}" th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}" th:classappend="${stat.first} ? 'active-thumbnail'" th:alt="${produto.prdNome}" th:attr="id=${stat.first} ? 'img-zoom'" onclick="activate(this)">
+                        <img th:if="${produto.listFotos.size == 0}" src="/images/Teste.png"
+                            class="img-thumbnail selectable active-thumbnail mb-3" th:alt="${produto.prdNome}">
+                        <img class="img-thumbnail selectable" th:each="foto, stat : ${produto.listFotos}"
+                            th:src="@{'data:image/jpg;base64,' + ${foto.generateBase64Image()}}"
+                            th:classappend="${stat.first} ? 'active-thumbnail'" th:alt="${produto.prdNome}"
+                            th:attr="id=${stat.first} ? 'img-zoom'" onclick="activate(this)">
                     </div>
                     <div class="col-8 d-flex align-items-center justify-content-center my-3">
-                        <img id="imageZoom" src="/images/Teste.png" class="img-fluid mx-auto" style="width: 40hw; height: 40vh;" th:alt="${produto.prdNome}">
+                        <img id="imageZoom" src="/images/Teste.png" class="img-fluid mx-auto"
+                            style="width: 40hw; height: 40vh;" th:alt="${produto.prdNome}">
                     </div>
                     <div class="col-3 border-start pt-4">
                         <div class="row">
@@ -38,13 +54,20 @@
                         </div>
                         <div class="row mb-3">
                             <!-- <span class="fs-6 text-decoration-line-through text-black-50">R$ 99,99</span><br> -->
-                            <span class="fs-4 fw-bolder" th:text="'R$ ' + ${#numbers.formatDecimal(produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 50,00</span>
+                            <span class="fs-4 fw-bolder"
+                                th:text="'R$ ' + ${#numbers.formatDecimal(produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$
+                                50,00</span>
                         </div>
                         <i class="bi bi-truck mb-1"></i><span> Calcule o frete:</span>
                         <div class="d-flex flex-row justify-content-center gap-3 mb-3 mt-1">
-                            <input type="text" class="form-control text-center px-1 cep" id="cep" name="cep" minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px;" th:if="${clienteCEP == null}">
-                            <input type="text" class="form-control text-center px-1 cep" id="cep" name="cep" minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px;" th:if="${clienteCEP != null}" th:value="${clienteCEP}">
-                            <button type="button" class="btn border shadow-sm" onclick="calcularFrete()">Calcular</button>
+                            <input type="text" class="form-control text-center px-1 cep" id="cep" name="cep"
+                                minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px;"
+                                th:if="${clienteCEP == null}">
+                            <input type="text" class="form-control text-center px-1 cep" id="cep" name="cep"
+                                minlength="9" maxlength="9" placeholder="00000-000" style="width: 100px;"
+                                th:if="${clienteCEP != null}" th:value="${clienteCEP}">
+                            <button type="button" class="btn border shadow-sm"
+                                onclick="calcularFrete()">Calcular</button>
                         </div>
 
                         <div id="loadFrete" class="w-100 text-center py-3 d-none">
@@ -54,25 +77,34 @@
                         </div>
 
                         <div id="dispFrete" class="border-top border-bottom p-2 d-none"></div>
-                        
-                        <p class="fs-8 mb-1 mt-3" th:text="'Quantidade em estoque: ' + ${produto.prdQuantidade} + ' itens'">Quantidade em estoque: X itens.</p>
+
+                        <p class="fs-8 mb-1 mt-3"
+                            th:text="'Quantidade em estoque: ' + ${produto.prdQuantidade} + ' itens'">Quantidade em
+                            estoque: X itens.</p>
                         <div class="row px-3 mb-2 mt-1 text-center">
                             <form th:action="@{/incluirNoCarrinho}" method="POST" class="px-0">
                                 <input type="hidden" th:value="${#httpServletRequest.requestURI}" name="url">
-                                <button type="submit" name="id" th:value="${produto.prdId}" class="btn border shadow-sm w-100">Adicionar ao carrinho</button>
+                                <button type="submit" name="id" th:value="${produto.prdId}"
+                                    class="btn border shadow-sm w-100">Adicionar ao carrinho</button>
                             </form>
                         </div>
                         <div class="row px-3 my-2">
-                            <button type="button" class="btn border shadow-sm" data-bs-toggle="modal" data-bs-target="#comprarProdutoModal">Comprar</button>
+                            <button type="button" class="btn border shadow-sm" data-bs-toggle="modal"
+                                data-bs-target="#comprarProdutoModal">Comprar</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="row border-bottom p-4">
-                    <div class="row mx-0"><p class="h4">Descrição do produto</p></div>
-                    <div class="row mx-0"><p class="mx-0" th:text="${produto.prdDescricao}">Produto assim e assado, que faz isso e aquilo.</p></div>
+                    <div class="row mx-0">
+                        <p class="h4">Descrição do produto</p>
+                    </div>
+                    <div class="row mx-0">
+                        <p class="mx-0" th:text="${produto.prdDescricao}">Produto assim e assado, que faz isso e aquilo.
+                        </p>
+                    </div>
                 </div>
-                
+
                 <div class="row p-4">
                     <div class="row mb-3 mx-0">
                         <p class="h4">Características do produto</p>
@@ -154,7 +186,8 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="comprarProdutoModal" tabindex="-1" aria-labelledby="comprarProdutoModalLabel" aria-hidden="true">
+            <div class="modal fade" id="comprarProdutoModal" tabindex="-1" aria-labelledby="comprarProdutoModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -178,15 +211,20 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th scope="row" class="align-middle" id="pdtNome" th:text="${produto.prdNome}">Produto</th>
-                                            <td class="align-middle"><input type="number" class="form-control text-center p-0" name="quantidade" min="1" th:max="${produto.prdQuantidade}" required></td>
+                                            <th scope="row" class="align-middle" id="pdtNome"
+                                                th:text="${produto.prdNome}">Produto</th>
+                                            <td class="align-middle"><input type="number"
+                                                    class="form-control text-center p-0" name="quantidade" min="1"
+                                                    th:max="${produto.prdQuantidade}" required></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn btn-outline-secondary shadow" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-secondary shadow" id="confirmarCompra">Comprar</button>
+                                <button type="button" class="btn btn btn-outline-secondary shadow"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-secondary shadow"
+                                    id="confirmarCompra">Comprar</button>
                             </div>
                         </form>
                     </div>
@@ -218,4 +256,5 @@
             <!--<script>imageZoom("img-zoom", "myresult");</script>-->
         </th:block>
     </body>
+
 </html>

@@ -11,12 +11,12 @@
 
     <body>
         <section layout:fragment="conteudo">
-            <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(success)}">
-                <span th:text="${success}"></span>
+            <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(alteracaoSuccess)}">
+                <span th:text="${alteracaoSuccess}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(error)}">
-                <span th:text="${error}"></span>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${not #strings.isEmpty(alteracaoError)}">
+                <span th:text="${alteracaoError}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
@@ -28,7 +28,7 @@
                     <div class="col-6 text-end">
                         <div class="row row-cols-lg-auto g-3 justify-content-end align-items-center">
                             <form th:action="@{/carrinho/removerTodosProdutos}" method="POST" class="px-0">
-                                <button type="submit" class="btn border shadow-sm" name="id" th:value="${carrinho.carId}" id="remover">Remover tudo</button>
+                                <button type="submit" class="btn border shadow-sm" name="id" th:value="${carrinho.carId}">Remover tudo</button>
                             </form>
                             <a href="/cliente/carrinho/escolherEndereco"><button type="submit" class="btn border shadow-sm" id="comprar">Comprar</button></a>
                         </div>

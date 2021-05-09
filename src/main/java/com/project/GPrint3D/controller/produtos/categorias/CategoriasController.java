@@ -21,8 +21,8 @@ public class CategoriasController
     {
         ModelAndView mv = new ModelAndView("/produtos/categorias/categoria2");
 
-        mv.addObject("tituloCategoria", categoria.replaceAll("_", " "));
-        mv.addObject("produtos", categorias.findOneByNome(categoria.replaceAll("_", " ")).getListCategoriasProdutos());
+        mv.addObject("tituloCategoria", categoria.replace("_", " "));
+        mv.addObject("produtos", categorias.findOneByNome(categoria.replace("_", " ")).getListCategoriasProdutos());
         mv.addObject("link", "/c/" + categoria);
 
         return mv;

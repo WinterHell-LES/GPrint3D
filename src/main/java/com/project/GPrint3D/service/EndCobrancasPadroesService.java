@@ -8,7 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EndCobrancasPadroesService
+class EndCobrancasPadroesService
 {
     @Autowired
     private EndCobrancasPadroesRepository endCobrancasPadroesrRepository;

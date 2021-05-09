@@ -7,8 +7,7 @@ import javax.validation.Valid;
 import com.project.GPrint3D.model.EntradasModel;
 import com.project.GPrint3D.repository.CategoriasRepository;
 import com.project.GPrint3D.repository.EntradasRepository;
-import com.project.GPrint3D.repository.UsuariosRepository;
-import com.project.GPrint3D.service.EntradasService;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,10 +28,7 @@ public class AdminEntrController
     private EntradasRepository entradasRepository;
 
     @Autowired
-    private UsuariosRepository usuariosRepository;
-
-    @Autowired
-    private EntradasService entradasService;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("listarEntradas")
     public ModelAndView listarEntradas ()
@@ -58,14 +54,12 @@ public class AdminEntrController
     public ModelAndView cadastroEntradas (@Valid EntradasModel entrada, Principal principal, BindingResult result,
             RedirectAttributes attributes)
     {
-        if (result.hasErrors() || (entrada.getEntQuantidade().intValue() <= 0))
+        if (result.hasErrors())
         {
             return cadastrarEntradas(entrada);
         }
 
-        entrada.setUsuario(usuariosRepository.findByEmail(principal.getName()));
-
-        String[] mensagem = entradasService.cadastrar(entrada);
+        String[] mensagem = adminFacadeService.cadastrarEntrada(entrada, principal);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

@@ -1,6 +1,5 @@
 package com.project.GPrint3D.util;
 
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.CategoriasProdutosModel;
 import com.project.GPrint3D.model.CuponsTrocasModel;
-import com.project.GPrint3D.model.PedCartoesModel;
-import com.project.GPrint3D.model.PedCuponsTrocasModel;
 import com.project.GPrint3D.model.PedProdutosModel;
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.model.PrdCarrinhosModel;
@@ -20,8 +17,7 @@ import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.CarrinhosRepository;
 import com.project.GPrint3D.repository.CategoriasProdutosRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
-import com.project.GPrint3D.service.CarrinhosService;
-import com.project.GPrint3D.service.PrdCarrinhosService;
+import com.project.GPrint3D.service.DefaultFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,13 +30,10 @@ public class CarrinhoUtil
     private CategoriasProdutosRepository categoriasProdutosRepository;
 
     @Autowired
-    private CarrinhosService carrinhoService;
-
-    @Autowired
-    private PrdCarrinhosService prdCarrinhosService;
-
-    @Autowired
     private UsuariosRepository usuarios;
+
+    @Autowired
+    private DefaultFacadeService defaultFacadeService;
 
     public void registrarCookie (String nomeCookie, String valorCookie, HttpServletResponse response)
     {
@@ -88,7 +81,7 @@ public class CarrinhoUtil
     public void criarCarrinho (UsuariosModel usuario, String valorCookie)
     {
         CarrinhosModel carrinho = new CarrinhosModel();
-        // Fornecer ou um parâmetro ou o outro, nunca os dois.
+
         if (usuario != null)
         {
             carrinho.setCliente(usuario.getCliente());
@@ -100,10 +93,10 @@ public class CarrinhoUtil
 
         carrinho = validarListaProdutosCarrinho(carrinho);
 
-        carrinhoService.cadastrar(carrinho);
+        defaultFacadeService.cadastrarCarrinho(carrinho);
     }
 
-    public CarrinhosModel carrinhoAtivo (Principal principal, String valorCookie, String JSESSIONID,
+    public CarrinhosModel carrinhoAtivo (Principal principal, String valorCookie, String jsessionid,
             HttpServletResponse response)
     {
         /**
@@ -143,11 +136,11 @@ public class CarrinhoUtil
         }
         else
         {
-            registrarCookie("tempCliId", JSESSIONID, response);
+            registrarCookie("tempCliId", jsessionid, response);
 
-            criarCarrinho(null, JSESSIONID);
+            criarCarrinho(null, jsessionid);
 
-            carrinho = carrinhoRepository.findByClienteTempId(JSESSIONID);
+            carrinho = carrinhoRepository.findByClienteTempId(jsessionid);
         }
 
         return carrinho;
@@ -201,7 +194,7 @@ public class CarrinhoUtil
         for (PrdCarrinhosModel produto : carrinhoCookie.getListProdutos())
         {
             produto.setCarrinho(carrinhoLogado);
-            prdCarrinhosService.atualizar(produto);
+            defaultFacadeService.atualizaPrdCarrinho(produto);
         }
 
         carrinhoLogado.setListProdutos(excluirProdutosDuplicados(carrinhoLogado.getListProdutos()));
@@ -221,7 +214,7 @@ public class CarrinhoUtil
             if (idsUnico.contains(produto.getProduto().getPrdId()))
             {
                 carrinhoProdutoAux.remove(produto);
-                prdCarrinhosService.excluir(produto.getPcrId());
+                defaultFacadeService.removeProduto(produto.getPcrId());
             }
             else
             {
@@ -239,7 +232,8 @@ public class CarrinhoUtil
         for (PrdCarrinhosModel carProduto : listaProdutosCarrinho)
         {
             PedProdutosModel pedProduto = new PedProdutosModel();
-            List<CategoriasProdutosModel> listaCategorias = categoriasProdutosRepository.findAllByProdutosId(carProduto.getProduto().getPrdId());
+            List<CategoriasProdutosModel> listaCategorias = categoriasProdutosRepository
+                    .findAllByProdutosId(carProduto.getProduto().getPrdId());
 
             pedProduto.setProduto(carProduto.getProduto());
             pedProduto.setPpdQuantidade(carProduto.getPcrQuantidade());
@@ -267,16 +261,15 @@ public class CarrinhoUtil
                 validarCupons(pedidoCompra, listaCuponsTrocasCliente);
                 break;
             }
-
         }
     }
 
     public void validarCartoes (PedidosComprasModel pedidoCompra)
     {
         if (pedidoCompra.getValorTotalPedido() > 0
-                && (int)(pedidoCompra.getValorTotalPedido() / (pedidoCompra.getListPedCartoes().size()) * 10) == 0)
+                && (int) (pedidoCompra.getValorTotalPedido() / (pedidoCompra.getListPedCartoes().size()) * 10) == 0)
         {
-            pedidoCompra.getListPedCartoes().remove(pedidoCompra.getListPedCartoes().size()-1);
+            pedidoCompra.getListPedCartoes().remove(pedidoCompra.getListPedCartoes().size() - 1);
 
             validarCartoes(pedidoCompra);
         }
@@ -284,13 +277,9 @@ public class CarrinhoUtil
         if (pedidoCompra.getValorTotalPedido() <= 0)
         {
             pedidoCompra.getListPedCartoes().clear();
-
-            String response = "Não é necessário o pagamento com cartão.";
         }
 
-        double valorTotal = pedidoCompra.getValorTotalCartoes();
-
-        for (int index = pedidoCompra.getListPedCartoes().size() - 1; index >= 0; index--)
+        for (int index = pedidoCompra.getListPedCartoes().size() - 1 ; index >= 0 ; index--)
         {
             if (pedidoCompra.getValorTotalCartoes() > pedidoCompra.getValorTotalPedido())
             {
@@ -302,9 +291,10 @@ public class CarrinhoUtil
             }
         }
 
-        for (int index = pedidoCompra.getListPedCartoes().size() - 1; index >= 0; index--)
+        for (int index = pedidoCompra.getListPedCartoes().size() - 1 ; index >= 0 ; index--)
         {
-            if (pedidoCompra.getValorPendenteTotal() < 10 && pedidoCompra.getListPedCartoes().get(index).getPctValor() == 0.0)
+            if (pedidoCompra.getValorPendenteTotal() < 10
+                    && pedidoCompra.getListPedCartoes().get(index).getPctValor() == 0.0)
             {
                 pedidoCompra.getListPedCartoes().remove(index);
             }

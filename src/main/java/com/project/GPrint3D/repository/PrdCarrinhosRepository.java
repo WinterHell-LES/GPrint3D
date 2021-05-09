@@ -26,4 +26,16 @@ public interface PrdCarrinhosRepository extends JpaRepository<PrdCarrinhosModel,
     @Transactional(readOnly = false)
     @Query(value = "UPDATE produtos_carrinhos SET pcr_quantidade = ?1, pcr_ativo = ?2, pcr_data = ?3 WHERE pcr_id = ?4", nativeQuery = true)
     public void updateStatusAtivaPrdCarrinho (Integer quantidade, boolean status, Date data, Integer id);
+
+    // Deleta produtos do carrinho pelo id
+    @Modifying
+    @Transactional(readOnly = false)
+    @Query(value = "DELETE FROM produtos_carrinhos WHERE pcr_id = ?", nativeQuery = true)
+    public void deleteByPcrId (Integer id);
+
+    // Deleta todos os produtos do carrinho pelo id
+    @Modifying
+    @Transactional(readOnly = false)
+    @Query(value = "DELETE FROM produtos_carrinhos WHERE pcr_car_id = ?", nativeQuery = true)
+    public void deleteAllByCarId (Integer id);
 }

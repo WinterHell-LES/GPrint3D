@@ -1,15 +1,12 @@
 package com.project.GPrint3D.controller.admin;
 
-import java.sql.Date;
-
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.model.PedidosTrocasModel;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
 import com.project.GPrint3D.repository.PedidosTrocasRepository;
-import com.project.GPrint3D.service.PedidosComprasService;
-import com.project.GPrint3D.service.PedidosTrocasService;
+import com.project.GPrint3D.service.AdminFacadeService;
 import com.project.GPrint3D.util.Listas.PedidosComprasListUtil;
 import com.project.GPrint3D.util.Listas.PedidosTrocasListUtil;
 
@@ -32,10 +29,7 @@ public class AdminLogiPedController
     private PedidosTrocasRepository pedidosTrocasRepository;
 
     @Autowired
-    private PedidosComprasService pedidosComprasService;
-
-    @Autowired
-    private PedidosTrocasService pedidosTrocasService;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("listarLogisticaPedidos")
     public ModelAndView listarLogisticaPedidos ()
@@ -64,19 +58,7 @@ public class AdminLogiPedController
     @PostMapping("alterarLogisticaPedido")
     public ModelAndView alterarLogisticaPedido (@Valid PedidosComprasModel pedido, RedirectAttributes attributes)
     {
-        String[] mensagem = pedidosComprasService.atualizarLogistica(pedido.getPdcStatusLogistica(), pedido.getPdcId());
-
-        if (pedido.getPdcStatusLogistica() > 3)
-        {
-            pedidosComprasService.atualizarPedido(pedido.getPdcStatusLogistica() - 1, pedido.getPdcId());
-        }
-
-        if (pedido.getPdcStatusLogistica() == 5)
-        {
-            java.util.Date dataAtual = new java.util.Date();
-
-            pedidosComprasService.atualizarDataEntrega(new Date(dataAtual.getTime()), pedido.getPdcId());
-        }
+        String[] mensagem = adminFacadeService.atualizarLogisticaCompras(pedido);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 
@@ -112,22 +94,7 @@ public class AdminLogiPedController
     @PostMapping("alterarLogisticaTroca")
     public ModelAndView alterarLogisticaTroca (@Valid PedidosTrocasModel pedido, RedirectAttributes attributes)
     {
-        String[] mensagem = pedidosTrocasService.atualizarLogistica(pedido.getPdtStatusLogistica(), pedido.getPdtId());
-
-        if (pedido.getPdtEscolha() == 1)
-        {
-            if (pedido.getPdtStatusLogistica() > 3)
-            {
-                pedidosTrocasService.atualizarPedido(pedido.getPdtStatusLogistica() - 2, pedido.getPdtId());
-            }
-        }
-        else
-        {
-            if (pedido.getPdtStatusLogistica() > 2)
-            {
-                pedidosTrocasService.atualizarPedido(pedido.getPdtStatusLogistica() - 2, pedido.getPdtId());
-            }
-        }
+        String[] mensagem = adminFacadeService.atualizarLogisticaTrocas(pedido);
 
         attributes.addFlashAttribute(mensagem[0], mensagem[1]);
 

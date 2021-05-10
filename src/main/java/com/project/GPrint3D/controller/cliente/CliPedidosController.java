@@ -88,6 +88,7 @@ public class CliPedidosController
     {
         if (result.hasErrors())
         {
+            System.out.println(result.toString());
             return new ModelAndView("redirect:/cliente/meusPedidos/meusPedidosCompras");
         }
 

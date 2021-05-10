@@ -27,7 +27,6 @@ public class PedidosTrocasModel
     @Column(name = "pdt_id", insertable = false, updatable = false)
     private Integer pdtId;
 
-    @NotEmpty(message = "Número é obrigatório")
     @Column(name = "pdt_numero")
     private String pdtNumero;
 

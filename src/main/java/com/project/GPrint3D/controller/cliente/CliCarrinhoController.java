@@ -129,8 +129,7 @@ public class CliCarrinhoController extends CarrinhoUtil
 
     // Grava os dados do endereço do cliente
     @PostMapping("/confirmarEndereco")
-    public ModelAndView confirmarEndereco (@RequestParam(name = "frete", defaultValue = "") String freteParam,
-            @Valid EnderecosModel endereco, RedirectAttributes attributes)
+    public ModelAndView confirmarEndereco (@RequestParam(name = "frete", defaultValue = "") String freteParam, RedirectAttributes attributes)
     {
         if (freteParam.equals(""))
         {

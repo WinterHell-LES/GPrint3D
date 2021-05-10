@@ -195,7 +195,7 @@ public class AdminPedidosController
     }
 
     @PostMapping("alterarPedidoTroca")
-    public ModelAndView alterarPedidoTroca (@Valid PedidosTrocasModel pedido, RedirectAttributes attributes)
+    public ModelAndView alterarPedidoTroca (PedidosTrocasModel pedido, RedirectAttributes attributes)
     {
         String[] mensagem = adminFacadeService.atualizarPedidoTrocas(pedido);
 

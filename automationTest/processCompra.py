@@ -18,8 +18,8 @@ CHROMIUM_PATH = 'automationTest/chromium/chromedriver.exe'
 GECKODRIVER_PATH = 'automationTest/geckodriver/geckodriver.exe'
 
 #Carrega o webdriver
-driver = webdriver.Chrome(executable_path=CHROMIUM_PATH)
-#driver = webdriver.Firefox(executable_path=GECKODRIVER_PATH)
+#driver = webdriver.Chrome(executable_path=CHROMIUM_PATH)
+driver = webdriver.Firefox(executable_path=GECKODRIVER_PATH)
 driver.get('http://localhost:8080')
 
 # ------- Dados de acesso -------

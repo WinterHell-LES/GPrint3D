@@ -57,7 +57,7 @@ def meusPedidos(driver):
     sleep(0.5)
 
     button_click(
-        driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[4]/div/ul[1]/li/a')
+        driver, by_xpath='/html/body/div[3]/div/div/nav/div/ul/li[4]/div/ul[1]/li/a')
     sleep(0.5)
 
 def detalhe_pedidos(driver):
@@ -75,11 +75,14 @@ def trocarProdutoPedido(driver):
     button_click(driver, by_css_selector='button[data-bs-target="#trocarPedidoModal"]')
     sleep(0.5)
 
-    driver.find_element_by_xpath('//*[@id="trocarPedidoModal"]/div/div/div[2]/table/tbody/tr/td[2]/input').send_keys('3')
+    driver.find_element_by_xpath('//*[@id="iQuantidade"]').clear()
+    driver.find_element_by_xpath('//*[@id="iQuantidade"]').send_keys('2')
+    driver.find_element_by_xpath('//*[@id="descricao"]').send_keys('Defeito')
+    
     sleep(0.2)
 
     button_click(driver, by_id="confirmarTroca")
-    button_click(driver, by_xpath='//*[@id="trocarPedidoModal"]/div/div/div[1]/button')
+    #button_click(driver, by_xpath='//*[@id="trocarPedidoModal"]/div/div/div[1]/button')
     sleep(0.5)
 
 def meusCupons(driver):

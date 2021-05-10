@@ -122,6 +122,27 @@ def listarPedidosTroca(driver):
     button_click(driver, by_css_selector='a[href="/admin/listarPedidosTrocas"]')
     sleep(0.5)
 
+def acessar_pedido_troca(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/table/tbody/tr[4]/td[5]/div/div[2]/form/button')
+    sleep(0.5)
+
+def avancar_troca(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/div[2]/form/div/button')
+    /html/body/main/section/div[3]/div[3]/form/div/button
+    sleep(0.5)
+
+def aprovar_troca(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/div[3]/form/div/button')
+    sleep(0.5)
+
+def recusar_troca(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/div[2]/form/div/button')
+    sleep(0.5)
+
 def logisticaPedidos(driver):
     #Lista toda a logistica de pedidos
     button_click(driver, by_css_selector='button[data-bs-target="#logistica"]')

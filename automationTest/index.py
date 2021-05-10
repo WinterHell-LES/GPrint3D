@@ -12,7 +12,7 @@ from selenium.common.exceptions import ElementClickInterceptedException
 def clicarLogin(driver):
     #Clica no login
     button_click(
-        driver, by_xpath='/html/body/div[2]/div/header/div/div[3]/div/a[2]')
+        driver, by_xpath='/html/body/div[2]/header/div/div[3]/div/a[2]')
     try:
         WebDriverWait(driver, 2).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'a[href="/cadastro/cadastroDadosPessoais"]')))
     except:
@@ -33,15 +33,18 @@ def logarUsuario(driver, email, senha):
     sleep(0.5)
 
     button_click(
-        driver, by_xpath='/html/body/div[2]/div/header/div/div[3]/div/div/div/form/div/button')
+        driver, by_xpath='/html/body/div[2]/header/div/div[3]/div/div/div/form/div/button')
     sleep(1)
 
 def entrarMenuUsuario(driver):
     #Entra no menu do usuário
-    try:
-        button_click(driver, by_css_selector='a[href="/admin/index"]')
-    except:
-        button_click(driver, by_css_selector='a[href="/cliente/index"]')
+    
+    button_click(
+        driver, by_xpath='/html/body/div[2]/header/div/div[3]/div/ul/li[2]/a')
+    # try:
+    #     button_click(driver, by_css_selector='a[href="/admin/index"]')
+    # except:
+    #     button_click(driver, by_css_selector='a[href="/cliente/index"]')
     sleep(0.5)
 
 def deslogarUsuario(driver):

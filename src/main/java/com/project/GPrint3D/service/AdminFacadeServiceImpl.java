@@ -252,6 +252,10 @@ public class AdminFacadeServiceImpl implements AdminFacadeService
                 saidasService.cadastrar(saida);
             }
         }
+        else if (pedido.getPdcStatusPedido() == 10)
+        {
+            pedCompra.setPdcStatusLogistica(pedido.getPdcStatusPedido());
+        }
 
         return pedidosComprasService.atualizar(pedCompra);
     }

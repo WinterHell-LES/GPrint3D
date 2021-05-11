@@ -37,6 +37,7 @@ public class PedidosComprasListUtil
         listCompraLogistica.put(3, "Enviando para transportadora");
         listCompraLogistica.put(4, "Em transporte");
         listCompraLogistica.put(5, "Pedido entregue");
+        listCompraLogistica.put(10, "Pagamento reprovado");
         listCompraLogistica.put(11, "Pedido cancelado");
 
         listCompraLogisticaCli.put(0, "Aguardando nota fiscal");

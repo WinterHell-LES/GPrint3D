@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PEDIDOS_COMPRAS_FRETES")
@@ -33,7 +34,7 @@ public class PedComFretesModel
     @Column(name = "pcf_prazo")
 	private String pcfPrazo;
 
-    @NotEmpty(message = "Preço é obrigatório")
+    @NotNull(message = "Preço é obrigatório")
     @Column(name = "pcf_valor")
     private double pcfValor;
 

@@ -227,9 +227,7 @@ public class CarrinhoUtil
 
     public void converterProdutosCarrinhoParaPedidos (CarrinhosModel carrinho, PedidosComprasModel pedidoCompra)
     {
-        List<PrdCarrinhosModel> listaProdutosCarrinho = carrinho.getListProdutos();
-
-        for (PrdCarrinhosModel carProduto : listaProdutosCarrinho)
+        for (PrdCarrinhosModel carProduto : carrinho.getListProdutosAtivo())
         {
             PedProdutosModel pedProduto = new PedProdutosModel();
             List<CategoriasProdutosModel> listaCategorias = categoriasProdutosRepository

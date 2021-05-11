@@ -85,6 +85,13 @@ def trocarProdutoPedido(driver):
     #button_click(driver, by_xpath='//*[@id="trocarPedidoModal"]/div/div/div[1]/button')
     sleep(0.5)
 
+
+def visualizarPedidoTroca(driver):
+    #Visualiza o pedido
+    button_click(
+        driver, by_css_selector='a[href="/cliente/meusPedidos/detalhesPedido"]')
+    sleep(0.5)
+
 def meusCupons(driver):
     #Acessa meus cupons
     button_click(driver, by_css_selector='a[href="/cliente/meusCupons"]')

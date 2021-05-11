@@ -107,36 +107,36 @@ function alerta(url = "", selfElem = Object)
     
 function modificarBotoes(tipo)
 {
-    if (tipo == "endereco")
-    {
-        var novoBotao = document.getElementById("novoEnderecoEntrega");
-        var editarExcluirBotoes = document.getElementsByName("id");
-    }
+    // if (tipo == "endereco")
+    // {
+    //     var novoBotao = document.getElementById("novoEnderecoEntrega");
+    //     var editarExcluirBotoes = document.getElementsByName("id");
+    // }
     
-    if (tipo == "cartao")
-    {
-        var novoBotao = document.getElementById("novoCartao");
-        var editarExcluirBotoes = document.getElementsByName("id");
-    }
+    // if (tipo == "cartao")
+    // {
+    //     var novoBotao = document.getElementById("novoCartao");
+    //     var editarExcluirBotoes = document.getElementsByName("id");
+    // }
 
-    var urlNovo = novoBotao.getAttribute("href").toString();
+    // var urlNovo = novoBotao.getAttribute("href").toString();
 
-    novoBotao.setAttribute("onclick", "alerta(\"" + urlNovo + "\")");
-    novoBotao.setAttribute("class", "text-decoration-underline");
-    novoBotao.outerHTML = novoBotao.outerHTML.replace("<a", "<span").replace("<\/a>", "<\/span>");
+    // novoBotao.setAttribute("onclick", "alerta(\"" + urlNovo + "\")");
+    // novoBotao.setAttribute("class", "text-decoration-underline");
+    // novoBotao.outerHTML = novoBotao.outerHTML.replace("<a", "<span").replace("<\/a>", "<\/span>");
 
-    for (let i = 0; i < editarExcluirBotoes.length; i++)
-    {
-        var id = editarExcluirBotoes[i].getAttribute("id");
-        if (id != null)
-        {
-            if (id.includes("excluir") || id.includes("alterar"))
-            {
-                editarExcluirBotoes[i].setAttribute("onclick", "alerta(null, this)");
-                editarExcluirBotoes[i].setAttribute("type", "button");
-            }
-        }
-    }
+    // for (let i = 0; i < editarExcluirBotoes.length; i++)
+    // {
+    //     var id = editarExcluirBotoes[i].getAttribute("id");
+    //     if (id != null)
+    //     {
+    //         if (id.includes("excluir") || id.includes("alterar"))
+    //         {
+    //             editarExcluirBotoes[i].setAttribute("onclick", "alerta(null, this)");
+    //             editarExcluirBotoes[i].setAttribute("type", "button");
+    //         }
+    //     }
+    // }
 }
 
 /*function updateThis(selfElement)

@@ -114,7 +114,7 @@ public class CliPedidosController
 
     @PostMapping("/escolherTroca")
     public ModelAndView escolherTroca (@RequestParam(name = "inputEscolher") String escolher,
-            @Valid PedidosTrocasModel pedidoTroca, BindingResult result, RedirectAttributes attributes)
+            PedidosTrocasModel pedidoTroca, BindingResult result, RedirectAttributes attributes)
     {
         if (!escolher.equalsIgnoreCase("escolher") || result.hasErrors())
         {

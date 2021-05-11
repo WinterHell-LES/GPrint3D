@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-auto mr-auto px-0">
                                     <form th:action="@{/admin/deleteCategoria}" method="POST">
-                                        <input type="hidden" th:field="${produto.prdId}">
+                                        <input type="hidden" id="prdId1" th:field="${produto.prdId}">
                                         <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${categoria.cprId}">
                                             <i class="bi bi-x fs-4"></i>
                                         </button>
@@ -69,7 +69,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form th:action="@{/admin/addCategoria}" method="POST">
-                            <input type="hidden" th:field="${produto.prdId}">
+                            <input type="hidden" id="prdId2" th:field="${produto.prdId}">
                             <div class="modal-body">
                                 <div class="form-floating">
                                     <select name="categoriaProduto" class="custom-select form-select" id="categoriaProduto" th:field="${categoriasModel.ctgId}" required>

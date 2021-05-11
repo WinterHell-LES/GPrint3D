@@ -68,3 +68,4 @@ index.logarUsuario(driver, cliLogin, cliPass)
 
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
+

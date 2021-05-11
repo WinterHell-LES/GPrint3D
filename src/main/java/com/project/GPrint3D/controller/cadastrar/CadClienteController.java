@@ -47,10 +47,11 @@ public class CadClienteController
     @PostMapping("/cadastroDadosPessoais")
     public ModelAndView cadastrarDadosPessoais (@RequestParam(name = "confirm_password") String confirmPass,
             @Valid ClientesModel cliente, @Valid TelefonesModel telefone, @Valid DocumentosModel documento,
-            @Valid UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
+            UsuariosModel usuario, BindingResult result, RedirectAttributes attributes)
     {
         if (result.hasErrors())
         {
+            System.out.println(result.toString());
             return cadastroDadosPessoais(cliente, telefone, documento, usuario);
         }
 

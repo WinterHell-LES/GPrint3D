@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-    layout:decorate="~{layout/cliente/layout}">
+<html lang="pt-br" layout:decorate="~{layout/cliente/layout}">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,72 +10,77 @@
 
     <body>
         <!-- Conteudo da página -->
-       <section layout:fragment="conteudo">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <section layout:fragment="conteudo">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Alterar senha</h1>
             </div>
 
-            <div class="my-4">
-                <div class="row">
-                    <div class="col-sm">
-                        <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
-                            <input type="hidden" name="usuarioId" th:value="${usuario.usuId}">
-                            
-                            <div class="container border shadow rounded-3 py-2">
-                                <div class="row py-3 pe-0">
-                                    <div class="row pb-3 pe-0">
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Senha Antiga" name="oldPassword" minlength="8">
-                                                <label for="oldPassword">Senha Antiga</label>
-                                            </div>
-                                        </div>
+            <div class="my-5">
+                <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
+                    <input type="hidden" name="usuarioId" th:value="${usuario.usuId}">
 
-                                        <div class="col-sm">
-                                            <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Nova Senha" id="newPassword" name="newPassword" minlength="8">
-                                                <label for="newPassword">Nova Senha</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm pe-0">
-                                            <div class="form-floating">
-                                                <input type="password" class="form-control" placeholder="Confirmação de Nova Senha" name="confirmNewPassword" minlength="8">
-                                                <label for="confirmNewPassword">Confirmação de Nova Senha</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row pe-0">
-                                        <div clas="col-sm pe-0">
-                                            <div class="text-danger pe-0 text-center">
-                                                <span>Atenção: A senha deve conter ao menos 8 caracterecs e conter ao menos 1 letra maiúsculas, 1 letra minúsculas e 1 caracter especial.</span>
-                                            </div>
-                                        </div>
+                    <div class="container border shadow rounded-3 py-2">
+                        <div class="row py-3 pe-0">
+                            <div class="row pb-3 pe-0">
+                                <div class="col-sm">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" placeholder="Senha Antiga"
+                                            name="oldPassword" minlength="8">
+                                        <label for="oldPassword">Senha Antiga</label>
                                     </div>
                                 </div>
 
-                                <div class="row pe-0 pb-3">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="text-start">
-                                                    <a class="btn border shadow-sm" onclick="window.history.back();" id="voltar">Voltar</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm">
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn border shadow-sm" id="confirmar">Alterar</button>
-                                                </div>
-                                            </div>
+                                <div class="col-sm">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" placeholder="Nova Senha"
+                                            id="newPassword" name="newPassword" minlength="8">
+                                        <label for="newPassword">Nova Senha</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm pe-0">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control"
+                                            placeholder="Confirmação de Nova Senha" name="confirmNewPassword"
+                                            minlength="8">
+                                        <label for="confirmNewPassword">Confirmação de Nova Senha</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pe-0">
+                                <div clas="col-sm pe-0">
+                                    <div class="text-danger pe-0 text-center">
+                                        <span>Atenção: A senha deve conter ao menos 8 caracterecs e conter ao menos 1
+                                            letra maiúsculas, 1 letra minúsculas e 1 caracter especial.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pe-0 pb-3">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="text-start">
+                                            <a class="btn border shadow-sm" onclick="window.history.back();"
+                                                id="voltar">Voltar</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="text-end">
+                                            <button type="submit" class="btn border shadow-sm"
+                                                id="confirmar">Alterar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </section>
     </body>
+
 </html>

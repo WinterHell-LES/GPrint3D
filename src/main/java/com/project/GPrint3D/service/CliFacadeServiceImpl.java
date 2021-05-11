@@ -24,6 +24,7 @@ import com.project.GPrint3D.repository.CartoesRepository;
 import com.project.GPrint3D.repository.EndCobrancasPadroesRepository;
 import com.project.GPrint3D.repository.EndEntregasPadroesRepository;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
+import com.project.GPrint3D.repository.PedidosTrocasRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.util.GeradorCodigoUtil;
 
@@ -47,6 +48,9 @@ public class CliFacadeServiceImpl implements CliFacadeService
 
     @Autowired
     private PedidosComprasRepository pedidosComprasRepository;
+
+    @Autowired
+    private PedidosTrocasRepository pedidosTrocasRepository;
 
     @Autowired
     private UsuariosRepository usuariosRepository;
@@ -212,9 +216,12 @@ public class CliFacadeServiceImpl implements CliFacadeService
 
     public String[] escolherTroca (PedidosTrocasModel pedidoTroca)
     {
-        pedidoTroca.setPdtStatusPedido(0);
+        PedidosTrocasModel pedidoTrc = pedidosTrocasRepository.findOneById(pedidoTroca.getPdtId());
+        
+        pedidoTrc.setPdtStatusPedido(0);
+        pedidoTrc.setPdtEscolha(pedidoTroca.getPdtEscolha());
 
-        return pedidosTrocasService.atualizar(pedidoTroca);
+        return pedidosTrocasService.atualizar(pedidoTrc);
     }
 
     // Cartões

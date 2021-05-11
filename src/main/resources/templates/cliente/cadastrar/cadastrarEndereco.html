@@ -23,215 +23,209 @@
                     <input type="hidden" th:field="${enderecosModel.endEntregaPadrao}">
                     <input type="hidden" th:field="${enderecosModel.endCobrancaPadrao}">
 
-                    <div class="container border shadow p-2 rounded-3">
-                        <div class="row mx-0">
-                            <div class="row py-3">
-                                <div class="col-sm d-flex flex-column align-self-center">
-                                    <h5>Novo Endereço</h5>
+                    <div class="container border shadow rounded-3 py-2">
+                        <div class="row py-3">
+                            <div class="col-sm d-flex flex-column align-self-center">
+                                <h5>Novo endereço</h5>
+                            </div>
+
+                            <div class="col-sm-8 d-flex justify-content-end">
+                                <div class="form-check form-check-inline border rounded ps-4emeio pe-3 py-2 mb-1">
+                                    <input class="form-check-input" type="checkbox" id="endPadrao" name="endPadrao">
+                                    <label class="form-check-label" for="endPadrao">Endereço padrão</label>
                                 </div>
+                                <div
+                                    class="form-check form-check-inline border-start border-top border-bottom rounded ps-4emeio pe-3 py-2 mb-1 mx-0">
+                                    <input class="form-check-input" type="checkbox" id="endEntrega" value="endEntrega"
+                                        th:field="${enderecosModel.endEntrega}" onchange="validateCheckboxes(this)">
+                                    <label class="form-check-label" for="endEntrega">Endereço de entrega</label>
+                                </div>
+                                <div
+                                    class="form-check form-check-inline border-top border-bottom border-end rounded ps-3 pe-3 py-2 mb-1 mx-0">
+                                    <input class="form-check-input" type="checkbox" id="endCobranca" value="endCobranca"
+                                        th:field="${enderecosModel.endCobranca}" onchange="validateCheckboxes(this)">
+                                    <label class="form-check-label" for="endCobranca">Endereço de cobrança</label>
+                                </div>
+                            </div>
+                        </div>
 
-                                <div class="col-sm-8 d-flex justify-content-end pe-0">
-
-                                    <div class="form-check form-check-inline border rounded ps-4emeio pe-3 py-2 mb-1">
-                                        <input class="form-check-input" type="checkbox" id="endPadrao" name="endPadrao">
-                                        <label class="form-check-label" for="endPadrao">Endereço padrão</label>
-                                    </div>
-                                    <div
-                                        class="form-check form-check-inline border-start border-top border-bottom rounded ps-4emeio pe-3 py-2 mb-1 mx-0">
-                                        <input class="form-check-input" type="checkbox" id="endEntrega"
-                                            value="endEntrega" th:field="${enderecosModel.endEntrega}"
-                                            onchange="validateCheckboxes(this)">
-                                        <label class="form-check-label" for="endEntrega">Endereço de entrega</label>
-                                    </div>
-                                    <div
-                                        class="form-check form-check-inline border-top border-bottom border-end rounded ps-3 pe-3 py-2 mb-1 mx-0">
-                                        <input class="form-check-input" type="checkbox" id="endCobranca"
-                                            value="endCobranca" th:field="${enderecosModel.endCobranca}"
-                                            onchange="validateCheckboxes(this)">
-                                        <label class="form-check-label" for="endCobranca">Endereço de cobrança</label>
+                        <div class="row pe-0">
+                            <div class="row pb-3 pe-0">
+                                <div class="col-sm pe-0">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" placeholder="Descrição do Imóvel"
+                                            id="descricaoImovel" th:field="${enderecosModel.endDescricao}" required>
+                                        <label for="descricaoImovel">Descrição do imóvel</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row pe-0">
-                                <div class="row pb-3 pe-0">
-                                    <div class="col-sm pe-0">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="Descrição do Imóvel"
-                                                id="descricaoImovel" th:field="${enderecosModel.endDescricao}" required>
-                                            <label for="descricaoImovel">Descrição do Imóvel</label>
-                                        </div>
+                            <div class="row pb-3 pe-0">
+                                <div class="col-sm-3">
+                                    <div class="form-floating">
+                                        <select name="tipoLogradouro" class="custom-select form-select"
+                                            id="tipoLogradouro" th:field="${enderecosModel.endTipo}" required>
+                                            <option value="" selected>Tipo de Logradouro</option>
+                                            <option value="Aeroporto">Aeroporto</option>
+                                            <option value="Alameda">Alameda</option>
+                                            <option value="Area">Área</option>
+                                            <option value="Avenida">Avenida</option>
+                                            <option value="Campo">Campo</option>
+                                            <option value="Chacara">Chácara</option>
+                                            <option value="Colonia">Colônia</option>
+                                            <option value="Condominio">Condomínio</option>
+                                            <option value="Conjunto">Conjunto</option>
+                                            <option value="Distrito">Distrito</option>
+                                            <option value="Esplanada">Esplanada</option>
+                                            <option value="Estacao">Estação</option>
+                                            <option value="Estrada">Estrada</option>
+                                            <option value="Favela">Favela</option>
+                                            <option value="Fazenda">Fazenda</option>
+                                            <option value="Feira">Feira</option>
+                                            <option value="Jardim">Jardim</option>
+                                            <option value="Ladeira">Ladeira</option>
+                                            <option value="Lago">Lago</option>
+                                            <option value="Lagoa">Lagoa</option>
+                                            <option value="Largo">Largo</option>
+                                            <option value="Loteamento">Loteamento</option>
+                                            <option value="Morro">Morro</option>
+                                            <option value="Nucleo">Núcleo</option>
+                                            <option value="Parque">Parque</option>
+                                            <option value="Passarela">Passarela</option>
+                                            <option value="Patio">Pátio</option>
+                                            <option value="Praça">Praça</option>
+                                            <option value="Quadra">Quadra</option>
+                                            <option value="Recanto">Recanto</option>
+                                            <option value="Residencial">Residencial</option>
+                                            <option value="Rodovia">Rodovia</option>
+                                            <option value="Rua">Rua</option>
+                                            <option value="Setor">Setor</option>
+                                            <option value="Sítio">Sítio</option>
+                                            <option value="Travessa">Travessa</option>
+                                            <option value="Trecho">Trecho</option>
+                                            <option value="Trevo">Trevo</option>
+                                            <option value="Vale">Vale</option>
+                                            <option value="Vereda">Vereda</option>
+                                            <option value="Via">Via</option>
+                                            <option value="Viaduto">Viaduto</option>
+                                            <option value="Viela">Viela</option>
+                                            <option value="Vila">Vila</option>
+                                        </select>
+                                        <label for="tipoLogradouro">Tipo de Logradouro</label>
                                     </div>
                                 </div>
 
-                                <div class="row pb-3 pe-0">
-                                    <div class="col-sm-3">
-                                        <div class="form-floating">
-                                            <select name="tipoLogradouro" class="custom-select form-select"
-                                                id="tipoLogradouro" th:field="${enderecosModel.endTipo}" required>
-                                                <option value="" selected>Tipo de Logradouro</option>
-                                                <option value="Aeroporto">Aeroporto</option>
-                                                <option value="Alameda">Alameda</option>
-                                                <option value="Area">Área</option>
-                                                <option value="Avenida">Avenida</option>
-                                                <option value="Campo">Campo</option>
-                                                <option value="Chacara">Chácara</option>
-                                                <option value="Colonia">Colônia</option>
-                                                <option value="Condominio">Condomínio</option>
-                                                <option value="Conjunto">Conjunto</option>
-                                                <option value="Distrito">Distrito</option>
-                                                <option value="Esplanada">Esplanada</option>
-                                                <option value="Estacao">Estação</option>
-                                                <option value="Estrada">Estrada</option>
-                                                <option value="Favela">Favela</option>
-                                                <option value="Fazenda">Fazenda</option>
-                                                <option value="Feira">Feira</option>
-                                                <option value="Jardim">Jardim</option>
-                                                <option value="Ladeira">Ladeira</option>
-                                                <option value="Lago">Lago</option>
-                                                <option value="Lagoa">Lagoa</option>
-                                                <option value="Largo">Largo</option>
-                                                <option value="Loteamento">Loteamento</option>
-                                                <option value="Morro">Morro</option>
-                                                <option value="Nucleo">Núcleo</option>
-                                                <option value="Parque">Parque</option>
-                                                <option value="Passarela">Passarela</option>
-                                                <option value="Patio">Pátio</option>
-                                                <option value="Praça">Praça</option>
-                                                <option value="Quadra">Quadra</option>
-                                                <option value="Recanto">Recanto</option>
-                                                <option value="Residencial">Residencial</option>
-                                                <option value="Rodovia">Rodovia</option>
-                                                <option value="Rua">Rua</option>
-                                                <option value="Setor">Setor</option>
-                                                <option value="Sítio">Sítio</option>
-                                                <option value="Travessa">Travessa</option>
-                                                <option value="Trecho">Trecho</option>
-                                                <option value="Trevo">Trevo</option>
-                                                <option value="Vale">Vale</option>
-                                                <option value="Vereda">Vereda</option>
-                                                <option value="Via">Via</option>
-                                                <option value="Viaduto">Viaduto</option>
-                                                <option value="Viela">Viela</option>
-                                                <option value="Vila">Vila</option>
-                                            </select>
-                                            <label for="tipoLogradouro">Tipo de Logradouro</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm pe-0">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="Logradouro"
-                                                id="logradouro" th:field="${enderecosModel.endLogradouro}" required>
-                                            <label for="logradouro">Logradouro</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row pb-3 pe-0">
-                                    <div class="col-sm">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="Número"
-                                                id="enderecoNum" th:field="${enderecosModel.endNumero}" required>
-                                            <label for="endereçoNum">Número</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="Complemento"
-                                                id="complemento" th:field="${enderecosModel.endComplemento}">
-                                            <label for="complemento">Complemento</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm pe-0">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control cep" placeholder="00000-000" id="CEP"
-                                                th:field="${enderecosModel.endCep}" required>
-                                            <label for="CEP">CEP</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row pb-3 pe-0">
-                                    <div class="col-sm">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="Cidade" id="cidade"
-                                                th:field="${enderecosModel.endCidade}" required>
-                                            <label for="cidade">Cidade</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm">
-                                        <div class="form-floating">
-                                            <select name="Estado" class="custom-select form-select" id="estado"
-                                                th:field="${enderecosModel.endEstado}" required>
-                                                <option value="" selected>Selecione o Estado</option>
-                                                <option value="AC">Acre</option>
-                                                <option value="AL">Alagoas</option>
-                                                <option value="AP">Amapá</option>
-                                                <option value="AM">Amazonas</option>
-                                                <option value="BA">Bahia</option>
-                                                <option value="CE">Ceará</option>
-                                                <option value="DF">Distrito Federal</option>
-                                                <option value="ES">Espírito Santo</option>
-                                                <option value="GO">Goiás</option>
-                                                <option value="MA">Maranhão</option>
-                                                <option value="MT">Mato Grosso</option>
-                                                <option value="MS">Mato Grosso do Sul</option>
-                                                <option value="MG">Minas Gerais</option>
-                                                <option value="PA">Pará</option>
-                                                <option value="PB">Paraíba</option>
-                                                <option value="PR">Paraná</option>
-                                                <option value="PE">Pernambuco</option>
-                                                <option value="PI">Piauí</option>
-                                                <option value="RJ">Rio de Janeiro</option>
-                                                <option value="RN">Rio Grande do Norte</option>
-                                                <option value="RS">Rio Grande do Sul</option>
-                                                <option value="RO">Rondônia</option>
-                                                <option value="RR">Roraima</option>
-                                                <option value="SC">Santa Catarina</option>
-                                                <option value="SP">São Paulo</option>
-                                                <option value="SE">Sergipe</option>
-                                                <option value="TO">Tocantins</option>
-                                            </select>
-                                            <label for="estado">Estado</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm pe-0">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="País" id="pais"
-                                                th:field="${enderecosModel.endPais}" required>
-                                            <label for="pais">País</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row pb-3 pe-0">
-                                    <div class="col-sm pe-0">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Observação" id="observacao"
-                                                style="height: 80px"
-                                                th:field="${enderecosModel.endObservacao}"></textarea>
-                                            <label for="observacao">Observação</label>
-                                        </div>
+                                <div class="col-sm pe-0">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" placeholder="Logradouro" id="logradouro"
+                                            th:field="${enderecosModel.endLogradouro}" required>
+                                        <label for="logradouro">Logradouro</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row pe-0 pb-3">
+                            <div class="row pb-3 pe-0">
                                 <div class="col-sm">
-                                    <div class="row pe-0">
-                                        <div class="col-sm">
-                                            <div class="text-start">
-                                                <a class="btn border shadow-sm" onclick="window.history.back();"
-                                                    id="voltar">Voltar</a>
-                                            </div>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" placeholder="Número" id="enderecoNum"
+                                            th:field="${enderecosModel.endNumero}" required>
+                                        <label for="endereçoNum">Número</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" placeholder="Complemento"
+                                            id="complemento" th:field="${enderecosModel.endComplemento}">
+                                        <label for="complemento">Complemento</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm pe-0">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control cep" placeholder="00000-000" id="CEP"
+                                            th:field="${enderecosModel.endCep}" required>
+                                        <label for="CEP">CEP</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pb-3 pe-0">
+                                <div class="col-sm">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" placeholder="Cidade" id="cidade"
+                                            th:field="${enderecosModel.endCidade}" required>
+                                        <label for="cidade">Cidade</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm">
+                                    <div class="form-floating">
+                                        <select name="Estado" class="custom-select form-select" id="estado"
+                                            th:field="${enderecosModel.endEstado}" required>
+                                            <option value="" selected>Selecione o Estado</option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
+                                        <label for="estado">Estado</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm pe-0">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" placeholder="País" id="pais"
+                                            th:field="${enderecosModel.endPais}" required>
+                                        <label for="pais">País</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row pb-3 pe-0">
+                                <div class="col-sm pe-0">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Observação" id="observacao"
+                                            style="height: 80px" th:field="${enderecosModel.endObservacao}"></textarea>
+                                        <label for="observacao">Observação</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row pe-0 pb-3">
+                            <div class="col-sm">
+                                <div class="row pe-0">
+                                    <div class="col-sm">
+                                        <div class="text-start">
+                                            <a class="btn border shadow-sm" onclick="window.history.back();"
+                                                id="voltar">Voltar</a>
                                         </div>
-                                        <div class="col-sm">
-                                            <div class="text-end">
-                                                <button type="submit" class="btn border shadow-sm"
-                                                    id="confirmar">Salvar</button>
-                                            </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="text-end">
+                                            <button type="submit" class="btn border shadow-sm"
+                                                id="confirmar">Salvar</button>
                                         </div>
                                     </div>
                                 </div>

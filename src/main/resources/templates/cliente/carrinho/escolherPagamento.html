@@ -80,7 +80,7 @@
                                     <th scope="col" class="col-2 text-center">Preço un</th>
                                     <th scope="col" class="col-2 text-center">Sub-total</th>
                                 </tr>
-                                <tr th:each="produto : ${carrinho.listProdutos}">
+                                <tr th:each="produto : ${carrinho.getListProdutosAtivo()}">
                                     <td th:text="${produto.produto.prdNome}">Produto 1</td>
                                     <td class="text-center" th:text="${produto.pcrQuantidade}">3</td>
                                     <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$50,00</td>

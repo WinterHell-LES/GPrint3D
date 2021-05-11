@@ -189,7 +189,7 @@ public class PedidosComprasModel
         {
             this.listPedCuponsPromocoes = new ArrayList<>();
         }
-        
+
         return this.listPedCuponsPromocoes;
     }
 
@@ -209,7 +209,7 @@ public class PedidosComprasModel
         {
             this.listPedCuponsPromocoes = new ArrayList<>();
         }
-        
+
         return this.listPedCuponsTrocas;
     }
 
@@ -229,7 +229,7 @@ public class PedidosComprasModel
         {
             this.listPedCuponsPromocoes = new ArrayList<>();
         }
-        
+
         return this.listPedProdutos;
     }
 
@@ -249,7 +249,7 @@ public class PedidosComprasModel
         {
             this.listPedCuponsPromocoes = new ArrayList<>();
         }
-        
+
         return this.listPedCartoes;
     }
 
@@ -269,7 +269,7 @@ public class PedidosComprasModel
         {
             this.listPedCuponsPromocoes = new ArrayList<>();
         }
-        
+
         return this.listSaidas;
     }
 
@@ -284,7 +284,7 @@ public class PedidosComprasModel
         {
             this.listPedCuponsPromocoes = new ArrayList<>();
         }
-        
+
         return this.listPedTrocas;
     }
 
@@ -380,17 +380,17 @@ public class PedidosComprasModel
             {
                 for (CategoriasProdutosModel categoria : produto.getProduto().getListCategoriasProdutos())
                 {
-                    if (categoria.getCategoria().getCtgId() == this.listPedCuponsPromocoes.get(0).getCupom().getCategoria().getCtgId())
+                    if (categoria.getCategoria().getCtgId() == this.listPedCuponsPromocoes.get(0).getCupom()
+                            .getCategoria().getCtgId())
                     {
                         valorTotal += produto.getProduto().getPrdPreco() * produto.getPpdQuantidade();
                     }
                 }
             }
 
-            
             valorTotal = valorTotal * this.listPedCuponsPromocoes.get(0).getCupom().getCppDesconto() / 100;
         }
-        
+
         return valorTotal;
     }
 

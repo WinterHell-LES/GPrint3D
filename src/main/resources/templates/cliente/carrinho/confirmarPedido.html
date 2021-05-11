@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br"
-    layout:decorate="~{layout/default/layout}">
+<html lang="pt-br" layout:decorate="~{layout/default/layout}">
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,19 +14,21 @@
     <body>
         <!-- Conteudo da página -->
         <section layout:fragment="conteudo">
-            <div class="container bg-white fixed-top" style="margin-top: 60px; padding-top: 30px; padding-bottom: 15px; z-index: 2;">
+            <div class="container bg-white fixed-top"
+                style="margin-top: 60px; padding-top: 30px; padding-bottom: 15px; z-index: 2;">
                 <div class="row pe-0 pb-3">
                     <div class="col-sm pe-0">
                         <div class="row" style="height: 17.5px;">
                             <div class="col"></div>
 
                             <div class="col-3 align-bottom px-0">
-                                <input type="range" class="form-range" min="0" max="3" step="1" value="3" id="fluxoCompra" disabled>
+                                <input type="range" class="form-range" min="0" max="3" step="1" value="3"
+                                    id="fluxoCompra" disabled>
                             </div>
 
                             <div class="col"></div>
                         </div>
-        
+
                         <div class="row" style="height: 17.5px;">
                             <div class="col"></div>
 
@@ -63,13 +65,14 @@
                         <p class="h5">Produtos</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-danger" th:text="'R$ ' + ${#numbers.formatDecimal(carrinho.getValorTotal, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</span>
+                        <span class="fst-italic text-danger"
+                            th:text="'R$ ' + ${#numbers.formatDecimal(carrinho.getValorTotal, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
                     </div>
                 </div>
-                
+
                 <div id="detalhesValores">
                     <div class="border-top visually-hidden">
                         <table class="table mt-2">
@@ -83,8 +86,12 @@
                                 <tr th:each="produto : ${carrinho.listProdutos}">
                                     <td th:text="${produto.produto.prdNome}">Produto 1</td>
                                     <td class="text-center" th:text="${produto.pcrQuantidade}">3</td>
-                                    <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">R$50,00</td>
-                                    <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco * produto.pcrQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">R$150,00</td>
+                                    <td class="text-center"
+                                        th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">
+                                        R$50,00</td>
+                                    <td class="text-center"
+                                        th:text="'R$ ' + ${#numbers.formatDecimal(produto.produto.prdPreco * produto.pcrQuantidade, 1, 'DEFAULT', 2, 'DEFAULT')}">
+                                        R$150,00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -98,7 +105,8 @@
                         <p class="h5">Endereço de entrega</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-danger" th:text="'R$ ' + ${#numbers.formatDecimal(frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$120,00</span>
+                        <span class="fst-italic text-danger"
+                            th:text="'R$ ' + ${#numbers.formatDecimal(frete.pcfValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$120,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -117,11 +125,15 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">Endereço:</th>
-                                            <td th:text="${#strings.isEmpty(pedidoCompra.endereco.endComplemento)} ? ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero} : ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero + ' - ' + pedidoCompra.endereco.endComplemento}">Rua João das Neves, 123 - Complemento</td>
+                                            <td
+                                                th:text="${#strings.isEmpty(pedidoCompra.endereco.endComplemento)} ? ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero} : ${pedidoCompra.endereco.endTipo + ' ' + pedidoCompra.endereco.endLogradouro + ', ' + pedidoCompra.endereco.endNumero + ' - ' + pedidoCompra.endereco.endComplemento}">
+                                                Rua João das Neves, 123 - Complemento</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Cidade / UF:</th>
-                                            <td th:text="${pedidoCompra.endereco.endCidade + ' / ' + pedidoCompra.endereco.endEstado}">Mogi das Cruzes / SP</td>
+                                            <td
+                                                th:text="${pedidoCompra.endereco.endCidade + ' / ' + pedidoCompra.endereco.endEstado}">
+                                                Mogi das Cruzes / SP</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">CEP:</th>
@@ -132,7 +144,9 @@
                             </div>
                             <div class="col-6">
                                 <div class="row d-flex flex-column align-self-center border shadow p-3 m-4">
-                                    <p class="m-0" th:text="${#strings.capitalize(frete.pcfEmpresa) + ' - ' + frete.pcfModalidade + ' - Recebe em ' + frete.pcfPrazo + ' dia(s)'}">Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00</p>
+                                    <p class="m-0"
+                                        th:text="${#strings.capitalize(frete.pcfEmpresa) + ' - ' + frete.pcfModalidade + ' - Recebe em ' + frete.pcfPrazo + ' dia(s)'}">
+                                        Correios - PAC - Receba em até 21 dia(s) útil(eis). - R$12,00</p>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +160,9 @@
                         <p class="h5">Cupons</p>
                     </div>
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCupons(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span>
+                        <span class="fst-italic text-success"
+                            th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCupons(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$
+                            0,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-down"></i>
@@ -163,7 +179,11 @@
                                 <div class="row pb-2" th:each="cupomPedido : ${pedidoCompra.listPedCuponsTrocas}">
                                     <div class="col">
                                         <i class="bi bi-x-circle d-inline"></i>
-                                        <span class="d-inline">Cupom </span><span class="fw-bold" th:text="${cupomPedido.cupom.cptCodigo}">código do cupom</span><span> aplicado no valor de </span><span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(cupomPedido.cupom.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">R$ 0,00</span><span>.</span>
+                                        <span class="d-inline">Cupom </span><span class="fw-bold"
+                                            th:text="${cupomPedido.cupom.cptCodigo}">código do cupom</span><span>
+                                            aplicado no valor de </span><span class="fw-bold"
+                                            th:text="'R$ ' + ${#numbers.formatDecimal(cupomPedido.cupom.cptSaldo, 1, 'DEFAULT', 2, 'DEFAULT')}">R$
+                                            0,00</span><span>.</span>
                                     </div>
                                 </div>
                             </div>
@@ -178,13 +198,20 @@
                                     <div class="col">
                                         <i class="bi bi-x-circle d-inline"></i>
                                         <span class="d-inline">Cupom </span>
-                                        <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppCodigo()}">código do cupom</span>
+                                        <span class="fw-bold"
+                                            th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppCodigo()}">código
+                                            do cupom</span>
                                         <span> aplicado na categoria </span>
-                                        <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCategoria().getCtgNome()}">categoria</span>
+                                        <span class="fw-bold"
+                                            th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCategoria().getCtgNome()}">categoria</span>
                                         <span> com desconto de </span>
-                                        <span class="fw-bold" th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppDesconto()} + '%'">% de desconto</span>
+                                        <span class="fw-bold"
+                                            th:text="${pedidoCompra.getListPedCuponsPromocoes().get(0).getCupom().getCppDesconto()} + '%'">%
+                                            de desconto</span>
                                         <span> equivalente a </span>
-                                        <span class="fw-bold" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorCupomPromocao(), 1, 'DEFAULT', 2, 'DEFAULT')}">valor do cupom em reais R$ 0,00</span>
+                                        <span class="fw-bold"
+                                            th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorCupomPromocao(), 1, 'DEFAULT', 2, 'DEFAULT')}">valor
+                                            do cupom em reais R$ 0,00</span>
                                         <span>.</span>
                                     </div>
                                 </div>
@@ -194,15 +221,16 @@
                 </div>
             </div>
 
-            
+
             <div class="container border shadow my-4">
                 <div class="row enderecos" onclick="hideElement(this)">
                     <div class="col pt-3 pb-2">
                         <p class="h5">Pagamento</p>
                     </div>
-                    
+
                     <div class="col-2 d-flex flex-colum align-items-center justify-content-end">
-                        <span class="fst-italic text-success" th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCartoes(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$-132,00</span>
+                        <span class="fst-italic text-success"
+                            th:text="'R$ ' + ${#numbers.formatDecimal(pedidoCompra.getValorTotalCartoes(), 1, 'DEFAULT', 2, 'DEFAULT')}">R$-132,00</span>
                     </div>
                     <div class="col-1 d-flex flex-colum align-items-center justify-content-center">
                         <i class="bi bi-caret-up"></i>
@@ -221,18 +249,28 @@
                                         <th scope="col" class="col-2 text-center">Valor</th>
                                         <th scope="col" class="col-1-sm text-center">CVV</th>
                                     </tr>
-                                    <tr th:each="pedCartao : ${pedidoCompra.listPedCartoes}" th:if="!${#lists.isEmpty(pedidoCompra.listPedCartoes)}">
+                                    <tr th:each="pedCartao : ${pedidoCompra.listPedCartoes}"
+                                        th:if="!${#lists.isEmpty(pedidoCompra.listPedCartoes)}">
                                         <td th:text="${pedCartao.cartao.crtNumero}">1234 1234 1234 1234</td>
                                         <td th:text="${pedCartao.cartao.crtNome}">José da Silva</td>
                                         <td th:text="${pedCartao.cartao.bandeira.banNome}">Visa</td>
-                                        <td class="text-center" th:text="'R$ ' + ${#numbers.formatDecimal(pedCartao.pctValor, 1, 'DEFAULT', 2, 'DEFAULT')}">R$132,00</td>
-                                        <td th:if="!${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">
-                                            <form th:action="@{/cliente/carrinho/validarCvv}" method="POST" class="px-0">
-                                                <input type="hidden" class="hidden" name="index" th:value="${pedCartaoStat.index}">
-                                                <input type="text" class="form-control cvv text-center p-0" value="" placeholder="cvv" minlength="3" maxlength="3" name="cvv" th:id="'cvv' + ${pedCartaoStat.count}" onfocusout="submit(this)">
+                                        <td class="text-center"
+                                            th:text="'R$ ' + ${#numbers.formatDecimal(pedCartao.pctValor, 1, 'DEFAULT', 2, 'DEFAULT')}">
+                                            R$132,00</td>
+                                        <td
+                                            th:if="!${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">
+                                            <form th:action="@{/cliente/carrinho/validarCvv}" method="POST"
+                                                class="px-0">
+                                                <input type="hidden" class="hidden" name="index"
+                                                    th:value="${pedCartaoStat.index}">
+                                                <input type="text" class="form-control cvv text-center p-0" value=""
+                                                    placeholder="cvv" minlength="3" maxlength="3" name="cvv"
+                                                    th:id="'cvv' + ${pedCartaoStat.count}" onfocusout="submit(this)">
                                             </form>
                                         </td>
-                                        <td class="text-center text-success" th:if="${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">Confirmado</td>
+                                        <td class="text-center text-success"
+                                            th:if="${#strings.equals(cartaoValidador.get(pedCartaoStat.index), 'Confirmado')}">
+                                            Confirmado</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -241,10 +279,12 @@
                 </div>
             </div>
 
-            <div class="container my-4"></div>
+            <div class="container my-4">
                 <div class="row mt-2 pb-2">
                     <div class="col-7 text-start">
-                        <a href="/cliente/carrinho/escolherPagamento"><div type="submit" class="btn border shadow-sm" id="voltar">Voltar</div></a>
+                        <a href="/cliente/carrinho/escolherPagamento">
+                            <div type="submit" class="btn border shadow-sm" id="voltar">Voltar</div>
+                        </a>
                     </div>
                     <div class="col text-end">
                         <form th:action="@{/cliente/carrinho/cadastrarPedido}" method="POST" class="px-0">
@@ -254,7 +294,7 @@
                 </div>
             </div>
         </section>
-        
+
         <!-- Script-->
         <th:block layout:fragment="javascripts">
             <script type="text/javascript" th:src="@{/javascripts/util.js}"></script>
@@ -262,4 +302,5 @@
             <script type="text/javascript" th:src="@{/javascripts/jquery/jquery.mask.js}"></script>
         </th:block>
     </body>
+
 </html>

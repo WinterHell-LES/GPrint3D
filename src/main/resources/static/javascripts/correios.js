@@ -258,4 +258,4 @@ function getCookie(cookieNome)
     }
 
     return null;
-  }
+}

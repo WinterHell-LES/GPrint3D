@@ -102,7 +102,7 @@ public class CarrinhosModel
 
     public List<PrdCarrinhosModel> getListProdutosAtivo() 
     {
-        if (this.listProdutos.size() == 0)
+        if (this.listProdutos.isEmpty())
         {
             return new ArrayList<>();
         }
@@ -122,7 +122,7 @@ public class CarrinhosModel
 
     public List<PrdCarrinhosModel> getListProdutosInativo() 
     {
-        if (this.listProdutos.size() == 0)
+        if (this.listProdutos.isEmpty())
         {
             return new ArrayList<>();
         }

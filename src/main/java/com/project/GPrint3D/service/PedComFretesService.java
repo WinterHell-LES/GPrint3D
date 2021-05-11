@@ -29,11 +29,15 @@ class PedComFretesService
         }
         catch (DataIntegrityViolationException e)
         {
+            System.out.println(e);
+
             response[0] = msg2;
             response[1] = "Frete já cadastrado";
         }
         catch (Exception e)
         {
+            System.out.println(e);
+            
             response[0] = msg2;
             response[1] = "Erro ao cadastrar o frete";
         }

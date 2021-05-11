@@ -1,7 +1,5 @@
 package com.project.GPrint3D.controller.admin;
 
-import javax.validation.Valid;
-
 import com.project.GPrint3D.model.PedidosComprasModel;
 import com.project.GPrint3D.model.PedidosTrocasModel;
 import com.project.GPrint3D.repository.PedidosComprasRepository;
@@ -56,7 +54,7 @@ public class AdminLogiPedController
     }
 
     @PostMapping("alterarLogisticaPedido")
-    public ModelAndView alterarLogisticaPedido (@Valid PedidosComprasModel pedido, RedirectAttributes attributes)
+    public ModelAndView alterarLogisticaPedido (PedidosComprasModel pedido, RedirectAttributes attributes)
     {
         String[] mensagem = adminFacadeService.atualizarLogisticaCompras(pedido);
 
@@ -92,7 +90,7 @@ public class AdminLogiPedController
     }
 
     @PostMapping("alterarLogisticaTroca")
-    public ModelAndView alterarLogisticaTroca (@Valid PedidosTrocasModel pedido, RedirectAttributes attributes)
+    public ModelAndView alterarLogisticaTroca (PedidosTrocasModel pedido, RedirectAttributes attributes)
     {
         String[] mensagem = adminFacadeService.atualizarLogisticaTrocas(pedido);
 

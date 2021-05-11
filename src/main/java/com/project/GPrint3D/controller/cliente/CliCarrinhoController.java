@@ -9,14 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.CartoesModel;
 import com.project.GPrint3D.model.ClientesModel;
 import com.project.GPrint3D.model.CuponsPromocoesModel;
 import com.project.GPrint3D.model.CuponsTrocasModel;
-import com.project.GPrint3D.model.EnderecosModel;
 import com.project.GPrint3D.model.PedCartoesModel;
 import com.project.GPrint3D.model.PedComFretesModel;
 import com.project.GPrint3D.model.PedCuponsPromocoesModel;

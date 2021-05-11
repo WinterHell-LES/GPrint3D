@@ -7,7 +7,7 @@ function dropKeeper(urlString, id, negate = [], button)
         var aux = true;
 
         negate.forEach(e => {
-            if (url.includes(e))
+            if (url.includes(e.toLowerCase()))
             {
                 aux = false;
             }
@@ -34,8 +34,9 @@ function pageListener()
     dropKeeper("bandeiras", "bandeiras_cartao", null, "bt_bandeiras_cartao");
     dropKeeper("precificacoes", "precificacoes", null, "bt_precificacoes");
     dropKeeper("categorias", "categorias", ["cadastrocategorias", "grafico"], "bt_categorias");
-    dropKeeper("produtos", "produtos", ["grafico"], "bt_produtos");
+    dropKeeper("produtos", "produtos", ["grafico", "infocompras", "infotrocas"], "bt_produtos");
     dropKeeper("cadastrocategorias", ["produtos"], null, "bt_produtos");
+    dropKeeper("cadastrofotos", ["produtos"], null, "bt_produtos");
     dropKeeper("entradas", "estoque", null, "bt_estoque");
     dropKeeper("saidas", "estoque", null, "bt_estoque");
     dropKeeper("entradas", "entradas", null, "bt_entradas");
@@ -44,6 +45,8 @@ function pageListener()
     dropKeeper("cuponspromocionais", "cupons_promocionais", null, "bt_cupons_promocionais");
     dropKeeper("cuponstrocas", "cupons_trocas", null, "bt_cupons_trocas");
     dropKeeper("pedidos", "pedidos", ["logisticapedidos", "grafico"], "bt_pedidos");
+    dropKeeper("infocompras", "pedidos", ["logisticapedidos", "grafico"], "bt_pedidos");
+    dropKeeper("infotrocas", "pedidos", ["logisticapedidos", "grafico"], "bt_pedidos");
     dropKeeper("logistica", "logistica", null, "bt_logistica");
     dropKeeper("clientes", "clientes", null, "bt_clientes");
     dropKeeper("grafico", "graficos", null, "bt_graficos");

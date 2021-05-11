@@ -39,7 +39,7 @@
                         <td th:text="${cliente.usuario.getStrUsuAtivo()}">Ativo</td>
                         <td class="py-0 my-0">
                             <form th:action="@{/admin/clientesAtiva}" method="POST">
-                                <a style="text-decoration: none;" th:href="'/admin/cliente/' + ${cliente.cliId} + '/dados'">
+                                <a style="text-decoration: none;" th:href="'/admin/infoCliente/' + ${cliente.cliId} + '/dados'">
                                     <i class="bi bi-info-square fs-4" style="color: black;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Informações"></i>
                                 </a>
                                 <button type="submit" class="" style="background-color: transparent; border-color: transparent;" name="id" th:value="${cliente.usuario.usuId}">

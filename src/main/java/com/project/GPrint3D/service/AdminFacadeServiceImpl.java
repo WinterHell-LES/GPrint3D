@@ -208,20 +208,24 @@ public class AdminFacadeServiceImpl implements AdminFacadeService
     {
         PedidosTrocasModel pedTroca = pedidosTrocasRepository.findOneById(pedido.getPdtId());
 
+        pedTroca.setPdtStatusLogistica(pedido.getPdtStatusLogistica());
+
         if (pedido.getPdtEscolha() == 1)
         {
             if (pedido.getPdtStatusLogistica() > 3)
             {
-                pedTroca.setPdtStatusLogistica(pedido.getPdtStatusLogistica() - 2);
+                pedTroca.setPdtStatusPedido(pedido.getPdtStatusLogistica() - 2);
             }
         }
         else
         {
             if (pedido.getPdtStatusLogistica() > 2)
             {
-                pedTroca.setPdtStatusLogistica(pedido.getPdtStatusLogistica() - 2);
+                pedTroca.setPdtStatusPedido(pedido.getPdtStatusLogistica() - 2);
             }
         }
+
+        System.out.println();
 
         return pedidosTrocasService.atualizar(pedTroca);
     }

@@ -49,6 +49,7 @@ function pageListener()
     dropKeeper("infotrocas", "pedidos", ["logisticapedidos", "grafico"], "bt_pedidos");
     dropKeeper("logistica", "logistica", null, "bt_logistica");
     dropKeeper("clientes", "clientes", null, "bt_clientes");
+    dropKeeper("infocliente", "clientes", null, "bt_clientes");
     dropKeeper("grafico", "graficos", null, "bt_graficos");
     dropKeeper("variaveis", "variaveis", null, "bt_variaveis");
 }

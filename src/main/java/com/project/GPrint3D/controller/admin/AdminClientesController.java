@@ -53,7 +53,7 @@ public class AdminClientesController
         return new ModelAndView("redirect:/admin/listarClientes");
     }
 
-    @GetMapping(value = "/cliente/{id}/dados")
+    @GetMapping(value = "/infoCliente/{id}/dados")
     public ModelAndView listagemDadosCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesDados");
@@ -63,7 +63,7 @@ public class AdminClientesController
         return mv;
     }
 
-    @GetMapping(value = "/cliente/{id}/documentos")
+    @GetMapping(value = "/infoCliente/{id}/documentos")
     public ModelAndView listagemDocumentosCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesDocumentos");
@@ -73,7 +73,7 @@ public class AdminClientesController
         return mv;
     }
 
-    @GetMapping(value = "/cliente/{id}/telefones")
+    @GetMapping(value = "/infoCliente/{id}/telefones")
     public ModelAndView listagemTelefonesCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesTelefones");
@@ -83,7 +83,7 @@ public class AdminClientesController
         return mv;
     }
 
-    @GetMapping(value = "/cliente/{id}/enderecos")
+    @GetMapping(value = "/infoCliente/{id}/enderecos")
     public ModelAndView listagemEnderecosCliente (@PathVariable("id") Integer id)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesEnderecos");
@@ -93,7 +93,7 @@ public class AdminClientesController
         return mv;
     }
 
-    @GetMapping(value = "/cliente/{id}/cartoes")
+    @GetMapping(value = "/infoCliente/{id}/cartoes")
     public ModelAndView listagemCartoesCliente (@PathVariable("id") Integer id, UsuariosModel usuario)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClienteCartoes");
@@ -103,7 +103,7 @@ public class AdminClientesController
         return mv;
     }
 
-    @GetMapping(value = "/cliente/{id}/usuario")
+    @GetMapping(value = "/infoCliente/{id}/usuario")
     public ModelAndView listagemUsuariosCliente (@PathVariable("id") Integer id, UsuariosModel usuario)
     {
         ModelAndView mv = new ModelAndView("/admin/clientes/info/infoClientesUsuario");

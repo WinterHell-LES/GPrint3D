@@ -17,7 +17,6 @@
                 </div>
                 <div class="row my-4" th:each="produto : ${produtos}" th:if="${produto.produto.prdAtivo AND produto.produto.prdQuantidade > 0}">
                     <div class="card-row shadow">
-                        <!-- <img th:src="@{/images/Teste.png}" class="img-start" alt="..." style="max-height: 125px; height: auto;"> -->
                         <img class="img-start" th:if="${produto.produto.listFotos.size}" th:src="@{'data:image/jpg;base64,' + ${produto.produto.listFotos[0].generateBase64Image()}}" alt="..." style="max-height: 175px; max-width: 270px; height: auto;">
                         <img class="img-start" th:unless="${produto.produto.listFotos.size}" th:src="@{/images/Teste.png}" alt="" style="max-height: 175px; max-width: 270px; height: auto;">
                         <div class="card-body ms-4">

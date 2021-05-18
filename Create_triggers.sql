@@ -59,6 +59,27 @@ BEGIN
 END; $$
 
 
+-- Controle de reserva de produtos
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_ins_produtos_carrinhos; $$
+CREATE TRIGGER tg_ins_produtos_carrinhos AFTER INSERT ON produtos_carrinhos FOR EACH ROW
+BEGIN
+	UPDATE produtos SET prd_reservado = IFNULL((SELECT SUM(pcr_quantidade) FROM produtos_carrinhos WHERE pcr_prd_id = produtos.prd_id), 0) WHERE NEW.pcr_prd_id = prd_id;
+END; $$
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_upd_produtos_carrinhos; $$
+CREATE TRIGGER tg_upd_produtos_carrinhos AFTER UPDATE ON produtos_carrinhos FOR EACH ROW
+BEGIN
+    UPDATE produtos SET prd_reservado = IFNULL((SELECT SUM(pcr_quantidade) FROM produtos_carrinhos WHERE pcr_prd_id = produtos.prd_id), 0) WHERE NEW.pcr_prd_id = prd_id;
+END; $$
+DELIMITER $$
+DROP TRIGGER IF EXISTS tg_del_produtos_carrinhos; $$
+CREATE TRIGGER tg_del_produtos_carrinhos AFTER DELETE ON produtos_carrinhos FOR EACH ROW
+BEGIN
+	UPDATE produtos SET prd_reservado = IFNULL((SELECT SUM(pcr_quantidade) FROM produtos_carrinhos WHERE pcr_prd_id = produtos.prd_id), 0) WHERE OLD.pcr_prd_id = prd_id;
+END; $$
+
+
 -- Controle de logs
 -- Bandeiras
 DELIMITER $$

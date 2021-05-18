@@ -67,6 +67,9 @@ public class ProdutosModel
     @Column(name = "prd_quantidade")
     private Integer prdQuantidade;
 
+    @Column(name = "prd_reservado")
+    private Integer prdReservado;
+
     @NotNull(message = "Preço é obrigatório")
     @Column(name = "prd_preco")
     private double prdPreco;
@@ -112,13 +115,14 @@ public class ProdutosModel
         this.prdFabricante = "";
         this.prdModelo = "";
         this.prdQuantidade = 0;
+        this.prdReservado = 0;
         this.prdPreco = 0.00;
         this.prdAtivo = false;
     }
 
     public ProdutosModel (Integer prdId, String prdNome, String prdDescricao, double prdDimPrdAl, double prdDimPrdLa,
             double prdDimPrdPr, double prdDimPrdPe, double prdDimEmbAl, double prdDimEmbLa, double prdDimEmbPr,
-            double prdDimEmbPe, String prdFabricante, String prdModelo, Integer prdQuantidade, double prdPreco,
+            double prdDimEmbPe, String prdFabricante, String prdModelo, Integer prdQuantidade, Integer prdReservado, double prdPreco,
             boolean prdAtivo)
     {
         this.prdId = prdId;
@@ -135,6 +139,7 @@ public class ProdutosModel
         this.prdFabricante = prdFabricante;
         this.prdModelo = prdModelo;
         this.prdQuantidade = prdQuantidade;
+        this.prdReservado = prdReservado;
         this.prdPreco = prdPreco;
         this.prdAtivo = prdAtivo;
     }
@@ -271,12 +276,27 @@ public class ProdutosModel
 
     public Integer getPrdQuantidade ()
     {
+        return this.prdQuantidade - this.prdReservado;
+    }
+
+    public Integer getPrdQuantidadeEstoque ()
+    {
         return this.prdQuantidade;
     }
 
     public void setPrdQuantidade (Integer prdQuantidade)
     {
         this.prdQuantidade = prdQuantidade;
+    }
+
+    public Integer getPrdReservado() 
+    {
+        return this.prdReservado;
+    }
+
+    public void setPrdReservado(Integer prdReservado) 
+    {
+        this.prdReservado = prdReservado;
     }
 
     public double getPrdPreco ()

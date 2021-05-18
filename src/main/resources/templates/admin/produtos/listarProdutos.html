@@ -27,6 +27,7 @@
                         <th>Categorias</th>
                         <th style="width: 120px;">Preço</th>
                         <th style="width: 100px;">Quantidade</th>
+                        <th style="width: 100px;">Reservado</th>
                         <th style="width: 200px;">Precificação (DV/DF/ML)</th>
                         <th style="width: 60px;">Status</th>
                         <th style="width: 180px;">Editar</th>
@@ -39,7 +40,8 @@
                             <div class="" th:each="categoria : ${produto.listCategoriasProdutos}" th:text="${categoria.categoria.ctgNome}">Categorias</div>
                         </td>
                         <td th:text="'R$ ' + ${#numbers.formatDecimal(produto.prdPreco, 1, 'DEFAULT', 2, 'DEFAULT')}">Preço</td>
-                        <td th:text="${produto.prdQuantidade}">Quantidade</td>
+                        <td th:text="${produto.getPrdQuantidadeEstoque()}">Quantidade</td>
+                        <td th:text="${produto.prdReservado}">Quantidade</td>
                         <td th:text="${produto.precificacao.getNome()}">Precificação</td>
                         <td th:text="${produto.getStrPrdAtivo()}">Status</td>
                         <td class="py-0 my-0">
@@ -80,6 +82,7 @@
                         <th><input style="width: 100%" type="text" placeholder="Procurar nome do produto"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar categoria"></th>
                         <th><input style="width: 100%" type="text" placeholder="Procurar preço"></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>

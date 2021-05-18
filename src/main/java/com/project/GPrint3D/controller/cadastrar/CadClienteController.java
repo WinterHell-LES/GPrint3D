@@ -1,5 +1,8 @@
 package com.project.GPrint3D.controller.cadastrar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.project.GPrint3D.model.CartoesModel;
@@ -51,15 +54,23 @@ public class CadClienteController
     {
         if (result.hasErrors())
         {
-            System.out.println(result.toString());
             return cadastroDadosPessoais(cliente, telefone, documento, usuario);
         }
 
-        // Valida a senha e a confimação
-        String newUserPass = usuario.getUsuSenha();
+        List<String> listValidarSenha = defaultFacadeService.validarSenhaNova(usuario.getUsuSenha(),
+                confirmPass);
 
-        if (!confirmPass.equals(newUserPass))
+        if (listValidarSenha.size() > 1)
         {
+            List<String> auxList = new ArrayList<>();
+
+            for (int i = 1 ; i < listValidarSenha.size() ; i++)
+            {
+                auxList.add(listValidarSenha.get(i));
+            }
+
+            attributes.addFlashAttribute(listValidarSenha.get(0), auxList);
+
             return cadastroDadosPessoais(cliente, telefone, documento, usuario);
         }
 

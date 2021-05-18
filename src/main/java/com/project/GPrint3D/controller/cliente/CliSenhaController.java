@@ -1,6 +1,8 @@
 package com.project.GPrint3D.controller.cliente;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.UsuariosRepository;
@@ -8,7 +10,6 @@ import com.project.GPrint3D.service.CliFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,18 +44,30 @@ public class CliSenhaController
     public ModelAndView alterarSenha (@RequestParam(name = "usuarioId") Integer usuarioId,
             @RequestParam(name = "oldPassword") String oldPassword,
             @RequestParam(name = "newPassword") String newPassword,
-            @RequestParam(name = "confirmNewPassword") String confirmNewPassword, BindingResult result,
-            RedirectAttributes attributes, Principal principal)
+            @RequestParam(name = "confirmNewPassword") String confirmNewPassword, RedirectAttributes attributes,
+            Principal principal)
     {
-        if (result.hasErrors())
+        List<String> listValidarSenha = cliFacadeService.validarSenhaAtualizacao(usuarioId, oldPassword, newPassword,
+                confirmNewPassword);
+
+        if (listValidarSenha.size() > 1)
         {
-            return alteracaoSenha(principal);
+            List<String> auxList = new ArrayList<>();
+
+            for (int i = 1 ; i < listValidarSenha.size() ; i++)
+            {
+                auxList.add(listValidarSenha.get(i));
+            }
+
+            attributes.addFlashAttribute(listValidarSenha.get(0), auxList);
+
+            return new ModelAndView("redirect:/cliente/alterarSenha");
         }
 
-        String[] mensagem = cliFacadeService.alterarSenha(usuarioId, oldPassword, newPassword, confirmNewPassword);
+        String[] mensagem2 = cliFacadeService.alterarSenha(usuarioId, newPassword);
 
-        attributes.addFlashAttribute(mensagem[0], mensagem[1]);
+        attributes.addFlashAttribute(mensagem2[0], mensagem2[1]);
 
-        return alteracaoSenha(principal);
+        return new ModelAndView("redirect:/cliente/alterarSenha");
     }
 }

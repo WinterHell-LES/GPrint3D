@@ -237,9 +237,16 @@
             <script type="text/javascript" th:src="@{/javascripts/correios.js}"></script>
 
             <script type="text/javascript" th:inline="javascript">
+                /*<![CDATA[*/
+                var quantidade = /*[[${carrinho.getListProdutosAtivo().size}]]*/ 0;
+                /*]]>*/
+
                 window.addEventListener('load', function ()
                 {
-                    calcularFrete();
+                    if (quantidade > 0)
+                    {
+                        calcularFrete();
+                    }
                 });
             </script>
         </th:block>

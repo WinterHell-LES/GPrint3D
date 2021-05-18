@@ -24,6 +24,10 @@ public interface PedidosComprasRepository extends JpaRepository<PedidosComprasMo
     @Query(value = "SELECT * FROM pedidos_compras WHERE pdc_numero = ?", nativeQuery = true)
     public PedidosComprasModel findByNumeroPedido (String numero);
 
+    // Procura pelo número do pedido
+    @Query(value = "SELECT * FROM pedidos_compras WHERE pdc_statuspedido = ?", nativeQuery = true)
+    public List<PedidosComprasModel> findAllByStatusPedido (Integer status);
+
     // Atualiza o status do pedido para o pedido referente
     @Modifying
     @Transactional(readOnly = false)

@@ -16,6 +16,8 @@ import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.CarrinhosRepository;
 import com.project.GPrint3D.repository.CategoriasProdutosRepository;
+import com.project.GPrint3D.repository.PedidosComprasRepository;
+import com.project.GPrint3D.repository.PrdCarrinhosRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.DefaultFacadeService;
 
@@ -30,7 +32,13 @@ public class CarrinhoUtil
     private CategoriasProdutosRepository categoriasProdutosRepository;
 
     @Autowired
-    private UsuariosRepository usuarios;
+    private PedidosComprasRepository pedidosComprasRepository;
+
+    @Autowired
+    private PrdCarrinhosRepository prdCarrinhosRepository;
+
+    @Autowired
+    private UsuariosRepository usuariosRepository;
 
     @Autowired
     private DefaultFacadeService defaultFacadeService;
@@ -111,7 +119,7 @@ public class CarrinhoUtil
         if (principal != null)
         {
             // Define o usuário pelo principal
-            UsuariosModel usuario = usuarios.findByEmail(principal.getName());
+            UsuariosModel usuario = usuariosRepository.findByEmail(principal.getName());
 
             if (usuario.getUsuRegra().equals("ROLE_CLI"))
             {
@@ -297,5 +305,18 @@ public class CarrinhoUtil
                 pedidoCompra.getListPedCartoes().remove(index);
             }
         }
+    }
+
+    // Código quebrado
+    public int qntPrdCarrinhoPedido (Integer id)
+    {
+        int quantidade = 0;
+
+        for (PrdCarrinhosModel aux : prdCarrinhosRepository.findAllByProdutoId(id))
+        {
+            quantidade += aux.getPcrQuantidade();
+        }
+
+        return quantidade;
     }
 }

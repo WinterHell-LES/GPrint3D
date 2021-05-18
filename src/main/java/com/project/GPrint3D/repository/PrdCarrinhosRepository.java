@@ -1,6 +1,7 @@
 package com.project.GPrint3D.repository;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.project.GPrint3D.model.PrdCarrinhosModel;
 
@@ -14,6 +15,10 @@ public interface PrdCarrinhosRepository extends JpaRepository<PrdCarrinhosModel,
     // Procura por id do produto no carrinho
     @Query(value = "SELECT * FROM produtos_carrinhos WHERE pcr_id = ?", nativeQuery = true)
     public PrdCarrinhosModel findOneById (Integer id);
+
+    // Procura por id do produto no carrinho
+    @Query(value = "SELECT * FROM produtos_carrinhos WHERE pcr_prd_id = ?", nativeQuery = true)
+    public List<PrdCarrinhosModel> findAllByProdutoId (Integer id);
 
     // Atualiza a quantidade e status do produto no carrinho
     @Modifying

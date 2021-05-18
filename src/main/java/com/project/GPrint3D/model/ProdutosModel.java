@@ -15,10 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRODUTOS")
-public class ProdutosModel 
+public class ProdutosModel
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +29,7 @@ public class ProdutosModel
     @NotEmpty(message = "Nome é obrigatório")
     @Column(name = "prd_nome")
     private String prdNome;
-    
+
     @NotEmpty(message = "Descrição é obrigatória")
     @Column(name = "prd_descricao")
     private String prdDescricao;
@@ -66,7 +67,7 @@ public class ProdutosModel
     @Column(name = "prd_quantidade")
     private Integer prdQuantidade;
 
-    @NotEmpty(message = "Preço é obrigatório")
+    @NotNull(message = "Preço é obrigatório")
     @Column(name = "prd_preco")
     private double prdPreco;
 
@@ -95,7 +96,7 @@ public class ProdutosModel
     @OneToMany(mappedBy = "produto", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<FotosModel> listFotos;
 
-    public ProdutosModel() 
+    public ProdutosModel ()
     {
         this.prdId = 0;
         this.prdNome = "";
@@ -115,7 +116,10 @@ public class ProdutosModel
         this.prdAtivo = false;
     }
 
-    public ProdutosModel(Integer prdId, String prdNome, String prdDescricao, double prdDimPrdAl, double prdDimPrdLa, double prdDimPrdPr, double prdDimPrdPe, double prdDimEmbAl, double prdDimEmbLa, double prdDimEmbPr, double prdDimEmbPe, String prdFabricante, String prdModelo, Integer prdQuantidade, double prdPreco, boolean prdAtivo) 
+    public ProdutosModel (Integer prdId, String prdNome, String prdDescricao, double prdDimPrdAl, double prdDimPrdLa,
+            double prdDimPrdPr, double prdDimPrdPe, double prdDimEmbAl, double prdDimEmbLa, double prdDimEmbPr,
+            double prdDimEmbPe, String prdFabricante, String prdModelo, Integer prdQuantidade, double prdPreco,
+            boolean prdAtivo)
     {
         this.prdId = prdId;
         this.prdNome = prdNome;
@@ -134,266 +138,266 @@ public class ProdutosModel
         this.prdPreco = prdPreco;
         this.prdAtivo = prdAtivo;
     }
-    
-    public Integer getPrdId() 
+
+    public Integer getPrdId ()
     {
         return this.prdId;
     }
 
-    public void setPrdId(Integer prdId) 
+    public void setPrdId (Integer prdId)
     {
         this.prdId = prdId;
     }
 
-    public String getPrdNome() 
+    public String getPrdNome ()
     {
         return this.prdNome;
     }
 
-    public void setPrdNome(String prdNome) 
+    public void setPrdNome (String prdNome)
     {
         this.prdNome = prdNome;
     }
 
-    public String getPrdDescricao() 
+    public String getPrdDescricao ()
     {
         return this.prdDescricao;
     }
 
-    public void setPrdDescricao(String prdDescricao) 
+    public void setPrdDescricao (String prdDescricao)
     {
         this.prdDescricao = prdDescricao;
     }
 
-    public double getPrdDimPrdAl() 
+    public double getPrdDimPrdAl ()
     {
         return this.prdDimPrdAl;
     }
 
-    public void setPrdDimPrdAl(double prdDimPrdAl) 
+    public void setPrdDimPrdAl (double prdDimPrdAl)
     {
         this.prdDimPrdAl = prdDimPrdAl;
     }
 
-    public double getPrdDimPrdLa() 
+    public double getPrdDimPrdLa ()
     {
         return this.prdDimPrdLa;
     }
 
-    public void setPrdDimPrdLa(double prdDimPrdLa) 
+    public void setPrdDimPrdLa (double prdDimPrdLa)
     {
         this.prdDimPrdLa = prdDimPrdLa;
     }
 
-    public double getPrdDimPrdPr() 
+    public double getPrdDimPrdPr ()
     {
         return this.prdDimPrdPr;
     }
 
-    public void setPrdDimPrdPr(double prdDimPrdPr) 
+    public void setPrdDimPrdPr (double prdDimPrdPr)
     {
         this.prdDimPrdPr = prdDimPrdPr;
     }
 
-    public double getPrdDimPrdPe() 
+    public double getPrdDimPrdPe ()
     {
         return this.prdDimPrdPe;
     }
 
-    public void setPrdDimPrdPe(double prdDimPrdPe) 
+    public void setPrdDimPrdPe (double prdDimPrdPe)
     {
         this.prdDimPrdPe = prdDimPrdPe;
     }
 
-    public double getPrdDimEmbAl() 
+    public double getPrdDimEmbAl ()
     {
         return this.prdDimEmbAl;
     }
 
-    public void setPrdDimEmbAl(double prdDimEmbAl) 
+    public void setPrdDimEmbAl (double prdDimEmbAl)
     {
         this.prdDimEmbAl = prdDimEmbAl;
     }
 
-    public double getPrdDimEmbLa() 
+    public double getPrdDimEmbLa ()
     {
         return this.prdDimEmbLa;
     }
 
-    public void setPrdDimEmbLa(double prdDimEmbLa) 
+    public void setPrdDimEmbLa (double prdDimEmbLa)
     {
         this.prdDimEmbLa = prdDimEmbLa;
     }
 
-    public double getPrdDimEmbPr() 
+    public double getPrdDimEmbPr ()
     {
         return this.prdDimEmbPr;
     }
 
-    public void setPrdDimEmbPr(double prdDimEmbPr) 
+    public void setPrdDimEmbPr (double prdDimEmbPr)
     {
         this.prdDimEmbPr = prdDimEmbPr;
     }
 
-    public double getPrdDimEmbPe() 
+    public double getPrdDimEmbPe ()
     {
         return this.prdDimEmbPe;
     }
 
-    public void setPrdDimEmbPe(double prdDimEmbPe) 
+    public void setPrdDimEmbPe (double prdDimEmbPe)
     {
         this.prdDimEmbPe = prdDimEmbPe;
     }
 
-    public String getPrdFabricante() 
+    public String getPrdFabricante ()
     {
         return this.prdFabricante;
     }
 
-    public void setPrdFabricante(String prdFabricante) 
+    public void setPrdFabricante (String prdFabricante)
     {
         this.prdFabricante = prdFabricante;
     }
 
-    public String getPrdModelo() 
+    public String getPrdModelo ()
     {
         return this.prdModelo;
     }
 
-    public void setPrdModelo(String prdModelo) 
+    public void setPrdModelo (String prdModelo)
     {
         this.prdModelo = prdModelo;
     }
 
-    public Integer getPrdQuantidade() 
+    public Integer getPrdQuantidade ()
     {
         return this.prdQuantidade;
     }
 
-    public void setPrdQuantidade(Integer prdQuantidade) 
+    public void setPrdQuantidade (Integer prdQuantidade)
     {
         this.prdQuantidade = prdQuantidade;
     }
 
-    public double getPrdPreco() 
+    public double getPrdPreco ()
     {
         return this.prdPreco;
     }
 
-    public void setPrdPreco(double prdPreco) 
+    public void setPrdPreco (double prdPreco)
     {
         this.prdPreco = prdPreco;
     }
 
-    public boolean isPrdAtivo() 
+    public boolean isPrdAtivo ()
     {
         return this.prdAtivo;
     }
 
-    public boolean getPrdAtivo() 
+    public boolean getPrdAtivo ()
     {
         return this.prdAtivo;
     }
 
-    public void setPrdAtivo(boolean prdAtivo) 
+    public void setPrdAtivo (boolean prdAtivo)
     {
         this.prdAtivo = prdAtivo;
     }
 
-    public PrecificacoesModel getPrecificacao() 
+    public PrecificacoesModel getPrecificacao ()
     {
         return this.precificacao;
     }
 
-    public void setPrecificacao(PrecificacoesModel precificacao) 
+    public void setPrecificacao (PrecificacoesModel precificacao)
     {
         this.precificacao = precificacao;
     }
 
-    public List<EntradasModel> getListEntradas() 
+    public List<EntradasModel> getListEntradas ()
     {
         return this.listEntradas;
     }
 
-    public void setListEntradas(List<EntradasModel> listEntradas) 
+    public void setListEntradas (List<EntradasModel> listEntradas)
     {
         this.listEntradas = listEntradas;
     }
 
-    public List<SaidasModel> getListSaidas() 
+    public List<SaidasModel> getListSaidas ()
     {
         return this.listSaidas;
     }
 
-    public void setListSaidas(List<SaidasModel> listSaidas) 
+    public void setListSaidas (List<SaidasModel> listSaidas)
     {
         this.listSaidas = listSaidas;
     }
 
-    public List<PedProdutosModel> getListPedProdutos() 
+    public List<PedProdutosModel> getListPedProdutos ()
     {
         return this.listPedProdutos;
     }
 
-    public void setListPedProdutos(List<PedProdutosModel> listPedProdutos) 
+    public void setListPedProdutos (List<PedProdutosModel> listPedProdutos)
     {
         this.listPedProdutos = listPedProdutos;
     }
 
-    public List<PrdCarrinhosModel> getListProdCarrinhos() 
+    public List<PrdCarrinhosModel> getListProdCarrinhos ()
     {
         return this.listProdCarrinhos;
     }
 
-    public void setListProdCarrinhos(List<PrdCarrinhosModel> listProdCarrinhos) 
+    public void setListProdCarrinhos (List<PrdCarrinhosModel> listProdCarrinhos)
     {
         this.listProdCarrinhos = listProdCarrinhos;
     }
 
-    public List<CategoriasProdutosModel> getListCategoriasProdutos() 
+    public List<CategoriasProdutosModel> getListCategoriasProdutos ()
     {
         return this.listCategoriasProdutos;
     }
 
-    public void setListCategoriasProdutos(List<CategoriasProdutosModel> listCategoriasProdutos) 
+    public void setListCategoriasProdutos (List<CategoriasProdutosModel> listCategoriasProdutos)
     {
         this.listCategoriasProdutos = listCategoriasProdutos;
     }
 
-    public List<FotosModel> getListFotos() 
+    public List<FotosModel> getListFotos ()
     {
         return this.listFotos;
     }
 
-    public void setListFotos(List<FotosModel> listFotos) 
+    public void setListFotos (List<FotosModel> listFotos)
     {
         this.listFotos = listFotos;
     }
 
-    public String getStrPrdAtivo()
+    public String getStrPrdAtivo ()
     {
         return this.prdAtivo ? "Ativo" : "Inativo";
     }
-    
+
     @Override
-    public boolean equals(Object o) 
+    public boolean equals (Object o)
     {
         if (o == this)
         {
             return true;
         }
-            
-        if (!(o instanceof ProdutosModel)) 
+
+        if (!(o instanceof ProdutosModel))
         {
             return false;
         }
-        
+
         ProdutosModel produtosModel = (ProdutosModel) o;
         return Objects.equals(prdId, produtosModel.prdId);
     }
 
     @Override
-    public int hashCode() 
+    public int hashCode ()
     {
         return Objects.hashCode(prdId);
     }

@@ -265,4 +265,16 @@ class PrdCarrinhosService
 
         return response;
     }
+
+    public int qntPrdCarrinho (Integer id)
+    {
+        int quantidade = 0;
+
+        for (PrdCarrinhosModel aux : prdCarrinhosRepository.findAllByProdutoId(id))
+        {
+            quantidade += aux.getPcrQuantidade();
+        }
+
+        return quantidade;
+    }
 }

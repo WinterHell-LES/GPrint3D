@@ -16,6 +16,17 @@
                 <h1 class="h2">Alterar senha</h1>
             </div>
 
+            <div class="alert alert-success alert-dismissible fade show" role="alert"
+                th:if="${not #strings.isEmpty(alteracaoSuccess)}">
+                <span th:text="${alteracaoSuccess}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                th:if="${not #strings.isEmpty(alteracaoError)}">
+                <div th:each="mensagem : ${alteracaoError}" th:text="'- ' + ${mensagem}"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <div class="my-5">
                 <form class="form-group" th:action="@{/cliente/alterarSenha}" method="POST">
                     <input type="hidden" name="usuarioId" th:value="${usuario.usuId}">
@@ -26,25 +37,24 @@
                                 <div class="col-sm">
                                     <div class="form-floating">
                                         <input type="password" class="form-control" placeholder="Senha Antiga"
-                                            name="oldPassword" minlength="8">
-                                        <label for="oldPassword">Senha Antiga</label>
+                                            name="oldPassword">
+                                        <label for="oldPassword">Senha antiga</label>
                                     </div>
                                 </div>
 
                                 <div class="col-sm">
                                     <div class="form-floating">
                                         <input type="password" class="form-control" placeholder="Nova Senha"
-                                            id="newPassword" name="newPassword" minlength="8">
-                                        <label for="newPassword">Nova Senha</label>
+                                            id="newPassword" name="newPassword">
+                                        <label for="newPassword">Nova senha</label>
                                     </div>
                                 </div>
 
                                 <div class="col-sm pe-0">
                                     <div class="form-floating">
                                         <input type="password" class="form-control"
-                                            placeholder="Confirmação de Nova Senha" name="confirmNewPassword"
-                                            minlength="8">
-                                        <label for="confirmNewPassword">Confirmação de Nova Senha</label>
+                                            placeholder="Confirmação de Nova Senha" name="confirmNewPassword">
+                                        <label for="confirmNewPassword">Confirmação de senha</label>
                                     </div>
                                 </div>
                             </div>

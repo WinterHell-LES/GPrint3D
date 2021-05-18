@@ -1,5 +1,8 @@
 package com.project.GPrint3D.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.project.GPrint3D.configuration.SecurityConfig;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.UsuariosRepository;
@@ -70,28 +73,14 @@ class UsuariosService
         return response;
     }
 
-    public String[] atualizarPass (String oldPassword, String newPassword, String confirmNewPassword, UsuariosModel usuario)
+    public String[] atualizarPass (String newPassword, UsuariosModel usuario)
     {
         String[] response = new String[2];
 
         String msg1 = "alteracaoSuccess";
         String msg2 = "alteracaoError";
 
-        if (securityConfig.passwordEncoder().matches(oldPassword, usuario.getUsuSenha()))
-        {
-            response[0] = msg2;
-            response[1] = "Senha antiga não confere, favor digitar corretamente";
-
-            return response;
-        }
-
-        if (!newPassword.equals(confirmNewPassword))
-        {
-            response[0] = msg2;
-            response[1] = "Senha nova diferente da confirmação de senha, favor digitar corretamente";
-
-            return response;
-        }
+        usuario.setUsuSenha(newPassword);
 
         try
         {
@@ -155,5 +144,95 @@ class UsuariosService
         }
 
         return response;
+    }
+
+    public List<String> validarSenhaAtualizacao (String oldPassword, String newPassword,
+            String confirmNewPassword, UsuariosModel usuario)
+    {
+        List<String> list = new ArrayList<>();
+
+        list.add("alteracaoError");
+
+        if (!securityConfig.passwordEncoder().matches(oldPassword, usuario.getUsuSenha()))
+        {
+            list.add("Senha antiga não confere, favor digitar corretamente");
+
+            return list;
+        }
+
+        if (!newPassword.equals(confirmNewPassword))
+        {
+            list.add("Senha nova diferente da confirmação de senha, favor digitar corretamente");
+
+            return list;
+        }
+
+        if (!newPassword.matches(".*\\d.*"))
+        {
+            list.add("A senha deve conter ao menos um número");
+        }
+
+        if (!newPassword.matches(".*[a-z].*"))
+        {
+            list.add("A senha deve conter ao menos uma letra minúscula");
+        }
+
+        if (!newPassword.matches(".*[A-Z].*"))
+        {
+            list.add("A senha deve conter ao menos uma letra maiúscula");
+        }
+
+        if (!newPassword.matches(".*[.!$*&@#].*"))
+        {
+            list.add("A senha deve conter ao menos um caracter especial");
+        }
+
+        if (!newPassword.matches("[0-9a-zA-Z.!$*&@#]{8,}"))
+        {
+            list.add("A senha deve conter ao menos 8 dígitos");
+        }
+
+        return list;
+    }
+
+    public List<String> validarSenhaNova (String newPassword, String confirmNewPassword)
+    {
+        List<String> list = new ArrayList<>();
+
+        list.add("alteracaoError");
+
+        if (!newPassword.equals(confirmNewPassword))
+        {
+            list.add("Senha nova diferente da confirmação de senha, favor digitar corretamente");
+
+            return list;
+        }
+
+        if (!newPassword.matches(".*\\d.*"))
+        {
+            list.add("A senha deve conter ao menos um número");
+        }
+
+        if (!newPassword.matches(".*[a-z].*"))
+        {
+            list.add("A senha deve conter ao menos uma letra minúscula");
+        }
+
+        if (!newPassword.matches(".*[A-Z].*"))
+        {
+            list.add("A senha deve conter ao menos uma letra maiúscula");
+        }
+
+        if (!newPassword.matches(".*[.!$*&@#].*"))
+        {
+            list.add("A senha deve conter ao menos um caracter especial");
+        }
+
+        if (!newPassword.matches("[0-9a-zA-Z.!$*&@#]{8,}"))
+        {
+            list.add("A senha deve conter ao menos 8 dígitos");
+        }
+
+        return list;
     }
 }

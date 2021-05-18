@@ -1,6 +1,7 @@
 package com.project.GPrint3D.service;
 
 import java.security.Principal;
+import java.util.List;
 
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.CartoesModel;
@@ -217,7 +218,7 @@ public class CliFacadeServiceImpl implements CliFacadeService
     public String[] escolherTroca (PedidosTrocasModel pedidoTroca)
     {
         PedidosTrocasModel pedidoTrc = pedidosTrocasRepository.findOneById(pedidoTroca.getPdtId());
-        
+
         pedidoTrc.setPdtStatusPedido(0);
         pedidoTrc.setPdtEscolha(pedidoTroca.getPdtEscolha());
 
@@ -346,12 +347,18 @@ public class CliFacadeServiceImpl implements CliFacadeService
 
     // Senha
     // --------------------------------------------------------------------------------------------------
-    public String[] alterarSenha (Integer usuarioId, String oldPassword, String newPassword, String confirmNewPassword)
+    public String[] alterarSenha (Integer usuarioId, String newPassword)
     {
         UsuariosModel usuario = usuariosRepository.findOneById(usuarioId);
 
-        usuario.setUsuSenha(newPassword);
+        return usuariosService.atualizarPass(newPassword, usuario);
+    }
 
-        return usuariosService.atualizarPass(oldPassword, newPassword, confirmNewPassword, usuario);
+    public List<String> validarSenhaAtualizacao (Integer usuarioId, String oldPassword, String newPassword,
+            String confirmNewPassword)
+    {
+        UsuariosModel usuario = usuariosRepository.findOneById(usuarioId);
+
+        return usuariosService.validarSenhaAtualizacao(oldPassword, newPassword, confirmNewPassword, usuario);
     }
 }

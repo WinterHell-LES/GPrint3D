@@ -41,15 +41,13 @@ BEGIN
     SELECT prc_desp_fix INTO desp_fix FROM precificacoes WHERE prc_id = id_prc;
     SELECT prc_marg_luc INTO marg_luc FROM precificacoes WHERE prc_id = id_prc;
     
-    UPDATE produtos SET prd_preco = (NEW.ent_custo / NEW.ent_quantidade) / ((100 - desp_var - desp_fix - marg_luc) / 100) WHERE prd_id = NEW.ent_prd_id;
+    SELECT prd_preco INTO prd_preco_atual FROM produtos WHERE prd_id = NEW.ent_prd_id;
     
-    -- SELECT prd_preco INTO prd_preco_atual FROM produtos WHERE prd_id = NEW.ent_prd_id;
-    
-    -- SET val_calc = (NEW.ent_custo / NEW.ent_quantidade) / ((100 - desp_var - desp_fix - marg_luc) / 100);
+    SET val_calc = (NEW.ent_custo / NEW.ent_quantidade) / ((100 - desp_var - desp_fix - marg_luc) / 100);
 	
-    -- IF prd_preco_atual < val_calc THEN
-	-- 	UPDATE produtos SET prd_preco = val_calc WHERE prd_id = NEW.ent_prd_id;
-    -- END IF;
+    IF prd_preco_atual < val_calc THEN
+		UPDATE produtos SET prd_preco = val_calc WHERE prd_id = NEW.ent_prd_id;
+    END IF;
 END; $$
 
 -- Controle de trocas

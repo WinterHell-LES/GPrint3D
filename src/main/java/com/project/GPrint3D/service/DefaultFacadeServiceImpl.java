@@ -1,6 +1,7 @@
 package com.project.GPrint3D.service;
 
 import java.sql.Date;
+import java.util.List;
 
 import com.project.GPrint3D.model.CarrinhosModel;
 import com.project.GPrint3D.model.CartoesModel;
@@ -77,6 +78,11 @@ public class DefaultFacadeServiceImpl implements DefaultFacadeService
 
     // Cadastro cliente
     // --------------------------------------------------------------------------------------------------
+    public List<String> validarSenhaNova (String newPassword, String confirmNewPassword)
+    {
+        return usuariosService.validarSenhaNova(newPassword, confirmNewPassword);
+    }
+
     public String[] cadastrarCliente (UsuariosModel usuario, ClientesModel cliente, TelefonesModel telefone,
             DocumentosModel documento, EnderecosModel endereco, CartoesModel cartao)
     {

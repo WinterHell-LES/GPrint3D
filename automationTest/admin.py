@@ -12,11 +12,15 @@ def home(driver):
     #Volta para o home da loja
     sleep(0.5)
 
-def cadastrarBandeiras(driver):
-    #Cadastra uma nova bandeira de cartão
+
+# ------- Bandeiras -------
+def menuBandeira(driver):
+    #Acessa o menu das bandeiras
     button_click(driver, by_css_selector='button[data-bs-target="#bandeiras_cartao"]')
     sleep(0.5)
 
+def cadastrarBandeiras(driver):
+    #Cadastra uma nova bandeira de cartão
     button_click(driver, by_css_selector='a[href="/admin/cadastrarBandeiras"]')
     sleep(0.5)
 
@@ -25,11 +29,30 @@ def listarBandeiras(driver):
     button_click(driver, by_css_selector='a[href="/admin/listarBandeiras"]')
     sleep(0.5)
 
-def cadastrarCategoria(driver):
-    #Cadastrar uma nova categoria de produto
+# ------- Precificações -------
+def menuPrecificacao(driver):
+    #Acessa o menu das categorias
+    button_click(driver, by_css_selector='button[data-bs-target="#precificacoes"]')
+    sleep(0.5)
+
+def cadastroPrecificacao(driver):
+    #Cadastra uma precificação
+    button_click(driver, by_css_selector='a[href="/admin/cadastrarPrecificacoes"]')
+    sleep(0.5)
+
+def listarPrecificacoes(driver):
+    #Lista as precificacoe
+    button_click(driver, by_css_selector='a[href="/admin/listarPrecificacoes"]')
+    sleep(0.5)
+
+# ------- Categorias -------
+def menuCategoria(driver):
+    #Acessa o menu das categorias
     button_click(driver, by_css_selector='button[data-bs-target="#categorias"]')
     sleep(0.5)
 
+def cadastrarCategoria(driver):
+    #Cadastrar uma nova categoria de produto
     button_click(driver, by_css_selector='a[href="/admin/cadastrarCategorias"]')
     sleep(0.5)
 
@@ -38,11 +61,14 @@ def listarCategorias(driver):
     button_click(driver, by_css_selector='a[href="/admin/listarCategorias"]')
     sleep(0.5)
 
-def cadastrarProduto(driver):
-    #Cadastra um novo produto
+# ------- Produtos -------
+def menuProduto(driver):
+    #Acessa o menu dos produtos
     button_click(driver, by_css_selector='button[data-bs-target="#produtos"]')
     sleep(0.5)
 
+def cadastrarProduto(driver):
+    #Cadastra um novo produto
     button_click(driver, by_css_selector='a[href="/admin/cadastrarProdutos"]')
     sleep(0.5)
 
@@ -56,11 +82,20 @@ def justificativaProdutos(driver):
     button_click(driver, by_css_selector='a[href="/admin/justificativasProdutos"]')
     sleep(0.5)
 
-def cadastroEntrada(driver):
-    #Cadastra uma nova entrda de produto
+# ------- Estoque -------
+def menuEstoque(driver):
+    #Acessa o menu do estoque
+    button_click(driver, by_css_selector='button[data-bs-target="#estoque"]')
+    sleep(0.5)
+
+## ------- Entradas -------
+def menuEntradas(driver):
+    #Acessa o menu das entradas
     button_click(driver, by_css_selector='button[data-bs-target="#entradas"]')
     sleep(0.5)
 
+def cadastroEntrada(driver):
+    #Cadastra uma nova entrda de produto
     button_click(driver, by_css_selector='a[href="/admin/cadastrarEntradas"]')
     sleep(0.5)
 
@@ -69,14 +104,31 @@ def listarEntradas(driver):
     button_click(driver, by_css_selector='a[href="/admin/listarEntradas"]')
     sleep(0.5)
 
-def cadastrarCuponPromocional(driver):
-    #Cadastra um novo cupom promocional
+## ------- Saídas -------
+def menuSaidas(driver):
+    #Acessa o menu das entradas
+    button_click(driver, by_css_selector='button[data-bs-target="#saidas"]')
+    sleep(0.5)
+
+def listarSaidas(driver):
+    #Lista todas as entradas cadastradas
+    button_click(driver, by_css_selector='a[href="/admin/listarSaidas"]')
+    sleep(0.5)
+
+# ------- Cupons -------
+def menuCupons(driver):
+    #Acessa o menu de cupons
     button_click(driver, by_css_selector='button[data-bs-target="#cupons"]')
     sleep(0.5)
 
+## ------- Cupons promocionais -------
+def menuCuponPromocional(driver):
+    #Acessa o menu de cupom promocional
     button_click(driver, by_css_selector='button[data-bs-target="#cupons_promocionais"]')
     sleep(0.5)
 
+def cadastrarCuponPromocional(driver):
+    #Cadastra um novo cupom promocional
     button_click(driver, by_css_selector='a[href="/admin/cupons/cadastrarCuponsPromocionais"]')
     sleep(0.5)
 
@@ -85,19 +137,30 @@ def listarCupomPromocional(driver):
     button_click(driver, by_css_selector='a[href="/admin/cupons/listarCuponsPromocionais"]')
     sleep(0.5)
 
-def listarCupomTroca(driver):
-    #Lista todos os cupons de troca cadastrados
+## ------- Cupons de troca -------
+def menuCupomTroca(driver):
+    #Acessa o menu de cupom de troca
     button_click(driver, by_css_selector='button[data-bs-target="#cupons_trocas"]')
     sleep(0.5)
 
+def listarCupomTroca(driver):
+    #Lista todos os cupons de troca cadastrados
     button_click(driver, by_css_selector='a[href="/admin/cupons/listarCuponsTrocas"]')
     sleep(0.5)
 
-def listarPedidos(driver):
-    #Lista todos os pedidos cadastrados
+# ------- Pedidos -------
+def menuPedido(driver):
+    #Acessa o menu dos pedidos
     button_click(driver, by_css_selector='button[data-bs-target="#pedidos"]')
     sleep(0.5)
 
+def listarPedidoCompra(driver):
+    #Lista todos os pedidos de compra cadastrados
+    button_click(driver, by_css_selector='a[href="/admin/pedido/listarPedidosCompras"]')
+    sleep(0.5)
+
+def acessaPedido(driver):
+    #Lista todos os pedidos cadastrados
     button_click(
         driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[9]/div/ul/li[1]/a')
     sleep(0.5)
@@ -117,9 +180,9 @@ def gerar_nota(driver):
         driver, by_xpath='/html/body/main/section/div[3]/div[2]/form/div/button')
     sleep(0.5)
 
-def listarPedidosTroca(driver):
-    #lista todos os pedidos de troca cadastrados
-    button_click(driver, by_css_selector='a[href="/admin/listarPedidosTrocas"]')
+def listarPedidoTroca(driver):
+    #Lista todos os pedidos de troca cadastrados
+    button_click(driver, by_css_selector='a[href="/admin/pedido/listarPedidosTrocas"')
     sleep(0.5)
 
 def acessar_pedido_troca(driver):

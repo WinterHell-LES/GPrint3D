@@ -1,5 +1,5 @@
 import index
-import comprar
+import admin
 
 from time import sleep
 
@@ -25,21 +25,6 @@ cliPass = "cliente"
 adminLogin = "admin@gprint3d.com"
 adminPass = "admin"
 
-# ------- Seleção do produto 1 -------
-#Selecionar um produto no index
-comprar.abrirCategorias(driver)
-comprar.selecionaCategoria(driver)
-comprar.entrarProduto1(driver)
-
-# ------- Acessar CLIENTE -------
-index.clicarLogin(driver)
-index.logarUsuario(driver, cliLogin, cliPass)
-
-index.clicarLogin(driver)
-index.entrarMenuUsuario(driver)
-
-index.deslogarUsuario(driver)
-
 # ------- Acessar ADMIN -------
 index.clicarLogin(driver)
 index.logarUsuario(driver, adminLogin, adminPass)
@@ -47,4 +32,5 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
-index.deslogarUsuario(driver)
+# ------- Menu ADMIN -------
+admin.listarBandeiras(driver)

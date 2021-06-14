@@ -12,7 +12,6 @@ def home(driver):
     #Volta para o home da loja
     sleep(0.5)
 
-
 # ------- Bandeiras -------
 def menuBandeira(driver):
     #Acessa o menu das bandeiras
@@ -214,13 +213,12 @@ def menuLogistica(driver):
     button_click(driver, by_css_selector='button[data-bs-target="#logistica"]')
     sleep(0.5)
 
+## ------- Logística de compra -------
 def logisticaPedidos(driver):
     #Lista toda a logistica de pedidos
-    button_click(
-        driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[10]/div/ul/li[1]/a')
+    button_click(driver, by_css_selector='a[href="/admin/logistica/listarLogisticaPedidos"]')
     sleep(0.5)
 
-## ------- Logística de compra -------
 def acessar_logistica_compra(driver):
     button_click(
         driver, by_xpath='/html/body/main/section/div[3]/table/tbody/tr[1]/td[5]/div/form/button')

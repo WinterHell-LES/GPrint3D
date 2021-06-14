@@ -33,4 +33,77 @@ index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
 # ------- Menu ADMIN -------
+## ------- Bandeiras -------
+admin.menuBandeira(driver)
+admin.cadastrarBandeiras(driver)
 admin.listarBandeiras(driver)
+
+## ------- Precificação -------
+admin.menuPrecificacao(driver)
+admin.cadastroPrecificacao(driver)
+admin.listarPrecificacoes(driver)
+
+## ------- Categorias -------
+admin.menuCategoria(driver)
+admin.cadastrarCategoria(driver)
+admin.listarCategorias(driver)
+
+## ------- Produtos -------
+admin.menuProduto(driver)
+admin.cadastrarProduto(driver)
+admin.listarProdutos(driver)
+admin.justificativaProdutos(driver)
+
+## ------- Estoque -------
+admin.menuEstoque(driver)
+
+### ------- Entradas -------
+admin.menuEntradas(driver)
+admin.cadastroEntrada(driver)
+admin.listarEntradas(driver)
+
+### ------- Saídas -------
+admin.menuSaidas(driver)
+admin.listarSaidas(driver)
+
+## ------- Cupons -------
+admin.menuCupons(driver)
+
+### ------- Cupons promocionais -------
+admin.menuCuponPromocional(driver)
+admin.cadastrarCuponPromocional(driver)
+admin.listarCupomPromocional(driver)
+
+### ------- Cupons de troca -------
+admin.menuCupomTroca(driver)
+admin.listarCupomTroca(driver)
+
+## ------- Pedido -------
+admin.menuPedido(driver)
+admin.listarPedidoCompra(driver)
+admin.listarPedidoTroca(driver)
+
+## ------- Logística -------
+admin.menuLogistica(driver)
+admin.logisticaPedidos(driver)
+admin.logisticaTrocas(driver)
+
+## ------- Precificação -------
+admin.menuClientes(driver)
+admin.listarCliente(driver)
+
+## ------- Gráficos -------
+admin.menuGrafico(driver)
+admin.visualizarGraficoPedidos(driver)
+admin.visualizarGraficoProdutos(driver)
+admin.visualizarGraficoCategorias(driver)
+
+## ------- Configurações -------
+admin.menuConfiguracoes(driver)
+admin.acessarVariaveis(driver)
+
+## ------- Transações -------
+admin.logTransacao(driver)
+
+## ------- Deslogar ADMIN -------
+admin.deslogarAdm(driver)

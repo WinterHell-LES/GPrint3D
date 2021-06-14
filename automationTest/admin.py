@@ -159,6 +159,7 @@ def listarPedidoCompra(driver):
     button_click(driver, by_css_selector='a[href="/admin/pedido/listarPedidosCompras"]')
     sleep(0.5)
 
+## ------- Pedido de compra -------
 def acessaPedido(driver):
     #Lista todos os pedidos cadastrados
     button_click(
@@ -180,6 +181,7 @@ def gerar_nota(driver):
         driver, by_xpath='/html/body/main/section/div[3]/div[2]/form/div/button')
     sleep(0.5)
 
+## ------- Pedido de troca -------
 def listarPedidoTroca(driver):
     #Lista todos os pedidos de troca cadastrados
     button_click(driver, by_css_selector='a[href="/admin/pedido/listarPedidosTrocas"')
@@ -206,15 +208,19 @@ def recusar_troca(driver):
         driver, by_xpath='/html/body/main/section/div[3]/div[2]/form/div/button')
     sleep(0.5)
 
-def logisticaPedidos(driver):
-    #Lista toda a logistica de pedidos
+# ------- Logística -------
+def menuLogistica(driver):
+    #Acessa menu logística
     button_click(driver, by_css_selector='button[data-bs-target="#logistica"]')
     sleep(0.5)
 
+def logisticaPedidos(driver):
+    #Lista toda a logistica de pedidos
     button_click(
         driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[10]/div/ul/li[1]/a')
     sleep(0.5)
 
+## ------- Logística de compra -------
 def acessar_logistica_compra(driver):
     button_click(
         driver, by_xpath='/html/body/main/section/div[3]/table/tbody/tr[1]/td[5]/div/form/button')
@@ -225,32 +231,63 @@ def avancar_logistica(driver):
         driver, by_xpath='/html/body/main/section/form/div/button')
     sleep(0.5)
 
+## ------- Logística de troca -------
 def logisticaTrocas(driver):
     #Lista toda a logistica de troca
     button_click(driver, by_css_selector='a[href="/admin/logistica/listarLogisticaTrocas"]')
     sleep(0.5)
 
-def listarCliente(driver):
-    #Abre a listagem de clientes
+# ------- Clientes -------
+def menuClientes(driver):
+    #Acessa o menu de clientes
     button_click(driver, by_css_selector='button[data-bs-target="#clientes"]')
     sleep(0.5)
 
+def listarCliente(driver):
+    #Abre a listagem de clientes
     button_click(driver, by_css_selector='a[href="/admin/listarClientes"]')
     sleep(0.5)
 
+## ------- Clientes ativação -------
 def ativarCliente(driver, id):
     #Ativa o cliente com o id selecionado
     button_click(driver, by_css_selector='button[value="' + id + '"]')
     sleep(0.5)
 
-def visualizarGrafico(driver):
-    #Visualiza os gráficos de relatórios
+# ------- Gráficos -------
+def menuGrafico(driver):
+    #Acessa o menu de gráficos
     button_click(driver, by_css_selector='button[data-bs-target="#graficos"]')
     sleep(0.5)
 
-    button_click(driver, by_css_selector='a[href="/admin/visualizarVendas"]')
+## ------- Gráficos visualização -------
+def visualizarGraficoPedidos(driver):
+    #Visualiza os gráficos de relatórios
+    button_click(driver, by_css_selector='a[href="/admin/visualizarGraficoPedidos"]')
     sleep(0.5)
 
+def visualizarGraficoProdutos(driver):
+    #Visualiza os gráficos de relatórios
+    button_click(driver, by_css_selector='a[href="/admin/visualizarGraficoProdutos"]')
+    sleep(0.5)
+
+def visualizarGraficoCategorias(driver):
+    #Visualiza os gráficos de relatórios
+    button_click(driver, by_css_selector='a[href="/admin/visualizarGraficoCategorias"]')
+    sleep(0.5)
+
+# ------- Configurações -------
+def menuConfiguracoes(driver):
+    #Acessa o menu de configurações
+    button_click(driver, by_css_selector='button[data-bs-target="#variaveis"]')
+    sleep(0.5)
+
+def acessarVariaveis(driver):
+    #Altera as variáveis do sistema
+    button_click(driver, by_css_selector='a[href="/admin/listarVariaveis"]')
+    sleep(0.5)
+
+# ------- Logs de transações -------
 def logTransacao(driver):
     #Visuliza todos os logs de transações
     button_click(driver, by_css_selector='a[href="/admin/listarLogsTransacoes"]')

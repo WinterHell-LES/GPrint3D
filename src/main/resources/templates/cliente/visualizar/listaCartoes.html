@@ -6,7 +6,7 @@
                 <div class="mt-3 mb-4 text-end">
                     <form th:action="@{/cliente/cadastrarCartao/}" method="POST">
                         <button class="m-0 p-0 border-0" style="background-color: transparent;" type="submit" name="id"
-                            th:value="${cliente.cliId}">
+                            th:value="${cliente.cliId}" id="novoCartao">
                             <i class="bi bi-plus-circle" style="cursor: pointer;"><span> Adicionar novo</span></i>
                         </button>
                     </form>

@@ -130,7 +130,7 @@ def acessar_pedido_troca(driver):
 def avancar_troca(driver):
     button_click(
         driver, by_xpath='/html/body/main/section/div[3]/div[2]/form/div/button')
-    /html/body/main/section/div[3]/div[3]/form/div/button
+    #/html/body/main/section/div[3]/div[3]/form/div/button
     sleep(0.5)
 
 def aprovar_troca(driver):

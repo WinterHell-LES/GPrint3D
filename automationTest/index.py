@@ -39,12 +39,12 @@ def logarUsuario(driver, email, senha):
 def entrarMenuUsuario(driver):
     #Entra no menu do usuário
     
-    button_click(
-        driver, by_xpath='/html/body/div[2]/header/div/div[3]/div/ul/li[2]/a')
-    # try:
-    #     button_click(driver, by_css_selector='a[href="/admin/index"]')
-    # except:
-    #     button_click(driver, by_css_selector='a[href="/cliente/index"]')
+    #button_click(
+    #    driver, by_xpath='/html/body/div[2]/header/div/div[3]/div/ul/li[2]/a')
+    try:
+        button_click(driver, by_css_selector='a[href="/admin/index"]')
+    except:
+        button_click(driver, by_css_selector='a[href="/cliente/index"]')
     sleep(0.5)
 
 def deslogarUsuario(driver):

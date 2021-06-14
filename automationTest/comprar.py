@@ -125,7 +125,7 @@ def login_carrinho(driver, email, senha):
 
 def listar_enderecos(driver):
     button_click(driver, by_xpath='/html/body/section/div[4]/div[1]/div[1]')
-    sleep(3)
+    sleep(6)
 
 def selecionar_frete(driver):
     button_click(
@@ -162,7 +162,7 @@ def listar_cartoes(driver):
 def add_cartao(driver):
     button_click(driver, by_xpath='//*[@id="novoCartao"]')
     sleep(1)
-    driver.switch_to.alert.accept()
+    #driver.switch_to.alert.accept()
 
 def add_cartao_pagamento(driver, posicao):
     button_click(

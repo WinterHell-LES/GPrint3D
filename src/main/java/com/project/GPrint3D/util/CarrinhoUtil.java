@@ -16,7 +16,6 @@ import com.project.GPrint3D.model.PrdCarrinhosModel;
 import com.project.GPrint3D.model.UsuariosModel;
 import com.project.GPrint3D.repository.CarrinhosRepository;
 import com.project.GPrint3D.repository.CategoriasProdutosRepository;
-import com.project.GPrint3D.repository.PedidosComprasRepository;
 import com.project.GPrint3D.repository.PrdCarrinhosRepository;
 import com.project.GPrint3D.repository.UsuariosRepository;
 import com.project.GPrint3D.service.DefaultFacadeService;
@@ -30,9 +29,6 @@ public class CarrinhoUtil
 
     @Autowired
     private CategoriasProdutosRepository categoriasProdutosRepository;
-
-    @Autowired
-    private PedidosComprasRepository pedidosComprasRepository;
 
     @Autowired
     private PrdCarrinhosRepository prdCarrinhosRepository;

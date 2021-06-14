@@ -491,6 +491,10 @@ ALTER TABLE cupons_promocoes
 ALTER TABLE cupons_trocas
     ADD CONSTRAINT fk_cpt_cli FOREIGN KEY ( cpt_cli_id )
         REFERENCES clientes ( cli_id );
+        
+ALTER TABLE clientes
+    ADD CONSTRAINT fk_cli_usu FOREIGN KEY ( cli_usu_id )
+        REFERENCES usuarios ( usu_id );
 
 ALTER TABLE historicos_cupons_trocas
     ADD CONSTRAINT fk_hct_pdc FOREIGN KEY ( hct_pdc_id )
@@ -519,6 +523,10 @@ ALTER TABLE enderecos_entregas_padroes
 ALTER TABLE enderecos_entregas_padroes
     ADD CONSTRAINT fk_eep_cli FOREIGN KEY ( eep_cli_id )
         REFERENCES clientes ( cli_id );
+
+ALTER TABLE entradas
+    ADD CONSTRAINT fk_ent_usu FOREIGN KEY ( ent_usu_id )
+        REFERENCES usuarios ( usu_id );
 
 ALTER TABLE entradas
     ADD CONSTRAINT fk_ent_prd FOREIGN KEY ( ent_prd_id )

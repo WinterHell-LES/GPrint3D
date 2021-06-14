@@ -162,12 +162,15 @@ def listarPedidoCompra(driver):
 def acessaPedido(driver):
     #Lista todos os pedidos cadastrados
     button_click(
-        driver, by_xpath='/html/body/div[3]/div/div/div/nav/div/ul/li[9]/div/ul/li[1]/a')
+        driver, by_css_selector='a[href="/admin/pedido/listarPedidosCompras"]')
     sleep(0.5)
 
 def acessar_pedido_compra(driver):
     button_click(
-        driver, by_xpath='//*[@id="example"]/tbody/tr[3]/td[5]/div/div[2]/form/button')
+        driver, by_xpath='/html/body/main/section/div[3]/div[4]/span/a[2]')
+    sleep(1)
+    button_click(
+        driver, by_xpath='//*[@id="example"]/tbody/tr/td[6]/div/div[2]/form/button')
     sleep(0.5)
 
 def aprovar_pagamento(driver):
@@ -220,6 +223,9 @@ def logisticaPedidos(driver):
     sleep(0.5)
 
 def acessar_logistica_compra(driver):
+    button_click(
+        driver, by_xpath='/html/body/main/section/div[3]/div[4]/span/a[2]')
+    sleep(0.5)
     button_click(
         driver, by_xpath='/html/body/main/section/div[3]/table/tbody/tr[1]/td[5]/div/form/button')
     sleep(0.5)

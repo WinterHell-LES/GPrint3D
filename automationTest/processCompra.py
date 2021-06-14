@@ -125,16 +125,6 @@ comprar.add_cvv(driver, 2, 123)
 comprar.add_cvv(driver, 3, 123)
 comprar.confirmar(driver)
 
-# ------- Acessar CLIENTE -------
-# index.clicarLogin(driver)
-# index.logarUsuario(driver, cliLogin, cliPass)
-
-# index.clicarLogin(driver)
-# index.entrarMenuUsuario(driver)
-
-# usuario.meusPedidos(driver)
-# usuario.detalhe_pedidos(driver)
-
 index.deslogarUsuario(driver)
 
 # ------- Acessar ADMIN -------
@@ -144,7 +134,8 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
-admin.listarPedidos(driver)
+admin.menuPedido(driver)
+admin.listarPedidoCompra(driver)
 admin.acessar_pedido_compra(driver)
 admin.aprovar_pagamento(driver)
 
@@ -169,7 +160,8 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
-admin.listarPedidos(driver)
+admin.menuPedido(driver)
+admin.listarPedidoCompra(driver)
 admin.acessar_pedido_compra(driver)
 admin.gerar_nota(driver)
 
@@ -194,6 +186,7 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
+admin.menuLogistica(driver)
 admin.logisticaPedidos(driver)
 admin.acessar_logistica_compra(driver)
 admin.avancar_logistica(driver) # Separar pedido
@@ -219,6 +212,7 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
+admin.menuLogistica(driver)
 admin.logisticaPedidos(driver)
 admin.acessar_logistica_compra(driver)
 admin.avancar_logistica(driver)  # Embalar pedido
@@ -244,6 +238,7 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
+admin.menuLogistica(driver)
 admin.logisticaPedidos(driver)
 admin.acessar_logistica_compra(driver)
 admin.avancar_logistica(driver)  # Enviar para a transportadora
@@ -269,6 +264,7 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
+admin.menuLogistica(driver)
 admin.logisticaPedidos(driver)
 admin.acessar_logistica_compra(driver)
 admin.avancar_logistica(driver)  # Enviar para transporte
@@ -294,6 +290,7 @@ index.logarUsuario(driver, adminLogin, adminPass)
 index.clicarLogin(driver)
 index.entrarMenuUsuario(driver)
 
+admin.menuLogistica(driver)
 admin.logisticaPedidos(driver)
 admin.acessar_logistica_compra(driver)
 admin.avancar_logistica(driver)  # Entregar pedido

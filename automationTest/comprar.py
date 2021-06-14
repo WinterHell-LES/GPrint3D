@@ -6,6 +6,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
+# available since 2.26.0
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import ElementClickInterceptedException
 
 def abrirCategorias(driver):
     #Clica no botão de categorias
@@ -125,11 +128,18 @@ def login_carrinho(driver, email, senha):
 
 def listar_enderecos(driver):
     button_click(driver, by_xpath='/html/body/section/div[4]/div[1]/div[1]')
-    sleep(6)
+    sleep(3)
 
 def selecionar_frete(driver):
-    button_click(
-        driver, by_xpath='/html/body/section/div[3]/form/div[2]/div[2]/div[2]/div/div[1]/input')
+    WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/section/div[3]/form/div[2]/div[2]/div[2]/div/div[1]/input')))
+
+    button = driver.find_element_by_xpath(
+        '/html/body/section/div[3]/form/div[2]/div[2]/div[2]/div/div[1]/input')
+    try:
+        button.click()
+    except ElementClickInterceptedException:
+        driver.execute_script("arguments[0].click();", button)
 
 def confirmar(driver):
     button_click(driver, by_xpath='//*[@id="confirmar"]')

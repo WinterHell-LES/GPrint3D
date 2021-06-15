@@ -2,6 +2,8 @@ package com.project.GPrint3D.service;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.List;
 
 import com.project.GPrint3D.model.BandeirasModel;
 import com.project.GPrint3D.model.CategoriasModel;
@@ -97,6 +99,14 @@ public interface AdminFacadeService
     public String[] cadatrarProdutoCategoria (CategoriasModel categoria, ProdutosModel produto);
 
     public String[] excluirProdutoCategoria (Integer id);
+
+    // Gráficos
+    // --------------------------------------------------------------------------------------------------
+    public List<HashMap<String, String>> gerarGrafPedidos ();
+
+    public List<HashMap<String, String>> gerarGrafProdutos ();
+
+    public List<HashMap<String, String>> gerarGrafCategorias ();
 
     // Variáveis
     // --------------------------------------------------------------------------------------------------

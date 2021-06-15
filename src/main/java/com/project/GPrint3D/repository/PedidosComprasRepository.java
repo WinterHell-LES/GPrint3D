@@ -46,7 +46,7 @@ public interface PedidosComprasRepository extends JpaRepository<PedidosComprasMo
     @Query(value = "UPDATE pedidos_compras SET pdc_datafim = ?1 WHERE pdc_id = ?2", nativeQuery = true)
     public void updateDataEntrega (Date data, Integer id);
 
-    // Alimentação de gráfico - pedidos
+    // Alimentação de gráfico - Pedidos
     @Query(value = "SELECT " +
 	                    "COUNT(DISTINCT PDC.pdc_id) AS 'Quantidade de pedidos', " +
                         "COUNT(PDC.pdc_id) AS 'Quantidade de produtos vendidos', " +
@@ -72,7 +72,7 @@ public interface PedidosComprasRepository extends JpaRepository<PedidosComprasMo
                         "YEAR(PDC.pdc_datainicio), MONTH(PDC.pdc_datainicio)", nativeQuery = true)
     public List<String> findAllByStatusPedido ();
 
-    // Alimentação de gráfico - pedidos
+    // Alimentação de gráfico - Produtos
     @Query(value = "SELECT " +
 	                    "PRD.prd_nome AS 'Nome do produto', " +
 	                    "COUNT(PDC.pdc_id) AS 'Quantidade de produtos vendidos', " +
@@ -93,7 +93,7 @@ public interface PedidosComprasRepository extends JpaRepository<PedidosComprasMo
                         "YEAR(PDC.pdc_datainicio), MONTH(PDC.pdc_datainicio), COUNT(PDC.pdc_id) DESC", nativeQuery = true)
     public List<String> findAllByStatusProduto();
 
-    // Alimentação de gráfico - pedidos
+    // Alimentação de gráfico - Categorias
     @Query(value = "SELECT " +
                         "CTG.ctg_nome AS 'Categoria do produto', " +
                         "COUNT(PDC.pdc_id) AS 'Quantidade de produtos vendidos', " +

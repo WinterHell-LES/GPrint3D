@@ -1,10 +1,9 @@
 package com.project.GPrint3D.controller.admin;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.project.GPrint3D.repository.PedidosComprasRepository;
+import com.project.GPrint3D.service.AdminFacadeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminGraphController 
 {
     @Autowired
-    private PedidosComprasRepository pedidosComprasRepository;
+    private AdminFacadeService adminFacadeService;
 
     @RequestMapping("visualizarGraficoPedidos")
     public ModelAndView visualizarGraficoPedidos () 
@@ -42,66 +41,20 @@ public class AdminGraphController
     @ResponseBody
     public List<HashMap<String, String>> graphFeedPedidos () 
     {
-        List<HashMap<String, String>> response = new ArrayList<>();
-
-        for (String aux : pedidosComprasRepository.findAllByStatusPedido()) 
-        {
-            String[] map = aux.split(",", 4);
-
-            HashMap<String, String> hashMap = new HashMap<>();
-
-            hashMap.put("pedidos_recebidos", map[0]);
-            hashMap.put("produtos_vendidos", map[1]);
-            hashMap.put("sale", map[2]);
-            hashMap.put("date", map[3]);
-
-            response.add(hashMap);
-        }
-
-        return response;
+        return adminFacadeService.gerarGrafPedidos();
     }
 
     @GetMapping("graphFeed/produtos")
     @ResponseBody
     public List<HashMap<String, String>> graphFeedProdutos () 
     {
-        List<HashMap<String, String>> response = new ArrayList<>();
-
-        for (String aux : pedidosComprasRepository.findAllByStatusProduto()) 
-        {
-            String[] map = aux.split(",", 3);
-
-            HashMap<String, String> hashMap = new HashMap<>();
-
-            hashMap.put("produto_nome", map[0]);
-            hashMap.put("produtos_vendidos", map[1]);
-            hashMap.put("date", map[2]);
-
-            response.add(hashMap);
-        }
-
-        return response;
+        return adminFacadeService.gerarGrafProdutos();
     }
 
     @GetMapping("graphFeed/categorias")
     @ResponseBody
     public List<HashMap<String, String>> graphFeedCategorias () 
     {
-        List<HashMap<String, String>> response = new ArrayList<>();
-
-        for (String aux : pedidosComprasRepository.findAllByStatusCategoria()) 
-        {
-            String[] map = aux.split(",", 3);
-
-            HashMap<String, String> hashMap = new HashMap<>();
-
-            hashMap.put("categoria_nome", map[0]);
-            hashMap.put("produtos_vendidos", map[1]);
-            hashMap.put("date", map[2]);
-
-            response.add(hashMap);
-        }
-
-        return response;
+        return adminFacadeService.gerarGrafCategorias();
     }
 }

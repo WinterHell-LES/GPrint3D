@@ -1,3 +1,5 @@
+use crud_gprint3d;
+
 -- Pedidos
 insert into pedidos_compras(pdc_id, pdc_numero, pdc_datainicio, pdc_datafim, pdc_statuspedido, pdc_statuslogistica, pdc_cli_id, pdc_end_id)
 values (1, 'GP3PDC210420221907', CURDATE(), null, 4, 5, 1, 1),

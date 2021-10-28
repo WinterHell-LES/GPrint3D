@@ -14,10 +14,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GPrint3D</name>
 	<description>eCommerce de impressões em 3D</description>
-
-	<properties>
-		<java.version>11</java.version>
-	</properties>
 	
 	<dependencies>
 		<!-- Developer tools -->
